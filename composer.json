@@ -1,0 +1,34 @@
+{
+	"name" : "sunhill/objects",
+	"description" : "The sunhill collection of objects",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Klaus Dimde",
+			"email" : "klaus@dimde.info"
+		}
+	],
+	"minimum-stability" : "dev",
+	"autoload" : {
+		"psr-4" : {
+			"Sunhill\\Objects\\Tests\\" : [
+				"tests",
+				"tests/lib",
+				"tests/objects"
+			],
+			"Sunhill\\Objects\\Test\\" : [
+				"tests",
+				"tests/lib",
+				"tests/objects"
+			],
+			"Sunhill\\Objects\\" : "src"
+		}
+	},
+	"extra" : {
+		"laravel" : {
+			"providers" : [
+				"Sunhill\\Objects\\ObjectsServiceProvider"
+			]
+		}
+	}
+}
