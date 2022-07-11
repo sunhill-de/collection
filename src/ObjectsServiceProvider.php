@@ -4,6 +4,7 @@ namespace Sunhill\Objects;
 
 use Illuminate\Support\ServiceProvider;
 use Sunhill\ORM\Facades\Classes;
+use Sunhill\Visual\Facades\Dialogs;
 
 use Sunhill\Objects\Objects\Address;
 use Sunhill\Objects\Objects\City;
@@ -55,9 +56,17 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(Street::class);
     }
     
+    protected function defineDialogs()
+    {
+        Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
+        Dialogs::addObjectListFields(Location::class,['name']);
+        Dialogs::addObjectListFields(Country::class,['name','iso_code']);
+    }
+    
     public function boot()
     {
         $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
         $this->registerClasses();
+        $this->defineDialogs();
     }
 }
