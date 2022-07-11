@@ -46,6 +46,7 @@ class Person extends ORMObject
             ->searchable();
         self::varchar('middlename')
             ->setMaxLen(100)
+            ->setDefault('')
             ->set_description('The middle name of the person')
             ->set_displayable(true)
             ->set_editable(true)
