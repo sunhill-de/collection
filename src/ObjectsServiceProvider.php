@@ -59,7 +59,7 @@ class ObjectsServiceProvider extends ServiceProvider
     protected function defineDialogs()
     {
         Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
-        Dialogs::addObjectListFields(Location::class,['name']);
+        Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectListFields(Country::class,['name','iso_code']);
     }
     
