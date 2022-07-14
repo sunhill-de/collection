@@ -61,6 +61,9 @@ class ObjectsServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
         Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectListFields(Country::class,['name','iso_code']);
+        
+        Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
+        Dialogs::addObjectKeyfield(Location::class,':name');
     }
     
     public function boot()
