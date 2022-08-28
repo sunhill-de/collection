@@ -1,4 +1,11 @@
 {
+  "**** Adresss":"Adress ****",
+  "house_number":"Hausnummer",
+  "What is the house number":"Wie lautet die Hausnummer",
+  "address":"Adresse",
+  "addresses":"Adressen",
+  "Class for addresses":"Eine Klasse für Adressen",
+  
   "firstname":"Vorname",
   "lastname":"Nachname"    
 }

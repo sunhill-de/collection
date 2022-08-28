@@ -5,7 +5,7 @@
  * Provides informations about a address
  * Lang en
  * Reviewstatus: 2022-03-22
- * Localization: unknown
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
