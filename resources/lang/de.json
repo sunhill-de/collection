@@ -88,6 +88,14 @@
   "manufacturers":"Hersteller",
   "Informations about a manufacturer":"Informationen über Hersteller",
   
+  "**** Medium":"Medium ****",
+  "ean":"EAN-Code",
+  "What is the EAN of this medium":"Wie lautet der EAN-Code dieses Mediums",
+  "What genre does this medium belong to":"Zu welchem Genre gehört dieses Medium",
+  "medium":"Medium",
+  "mediums":"Medien",
+  "Informations about a medium":"Informationen über ein Medium",
+                        
   "**** Network":"Network ****",
   "The name of the network":"Der Name des Netzwerks",
   "prefix":"Präfix",
