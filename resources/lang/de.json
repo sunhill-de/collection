@@ -3,7 +3,8 @@
   "name":"Name",
   "description":"Beschreibung",
   "part_of":"Teil von",
-  
+  "kind":"Art",
+
   "**** Adresss":"Adress ****",
   "house_number":"Hausnummer",
   "What is the house number":"Wie lautet die Hausnummer",
@@ -61,4 +62,19 @@
   "persons":"Personen",
   "Informations about a person":"Informationen über eine Person",
 
+  "**** Organisation":"Organisation ****",
+  "The name of this organisation":"Der Name der Organisation",
+  "organisation":"Organisation",
+  "organisations":"Organisationen",
+  "Informations about an organisation":"Informationen über eine Organisation",
+  
+  "**** Shop":"Shop ****",
+  "online":"Online-Shop",
+  "local":"Lokales Geschäft",
+  "global":"Handelskette",
+  "mixed":"Gemischt",
+  "The kind of shop":"Art des Ladens",
+  "shop":"Laden",
+  "shops":"Läden",
+  "Informations about a shop":"Informationen über einen Laden"
 }
