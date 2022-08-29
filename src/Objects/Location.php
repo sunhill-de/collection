@@ -4,8 +4,8 @@
  * @file Location.php
  * Provides informations about a location
  * Lang en
- * Reviewstatus: 2022-03-22
- * Localization: unknown
+ * Reviewstatus: 2022-08-28
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -39,16 +39,30 @@ class Location extends ORMObject
         parent::setupProperties();
         self::varchar('name')
             ->setMaxLen(100)
-            ->set_description('The name of the locations')
+            ->set_description('The name of the location')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
         self::object('part_of')
             ->setAllowedObjects('Location')
+            ->set_description('The location is part of')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+
+	protected static function setupInfos()
+	{
+		static::addInfo('name','Location');
+		static::addInfo('table','locations');
+       	static::addInfo('name_s','location',true);
+       	static::addInfo('name_p','locations',true);
+       	static::addInfo('description','Baseclass for locations');
+       	static::addInfo('options',0);
+		static::addInfo('editable',false);
+		static::addInfo('instantiable',false);
+	}
+
 }
