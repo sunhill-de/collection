@@ -42,7 +42,8 @@ class ElectronicDevice extends Property
             ->set_editable(true)
             ->set_groupeditable(true)
             ->searchable();
-        self::varchar('manufacturer')
+        self::object('manufacturer')
+            ->setAllowedObject(['Manufacturer'])
             ->set_description('Which company made this device')
             ->setMaxLen(100)
             ->setDefault(null)
@@ -65,4 +66,17 @@ class ElectronicDevice extends Property
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','ElectronicDevice');
+		static::addInfo('table','electronicdevices');
+       	static::addInfo('name_s','electronic device',true);
+       	static::addInfo('name_p','electronic devices',true);
+       	static::addInfo('description','Informations about a electronic device');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
+
 }
