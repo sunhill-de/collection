@@ -51,4 +51,16 @@ class Medium extends Property
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Medium');
+		static::addInfo('table','mediums');
+       	static::addInfo('name_s','medium',true);
+       	static::addInfo('name_p','mediums',true);
+       	static::addInfo('description','Informations about a medium');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }
