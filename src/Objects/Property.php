@@ -4,8 +4,8 @@
  * @file Property.php
  * Provides informations about a property
  * Lang en
- * Reviewstatus: 2022-03-17
- * Localization: unknown
+ * Reviewstatus: 2022-08-28
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -83,7 +83,7 @@ class Property extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
-            ->setEnumValues(['trash','sold','lost','present']);
+            ->setEnumValues(['trash','sold','lost','present','swap']);
         self::date('egress_date')
             ->searchable()
             ->set_editable(true)
@@ -101,4 +101,16 @@ class Property extends ORMObject
             ->set_displayable(true)
             ->setEnumValues(['physical','virtual']); 
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Property');
+		static::addInfo('table','properties');
+       	static::addInfo('name_s','property',true);
+       	static::addInfo('name_p','properties',true);
+       	static::addInfo('description','Informations about a property');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }
