@@ -12,6 +12,7 @@ use Sunhill\Objects\Objects\Computer;
 use Sunhill\Objects\Objects\Country;
 use Sunhill\Objects\Objects\Date;
 use Sunhill\Objects\Objects\ElectronicDevice;
+use Sunhill\Objects\Objects\Event;
 use Sunhill\Objects\Objects\FamilyMember;
 use Sunhill\Objects\Objects\Friend;
 use Sunhill\Objects\Objects\Genre;
@@ -43,6 +44,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(Country::class);
         Classes::registerClass(Date::class);
         Classes::registerClass(ElectronicDevice::class);
+        Classes::registerClass(Event::class);
         Classes::registerClass(FamilyMember::class);
         Classes::registerClass(Friend::class);
         Classes::registerClass(Genre::class);
