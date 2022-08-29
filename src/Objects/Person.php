@@ -4,8 +4,8 @@
  * @file Person.php
  * Provides informations about a person
  * Lang en
- * Reviewstatus: 2022-02-28
- * Localization: unknown
+ * Reviewstatus: 2022-08-28
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -79,5 +79,17 @@ class Person extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true);            
     }
+  
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Person');
+		static::addInfo('table','persons');
+       	static::addInfo('name_s','person',true);
+       	static::addInfo('name_p','persons',true);
+       	static::addInfo('description','Informations about a person');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
     
 }
