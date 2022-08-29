@@ -13,6 +13,15 @@
   "addresses":"Adressen",
   "Class for addresses":"Eine Klasse für Adressen",
   
+  "**** City":"City ****",
+  "zip":"Postleitzahl",
+  "The zip of this city":"Die Postleitzahl der Stadt",
+  "area_code":"Vorwahl",
+  "The area code of this city":"Die Vorwahl der Stadt",
+  "city":"Stadt",
+  "cities":"Städte",
+  "Informations about a city":"Informationen über eine Stadt",
+  
   "**** Location":"Location ****",
   "location":"Ort",
   "locations":"Orte",
