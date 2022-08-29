@@ -48,6 +48,17 @@
   "electronic devices":"Elektronische Geräte",
   "Informations about a electronic device":"Informationen über ein elektronisches Gerät"
 
+  "**** Event":"Event ****",
+  "start_stamp":"Startzeitpunkt",
+  "When did this event start":"Wann hat das Ereignis begonnen",
+  "end_stamp":"Endzeitpunkt",
+  "When did this event end":"Wann hat das Ereignis geendet",
+  "interrupted":"Unterbrechung",
+  "Was this event interrupted":"Wurde das Ereignis unterbrochen",
+  "event":"Ereignis",
+  "events":"Ereignisse",
+  "Informations about an event":"Informationen über Ereignisse",
+                        
   "**** FamilyMember":"FamilyMember ****",
   "time_of_birth":"Geburtszeit",
   "When was this person born":"Wann wurde diese Person geboren",
