@@ -61,5 +61,16 @@ class Friend extends Person
         self::arrayOfStrings('friendgroups')
             ->set_description('What friend groups is this person member of');
     }
-    
+
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Friend');
+		static::addInfo('table','friends');
+       	static::addInfo('name_s','friend',true);
+       	static::addInfo('name_p','friends',true);
+       	static::addInfo('description','Informations about a friend');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }
