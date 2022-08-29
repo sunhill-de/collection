@@ -31,6 +31,13 @@
   "country_code":"Ländertelefonvorwahl",
   "The phone prefix":"Die Ländertelefonvorfahl des Staates",
   
+  "**** Manufacturer":"Manufacturer ****",
+  "product_groups":"Produktgruppen",
+  "What product groups does this manufacturer make":"Welche Produktgruppen stellt der Hersteller her",
+  "manufacturer":"Hersteller",
+  "manufacturers":"Hersteller",
+  "Informations about a manufacturer":"Informationen über Hersteller",
+  
   "**** Network":"Network ****",
   "The name of the network":"Der Name des Netzwerks",
   "prefix":"Präfix",
