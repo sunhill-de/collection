@@ -26,6 +26,7 @@ use Sunhill\Objects\Objects\Person;
 use Sunhill\Objects\Objects\PersonsRelation;
 use Sunhill\Objects\Objects\Property;
 use Sunhill\Objects\Objects\Room;
+use Sunhill\Objects\Objects\Shop;
 use Sunhill\Objects\Objects\Street;
 
 class ObjectsServiceProvider extends ServiceProvider
@@ -55,6 +56,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(PersonsRelation::class);
         Classes::registerClass(Property::class);
         Classes::registerClass(Room::class);
+        Classes::registerClass(Shop::class);
         Classes::registerClass(Street::class);
     }
     
@@ -63,9 +65,11 @@ class ObjectsServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
         Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectListFields(Country::class,['name','iso_code']);
+        Dialogs::addObjectListFields(Organisation::class,['name']);
         
         Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
         Dialogs::addObjectKeyfield(Location::class,':name');
+        Dialogs::addObjectKeyfield(Organisation::class,':name');        
     }
     
     public function boot()
