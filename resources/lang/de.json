@@ -1,4 +1,9 @@
 {
+  "*** Common":"Common ***",
+  "name":"Name",
+  "description":"Beschreibung",
+  "part_of":"Teil von",
+  
   "**** Adresss":"Adress ****",
   "house_number":"Hausnummer",
   "What is the house number":"Wie lautet die Hausnummer",
@@ -10,7 +15,6 @@
   "location":"Ort",
   "locations":"Orte",
   "Baseclass for locations":"Basisklasse für Orte",
-  "part_of":"Teil von",
   "The name of the location":"Der Name des Ortes",
   "The location is part of":"Der Ort ist Teil von",
   
@@ -25,6 +29,36 @@
   "country_code":"Ländertelefonvorwahl",
   "The phone prefix":"Die Ländertelefonvorfahl des Staates",
   
+  "**** Network":"Network ****",
+  "The name of the network":"Der Name des Netzwerks",
+  "prefix":"Präfix",
+  "The network prefix (e.g. 192.168.3)","Das Netzwerk Präfix (z.B. 192.168.3)",
+  "A more verbose description of the network":"Eine ausführliche Beschreibung des Netzwerkes",
+  "If this network is part of a larger network","Ist dieses Netzwerk Teil eines größeren Netzes",
+  "network","Netzwerk",
+  "networks","Netzwerke",
+  "Informations about a network":"Informationen über ein Netzwerk",
+  
+  "**** Person":"Person *****",
   "firstname":"Vorname",
-  "lastname":"Nachname"    
+  "The first name of the person":"Vorname der Person",
+  "middlename":"Mittelname",
+  "The middle name of the person":"Mittelname der Person",
+  "lastname":"Nachname",
+  "The last name of the person":"Nachname der Person",
+  "title":"Titel",
+  "The title of the person":"Titel der Person",
+  "sex":"Geschlecht",
+  "male":"männlich",
+  "female":"weiblich",
+  "divers":"divers",
+  "Sex of this person.":"Geschlecht der Person",
+  "groups":"Gruppen",
+  "What user groups is this person member of":"Welchen Benutzergruppen gehört diese Person an",
+  "aliases":"Aliase",
+  "Other names for this person":"Andere Namen der Person",
+  "person":"Person",
+  "persons":"Personen",
+  "Informations about a person":"Informationen über eine Person",
+
 }
