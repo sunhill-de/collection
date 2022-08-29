@@ -41,4 +41,16 @@ class Address extends Location
             ->set_editable(true)
             ->set_groupeditable(false);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Address');
+		static::addInfo('table','addresses');
+       	static::addInfo('name_s','address',true);
+       	static::addInfo('name_p','addresses',true);
+       	static::addInfo('description','Informations about an address');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }
