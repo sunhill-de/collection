@@ -48,6 +48,32 @@
   "electronic devices":"Elektronische Geräte",
   "Informations about a electronic device":"Informationen über ein elektronisches Gerät"
 
+  "**** FamilyMember":"FamilyMember ****",
+  "time_of_birth":"Geburtszeit",
+  "When was this person born":"Wann wurde diese Person geboren",
+  "place_of_birth":"Geburtsort",
+  "Where was this person born":"Wo wurde diese Person geboren",
+  "mother":"Mutter",
+  "Who is the mother":"Wer ist die Mutter",
+  "father":"Vater":
+  "Who is the father":"Wer ist der Vater",
+  "family member":"Familienmitglied",
+  "family members","Familienmitglieder",
+  "Informations about a family member":"Informationen über ein Familienmitglied",
+                        
+  "**** Friend":"Friend ****",
+  "date_of_birth":"Geburtsdatum",
+  "The birthday of this person":"Geburtstag der Person",
+  "birth_name":"Geburtsname",
+  "The birth name of the person":"Geburtsname der Person",
+  "address":"Adresse",
+  "The address of this person":"Adresse der Person",
+  "friendgroups":"Freundesgruppen",
+  "What friend groups is this person member of":"Welchen Freundesgruppen gehört dieser Freund an",
+  "friend":"Freund",
+  "friends":"Freunde",
+  "Informations about a friend":"Informationen über einen Freund",
+    
   "**** Location":"Location ****",
   "location":"Ort",
   "locations":"Orte",
