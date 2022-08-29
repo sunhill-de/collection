@@ -101,5 +101,20 @@
   "virtual":"virtuell", 
   "property":"Besitztum",
   "properties":"Besitztümer",
-  "Informations about a property":"Informationen über ein Besitztum"
+  "Informations about a property":"Informationen über ein Besitztum",
+  
+  "**** ElectronicDevice":"ElectronicDevice ****",
+  "power_supply":"Stromversorgung",
+  "How this device is powered":"Wie dieses Gerät mit Strom versorgt wird",
+  "plug":"Stecker",
+  "other":"Anderes",
+  "none":"Ohne",
+  "Which company made this device":"Welcher Hersteller hat das Gerät gebaut",
+  "model_name":"Modellname",
+  "Whats the model name of this device":"Modellname des Gerätes",
+  "device_groups":"Gerätegruppen",
+  "Which device groups does this device belong to":"Zu welchen Gerätegruppen gehört das Gerät",
+  "electronic device":"Elektronisches Gerät",
+  "electronic devices":"Elektronische Geräte",
+  "Informations about a electronic device":"Informationen über ein elektronisches Gerät"
 }
