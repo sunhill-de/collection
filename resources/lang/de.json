@@ -4,7 +4,8 @@
   "description":"Beschreibung",
   "part_of":"Teil von",
   "kind":"Art",
-
+  "type":"Typ",
+  
   "**** Adresss":"Adress ****",
   "house_number":"Hausnummer",
   "What is the house number":"Wie lautet die Hausnummer",
@@ -76,5 +77,29 @@
   "The kind of shop":"Art des Ladens",
   "shop":"Laden",
   "shops":"Läden",
-  "Informations about a shop":"Informationen über einen Laden"
+  "Informations about a shop":"Informationen über einen Laden",
+  
+  "**** Property":"Property ****",
+  "The name of the property":"Der Name des Besitztums",
+  "owner":"Besitzer",
+  "ingress_kind":"Art des Zugangs",
+  "made":"gemacht",
+  "bought":"gekauft",
+  "present":"geschenkt",
+  "swap":"getauscht",
+  "ingress_date":"Zugangsdatum",
+  "ingress_price":"Kaufpreis",
+  "ingress_source":"Zugangsquelle",
+  "egress_kind":"Art des Ausgangs",
+  "trash":"weggeschmissen",
+  "sold":"verkauft",
+  "lost":"verloren",
+  "present":"verschenkt",
+  "egress_date":"Ausgangsdatum",
+  "egress_price":"Verkaufspreis",
+  "physical":"physisch",
+  "virtual":"virtuell", 
+  "property":"Besitztum",
+  "properties":"Besitztümer",
+  "Informations about a property":"Informationen über ein Besitztum"
 }
