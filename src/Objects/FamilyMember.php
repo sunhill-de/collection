@@ -63,5 +63,16 @@ class FamilyMember extends Friend
             ->set_editable(true)
             ->set_groupeditable(true);
     }
-    
+ 
+    protected static function setupInfos()
+	{
+		static::addInfo('name','FamilyMember');
+		static::addInfo('table','familymembers');
+       	static::addInfo('name_s','family member',true);
+       	static::addInfo('name_p','family members',true);
+       	static::addInfo('description','Informations about a family member');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }
