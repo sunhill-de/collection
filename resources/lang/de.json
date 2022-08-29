@@ -6,6 +6,25 @@
   "addresses":"Adressen",
   "Class for addresses":"Eine Klasse für Adressen",
   
+  "**** Location":"Location ****",
+  "location":"Ort",
+  "locations":"Orte",
+  "Baseclass for locations":"Basisklasse für Orte",
+  "part_of":"Teil von",
+  "The name of the location":"Der Name des Ortes",
+  "The location is part of":"Der Ort ist Teil von",
+  
+  "**** Country":"Country ****",
+  "country":"Staat",
+  "countries":"Staaten",
+  "Informations about a country":"Informationen über einen Staat",
+  "iso_code":"ISO-Länderkürzel",
+  "The iso code of this country":"Das ISO-Länderkürzel dieses Staates",
+  "capital":"Hauptstadt",
+  "The capital of this country":"Die Hauptstadt des Staates",
+  "country_code":"Ländertelefonvorwahl",
+  "The phone prefix":"Die Ländertelefonvorfahl des Staates",
+  
   "firstname":"Vorname",
   "lastname":"Nachname"    
 }
