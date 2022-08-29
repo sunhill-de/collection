@@ -16,6 +16,7 @@ use Sunhill\Objects\Objects\FamilyMember;
 use Sunhill\Objects\Objects\Friend;
 use Sunhill\Objects\Objects\Genre;
 use Sunhill\Objects\Objects\Location;
+use Sunhill\Objects\Objects\Manufacturer;
 use Sunhill\Objects\Objects\MediaDevice;
 use Sunhill\Objects\Objects\Medium;
 use Sunhill\Objects\Objects\MobileDevice;
@@ -46,6 +47,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(Friend::class);
         Classes::registerClass(Genre::class);
         Classes::registerClass(Location::class);
+        Classes::registerClass(Manufacturer::class);
         Classes::registerClass(MediaDevice::class);
         Classes::registerClass(Medium::class);
         Classes::registerClass(MobileDevice::class);
