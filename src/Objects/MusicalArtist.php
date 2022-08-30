@@ -53,7 +53,7 @@ class MusicalArtist extends ORMObject
             ->searchable();
         self::enum('type')        
             ->set_description('The type of the artist')
-            ->setEnumValues(['Person', 'Group', 'Orchestra', 'Choir', 'Character', 'Other'])
+            ->setEnumValues(['person', 'group', 'orchestra', 'choir', 'character', 'other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
