@@ -2,9 +2,10 @@
 
 /**
  * @file Medium.php
- * Provides informations about a medium
+ * Provides informations about a medium. A medium is any kind of storage for at least one CreativeWork.
+ * For example the blu-ray "Matrix" (medium) stores the movie "matrix" (CreativeWork)
  * Lang en
- * Reviewstatus: 2022-03-17
+ * Reviewstatus: 2022-08-30
  * Localization: unknown
  * Documentation: unknown
  * Tests: unknown
