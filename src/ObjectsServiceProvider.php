@@ -7,6 +7,7 @@ use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\Dialogs;
 
 use Sunhill\Objects\Objects\Address;
+use Sunhill\Objects\Objects\AudioMedium;
 use Sunhill\Objects\Objects\City;
 use Sunhill\Objects\Objects\Computer;
 use Sunhill\Objects\Objects\Country;
@@ -30,6 +31,9 @@ use Sunhill\Objects\Objects\Property;
 use Sunhill\Objects\Objects\Room;
 use Sunhill\Objects\Objects\Shop;
 use Sunhill\Objects\Objects\Street;
+use Sunhill\Objects\Objects\VisualMedium;
+use Sunhill\Objects\Objects\WrittenMedium;
+
 
 class ObjectsServiceProvider extends ServiceProvider
 {
@@ -39,6 +43,7 @@ class ObjectsServiceProvider extends ServiceProvider
     
     protected function registerClasses() {
         Classes::registerClass(Address::class);
+        Classes::registerClass(AudioMedium::class);
         Classes::registerClass(City::class);
         Classes::registerClass(Computer::class);
         Classes::registerClass(Country::class);
@@ -62,6 +67,8 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(Room::class);
         Classes::registerClass(Shop::class);
         Classes::registerClass(Street::class);
+        Classes::registerClass(VisualMedium::class);
+        Classes::registerClass(WrittenMedium::class);
     }
     
     protected function defineDialogs()
