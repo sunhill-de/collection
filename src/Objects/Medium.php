@@ -51,6 +51,12 @@ class Medium extends Property
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
+        self::date('released')
+            ->set_description('When was this medium released')
+            ->searchable()
+            ->set_editable(true)
+            ->set_groupeditable(true)
+            ->set_displayable(true);	    
     }
     
     protected static function setupInfos()
