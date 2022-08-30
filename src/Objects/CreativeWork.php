@@ -41,9 +41,8 @@ class CreativeWork extends ORMObject
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::arrayOfObjects('creators')
-            ->setAllowedObject('Person')
-            ->set_description('Who created this work')
+        self::date('release_date')
+            ->set_description('When was this work released')
             ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
