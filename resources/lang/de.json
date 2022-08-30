@@ -208,6 +208,18 @@
   "persons":"Personen",
   "Informations about a person":"Informationen über eine Person",
 
+  "**** PersonRelation":"PersonRelation ****",
+  "person1":"Person 1",
+  "person2":"Person 2",
+  "relation","Beziehung",
+  "marriage","Heirat",
+  "relation","Beziehung",
+  "divorce":"Scheidung",
+  "relation_date":"Beziehungsdatum",
+  "person relation":"Personenbeziehung",
+  "person relations":"Personenbeziehungen",
+  "Class for relation between two persons":"Speichert informationen über die Beziehung zwischen zwei Personen",
+   
   "**** Property":"Property ****",
   "The name of the property":"Der Name des Besitztums",
   "owner":"Besitzer",
