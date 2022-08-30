@@ -14,6 +14,13 @@
   "addresses":"Adressen",
   "Class for addresses":"Eine Klasse für Adressen",
   
+  "**** AudioMedium":"AudioMedium ****",
+  "audio_work":"Audio Veröffentlichung",
+  "What release is on this medium":"Welche Veröffentlichung ist auf dem Medium",
+  "audio medium":"Audiomedium",
+  "audio mediums":"Audiomedien",
+  "Stores information about an audio medium":"Speichert Informationen über ein AudioMedium",
+                        
   "**** City":"City ****",
   "zip":"Postleitzahl",
   "The zip of this city":"Die Postleitzahl der Stadt",
@@ -235,5 +242,27 @@
   "How many houses are on this street":"Wieviele Hausnummern gibt es",
   "street":"Straße",
   "streets":"Straßen",
-  "Informations about a street":"Informationen über eine Straße"
+  "Informations about a street":"Informationen über eine Straße",
+  
+  "**** VisualMedium":"VisualMedium ****",
+  "media_type":"Medien Typ",        
+  "What kind of media is this":"Welcher Medientyp ist das",
+  
+  "visual_works":"Enthaltene(s) Werk(e)",
+  "What visual works are on that medium.":"Welches oder welche Werk(e) befinden sich auf dem Medium",
+  "visual medium":"Visuelles Medium",
+  "visual mediums":"Visuelle Medien",
+  "Stores informations about a visual medium":"Speichert Informationen über ein visuelle Medium",
+  
+  "**** WrittenMedum":"Written Medium ****",
+  "soft-cover":"Taschenbuch",
+  "hard-cover":"Hardcover",
+  "magazine":"Magazin",
+  "pages":"Seitenzahl",
+  "The number of pages":"Anzahl der Seiten",
+  "written_works":"Enthaltene(s) Werk(e)",
+  "What written works are in this medium":"Welches oder welche Werk(e) befinden sich auf dem Medium",
+  "written medium":"Geschriebenes Medium",
+  "written mediums":"Geschriebene Medien",
+  "Informations about a written medium (e.g. book)":"Informationen über ein geschriebenes Medium (z.B. Buch)"
 }
