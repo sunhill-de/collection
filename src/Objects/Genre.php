@@ -4,8 +4,8 @@
  * @file Genre.php
  * Provides informations about a genre
  * Lang en
- * Reviewstatus: 2022-03-17
- * Localization: unknown
+ * Reviewstatus: 2022-08-31
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -58,4 +58,17 @@ class Genre extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Genre');
+		static::addInfo('table','genres');
+      	static::addInfo('name_s','genre',true);
+       	static::addInfo('name_p','genres',true);
+       	static::addInfo('description','Stores information about music, movie or literature genres');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
+
 }
