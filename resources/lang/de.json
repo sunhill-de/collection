@@ -127,7 +127,14 @@
   "friend":"Freund",
   "friends":"Freunde",
   "Informations about a friend":"Informationen über einen Freund",
-    
+  
+  "**** ListeningEvent":"ListeningEvent ****",
+  "work":"Werk"
+  "The musical work that was listened to":"Das Lied, das gehört wurde",
+  "listening event":"Hörereignis",
+  "listening events":"Hörereignisse",
+  "Stores a event of listening to a musical work":"Speichert Ereignisse, wo ein Musikstück gehört wurde",
+                    
   "**** Location":"Location ****",
   "location":"Ort",
   "locations":"Orte",
