@@ -38,7 +38,7 @@ class ReadingEvent extends Event
     {
         parent::setupProperties();
         self::object('work')
-            ->set_description('The musical work that was listened to')
+            ->set_description('The written work that was read')
             ->setAllowedObjects('WrittenWork')
             ->searchable()
             ->set_editable(true)
