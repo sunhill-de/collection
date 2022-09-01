@@ -251,6 +251,19 @@
   "properties":"Besitztümer",
   "Informations about a property":"Informationen über ein Besitztum",
   
+  "**** ListeningEvent":"ListeningEvent ****",
+  "work":"Werk"
+  "The musical work that was listened to":"Das Lied, das gehört wurde",
+  "listening event":"Hörereignis",
+  "listening events":"Hörereignisse",
+  "Stores a event of listening to a musical work":"Speichert Ereignisse, wo ein Musikstück gehört wurde",
+                    
+  "**** ReadingEvent":"ReadingEvent ****",
+  "The written work that was read":"Das Schriftstück, dass gelesen wurde",
+  "reading event":"Leseereignis",
+  "reading events":"Leseereignisse",
+  "'Stores a event of reading a written work'":"Speichert Ereignisse, wo ein Schriftstück gelesen wurde",
+                    
   "**** Room":"Room ****",
   "inside":"innen",
   "Is this room inside":"Ist dieser 'Raum' innen",
