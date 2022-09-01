@@ -4,8 +4,8 @@
  * @file MediaDevice.php
  * Provides informations about a media device
  * Lang en
- * Reviewstatus: 2022-03-17
- * Localization: unknown
+ * Reviewstatus: 2022-09-1
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -43,4 +43,17 @@ class MediaDevice extends NetworkDevice
             ->set_groupeditable(true)
             ->searchable();
     }
+    
+    protected static function setupInfos()
+    {
+        static::addInfo('name','MediaDevice');
+        static::addInfo('table','mediadevices');
+        static::addInfo('name_s','media device',true);
+        static::addInfo('name_p','media devices',true);
+        static::addInfo('description','Informations about a media device');
+        static::addInfo('options',0);
+        static::addInfo('editable',true);
+        static::addInfo('instantiable',true);
+    }
+    
 }
