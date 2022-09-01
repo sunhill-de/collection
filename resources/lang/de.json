@@ -306,6 +306,13 @@
   "visual mediums":"Visuelle Medien",
   "Stores informations about a visual medium":"Speichert Informationen über ein visuelle Medium",
   
+   "**** WatchingEvent":"WatchingEvent ****",
+  "The visual work that was watched":"Das visuelle work, dass gesehen wurde",
+  "watching event":"Sehereignis",
+  "watching events":"Sehereignisse",
+  "'Stores a event of watching a visual work'":"Speichert Ereignisse, wo ein visuelles Werk gesehen wurde",
+                    
+
   "**** WrittenMedum":"Written Medium ****",
   "soft-cover":"Taschenbuch",
   "hard-cover":"Hardcover",
