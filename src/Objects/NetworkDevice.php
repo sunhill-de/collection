@@ -79,5 +79,17 @@ class NetworkDevice extends ElectronicDevice {
             ->set_editable(false)
             ->set_groupeditable(false);
     }
-    
+
+    protected static function setupInfos()
+	{
+		static::addInfo('name','NetworkDecive');
+		static::addInfo('table','networkdevices');
+      	static::addInfo('name_s','network device',true);
+       	static::addInfo('name_p','network devices',true);
+       	static::addInfo('description','Stores informationen about network devices');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
+
 }
