@@ -21,7 +21,7 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class  extends ORMObject
+class AudioMedium extends ORMObject
 {
     public static $table_name = 'audiomediums';
     

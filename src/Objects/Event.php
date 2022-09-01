@@ -70,4 +70,4 @@ class Event extends ORMObject
 	}
 
 }
-'
+

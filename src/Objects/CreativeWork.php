@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Objects\Objects;
 
+use Sunhill\ORM\Objects\ORMObject;
+
 /**
  * The class for creative works
  *

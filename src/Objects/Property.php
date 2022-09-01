@@ -67,7 +67,7 @@ class Property extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::object('ingress_source')
-            ->serAllowedObjects(['Shop','Person'])
+            ->setAllowedObjects(['Shop','Person'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

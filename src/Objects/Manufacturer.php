@@ -14,12 +14,12 @@
 namespace Sunhill\Objects\Objects;
 
 /**
- * The class for shop
+ * The class for manufacturers
  *
  * @author lokal
  *        
  */
-class Shop extends Organisation
+class Manufacturer extends Organisation
 {
     public static $table_name = 'manufacturers';
     
