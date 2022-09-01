@@ -52,7 +52,7 @@ class ReadingEvent extends Event
 		static::addInfo('table','readingevents');
       	static::addInfo('name_s','reading event',true);
        	static::addInfo('name_p','reading events',true);
-       	static::addInfo('description','Stores a event of reading to a musical work');
+       	static::addInfo('description','Stores a event of reading a written work');
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
