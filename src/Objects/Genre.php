@@ -59,7 +59,7 @@ class Genre extends ORMObject
             ->set_displayable(true);
     }
     
-    protected static function setupInfos()
+   protected static function setupInfos()
 	{
 		static::addInfo('name','Genre');
 		static::addInfo('table','genres');

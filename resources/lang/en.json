@@ -1,4 +1,10 @@
 {
+  "**** Adresss":"Adress ****",
+  "house_number":"house number",
+
+  "***** Genre":"Genre ******",
+  "media_type":"media type",
+
   "firstname":"First name",
   "lastname":"Last name"    
 }
