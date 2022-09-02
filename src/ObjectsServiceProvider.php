@@ -107,22 +107,26 @@ class ObjectsServiceProvider extends ServiceProvider
     
     protected function defineDialogs()
     {
-        Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
-        Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
+        Dialogs::addObjectListFields(Anniversary::class,['name','type']);
         Dialogs::addObjectListFields(Country::class,['name','iso_code']);
-        Dialogs::addObjectListFields(Organisation::class,['name']);
-        Dialogs::addObjectListFields(Event::class,['start_stamp','work'=>'work=>name']);
         Dialogs::addObjectListFields(CreativeWork::class,['name']);
+        Dialogs::addObjectListFields(Event::class,['start_stamp','work'=>'work=>name']);
+        Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
+        Dialogs::addObjectListFields(Mime::class,['mimegroup','item']);
         Dialogs::addObjectListFields(MusicalArtist::class,['name','sort_name']);
+        Dialogs::addObjectListFields(Organisation::class,['name']);
+        Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
+        Dialogs::addObjectListFields(ProductGroup::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectListFields(Transaction::class,['order_id','shop'=>'shop=>name']);
         
-        Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
+        Dialogs::addObjectKeyfield(Event::class,':start_stamp');
+        Dialogs::addObjectKeyfield(Country::class,':name');
+        Dialogs::addObjectKeyfield(CreativeWork::class,':name');
         Dialogs::addObjectKeyfield(Location::class,':name');
-        Dialogs::addObjectKeyfield(Organisation::class,':name');        
-        Dialogs::addObjectKeyfield(Country::class,':name');        
-        Dialogs::addObjectKeyfield(Event::class,':start_stamp');        
-        Dialogs::addObjectKeyfield(CreativeWork::class,':name');        
-        Dialogs::addObjectKeyfield(MusicalArtist::class,':name');        
+        Dialogs::addObjectKeyfield(Mime::class,':mimegroup/:item');        
+        Dialogs::addObjectKeyfield(MusicalArtist::class,':name');
+        Dialogs::addObjectKeyfield(Organisation::class,':name');
+        Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
     }
     
     public function boot()
