@@ -44,7 +44,7 @@ class ProductGroup extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::object('part_od')
+        self::object('part_of')
             ->set_description('This group is part of more general group')
             ->setAllowedObjects('ProductGroup')
             ->searchable()
