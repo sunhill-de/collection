@@ -35,6 +35,7 @@ use Sunhill\Objects\Objects\ReadingEvent;
 use Sunhill\Objects\Objects\Room;
 use Sunhill\Objects\Objects\Shop;
 use Sunhill\Objects\Objects\Street;
+use Sunhill\Objects\Objects\Transaction;
 use Sunhill\Objects\Objects\VisualMedium;
 use Sunhill\Objects\Objects\VisualWork;
 use Sunhill\Objects\Objects\WatchingEvent;
@@ -77,6 +78,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(Room::class);
         Classes::registerClass(Shop::class);
         Classes::registerClass(Street::class);
+        Classes::registerClass(Transaction::class);
         Classes::registerClass(VisualMedium::class);
         Classes::registerClass(VisualWork::class);
         Classes::registerClass(WatchingEvent::class);
@@ -93,6 +95,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Event::class,['start_stamp','work'=>'work=>name']);
         Dialogs::addObjectListFields(CreativeWork::class,['name']);
         Dialogs::addObjectListFields(MusicalArtist::class,['name','sort_name']);
+        Dialogs::addObjectListFields(Transaction::class,['order_id','shop'=>'shop=>name']);
         
         Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
         Dialogs::addObjectKeyfield(Location::class,':name');
