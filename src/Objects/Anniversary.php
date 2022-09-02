@@ -70,7 +70,7 @@ class Anniversary extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::arrayOfObjects('persons')
-            ->setAllowedObject('Friend')
+            ->setAllowedObjects('Friend')
             ->set_description('What persons are part of this anniversary')
             ->searchable()
             ->set_displayable(true)
