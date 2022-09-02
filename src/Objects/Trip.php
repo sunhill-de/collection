@@ -37,7 +37,7 @@ class Trip extends Date
     protected static function setupProperties()
     {
           parent::setupProperties();
-          self::arrayOfObject('destinations')
+          self::arrayOfObjects('destinations')
           ->set_description('Where did the trip go to')
           ->setAllowedObjects('Location')
           ->searchable()
