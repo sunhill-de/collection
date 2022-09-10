@@ -52,5 +52,17 @@ class MobileDevice extends NetworkDevice {
             ->set_editable(true)
             ->set_groupeditable(false);
     }
+ 
+    protected static function setupInfos()
+    {
+        static::addInfo('name','MobileDevice');
+        static::addInfo('table','mobiledevices');
+        static::addInfo('name_s','mobile device',true);
+        static::addInfo('name_p','mobile devices',true);
+        static::addInfo('description','Informations about a mobile device');
+        static::addInfo('options',0);
+        static::addInfo('editable',true);
+        static::addInfo('instantiable',true);
+    }
     
 }

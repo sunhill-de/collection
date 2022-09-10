@@ -4,8 +4,8 @@
  * @file PersonsRelation.php
  * Provides informations about a relation between two persons
  * Lang en
- * Reviewstatus: 2022-03-17
- * Localization: unknown
+ * Reviewstatus: 2022-08-29
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -48,8 +48,7 @@ class PersonsRelation extends ORMObject
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
-            ->set_displayable(true)
-            ->setAllowedObjects(['Location']);
+            ->set_displayable(true);
         self::enum('relation')
             ->searchable()
             ->set_editable(true)
@@ -62,4 +61,17 @@ class PersonsRelation extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','PersonrRlation');
+		static::addInfo('table','personrelations');
+      	static::addInfo('name_s','person relation',true);
+       	static::addInfo('name_p','person relations',true);
+       	static::addInfo('description','Class for relation between two persons');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
+
 }

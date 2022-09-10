@@ -4,8 +4,8 @@
  * @file Country.php
  * Provides informations about a country
  * Lang en
- * Reviewstatus: 2022-03-22
- * Localization: unknown
+ * Reviewstatus: 2022-08-28
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -46,13 +46,25 @@ class Country extends Location
             ->setAllowedObjects('City')
             ->set_description('The capital of this country')
             ->set_editable(true)
-            ->set_groupeditable(true)
+            ->set_groupeditable(false)
             ->set_displayable(true);
         self::varchar('country_code')        
             ->setMaxLen(5)
-            ->set_description('This phone prefix')
+            ->set_description('The phone prefix')
             ->set_editable(true)
-            ->set_groupeditable(true)
+            ->set_groupeditable(false)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Country');
+		static::addInfo('table','countries');
+       	static::addInfo('name_s','country',true);
+       	static::addInfo('name_p','countries',true);
+       	static::addInfo('description','Informations about a country');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }

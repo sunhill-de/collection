@@ -4,8 +4,8 @@
  * @file Street.php
  * Provides informations about a street
  * Lang en
- * Reviewstatus: 2022-03-22
- * Localization: unknown
+ * Reviewstatus: 2022-08-29
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -42,4 +42,16 @@ class Street extends Location
             ->set_editable(true)
             ->set_groupeditable(false);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Street');
+		static::addInfo('table','streets');
+       	static::addInfo('name_s','street',true);
+       	static::addInfo('name_p','streets',true);
+       	static::addInfo('description','Informations about a street');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }

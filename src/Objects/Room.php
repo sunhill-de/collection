@@ -4,8 +4,8 @@
  * @file Room.php
  * Provides informations about a room
  * Lang en
- * Reviewstatus: 2022-03-22
- * Localization: unknown
+ * Reviewstatus: 2022-08-29
+ * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
@@ -55,4 +55,16 @@ class Room extends Location
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Room');
+		static::addInfo('table','rooms');
+       	static::addInfo('name_s','room',true);
+       	static::addInfo('name_p','rooms',true);
+       	static::addInfo('description','Informations about a room');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }

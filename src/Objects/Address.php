@@ -4,12 +4,12 @@
  * @file Address.php
  * Provides informations about a address
  * Lang en
- * Reviewstatus: 2022-03-22
- * Localization: unknown
- * Documentation: unknown
- * Tests: unknown
+ * Reviewstatus: 2022-08-28
+ * Localization: complete
+ * Documentation: complete
+ * Tests: none
  * Coverage: unknown
- * Dependencies: ORMObject
+ * Dependencies: Location
  */
 namespace Sunhill\Objects\Objects;
 
@@ -32,13 +32,29 @@ class Address extends Location
         'options'=>0,           // Reserved for later purposes
     ];
     
+    /**
+     * Sets up the properties. In this case only the house number. 
+     */
     protected static function setupProperties()
     {
         parent::setupProperties();
         self::integer('house_number')
             ->set_description('What is the house number')
+            ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Address');
+		static::addInfo('table','addresses');
+       	static::addInfo('name_s','address',true);
+       	static::addInfo('name_p','addresses',true);
+       	static::addInfo('description','Informations about an address');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }

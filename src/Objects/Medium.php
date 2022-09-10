@@ -2,9 +2,10 @@
 
 /**
  * @file Medium.php
- * Provides informations about a medium
+ * Provides informations about a medium. A medium is any kind of storage for at least one CreativeWork.
+ * For example the blu-ray "Matrix" (medium) stores the movie "matrix" (CreativeWork)
  * Lang en
- * Reviewstatus: 2022-03-17
+ * Reviewstatus: 2022-08-30
  * Localization: unknown
  * Documentation: unknown
  * Tests: unknown
@@ -50,5 +51,23 @@ class Medium extends Property
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
+        self::date('released')
+            ->set_description('When was this medium released')
+            ->searchable()
+            ->set_editable(true)
+            ->set_groupeditable(true)
+            ->set_displayable(true);	    
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Medium');
+		static::addInfo('table','mediums');
+       	static::addInfo('name_s','medium',true);
+       	static::addInfo('name_p','mediums',true);
+       	static::addInfo('description','Informations about a medium');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }

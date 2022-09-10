@@ -51,4 +51,16 @@ class Computer extends NetworkDevice
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+	{
+		static::addInfo('name','Computer');
+		static::addInfo('table','computers');
+       	static::addInfo('name_s','computer',true);
+       	static::addInfo('name_p','computers',true);
+       	static::addInfo('description','Informations about a computer');
+       	static::addInfo('options',0);
+		static::addInfo('editable',true);
+		static::addInfo('instantiable',true);
+	}
 }
