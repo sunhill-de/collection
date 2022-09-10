@@ -51,4 +51,18 @@ class Location extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    protected static function setupInfos()
+    {
+        static::addInfo('name','Location');
+        static::addInfo('table','locations');
+        static::addInfo('name_s','location',true);
+        static::addInfo('name_p','locations',true);
+        static::addInfo('description','A class for locations');
+        static::addInfo('options',0);
+        static::addInfo('editable',true);
+        static::addInfo('instantiable',true);
+    }
+    
+    
 }

@@ -56,7 +56,7 @@ class Person extends ORMObject
             ->set_description('The last name of the person')
             ->set_displayable(true)
             ->set_editable(true)
-            ->set_groupeditable(false)
+            ->set_groupeditable(true)
             ->searchable();
         self::varchar('title')
             ->setMaxLen(50)
@@ -69,7 +69,7 @@ class Person extends ORMObject
             ->setEnumValues(['male','female','divers'])
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_description('Sex of this person.');
+            ->set_description('Sex of this person');
         self::arrayOfStrings('groups')
             ->set_description('What user groups is this person member of')
             ->set_editable(true)

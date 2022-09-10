@@ -48,4 +48,18 @@ class City extends Location
             ->set_groupeditable(true)
             ->set_displayable(true);
     }
+    
+    
+    protected static function setupInfos()
+    {
+        static::addInfo('name','City');
+        static::addInfo('table','cities');
+        static::addInfo('name_s','city',true);
+        static::addInfo('name_p','cities',true);
+        static::addInfo('description','A class for cities');
+        static::addInfo('options',0);
+        static::addInfo('editable',true);
+        static::addInfo('instantiable',true);
+    }
+    
 }

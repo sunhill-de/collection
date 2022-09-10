@@ -1,4 +1,17 @@
 {
+  "************** Person":"Person *********************",
   "firstname":"Vorname",
-  "lastname":"Nachname"    
+  "The first name of the person":"Der Vorname der Person",
+  "middlename":"Zweitnamen",
+  "The middle name of the person":"Zweitnamen der Person",
+  "lastname":"Nachname",
+  "The last name of the person":"Der Nachname der Person",
+  "title":"Titel",
+  "The title of the person":"Der Titel der Person",
+  "sex":"Geschlecht",
+  "male":"männlich",
+  "female":"weiblich",
+  "divers":"divers",
+  "Sex of this person":"Das Geschlecht der Person",
+  "groups":"Gruppen"    
 }
