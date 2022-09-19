@@ -148,7 +148,14 @@
   "family member":"Familienmitglied",
   "family members":"Familienmitglieder",
   "Informations about a family member":"Informationen über ein Familienmitglied",
-                        
+
+  "**** Floor":"Floor ****",
+  "level":"Ebene",
+  "On what level is this floor":"Auf welcher Ebene ist dieses Geschoss",
+  "floor":"Geschoss",
+  "floors":"Geschosse",
+  "Informations about a floor":"Informationen über ein Geschoss",
+  
   "**** Friend":"Friend ****",
   "date_of_birth":"Geburtsdatum",
   "The birthday of this person":"Geburtstag der Person",
