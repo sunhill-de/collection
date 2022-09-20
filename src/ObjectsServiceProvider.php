@@ -20,6 +20,7 @@ use Sunhill\Objects\Objects\Date;
 use Sunhill\Objects\Objects\ElectronicDevice;
 use Sunhill\Objects\Objects\Event;
 use Sunhill\Objects\Objects\FamilyMember;
+use Sunhill\Objects\Objects\Floor;
 use Sunhill\Objects\Objects\Friend;
 use Sunhill\Objects\Objects\Genre;
 use Sunhill\Objects\Objects\ListeningEvent;
@@ -73,6 +74,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Classes::registerClass(ElectronicDevice::class);
         Classes::registerClass(Event::class);
         Classes::registerClass(FamilyMember::class);
+        Classes::registerClass(Floor::class);
         Classes::registerClass(Friend::class);
         Classes::registerClass(Genre::class);
         Classes::registerClass(ListeningEvent::class);
