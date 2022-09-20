@@ -123,7 +123,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Dialogs::addObjectKeyfield(Country::class,':name');
         Dialogs::addObjectKeyfield(CreativeWork::class,':name');
         Dialogs::addObjectKeyfield(Location::class,':name');
-        Dialogs::addObjectKeyfield(Mime::class,':mimegroup/:item');        
+        Dialogs::addObjectKeyfield(Mime::class,':mimegroup / :item');        
         Dialogs::addObjectKeyfield(MusicalArtist::class,':name');
         Dialogs::addObjectKeyfield(Organisation::class,':name');
         Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
