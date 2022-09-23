@@ -17,11 +17,11 @@ namespace Sunhill\InfoMarket;
 use Illuminate\Support\ServiceProvider;
 use Sunhill\InfoMarket\Market\InfoMarket;
 
-class SunhillBasicServiceProvider extends ServiceProvider
+class SunhillInfoMarketServiceProvider extends ServiceProvider
 {
     public function register()
     {        
-        $this->app->singleton(InfoMarket::class, function () { return new Checks(); } );
+        $this->app->singleton(InfoMarket::class, function () { return new InfoMarket(); } );
         $this->app->alias(InfoMarket::class,'infomarket');
     }
     
