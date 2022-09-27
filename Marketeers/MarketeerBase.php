@@ -146,17 +146,31 @@ abstract class MarketeerBase
      * @param $name string: The item to search for
      * @returns false|string see above
      */
-    protected function getItemMethod(string $name, string $prefix = '', 
-                                     string $postfix = '', &$variables=null)
+    protected function getItemBase(string $name, &$variables = null)
     {
         $this->checkAllowedChars($name);
 
         foreach ($this->getOffer() as $offer=>$callback) {
             if ($this->offerMatches($name,$offer,$variables)) {
-                return $prefix.$callback.$postfix;
+                return $callback;
             }
         }
         return false;    
+    }
+    
+    /**
+     * If the given item is offered then it returns the name of the item-method otherwise false
+     * @param $name string: The item to search for
+     * @returns false|string see above
+     */
+    protected function getItemMethod(string $name, string $prefix = '', 
+                                     string $postfix = '', &$variables=null)
+    {
+        if ($result = $this->getItemBase($name,$variables)) {
+            return $prefix.$result.$postfix;
+        } else {
+            return false;
+        }
     }
     
     /**
@@ -169,8 +183,9 @@ abstract class MarketeerBase
      */
     public function getRestrictions(string $name): array
     {
-        if ($this->offersItem($name)) {
-            return $this->getItemRestrictions($name);
+        $variables = [];
+        if ($base = $this->getItemBase($name, $variables)) {
+            return $this->getItemRestrictions($base, $variables);
         } else {
             throw new MarketeerException("The item '$name' doesn't exists.");
         }
@@ -182,10 +197,9 @@ abstract class MarketeerBase
      * @param string $name
      * @return array
      */
-    protected function getItemRestrictions(string $name): array
+    protected function getItemRestrictions(string $base, $variables = null): array
     {
-        $variables = [];
-        $method = $this->getItemMethod($name,'','_restrictions',$variables);
+        $method = $base.'_restrictions';
         if (method_exists($this,$method)) {
             return $this->$method($variables);
         } else {
@@ -206,20 +220,26 @@ abstract class MarketeerBase
      */
     public function isReadable(string $name): bool
     {
-        if ($this->offersItem($name)) {
-            return $this->itemIsReadable($name);
+        $variables = [];
+        if ($base = $this->getItemBase($name, $variables)) {
+            return $this->itemIsReadable($base, $variables);
         } else {
             throw new MarketeerException("The item '$name' doesn't exists.");
         }
     }
 
-    protected function itemIsReadable(string $name): bool
+    protected function itemIsReadable(string $base, $variables): bool
     {
-        $method = $this->getItemMethod($name,'','_readable',$variables);
+        $method = $base.'_readable';
         if (method_exists($this,$method)) {
             return $this->$method($variables);
         } else {
-            return true; // Default readable
+            $method = 'get_'.$base;
+            if (method_exists($this,$method)) {
+                return true;
+            } else {
+                return false; 
+            }
         }
     }
     
@@ -231,20 +251,26 @@ abstract class MarketeerBase
      */
     public function isWriteable(string $name, $credentials = null): bool
     {
-        if ($this->offersItem($name)) {
-            return $this->itemIsWriteable($name);
+        $variables = [];
+        if ($base = $this->getItemBase($name, $variables)) {
+            return $this->itemIsWriteable($base, $variables);
         } else {
             throw new MarketeerException("The item '$name' doesn't exists.");
         }        
     }
 
-    protected function itemIsWriteable(string $name): bool
+    protected function itemIsWriteable(string $base, $variables): bool
     {
-        $method = $this->getItemMethod($name,'','_writeable',$variables);
+        $method = $base.'_readable';
         if (method_exists($this,$method)) {
             return $this->$method($variables);
         } else {
-            return false; // Default not writeable
+            $method = 'set_'.$base;
+            if (method_exists($this,$method)) {
+                return true;
+            } else {
+                return false; // Default not writeable
+            }
         }        
     }
     
@@ -280,22 +306,56 @@ abstract class MarketeerBase
     public function getItem(string $name,$user = 'anybody')
     {
         $variables = [];
-        $method = $this->getItemMethod($name,'get','',$variables);
+        $method = $this->getItemBase($name,$variables);
         
         if ($method === false) {
             return false;
         } else {
-            $restrictions = $this->getRestrictions($name);
+            $restrictions = $this->getItemRestrictions($method, $variables);
             if (!$this->isAccessible($user,$restrictions['read'])) {
                 $response = new Response();
-                return $response->error("The item '$name' is not accessible",'ITEMNOTACCESSIBLE');
+                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
             }
-            if (!$this->isReadable($name)) {
+            if (!$this->itemIsReadable($method, $variables)) {
                 $response = new Response();
-                return $response->error("The item '$name' is not readable",'ITEMNOTREADABLE');                
+                return $response->error(__("The item ':name' is not readable",['name'=>$name]),'ITEMNOTREADABLE');                
             }
-            return $this->$method(...$variables);
+            $method = 'get_';
+            if (method_exists($this,$method)) {
+                return $this->$method(...$variables);
+            } else {
+                throw new MarketeerException(__("Item ':name' is marked as readable but has no get_ method. ",array('name'=>$name));
+            }    
         }                
+    }
+    
+    /**
+     * Tries to write $value to the item $name
+     */
+    public function setItem(string $name, $value, $user = 'anybody')
+    {
+        $variables = [];
+        $method = $this->getItemBase($name,$variables);
+        
+        if ($method === false) {
+            return false;
+        } else {
+            $restrictions = $this->getItemRestrictions($method, $variables);
+            if (!$this->isAccessible($user,$restrictions['write'])) {
+                $response = new Response();
+                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
+            }
+            if (!$this->itemIsWriteable($method, $variables)) {
+                $response = new Response();
+                return $response->error(__("The item ':name' is not writeable",['name'=>$name]),'ITEMNOTWRITEABLE');                
+            }
+            $method = 'set_';
+            if (method_exists($this,$method)) {
+                return $this->$method(...$variables);
+            } else {
+                throw new MarketeerException(__("Item ':name' is marked as writeable but has no set_ method. ",array('name'=>$name));
+            }    
+        }                        
     }
     
 }
