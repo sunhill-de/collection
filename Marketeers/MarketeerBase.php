@@ -49,13 +49,13 @@ abstract class MarketeerBase
     private function checkAllowedChars(string $name)
     {
         if (strpos($name,'*')) {
-            throw new MarketeerException("An item query mustn't contain *: $name");
+            throw new MarketeerException(__("An item query mustn't contain :symbol :name",['symbol'=>'*','name'=>$name]);
         }
         if (strpos($name,'#')) {
-            throw new MarketeerException("An item query mustn't contain #: $name");
+            throw new MarketeerException(__("An item query mustn't contain :symbol :name",['symbol'=>'#','name'=>$name]);
         }
         if (strpos($name,'?')) {
-            throw new MarketeerException("An item query mustn't contain ?: $name");
+            throw new MarketeerException(__("An item query mustn't contain :symbol :name",['symbol'=>'?','name'=>$name]);
         }        
     }
     
@@ -187,7 +187,7 @@ abstract class MarketeerBase
         if ($base = $this->getItemBase($name, $variables)) {
             return $this->getItemRestrictions($base, $variables);
         } else {
-            throw new MarketeerException("The item '$name' doesn't exists.");
+            throw new MarketeerException(__("The item ':name' doesn't exists.",['name'=>$name]));
         }
     }
     
@@ -224,7 +224,7 @@ abstract class MarketeerBase
         if ($base = $this->getItemBase($name, $variables)) {
             return $this->itemIsReadable($base, $variables);
         } else {
-            throw new MarketeerException("The item '$name' doesn't exists.");
+            throw new MarketeerException(__("The item ':name' doesn't exists.",['name'=>$name]));
         }
     }
 
@@ -255,7 +255,7 @@ abstract class MarketeerBase
         if ($base = $this->getItemBase($name, $variables)) {
             return $this->itemIsWriteable($base, $variables);
         } else {
-            throw new MarketeerException("The item '$name' doesn't exists.");
+            throw new MarketeerException(__("The item ':name' doesn't exists.",['name'=>$name]));
         }        
     }
 
@@ -293,7 +293,7 @@ abstract class MarketeerBase
             case 'admin':
                 return $user == 'admin';
             default:
-                throw new MarketeerException("Unkown user group '$restriction'");
+                throw new MarketeerException(__("Unkown user group ':restriction'",['restriction'=>$restriction]);
         }
     }
 
@@ -324,7 +324,7 @@ abstract class MarketeerBase
             if (method_exists($this,$method)) {
                 return $this->$method(...$variables);
             } else {
-                throw new MarketeerException(__("Item ':name' is marked as readable but has no get_ method. ",array('name'=>$name));
+                throw new MarketeerException(__("Item ':name' is marked as readable but has no get_ method.",array('name'=>$name));
             }    
         }                
     }
@@ -353,7 +353,7 @@ abstract class MarketeerBase
             if (method_exists($this,$method)) {
                 return $this->$method(...$variables);
             } else {
-                throw new MarketeerException(__("Item ':name' is marked as writeable but has no set_ method. ",array('name'=>$name));
+                throw new MarketeerException(__("Item ':name' is marked as writeable but has no set_ method.",array('name'=>$name));
             }    
         }                        
     }
