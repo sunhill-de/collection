@@ -236,4 +236,38 @@ class MarketeersTest extends InfoMarketTestCase
             ['writeonly.test','error_code','ITEMNOTREADABLE'],
         ];        
     }
+
+    /**
+     * @dataProvider SetItemProvider
+     * @param unknown $item
+     * @param unknown $key
+     * @param unknown $value
+     */
+    public function testSetItem($item,$key,$value)
+    {
+        $test = new FakeMarketeer();
+        $result = $test->setItem($item,$value);
+        if ($key == false) {
+            $this->assertFalse($result);
+        } else {
+            $this->assertTrue($result);
+        }
+        $result = $test->setItem($item,$value);        
+        if ($key == false) {
+            $this->assertFalse($result);
+        } else {
+            $this->assertEquals($value,$result->getElement($key));
+        }
+    }
+    
+    public function SetItemProvider()
+    {
+        return [
+            ['test.item','value',123],
+            ['nonexisting.item',false,null],
+            ['test.array.2.item','value',222],
+            ['restricted.item','error_code','ITEMNOTACCESSIBLE'],
+            ['writeonly.test','error_code','ITEMNOTREADABLE'],
+        ];        
+    }
 }
