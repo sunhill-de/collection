@@ -131,6 +131,14 @@ class InfoMarket
    */
   public function writeItem(string $path, $value, $credentials = null): string
   {
+      foreach ($this->marketeers as $marketeer) {
+          if ($result = $marketeer->setItem($path, $value)) {
+              $this->fixResponse($result, $path);   
+              return $result->get();
+          }
+      }
+      $response = new Response();
+      return $response->error("The item '$path' was not found.",'ITEMNOTFOUND')->get();
   }
   
   public function getOfferings(): string
