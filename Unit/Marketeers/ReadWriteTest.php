@@ -9,7 +9,7 @@ class ReadWriteTest extends InfoMarketTestCase
 {
 
     /**
-     * @dataProvider ReadWriteProvider
+     * @dataProvider ReadProvider
      * @param unknown $test
      * @param unknown $offer
      * @param unknown $expect
@@ -19,7 +19,7 @@ class ReadWriteTest extends InfoMarketTestCase
         $test_obj = new FakeMarketeer3();
         $this->assertEquals($isreadable,$test_obj->isReadable($test));
         if ($isreadable) {
-          $this->assertEquals($value,$test_obj->getItem($test));
+          $this->assertEquals($value,$test_obj->getItem($test)->getElement('value'));
         }
     }
     
@@ -33,7 +33,7 @@ class ReadWriteTest extends InfoMarketTestCase
     }
   
     /**
-     * @dataProvider ReadWriteProvider
+     * @dataProvider WriteProvider
      * @param unknown $test
      * @param unknown $offer
      * @param unknown $expect
@@ -44,7 +44,7 @@ class ReadWriteTest extends InfoMarketTestCase
         $this->assertEquals($iswriteable,$test_obj->isWriteable($test));
         if ($iswriteable) {
           $test_obj->setItem($test,$value);
-          $this->assertEquals($value,$test_obj->getItem($test));
+          $this->assertEquals($value,$test_obj->getItem($test)->getElement('value'));
         }
     }
     
