@@ -41,24 +41,24 @@ class FakeMarketeer extends MarketeerBase
         return true;
     }
     
-    protected function getTestItem(): Response
+    protected function get_TestItem(): Response
     {
         $response = new Response();
         return $response->OK()->unit(' ')->type('Integer')->value(123);
     }
     
-    protected function getCatchall(): Response
+    protected function get_Catchall(): Response
     {
         
     }
     
-    protected function getTestArray($index): Response
+    protected function get_TestArray($index): Response
     {
         $response = new Response();
         return $response->OK()->unit(' ')->type('Integer')->value(111*$index);        
     }
     
-    protected function getAnotherArray($index1,$index2): Response
+    protected function get_AnotherArray($index1,$index2): Response
     {
         $response = new Response();
         return $response->OK()->unit(' ')->type('Integer')->value($index1*$index2);        

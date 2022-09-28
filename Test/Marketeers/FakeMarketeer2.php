@@ -16,12 +16,12 @@ class FakeMarketeer2 extends MarketeerBase
         ];
     }
     
-    protected function itemIsReadable(string $name): bool
+    protected function itemIsReadable(string $name, $variables): bool
     {
         return true;        
     }
     
-    protected function itemIsWriteable(string $name): bool
+    protected function itemIsWriteable(string $name, $variables): bool
     {
         return false;    
     }
