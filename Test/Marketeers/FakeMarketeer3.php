@@ -27,12 +27,14 @@ class FakeMarketeer3 extends MarketeerBase
   
     protected function get_byreadable()
     {
-        return $value;
+        $response = new Response();
+        return $response->OK()->unit(' ')->type('Integer')->value($this->value);
     }
   
     protected function get_byget()
     {
-        return $value;
+        $response = new Response();
+        return $response->OK()->unit(' ')->type('Integer')->value($this->value);
     }
   
     protected function bywriteable_writeable()
