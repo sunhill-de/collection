@@ -26,13 +26,13 @@ class FakeMarketeer2 extends MarketeerBase
         return false;    
     }
     
-    protected function getFake2Test(): Response
+    protected function get_Fake2Test(): Response
     {
         $response = new Response();
         return $response->OK()->unit(' ')->type('String')->value('ABC');        
     }
     
-    protected function getNonsenseTest(): Response
+    protected function get_NonsenseTest(): Response
     {
         $response = new Response();
         return $response->OK()->unit(' ')->type('String')->value('NONSENSE');
