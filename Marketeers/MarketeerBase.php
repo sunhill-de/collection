@@ -134,7 +134,7 @@ abstract class MarketeerBase
     {
         $this->checkAllowedChars($name);
 
-        foreach ($this->getOffer() as $offer=>$callback) {
+        foreach ($this->getOffering() as $offer=>$callback) {
             if ($this->offerMatches($name,$offer)) {
                 return true;
             }
@@ -401,7 +401,7 @@ abstract class MarketeerBase
                 $response = new Response();
                 return $response->error(__("The item ':name' is not writeable",['name'=>$name]),'ITEMNOTWRITEABLE');                
             }
-            $this->changeItem($method,$name,$variables);
+            return $this->changeItem($method,$name,$variables);
         }                        
     }
     
