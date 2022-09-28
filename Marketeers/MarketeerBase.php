@@ -262,7 +262,7 @@ abstract class MarketeerBase
 
     protected function itemIsWriteable(string $base, $variables): bool
     {
-        $method = $base.'_readable';
+        $method = $base.'_writeable';
         if (method_exists($this,$method)) {
             return $this->$method($variables);
         } else {
@@ -364,14 +364,16 @@ abstract class MarketeerBase
     {
             $method = 'set_'.$base;
             if (method_exists($this,$method)) {
-                if ($value->hasElement('update')) {
-                    $update = $this->getUpdate($value->getElement('update'));
-                } else {
-                    $update = 5;
-                }
+                $update = 5;
+                if ($this->isReadable($name)) {
+                    $current = $this->getItem($name);
+                    if ($current->hasElement('update')) {
+                        $update = $this->getUpdate($current->getElement('update'));
+                    } 
+                } 
                 Cache::put($name, $value, $update);
                 if (is_array($variables)) {
-                    $variables = array_unshift($variables,$value);
+                    array_push($variables,$value);
                 } else {
                     $variables = [$value];
                 }
@@ -401,7 +403,7 @@ abstract class MarketeerBase
                 $response = new Response();
                 return $response->error(__("The item ':name' is not writeable",['name'=>$name]),'ITEMNOTWRITEABLE');                
             }
-            return $this->changeItem($method,$name,$variables);
+            return $this->changeItem($method, $name, $value, $variables);
         }                        
     }
     
