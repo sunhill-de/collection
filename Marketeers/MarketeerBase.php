@@ -35,7 +35,7 @@ abstract class MarketeerBase
      */
     public function getOffer(): array
     {
-        return $this->getOffering();    
+        return array_keys($this->getOffering());    
     }
     
     /**

@@ -141,7 +141,39 @@ class InfoMarket
       return $response->error("The item '$path' was not found.",'ITEMNOTFOUND')->get();
   }
   
-  public function getOfferings(): string
+  protected function addEntryToTree(string $entry, &$tree) {
+      if (empty($entry)) {
+          return;
+      }
+      $parts = explode('.',$entry);
+      $first = array_shift($parts);
+      $remain = implode('.',$parts);
+      if (!isset($tree[$first])) {
+          $tree[$first] = ['name'=>$first,'entries'=>[]];   
+      }
+      $this->addEntryToTree($remain,$tree[$first]['entries']);
+  }
+  
+  protected function makeTree(array $input): array
   {
+      $result = [];
+      foreach ($input as $entry) {
+          $this->addEntryToTree($entry,$result);
+      }
+      return $result;
+  }
+  
+  public function getOfferings(bool $as_tree = false): array
+  {
+        $result = [];
+        foreach ($this->marketeers as $marketeer) {
+            $offering = $marketeer->getOffer();
+            $result = array_merge($result,$offering);
+        }
+        if ($as_tree) {
+            return $this->makeTree($result);
+        } else {
+            return $result;
+        }
   }  
 }
