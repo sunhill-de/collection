@@ -8,7 +8,7 @@ use Sunhill\InfoMarket\Marketeers\Response\Response;
 class FakeMarketeer3 extends MarketeerBase
 {
 
-    protected $value = 5;
+    public $value = 5;
   
     protected function getOffering(): array
     {
@@ -17,6 +17,8 @@ class FakeMarketeer3 extends MarketeerBase
             'readable.byget'=>'byget',
             'writeable.bywriteable'=>'bywriteable',
             'writeable.byset'=>'byset',
+            'readwrite.bywriteable'=>'rwbywriteable',
+            'readwrite.byset'=>'rwbyset'
         ];
     }
 
@@ -51,5 +53,29 @@ class FakeMarketeer3 extends MarketeerBase
     {
         $this->value = $value; 
     }  
+
+    protected function set_rwbyset($value)
+    {
+        $this->value = $value;
+    }
+    
+    protected function set_rwbywriteable($value)
+    {
+        $this->value = $value;
+    }
+
+    protected function get_rwbywriteable()
+    {
+        $response = new Response();
+        return $response->OK()->unit(' ')->type('Integer')->value($this->value);
+    }
+    
+    protected function get_rwbyset()
+    {
+        $response = new Response();
+        return $response->OK()->unit(' ')->type('Integer')->value($this->value);
+    }
+    
+    
 }
 

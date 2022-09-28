@@ -370,8 +370,9 @@ abstract class MarketeerBase
                     if ($current->hasElement('update')) {
                         $update = $this->getUpdate($current->getElement('update'));
                     } 
+                    $current->value($value);
+                    Cache::put($name, $current, $update);
                 } 
-                Cache::put($name, $value, $update);
                 if (is_array($variables)) {
                     array_push($variables,$value);
                 } else {
