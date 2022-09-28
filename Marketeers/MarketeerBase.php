@@ -18,6 +18,7 @@ namespace Sunhill\InfoMarket\Marketeers;
 
 use Sunhill\InfoMarket\Marketeers\MarketeerException;
 use Sunhill\InfoMarket\Marketeers\Response\Response;
+use Illuminate\Support\Facades\Cache;
 
 abstract class MarketeerBase
 {
@@ -297,15 +298,33 @@ abstract class MarketeerBase
         }
     }
 
+    protected function getUpdate(string $interval)
+    {
+        switch ($interval) {
+            case 'ASAP': return 5; break;
+            case 'Minute': return 60; break;
+            case 'Hour': return 3600; break;
+            case 'Day': return 3600*24; break;
+            case 'Late': return  3600*24; break;
+            default: return $interval;
+        }        
+    }
+        
     protected function retrieveItem(string $method, string $name, $variables)
     {                                        
-        // @todo implement caching
-        $method = 'get_'.$method;
-        if (method_exists($this,$method)) {
-            return $this->$method(...$variables);
-        } else {
-            throw new MarketeerException(__("Item ':name' is marked as readable but has no get_ method.",array('name'=>$name)));
-        }            
+        if (Cache::has($name)) {
+            return Cache::get($name);
+        } else {    
+            // @todo implement caching
+            $method = 'get_'.$method;
+            if (method_exists($this,$method)) {
+                $value = $this->$method(...$variables);
+                
+                Cache::put($name, $value, $this->getUpdate($value->getItem('update'));
+            } else {
+                throw new MarketeerException(__("Item ':name' is marked as readable but has no get_ method.",array('name'=>$name)));
+            }            
+        }   
     }
     
     /**
@@ -335,11 +354,17 @@ abstract class MarketeerBase
         }                
     }
     
-    protected function changeItem(string $base, string $name, $variables)
+    protected function changeItem(string $base, string $name, $value, $variables)
     {
-            $method = 'set_';
+            $method = 'set_'.$base;
             if (method_exists($this,$method)) {
                 // Implement caching
+                Cache::put($name, $value, $this->getUpdate($value->getItem('update'));
+                if (is_array($variables)) {
+                    $variables = array_unshift($variables,$value);
+                } else {
+                    $variables = [$value];
+                }
                 return $this->$method(...$variables);
             } else {
                 throw new MarketeerException(__("Item ':name' is marked as writeable but has no set_ method.",array('name'=>$name)));
