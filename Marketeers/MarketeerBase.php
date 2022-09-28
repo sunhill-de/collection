@@ -151,7 +151,7 @@ abstract class MarketeerBase
     {
         $this->checkAllowedChars($name);
 
-        foreach ($this->getOffer() as $offer=>$callback) {
+        foreach ($this->getOffering() as $offer=>$callback) {
             if ($this->offerMatches($name,$offer,$variables)) {
                 return $callback;
             }
@@ -320,7 +320,13 @@ abstract class MarketeerBase
             if (method_exists($this,$method)) {
                 $value = $this->$method(...$variables);
                 
-                Cache::put($name, $value, $this->getUpdate($value->getItem('update'));
+                if ($value->hasElement('update')) {
+                    $update = $this->getUpdate($value->getElement('update'));
+                } else {
+                    $update = 5;
+                }
+                Cache::put($name, $value, $update);
+                return $value;
             } else {
                 throw new MarketeerException(__("Item ':name' is marked as readable but has no get_ method.",array('name'=>$name)));
             }            
@@ -344,11 +350,11 @@ abstract class MarketeerBase
             $restrictions = $this->getItemRestrictions($method, $variables);
             if (!$this->isAccessible($user,$restrictions['read'])) {
                 $response = new Response();
-                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE'));
+                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
             }
             if (!$this->itemIsReadable($method, $variables)) {
                 $response = new Response();
-                return $response->error(__("The item ':name' is not readable",['name'=>$name]),'ITEMNOTREADABLE'));                
+                return $response->error(__("The item ':name' is not readable",['name'=>$name]),'ITEMNOTREADABLE');                
             }
             return $this->retrieveItem($method,$name,$variables);
         }                
@@ -358,8 +364,12 @@ abstract class MarketeerBase
     {
             $method = 'set_'.$base;
             if (method_exists($this,$method)) {
-                // Implement caching
-                Cache::put($name, $value, $this->getUpdate($value->getItem('update'));
+                if ($value->hasElement('update')) {
+                    $update = $this->getUpdate($value->getElement('update'));
+                } else {
+                    $update = 5;
+                }
+                Cache::put($name, $value, $update);
                 if (is_array($variables)) {
                     $variables = array_unshift($variables,$value);
                 } else {
@@ -385,11 +395,11 @@ abstract class MarketeerBase
             $restrictions = $this->getItemRestrictions($method, $variables);
             if (!$this->isAccessible($user,$restrictions['write'])) {
                 $response = new Response();
-                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE'));
+                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
             }
             if (!$this->itemIsWriteable($method, $variables)) {
                 $response = new Response();
-                return $response->error(__("The item ':name' is not writeable",['name'=>$name]),'ITEMNOTWRITEABLE'));                
+                return $response->error(__("The item ':name' is not writeable",['name'=>$name]),'ITEMNOTWRITEABLE');                
             }
             $this->changeItem($method,$name,$variables);
         }                        
