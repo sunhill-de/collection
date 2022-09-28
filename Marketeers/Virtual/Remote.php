@@ -61,5 +61,12 @@ class Remote extends MarketeerBase
     {
         
     }
-        
+ 
+    protected function getOffering(): array
+    {
+        return [
+        ];
+    }
+    
+    
 }
