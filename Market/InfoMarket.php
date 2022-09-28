@@ -141,24 +141,24 @@ class InfoMarket
       return $response->error("The item '$path' was not found.",'ITEMNOTFOUND')->get();
   }
   
-  protected function addEntryToTree(string $entry, &$tree) {
+  protected function addEntryToTree(string $entry, $path, &$tree) {
       if (empty($entry)) {
           return;
       }
       $parts = explode('.',$entry);
       $first = array_shift($parts);
       $remain = implode('.',$parts);
-      if (!isset($tree[$first])) {
-          $tree[$first] = ['name'=>$first,'entries'=>[]];   
+      if (!isset($tree[$first])) {          
+          $tree[$first] = ['name'=>$first,'entries'=>[],'path'=>($remain == "")?$path:null];   
       }
-      $this->addEntryToTree($remain,$tree[$first]['entries']);
+      $this->addEntryToTree($remain,$path,$tree[$first]['entries']);
   }
   
   protected function makeTree(array $input): array
   {
       $result = [];
       foreach ($input as $entry) {
-          $this->addEntryToTree($entry,$result);
+          $this->addEntryToTree($entry, $entry, $result);
       }
       return $result;
   }
