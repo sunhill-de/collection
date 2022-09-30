@@ -16,7 +16,8 @@ class AjaxController extends Controller
 
   public function getItem(string $item="", Request $request,Response $response)
   {
-    return $item;
+      $result = InfoMarket::readItem($item);
+      return json_encode($result);
   }
   
 }
