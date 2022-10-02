@@ -259,6 +259,8 @@ class Response
             case 'number':
             case 'name':
             case 'capacity':
+            case 'switch':
+            case 'light':    
                 $this->setElement('semantic_int',$unit);
                 $this->setSemantic($unit);
                 break;
@@ -290,7 +292,12 @@ class Response
             case 'capacity':
                 $this->setElement('semantic',$this->translate('Capacity'));
                 break;
-                
+            case 'switch':
+                $this->setElement('semantic',$this->translate('Switch'));
+                break;
+            case 'light':
+                $this->setElement('semantic',$this->translate('Light'));
+                break;                
         }
     }
 
