@@ -176,4 +176,19 @@ class InfoMarket
             return $result;
         }
   }  
+  
+  public function getFullOfferings(bool $as_tree = false): array
+  {
+      $result = [];
+      foreach ($this->marketeers as $marketeer) {
+          $offering = $marketeer->getFullOffer();
+          $result = array_merge($result,$offering);
+      }
+      if ($as_tree) {
+          return $this->makeTree($result);
+      } else {
+          return $result;
+      }      
+  }
+  
 }

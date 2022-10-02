@@ -45,6 +45,35 @@ abstract class MarketeerBase
     abstract protected function getOffering(): array;
     
     /**
+     * Returns (if possible) all offered items including the wildcard ones
+     * @return array
+     */
+    public function getFullOffering(): array
+    {
+        $offering = $this->getOffering();
+        $result = [];
+        foreach ($offering as $key => $value) {
+            if (str_contains($key,'*') || str_contains($key,'?') || str_contains($key,'#')) {
+               $method_name = 'solve_'.$value;
+               if (method_exists($this,$method_name)) {
+                    $sub_offering = $this->$method_name();
+                    $result = array_merge($result,$sub_offering);
+               } else {
+                   $result[$key] = $value;
+               }
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+    
+    public function getFullOffer(): array
+    {
+        return array_keys($this->getFullOffering());    
+    }
+    
+    /**
      * Raises an exception if $test contains *, # or ?
      */
     private function checkAllowedChars(string $name)
