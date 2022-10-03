@@ -23,7 +23,7 @@ use Sunhill\Crawler\Facades\FileManager;
  */
 class VideoDevice extends NetworkDevice {
 
-    public static $table_name = 'Videodevices';
+    public static $table_name = 'videodevices';
 
     public static $object_infos = [
         'name'=>'VideoDevice',       // A repetition of static:$object_name @todo see above
