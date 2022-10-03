@@ -44,18 +44,6 @@ class Anniversary extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-          self::integer('day')
-            ->set_description('What day is the the anniversary')
-            ->set_displayable(true)
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->searchable();
-          self::integer('month')
-            ->set_description('What month is the anniversary')
-            ->set_displayable(true)
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->searchable();
         self::date('first')
             ->set_description('When was the first event')
             ->searchable()
