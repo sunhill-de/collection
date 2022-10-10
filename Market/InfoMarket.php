@@ -23,9 +23,12 @@ define('CURRENT_VERSION','0.1');
 /**
  * The core class of this project. It's exports the following methods:
  * - installMarketeer - To install a new marketeer. This mustn't be exported via a REST-API (local only)
- * - readItem - To read an item
- * - readItemList - To read a list of items
- * - writeItem - To write to an item
+ * - getItem - To retrieve all informations (metadatas) of this item
+ * - getItemList - To retrieve all informations (metadatas) of a list of items
+ * - readItem - To read only the value of an item
+ * - readItemList - To read only the values of a list of items
+ * - writeItem - To write the value to an item
+ * - writeItemList - To write the value to a list of items
  * - getOfferings - To collect all offerings from all marketeers
  */
 class InfoMarket
@@ -54,12 +57,96 @@ class InfoMarket
   }
 
   /**
+   * Checks if a given string contains a wildcard (*, # or ?)
+   * @param $test string: The string to test
+   * @returns bool: True, if $test contains a wildcard otheriwse false
+   */
+  protected function containsWildcard(string $test): bool
+  {
+      return (str_contains($test,'*') || str_contains($test,'#') || str_contains($test,'?'));
+  }
+  
+  /**
+   * Return alls items that match this wildcard item string $item
+   * @param $item string: The string with wildcards
+   * @return array: All items that match this wildcard
+   */
+  protected function solveWildcards(string $item)
+  {
+  }
+  
+  protected function mergeItems(array &$list, string $item)
+  {
+      if (containsWildcard($item)) {
+        $list = array_merge($list, $this->solveWildcards($item));
+      } else {
+        // Trivial, just append
+        $list[] = $item;
+      }
+  }
+  
+  /**
+   * Depending of $list this function returns an array of strings where each string represents a wanted item
+   * @param $list array|string The wanted items
+   * @returns array of strings
+   */
+  protected function createItemList($list): array
+  {
+      if (is_string($list)) {
+        $info = json_decode($list,true); 
+    
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new MarketException(__("Malformed json list request"));      
+        }
+        
+        $list = $info['query'];
+      }  
+      if (!is_array($list)) {
+            throw new MarketException(__("Malformed list request"));      
+      }  
+    
+      $result = [];
+      foreach ($list as $entry) {
+        $this->mergeItems($result, $entry);
+      }  
+      return $result;
+  }
+  
+  /**
+   * Return all avaiable informations (=metadatas) of this item
+   * @param $path string: The path to the item
+   * @param $credentials string: The current user (default anybody)
+   * @params $format string: In what format should the values be returned
+   * @returns dependig on $format:
+   *  - json  = a json encoded string
+   *  - array = a php array
+   */
+  public function getItem(string $path, string $credentials = 'anybody', string $format = 'json')
+  {
+  }
+  
+  /**
+   * Return all avaiable informations (=metadatas) of this item
+   * @param $path: A list of the wanted items. 
+   *  - if $path is a string then it's treated as a json encoded list
+   *  - if $path is an array then it's treated as an array of strings   
+   * @param $credentials string: The current user (default anybody)
+   * @params $format string: In what format should the values be returned
+   * @returns dependig on $format:
+   *  - json  = a json encoded string
+   *  - array = a php array
+   */
+  public function getItemList($path, string $credentials = 'anybody', string $format = 'json')
+  {
+  }
+  
+  /**
    * Reads a single item given by $path and returns the json answer
    * @param string $path The path to the information
    * @param $credentials The 
    * @return string returns the answer of the first marketeer that offers one
    */
-  public function readItem(string $path, $credentials = null): string
+  public function readItem(string $path, string $credentials = 'anybody'): string
   {
       return $this->readSingleItem($path,$credentials);
   }
