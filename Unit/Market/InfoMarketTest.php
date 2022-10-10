@@ -145,5 +145,24 @@ class InfoMarketTest extends InfoMarketTestCase
         
         $this->assertEquals(123,$result['result'][0]['value']);
     }
+   
+    /**
+     * @dataProvider wildcardProvider
+     */
+    public function testContainsWildcard($test, $expect)
+    {
+        $test = new InfoMarket();
+        $this->assertEquals($expect, $this->invokeMethod($test,'containsWildcard', [$test]));
+    }   
     
+    public function wildcardProvider()
+    {
+        return [
+            ['test.string', false],
+            ['test.*.string', true],
+            ['test*.string', true],
+            ['test.#.string', true],
+            ['test.?.string', true],
+        ];
+    }    
 }
