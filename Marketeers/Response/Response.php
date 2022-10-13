@@ -27,9 +27,10 @@ class Response
         $this->elements = new StdClass();
     }
     
-    protected function setElement(string $name,$value)
+    public function setElement(string $name,$value)
     {
         $this->elements->$name = $value;
+        return $this;
     }
     
     /**
