@@ -422,4 +422,13 @@ class Response
         return $this->OK()->type('Integer')->unit('c')->semantic('number')->value($number);
     }
     
+    public function readable(bool $value = true)
+    {
+        $this->setElement('readable',$value);        
+    }
+    
+    public function writeable(bool $value = true)
+    {
+        $this->setElement('writeable',$value);
+    }
 }
