@@ -67,7 +67,7 @@ abstract class ItemBase
 
     protected function getSemantic()
     {
-        return $this->metadata['name'];
+        return $this->metadata['semantic'];
     }
     
     protected function getType()
@@ -94,8 +94,8 @@ abstract class ItemBase
         
         if ($this->getReadable()) {
             $response = $response
-            ->value($this->getValue())
-            ->setElement('read_restriction',$this->getRreadRestriction());            
+            ->value($this->getItemValue())
+            ->setElement('read_restriction',$this->getReadRestriction());            
         }
         if ($this->getWriteable()) {
             $response = $response
@@ -115,5 +115,15 @@ abstract class ItemBase
         
     }
     
-    pub
+    public function getValue(string $answer = 'json')
+    {
+        $value = $this->getItemValue();
+        $response = new Response();
+        return $response->unit($this->getUnit())->OK()->value($value)->get($answer);
+    }
+
+    public function setValue($value)
+    {
+        $this->setItemValue($value);
+    }
 }

@@ -47,9 +47,23 @@ class Response
      * Returns the json response
      * @return string The response as a json string
      */
-    public function get(): string
+    public function get(string $answer = 'json'): string
     {
         $this->checkUpdate();
+        switch ($answer) {
+            case 'json':
+                return json_encode($this->elements);
+                break;
+            case 'raw':
+                return $this->elements->value;
+                break;
+            case 'object':
+                return $this->elements;
+                break;
+            case 'array':
+                return json_decode(json_encode($this->elements),true);
+                break;
+        }
         return json_encode($this->elements);
     }
     
@@ -298,7 +312,16 @@ class Response
                 break;
             case 'light':
                 $this->setElement('semantic',$this->translate('Light'));
-                break;                
+                break;
+            case 'name':    
+                $this->setElement('semantic',$this->translate('Name'));
+                break;
+            case 'count':
+                $this->setElement('semantic',$this->translate('Count'));
+                break;
+            case 'ratio':
+                $this->setElement('semantic',$this->translate('Ratio'));
+                break;
         }
     }
 
