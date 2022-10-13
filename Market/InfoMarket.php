@@ -52,7 +52,7 @@ class InfoMarket
       if (is_a($class,MarketeerBase::class)) {
           $this->marketeers[] = $class;           
       } else {
-          throw new MarketException('Unknown type for installMarketeer.');
+          throw new MarketException(__('Unknown type for installMarketeer.'));
       }
   }
 
@@ -162,7 +162,7 @@ class InfoMarket
       $info = json_decode($list,true); 
     
       if (json_last_error() !== JSON_ERROR_NONE) {
-          throw new MarketException('Malformed json request for readItemList.');      
+          throw new MarketException(__("Malformed json request for readItemList."));      
       }
       
       $result = ['result'=>[]];
@@ -179,15 +179,35 @@ class InfoMarket
         return $result;
       }
       foreach ($this->marketeers as $marketeer) {
-          if ($result = $marketeer->getItem($path)) {
-              $this->fixResponse($result, $path);   
-              return $result->get();
+          if ($marketeer->offersItem($path)) {
+              if ($marketeer->isAccessibleForReading($path, $this->getUser())) {
+                  if ($marketeer->isReadable($path)) {
+                      if ($result = $marketeer->getItem($path)) {
+                          $result->readable();
+                          $result->writeable($marketeer->isWriteable($path));
+                          $this->fixResponse($result, $path);                      
+                          return $result->get();
+                      } 
+                  } else {
+                      $response = new Response();
+                      return $response->error(__("The item ':path' is not readable.",['path'=>$path]),'ITEMNOTREADABLE')->get();
+                  }
+                  
+              } else {
+                  $response = new Response();
+                  return $response->error(__("The item ':path' is not accessible.",['path'=>$path]),'ITEMNOTREADABLE')->get();                  
+              }
           }
+          
       }
       $response = new Response();
-      return $response->error("The item '$path' was not found.",'ITEMNOTFOUND')->get();
+      return $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND')->get();
   }
 
+  protected function getUser() {
+      return 'anybody';
+  }
+  
   protected function fixResponse(Response &$response, string $path)
   {
         $response->request($path);    
@@ -225,7 +245,7 @@ class InfoMarket
           }
       }
       $response = new Response();
-      return $response->error("The item '$path' was not found.",'ITEMNOTFOUND')->get();
+      return $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND')->get();
   }
   
   protected function addEntryToTree(string $entry, $path, &$tree) {
