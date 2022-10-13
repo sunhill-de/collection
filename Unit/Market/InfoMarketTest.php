@@ -102,7 +102,7 @@ class InfoMarketTest extends InfoMarketTestCase
         $market = new InfoMarket();
         $market->installMarketeer($test);
         
-        $this->assertTrue($this->isJsonStr($this->invokeMethod($market,'readItem',['test.item',null])));
+        $this->assertTrue($this->isJsonStr($this->invokeMethod($market,'readItem',['test.item','anybody'])));
     }
     
     public function testAppendRequest()
@@ -149,10 +149,10 @@ class InfoMarketTest extends InfoMarketTestCase
     /**
      * @dataProvider wildcardProvider
      */
-    public function testContainsWildcard($test, $expect)
+    public function testContainsWildcard($test_item, $expect)
     {
         $test = new InfoMarket();
-        $this->assertEquals($expect, $this->invokeMethod($test,'containsWildcard', [$test]));
+        $this->assertEquals($expect, $this->invokeMethod($test,'containsWildcard', [$test_item]));
     }   
     
     public function wildcardProvider()
