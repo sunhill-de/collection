@@ -305,14 +305,39 @@ abstract class MarketeerBase
     }
     
     /**
+     * Checks, if the given user $user is allowed to read this item
+     * @param string $item
+     * @param unknown $user
+     * @return bool
+     */
+    public function isAccessibleForReading(string $item, $user = null): bool
+    {
+         return $this->itemIsAccessible($user,$this->getRestrictions($item)['read']); 
+    }
+    
+    /**
+     * Checks, if the given user $user is allowed to write this item
+     * @param string $item
+     * @param unknown $user
+     * @return bool
+     */
+    public function isAccessibleForWriting(string $item, $user = null): bool
+    {
+        return $this->itemIsAccessible($user,$this->getRestrictions($item)['write']);
+    }
+    
+    /**
      * Checks if the given user is on the same or higer level as the given restriction
      * @param unknown $user
      * @param unknown $restriction
      * @throws MarketeerException
      * @return bool
      */
-    protected function isAccessible($user,$restriction): bool
+    protected function itemIsAccessible($user,$restriction): bool
     {
+        if (is_null($user)) {
+            $user = 'anybody';
+        }
         switch ($restriction) {
             case 'anybody':
                 return true;
@@ -377,7 +402,7 @@ abstract class MarketeerBase
             return false;
         } else {
             $restrictions = $this->getItemRestrictions($method, $variables);
-            if (!$this->isAccessible($user,$restrictions['read'])) {
+            if (!$this->itemIsAccessible($user,$restrictions['read'])) {
                 $response = new Response();
                 return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
             }
@@ -425,7 +450,7 @@ abstract class MarketeerBase
             return false;
         } else {
             $restrictions = $this->getItemRestrictions($method, $variables);
-            if (!$this->isAccessible($user,$restrictions['write'])) {
+            if (!$this->ItemIsAccessible($user,$restrictions['write'])) {
                 $response = new Response();
                 return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
             }
