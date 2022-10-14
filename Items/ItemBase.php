@@ -126,4 +126,14 @@ abstract class ItemBase
     {
         $this->setItemValue($value);
     }
+
+    /**
+     * 
+     * @param string $filter
+     * @param number $depth
+     */
+    public function getFullOffering(string $filter = '', $depth = 0)
+    {
+        
+    }
 }

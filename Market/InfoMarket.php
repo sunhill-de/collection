@@ -66,6 +66,73 @@ class InfoMarket
       return (str_contains($test,'*') || str_contains($test,'#') || str_contains($test,'?'));
   }
   
+  protected function wildcardAtomMatches($atom, $test) 
+  {
+      if (($atom == '*') || ($atom == '?')) {
+          return true;
+      } else if ($atom == '#') {
+          return is_numeric($test);
+      } else if ($atom[0] == '*') {
+        // leading asterik
+        $rest = substr($atom,1);
+        if (str_contains($test, '*')) {
+            // double asterik
+            throw new MarketException(__("Can't handle wildcard ':atom'",['atom'=>$atom]));            
+        }
+        if (substr($test,-strlen($rest)) != $rest)  {
+            return false;
+        }
+      } else if ($atom[strlen($atom)-1] == '*') {
+          // trailing asterik
+          $rest = substr($atom,0,-1);
+          if (str_contains($test, '*')) {
+              // double asterik
+              throw new MarketException(__("Can't handle wildcard ':atom'",['atom'=>$atom]));
+          }
+          if (substr($test,0,strlen($rest)) != $rest) {
+              return false;
+          }
+      } else if (str_contains($atom, '*')){
+          // asterik in the middle
+          $parts = explode('*',$atom);
+          if (count($parts) >= 3) {
+              throw new MarketException(__("Can't handle wildcard ':atom'",['atom'=>$atom]));              
+          }
+          
+          $rest = substr($test,-strlen($parts[1]));
+          if (substr($test,-strlen($parts[1])) != $parts[1])  {
+              return false;
+          }
+          if (substr($test,0,strlen($parts[0])) != $parts[0]) {
+              return false;
+          }
+      } else {
+          throw new MarketException(__("Can't handle wildcard ':atom'",['atom'=>$atom]));          
+      }
+      return true;
+  }
+  
+  protected function wildcardMatches($needle, $haystack)
+  {
+     $needle_parts = explode('.', $needle);
+     $haystack_parts = explode('.', $haystack);
+     for ($i=0;$i<count($needle_parts);$i++) {
+         if ($i>=count($haystack_parts)) {
+             return false;
+         }
+         if ($this->containsWildcard($needle_parts[$i])) {
+             if (!$this->wildcardAtomMatches($needle_parts[$i],$haystack_parts[$i])) {
+                 return false;
+             }
+         } else {
+             if ($haystack_parts[$i] != $needle_parts[$i]) {
+                 return false;
+             }
+         }
+     }
+     return true;
+  }
+  
   /**
    * Return alls items that match this wildcard item string $item
    * @param $item string: The string with wildcards
@@ -73,11 +140,19 @@ class InfoMarket
    */
   protected function solveWildcards(string $item)
   {
+    $offerings = $this->getFullOfferings($item);
+    $result = [];
+    foreach ($offerings as $offering) {
+        if ($this->wildcardMatches($item,$offering)){
+            $result[] = $offering;
+        }
+    }
+    return $result;
   }
   
   protected function mergeItems(array &$list, string $item)
   {
-      if (containsWildcard($item)) {
+      if ($this->containsWildcard($item)) {
         $list = array_merge($list, $this->solveWildcards($item));
       } else {
         // Trivial, just append
@@ -93,25 +168,36 @@ class InfoMarket
   protected function createItemList($list): array
   {
       if (is_string($list)) {
-        $info = json_decode($list,true); 
-    
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new MarketException(__("Malformed json list request"));      
-        }
-        
-        $list = $info['query'];
-      }  
-      if (!is_array($list)) {
+          if (str_contains($list,'{')) {
+              $query = json_decode($list,true);
+              if (json_last_error() !== JSON_ERROR_NONE) {
+                  throw new MarketException(__("Malformed json list request"));
+              }
+              if (!isset($query['query'])) {
+                  throw new MarketException(__("Query doesn't define a query section"));                  
+              }
+              $list = $query['query'];
+          } else if (str_contains($list,'[')) {
+              $list = json_decode($list,true);
+              if (json_last_error() !== JSON_ERROR_NONE) {
+                  throw new MarketException(__("Malformed json list request"));
+              }
+          } else {
+              // query string (a.b.*)  
+              $list = [$list];
+          }          
+      } else if (!is_array($list)) {
             throw new MarketException(__("Malformed list request"));      
       }  
     
+      // At this point $list is an array of strings  
       $result = [];
       foreach ($list as $entry) {
         $this->mergeItems($result, $entry);
       }  
       return $result;
   }
-  
+
   /**
    * Return all avaiable informations (=metadatas) of this item
    * @param $path string: The path to the item
@@ -120,9 +206,23 @@ class InfoMarket
    * @returns dependig on $format:
    *  - json  = a json encoded string
    *  - array = a php array
+   *  - object = a StdClass
    */
   public function getItem(string $path, string $credentials = 'anybody', string $format = 'json')
   {
+      // First check, if this item is "hardwired"
+      if ($result = $this->readHardwiredResult($path)) {
+          return $result;
+      }
+      
+      foreach ($this->marketeers as $marketeer) {
+          if ($marketeer->offersItem($path)) {
+              return $marketeer->getItem($path, $credentials, $format);
+          }
+      }
+      $response = new Response();
+      return $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND')->get();
+      
   }
   
   /**
@@ -138,6 +238,39 @@ class InfoMarket
    */
   public function getItemList($path, string $credentials = 'anybody', string $format = 'json')
   {
+        $list = $this->createItemList($path);
+        $result = [];
+        foreach ($list as $entry) {
+            $result[$entry] = $this->getItem($entry, $credentials, 'object');
+        }
+        
+        switch ($format) {
+            case 'json':
+                return json_encode($result);
+            case 'object':
+                return $result;
+            case 'array':
+                return json_decode(json_encode($result),true);
+        }
+  }
+  
+  public function setItem(string $path, $value, string $credentials = 'anybody')
+  {
+      foreach ($this->marketeers as $marketeer) {
+          if ($marketeer->offersItem($path)) {
+              return $marketeer->setItem($path, $value, $credentials);
+          }
+      }
+      $response = new Response();
+      return $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND')->get();      
+  }
+  
+  public function setItemList($path, $value, string $credentials = 'anybody')
+  {
+      $list = $this->createItemList($path);
+      foreach ($list as $entry) {
+          $result[$entry] = $this->setItem($entry, $value, $credentials);
+      }      
   }
   
   /**
@@ -269,12 +402,20 @@ class InfoMarket
       }
       return $result;
   }
-  
-  public function getOfferings(bool $as_tree = false): array
+
+  /**
+   * Returns the offerings that a provides by this market. These offerings can be filtered, limited to a depth and/or 
+   * returned as a tree
+   * @param string $filter: If there should be a filter for this request (default no filter = "")
+   * @param number $depth: Should the result be limited to a depth of subtrees (default no = 0)
+   * @param bool $as_tree: Should the result be returned as a tree (default no)
+   * @return array
+   */
+  public function getOfferings(string $filter = '', $depth = 0, bool $as_tree = false): array
   {
         $result = [];
         foreach ($this->marketeers as $marketeer) {
-            $offering = $marketeer->getOffer();
+            $offering = $marketeer->getOffer($filter, $depth);
             $result = array_merge($result,$offering);
         }
         if ($as_tree) {
@@ -284,11 +425,11 @@ class InfoMarket
         }
   }  
   
-  public function getFullOfferings(bool $as_tree = false): array
+  public function getFullOfferings(string $filter = '', $depth = 0, bool $as_tree = false): array
   {
       $result = [];
       foreach ($this->marketeers as $marketeer) {
-          $offering = $marketeer->getFullOffer();
+          $offering = $marketeer->getFullOffer($filter, $depth);
           $result = array_merge($result,$offering);
       }
       if ($as_tree) {

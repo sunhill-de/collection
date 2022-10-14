@@ -388,29 +388,24 @@ abstract class MarketeerBase
     }
     
     /**
-     * Checks if the item exists, is accessible and readable. If yes the item is returned
+     * Returns the metadata of the item or false if no found
      * @param string $name
      * @param string $user
      * @return boolean|\Sunhill\InfoMarket\Marketeers\Response\Response false if not found otherwise response
      */
-    public function getItem(string $name,$user = 'anybody')
+    public function getItem(string $name, string $user = 'anybody', string $format = 'json')
     {
         $variables = [];
         $method = $this->getItemBase($name,$variables);
         
         if ($method === false) {
             return false;
-        } else {
-            $restrictions = $this->getItemRestrictions($method, $variables);
-            if (!$this->itemIsAccessible($user,$restrictions['read'])) {
-                $response = new Response();
-                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
+        } else if (class_exists($method)){
+            $item = new $method($this);
+            if (count($variables)) {
+                $item->setParams($variables);
             }
-            if (!$this->itemIsReadable($method, $variables)) {
-                $response = new Response();
-                return $response->error(__("The item ':name' is not readable",['name'=>$name]),'ITEMNOTREADABLE');                
-            }
-            return $this->retrieveItem($method,$name,$variables);
+            return $item->buildMetadata()->get($format);
         }                
     }
     
@@ -448,18 +443,16 @@ abstract class MarketeerBase
         
         if ($method === false) {
             return false;
-        } else {
-            $restrictions = $this->getItemRestrictions($method, $variables);
-            if (!$this->ItemIsAccessible($user,$restrictions['write'])) {
-                $response = new Response();
-                return $response->error(__("The item ':name' is not accessible",['name'=>$name]),'ITEMNOTACCESSIBLE');
+        } else if (class_exists($method)){
+            $item = new $method($this);
+            if (!$item->getWriteable()) {
+                throw new MarketeerException(__("Item ':name' is not writeable.",array('name'=>$name)));                
             }
-            if (!$this->itemIsWriteable($method, $variables)) {
-                $response = new Response();
-                return $response->error(__("The item ':name' is not writeable",['name'=>$name]),'ITEMNOTWRITEABLE');                
+            if (count($variables)) {
+                $item->setParams($variables);
             }
-            return $this->changeItem($method, $name, $value, $variables);
-        }                        
+            return $item->setValue($value);
+        }
     }
     
 }

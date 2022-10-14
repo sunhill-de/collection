@@ -47,7 +47,7 @@ class Response
      * Returns the json response
      * @return string The response as a json string
      */
-    public function get(string $answer = 'json'): string
+    public function get(string $answer = 'json')
     {
         $this->checkUpdate();
         switch ($answer) {
