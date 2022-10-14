@@ -413,11 +413,22 @@ class InfoMarket
    */
   public function getOfferings(string $filter = '', $depth = 0, bool $as_tree = false): array
   {
-        $result = [];
+        $result = ['infomarket.name','infomarket.version'];
         foreach ($this->marketeers as $marketeer) {
             $offering = $marketeer->getOffer($filter, $depth);
             $result = array_merge($result,$offering);
         }
+        
+        if (!empty($filter)) {
+            $newresult = [];
+            foreach ($result as $entry) {
+                if ($this->wildcardMatches($filter,$entry)) {
+                    $newresult[] = $entry;
+                }
+            }
+            $result = $newresult;
+        }
+        
         if ($as_tree) {
             return $this->makeTree($result);
         } else {
@@ -427,11 +438,22 @@ class InfoMarket
   
   public function getFullOfferings(string $filter = '', $depth = 0, bool $as_tree = false): array
   {
-      $result = [];
+      $result = ['infomarket.name','infomarket.version'];
       foreach ($this->marketeers as $marketeer) {
-          $offering = $marketeer->getFullOffer($filter, $depth);
+          $offering = $marketeer->getFullOffering($filter, $depth);
           $result = array_merge($result,$offering);
       }
+
+      if (!empty($filter)) {
+          $newresult = [];
+          foreach ($result as $entry) {
+              if ($this->wildcardMatches($filter,$entry)) {
+                  $newresult[] = $entry;
+              }
+          }
+          $result = $newresult;
+      }
+      
       if ($as_tree) {
           return $this->makeTree($result);
       } else {

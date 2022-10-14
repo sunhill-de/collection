@@ -43,6 +43,23 @@ abstract class MarketeerBase
      * @return array
      */
     abstract protected function getOffering(): array;
+
+    protected function createPermutations(string $key,$permutations)
+    {
+        $result = [];
+        foreach ($permutations as $permutation) {
+            $parts = explode('.',$key);
+            $perm_count = 0;
+            for ($i=0;$i<count($parts);$i++) {
+                if (str_contains($parts[$i],'*') || str_contains($parts[$i],'?') || str_contains($parts[$i],'#')) {
+                    $parts[$i] = $permutation[$perm_count++];
+                }                
+            }
+            $construct = implode('.',$parts);
+            $result[] = $construct;
+        }
+        return $result;
+    }
     
     /**
      * Returns (if possible) all offered items including the wildcard ones
@@ -54,15 +71,13 @@ abstract class MarketeerBase
         $result = [];
         foreach ($offering as $key => $value) {
             if (str_contains($key,'*') || str_contains($key,'?') || str_contains($key,'#')) {
-               $method_name = 'solve_'.$value;
-               if (method_exists($this,$method_name)) {
-                    $sub_offering = $this->$method_name();
-                    $result = array_merge($result,$sub_offering);
-               } else {
-                   $result[$key] = $value;
-               }
+                if (class_exists($value)) {
+                    $item = new $value($this);
+                    $permutations = $item->getPermutations();
+                    $result = array_merge($result,$this->createPermutations($key,$permutations));
+                }
             } else {
-                $result[$key] = $value;
+                $result[] = $key;
             }
         }
         return $result;
