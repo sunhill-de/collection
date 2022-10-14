@@ -9,9 +9,11 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getOfferings();
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'indexed.#.test',
+            'infomarket.name',
+            'infomarket.version',
             'some.?.test.?',
             'test.another',
             'test.item',
@@ -22,7 +24,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getFullOfferings();
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'indexed.1.test',
             'indexed.2.test',
@@ -41,7 +43,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getOfferings('test.*');
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'test.another',
             'test.item',
@@ -52,7 +54,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getFullOfferings('test.*');
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'test.another',
             'test.item',
@@ -63,7 +65,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getFullOfferings('some.*',1);
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'some.ab.',
             'some.bc.',
@@ -74,7 +76,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getFullOfferings('some.*',2);
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'some.ab.test.',
             'some.bc.test.',
@@ -85,7 +87,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $offering = $test->getFullOfferings('some.*',3);
-        asort($offerings);
+        sort($offering);
         $this->assertEquals([
             'some.ab.test.cd',
             'some.ab.test.ef',

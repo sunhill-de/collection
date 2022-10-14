@@ -59,6 +59,11 @@ class TestItem2 extends ItemBase
     {
         $this->param = $params[0];    
     }
+    
+    public function getPermutations() 
+    {
+        return [[1],[2]];    
+    }
 }
 
 class TestMarketeer1 extends MarketeerBase
@@ -107,6 +112,10 @@ class TestItem4 extends ItemBase
         $this->param2 = $params[1];
     }
     
+    public function getPermutations()
+    {
+        return [['ab','cd'],['ab','ef'],['bc','cd'],['bc','ef']];
+    }
 }
 
 class TestMarketeer2 extends MarketeerBase
