@@ -11,19 +11,30 @@ use Sunhill\InfoMarket\Items\ItemBase;
 class TestItem1 extends ItemBase
 {
 
-    protected $value = 5;
+    protected static $value = 5;
+    
+    protected function getMetadata()
+    {
+        return [
+            'writeable'=>true
+        ];
+    }
     
     protected function getItemValue()
     {
-        return $this->value;
+        return static::$value;
     }
     
+    protected function setItemValue($value)
+    {
+        static::$value = $value;
+    }
 }
 
 class TestItem2 extends ItemBase
 {
  
-    protected $value = 5;
+    protected static $value = 5;
     
     protected $param;
     
@@ -36,17 +47,17 @@ class TestItem2 extends ItemBase
     
     protected function getItemValue()
     {
-        return $this->value * $this->param;
+        return static::$value * $this->param;
     }
     
     protected function setItemValue($value)
     {
-        $this->value = $value;
+        static::$value = $value;
     }
     
-    public function setParams($param)
+    public function setParams($params)
     {
-        $this->param = $param;    
+        $this->param = $params[0];    
     }
 }
 
@@ -65,9 +76,16 @@ class TestMarketeer1 extends MarketeerBase
 
 class TestItem3 extends ItemBase
 {
+    protected $value = 'Test';
+    
     protected function getItemValue()
     {
-        return 'Test';
+        return $this->value;
+    }
+    
+    protected function setItemValue($value)
+    {
+        $this->value = $value;
     }
     
 }
@@ -83,10 +101,10 @@ class TestItem4 extends ItemBase
         return $this->param1.'+'.$this->param2;
     }
         
-    public function setParams($param1,$param2)
+    public function setParams($params)
     {
-        $this->param1 = $param1;
-        $this->param2 = $param2;
+        $this->param1 = $params[0];
+        $this->param2 = $params[1];
     }
     
 }

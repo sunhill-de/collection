@@ -70,7 +70,7 @@ class InfoMarketOfferingTest extends InfoMarketBase
         ],$offering);
     }
     
-    public function testGetFullOfferingsWithFilterAndDepth1()
+    public function testGetFullOfferingsWithFilterAndDepth2()
     {
         $test = $this->getMarket();
         $offering = $test->getFullOfferings('some.*',2);

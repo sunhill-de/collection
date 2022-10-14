@@ -27,24 +27,24 @@ class InfoMarketReadTest extends InfoMarketBase
     {
         $test = $this->getMarket();
         $result = $test->getItemList(['test.item','test.another'],'anybody','object');
-        $this->assertEquals(5,$result['test.item'].value);
-        $this->assertEquals('Test',$result['test.another'].value);
+        $this->assertEquals(5,$result['test.item']->value);
+        $this->assertEquals('Test',$result['test.another']->value);
     }
 
     public function testReadListJson()
     {
         $test = $this->getMarket();
-        $result = $test->getItemList("{'test.item','test.another'}",'anybody','object');
-        $this->assertEquals(5,$result['test.item'].value);
-        $this->assertEquals('Test',$result['test.another'].value);
+        $result = $test->getItemList('["test.item","test.another"]','anybody','object');
+        $this->assertEquals(5,$result['test.item']->value);
+        $this->assertEquals('Test',$result['test.another']->value);
     }
     
     public function testReadListWildcard()
     {
         $test = $this->getMarket();
         $result = $test->getItemList("test.*",'anybody','object');
-        $this->assertEquals(5,$result['test.item'].value);
-        $this->assertEquals('Test',$result['test.another'].value);
+        $this->assertEquals(5,$result['test.item']->value);
+        $this->assertEquals('Test',$result['test.another']->value);
     }
     
 }
