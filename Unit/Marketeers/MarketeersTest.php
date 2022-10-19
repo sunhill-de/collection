@@ -6,7 +6,16 @@ use Sunhill\InfoMarket\Test\InfoMarketTestCase;
 use Sunhill\InfoMarket\Marketeers\MarketeerBase;
 use Sunhill\InfoMarket\Marketeers\Response\Response;
 use Sunhill\InfoMarket\Marketeers\MarketeerException;
-use Sunhill\InfoMarket\Test\Marketeers\FakeMarketeer;
+
+class FakeMarketeer extends MarketeerBase
+{
+    protected function getOffering(): array
+    {
+        return [
+        ];
+    }
+    
+}
 
 class MarketeersTest extends InfoMarketTestCase
 {
@@ -119,7 +128,7 @@ class MarketeersTest extends InfoMarketTestCase
             ['nonexisting.item','','',false],
         ];    
     }
-    
+    /*
     public function testGetRestrictionsPass()
     {
         $test = $this->getMockBuilder(FakeMarketeer::class)
@@ -171,11 +180,11 @@ class MarketeersTest extends InfoMarketTestCase
         $test->expects($this->once())->method('WriteableTest_writeable')->willReturn(true);
         
         $this->assertTrue($test->isWriteable('writeable.test'));
-    }
+    } */
     
     /**
      * @dataProvider IsAccessibleProvider
-     */
+     
     public function testIsAccessible($user,$restriction,$expect)
     {
         $test = new FakeMarketeer();
@@ -207,6 +216,6 @@ class MarketeersTest extends InfoMarketTestCase
             ['admin','admin',true],
             
         ];    
-    }
+    } */
     
 }
