@@ -12,14 +12,13 @@
  * PSR-State: complete
  */
 
-namespace Sunhill\InfoMarket\Marketeers\Response;
+namespace Sunhill\InfoMarket\Response;
 
 use \StdClass;
-use Sunhill\InfoMarket\Marketeers\MarketeerException;
 
 class Response
 {
-
+    
     protected $elements;
     
     public function __construct()
@@ -74,7 +73,7 @@ class Response
     public function getStdClass(): StdClass
     {
         $this->checkUpdate();
-        return $this->elements;    
+        return $this->elements;
     }
     
     /**
@@ -85,12 +84,12 @@ class Response
      */
     public function hasElement(string $element): bool
     {
-        return property_exists($this->elements,$element);    
+        return property_exists($this->elements,$element);
     }
     
     public function getElement(string $element)
     {
-        return $this->elements->$element;    
+        return $this->elements->$element;
     }
     
     /**
@@ -100,7 +99,7 @@ class Response
     public function OK(): Response
     {
         $this->setElement('result','OK');
-        return $this;        
+        return $this;
     }
     
     /**
@@ -110,7 +109,7 @@ class Response
     public function failed(): Response
     {
         $this->setElement('result','FAILED');
-        return $this;    
+        return $this;
     }
     
     public function error(string $message,string $code='UNKNOWNERROR'): Response
@@ -147,14 +146,14 @@ class Response
                     throw new MarketeerException("An array or record needs a subtype. None given.");
                 }
                 if (($type == 'Array') && ($subtype == 'Array')) {
-                    throw new MarketeerException("No nested arrays allowed.");                    
+                    throw new MarketeerException("No nested arrays allowed.");
                 }
                 if (($type == 'Array') &&
                     !(in_array(ucfirst(strtolower($subtype)),
                         ['Integer','Float','String','Boolean','Date','Time','Datetime','Record']))) {
-                        throw new MarketeerException("Unknown type for array: '$subtype");
-                    }
-                $this->setElement('subtype',$subtype);
+                            throw new MarketeerException("Unknown type for array: '$subtype");
+                        }
+                        $this->setElement('subtype',$subtype);
             case 'Integer':
             case 'Float':
             case 'String':
@@ -167,7 +166,7 @@ class Response
             default:
                 throw new MarketeerException("Unknown type '$type'.");
         }
-        return $this;   
+        return $this;
     }
     
     /**
@@ -179,7 +178,7 @@ class Response
     public function unit(string $unit): Response
     {
         switch ($unit) {
-            case 's':       
+            case 's':
             case 'K':
             case 'p':
             case 'm':
@@ -198,7 +197,7 @@ class Response
             default:
                 throw new MarketeerException("Unkown unit '$unit'.");
         }
-        return $this;        
+        return $this;
     }
     
     /**
@@ -239,9 +238,9 @@ class Response
             case 'P':
                 $this->setElement('unit','%');
                 break;
-        }        
+        }
     }
-
+    
     public function update(string $key)
     {
         switch ($key) {
@@ -251,7 +250,7 @@ class Response
             case 'hour':
             case 'day':
             case 'late':
-                $this->setElement('update',$key);  
+                $this->setElement('update',$key);
                 break;
             default:
                 throw new MarketeerException("Unkown update frequency '$key'.");
@@ -275,7 +274,7 @@ class Response
             case 'name':
             case 'capacity':
             case 'switch':
-            case 'light':    
+            case 'light':
                 $this->setElement('semantic_int',$unit);
                 $this->setSemantic($unit);
                 break;
@@ -313,7 +312,7 @@ class Response
             case 'light':
                 $this->setElement('semantic',$this->translate('Light'));
                 break;
-            case 'name':    
+            case 'name':
                 $this->setElement('semantic',$this->translate('Name'));
                 break;
             case 'count':
@@ -324,7 +323,7 @@ class Response
                 break;
         }
     }
-
+    
     /**
      * Tries to translate the given text in the current language. If no translation is found
      * the original is returned
@@ -333,12 +332,12 @@ class Response
      */
     protected function translate(string $text)
     {
-        return $text;    
+        return $text;
     }
-
+    
     /**
      * Sets the value and at the same time the human_readable_value depending on unit which
-     * has to be set before. 
+     * has to be set before.
      * @param unknown $value
      * @throws MarketeerException
      * @return Response
@@ -358,7 +357,7 @@ class Response
                     $this->setElement('human_readable_value',$value);
                     break;
                 default:
-                    $this->setElement('human_readable_value',$value.' '.$this->elements->unit);                 
+                    $this->setElement('human_readable_value',$value.' '.$this->elements->unit);
             }
         } else {
             throw new MarketeerException("Unit has to be set before value.");
@@ -412,9 +411,9 @@ class Response
             ' '.$this->translate('and').' '.$seconds.' '.(($seconds == 1)?$this->translate('second'):$this->translate('seconds'));
         } else {
             return $seconds.' '.(($seconds == 1)?$this->translate('second'):$this->translate('seconds'));
-        }        
+        }
     }
-
+    
     /**
      * If the internal unit marks a capacity the best capacity is calculated
      * @param unknown $value
@@ -425,7 +424,7 @@ class Response
         if ($value >= 1000*1000*1000*1000) {
             return round($value/(1000*1000*1000*1000),1).' TB';
         } elseif ($value >= 1000*1000*1000) {
-            return round($value/(1000*1000*1000),1).' GB';                
+            return round($value/(1000*1000*1000),1).' GB';
         } elseif ($value >= 1000*1000) {
             return round($value/(1000*1000),1).' MB';
         } elseif ($value >= 1000) {
@@ -435,11 +434,11 @@ class Response
         }
     }
     
-    public function number($number) 
+    public function number($number)
     {
-        return $this->OK()->type('Integer')->unit(' ')->semantic('number')->value($number);        
+        return $this->OK()->type('Integer')->unit(' ')->semantic('number')->value($number);
     }
-
+    
     public function capacity($number)
     {
         return $this->OK()->type('Integer')->unit('c')->semantic('number')->value($number);
@@ -447,7 +446,7 @@ class Response
     
     public function readable(bool $value = true)
     {
-        $this->setElement('readable',$value);        
+        $this->setElement('readable',$value);
     }
     
     public function writeable(bool $value = true)
