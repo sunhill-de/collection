@@ -42,4 +42,5 @@ class BranchTest extends SunhillNoAppTestCase
         $this->assertTrue($subbranch->hasSubbranch('subtest1'));
         $this->assertTrue($subbranch->hasSubbranch('subtest2'));
     }
+    
 }
