@@ -4,8 +4,8 @@ namespace Sunhill\InfoMarket\Tests\Feature;
 
 use Sunhill\InfoMarket\Marketeers\MarketeerBase;
 use Sunhill\InfoMarket\Items\ArrayItemBase;
-use Sunhill\InfoMarket\Test\InfoMarketTestCase;
 use Sunhill\InfoMarket\Market\InfoMarket;
+use Sunhill\Basic\Tests\SunhillAppTestCase;
 
 class ArrayItem extends ArrayItemBase
 {
@@ -34,7 +34,7 @@ class TestArrayMarketeer extends MarketeerBase
     
 }
 
-class InfoMarketArrayTest extends InfoMarketTestCase
+class InfoMarketArrayTest extends SunhillAppTestCase
 {
 
     protected function getMarket()

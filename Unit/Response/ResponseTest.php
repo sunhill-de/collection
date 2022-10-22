@@ -1,16 +1,15 @@
 <?php
-
 namespace Sunhill\InfoMarket\Tests\Unit\Response;
 
-use Sunhill\InfoMarket\Test\InfoMarketTestCase;
-use Sunhill\InfoMarket\Marketeers\Response\Response;
+use Sunhill\Basic\Tests\SunhillAppTestCase;
+use Sunhill\InfoMarket\Response\Response;
 
-class ResponseTest extends InfoMarketTestCase
+class ResponseTest extends SunhillAppTestCase
 {
-        
+    
     protected function getElements(&$test)
     {
-        return $this->getProtectedProperty($test,'elements');        
+        return $this->getProtectedProperty($test,'elements');
     }
     
     protected function getElement(&$test,string $element)
@@ -21,7 +20,7 @@ class ResponseTest extends InfoMarketTestCase
     public function testInitializesEmpty()
     {
         $test = new Response();
-        $this->assertTrue(empty((array)$this->getElements($test)));    
+        $this->assertTrue(empty((array)$this->getElements($test)));
     }
     
     public function testReturnAEmptyJson()
@@ -48,16 +47,16 @@ class ResponseTest extends InfoMarketTestCase
     {
         $test = new Response();
         $test->Failed();
-        $this->assertEquals('FAILED',$this->getElement($test,'result'));        
+        $this->assertEquals('FAILED',$this->getElement($test,'result'));
     }
     
     public function testRequest()
     {
         $test = new Response();
         $test->Request('test.request');
-        $this->assertEquals('test.request',$this->getElement($test,'request'));        
+        $this->assertEquals('test.request',$this->getElement($test,'request'));
     }
-
+    
     /**
      * @dataProvider TypeProvider
      */
@@ -65,7 +64,7 @@ class ResponseTest extends InfoMarketTestCase
     {
         $test = new Response();
         try {
-            $test->type($in_type,$in_subtype);            
+            $test->type($in_type,$in_subtype);
         } catch (\Exception $e) {
             if ($out_type == 'except') {
                 $this->assertTrue(true);
@@ -86,7 +85,7 @@ class ResponseTest extends InfoMarketTestCase
         return [
             ['Integer',null,'Integer'],
             ['integer',null,'Integer'],
-            ['float',null,'Float'],            
+            ['float',null,'Float'],
             ['string',null,'String'],
             ['boolean',null,'Boolean'],
             ['date',null,'Date'],
@@ -97,7 +96,7 @@ class ResponseTest extends InfoMarketTestCase
             ['Array','none','except'],
             ['Array','Array','except'],
             ['Record','SomeEntry','Record','SomeEntry']
-        ];    
+        ];
     }
     
     /**
@@ -142,9 +141,9 @@ class ResponseTest extends InfoMarketTestCase
             ['d','d',null],
             ['K','K',null],
             [' ',' ',''],
-        ];        
+        ];
     }
-
+    
     /**
      * @dataProvider SemanticProvider
      * @param unknown $unit
@@ -201,38 +200,38 @@ class ResponseTest extends InfoMarketTestCase
         $this->assertEquals($value,$this->getElement($test,'value'));
         $this->assertEquals($human_readable,$this->getElement($test,'human_readable_value'));
     }
-        
-    public function ValueProvider() 
+    
+    public function ValueProvider()
     {
         return [
             [null,'except',3.2],
             ['m','3.2 m',3.2],
             [' ','3.2',3.2],
-// Test durations            
+            // Test durations
             ['d','1 second',1],
-            ['d','45 seconds',45],            
+            ['d','45 seconds',45],
             ['d','1 minute and 1 second',61],
             ['d','1 minute and 25 seconds',85],
             ['d','2 minutes and 1 second',121],
-            ['d','2 minutes and 25 seconds',145],            
+            ['d','2 minutes and 25 seconds',145],
             ['d','1 hour and 1 minute',60*60+60+35],
             ['d','1 hour and 2 minutes',60*60+60*2+35],
             ['d','2 hours and 1 minute',60*60*2+60+35],
-            ['d','2 hours and 2 minutes',60*60*2+60*2+35],            
+            ['d','2 hours and 2 minutes',60*60*2+60*2+35],
             ['d','1 day and 1 hour',60*60*24+60*60+35],
             ['d','1 day and 2 hours',60*60*24+2*60*60+35],
             ['d','2 days and 1 hour',60*60*24*2+60*60+35],
-            ['d','2 days and 2 hours',60*60*24*2+60*60*2+35],            
+            ['d','2 days and 2 hours',60*60*24*2+60*60*2+35],
             ['d','1 year and 1 day',60*60*24*365+60*60*24+60*60+35],
             ['d','1 year and 2 days',60*60*24*365+60*60*24*2+2*60*60+35],
             ['d','2 years and 1 day',60*60*24*365*2+60*60*24+60*60+35],
-            ['d','2 years and 2 days',60*60*24*365*2+60*60*24*2+60*60*2+35],     
-// Test Capacity
+            ['d','2 years and 2 days',60*60*24*365*2+60*60*24*2+60*60*2+35],
+            // Test Capacity
             ['K','1 Byte',1],
             ['K','2 Byte',2],
             ['K','1 kB',1000],
             ['K','1 kB',1001],
-            ['K','1.1 kB',1100],        
+            ['K','1.1 kB',1100],
             ['K','1 MB',1000*1000],
             ['K','1 MB',1000*1010],
             ['K','1.1 MB',1000*1100],
@@ -242,28 +241,28 @@ class ResponseTest extends InfoMarketTestCase
             ['K','1 TB',1000*1000*1000*1000],
             ['K','1 TB',1000*1010*1000*1000],
             ['K','1.1 TB',1000*1100*1000*1000],
-        ];        
+        ];
     }
     
     public function testError()
     {
         $test = new Response();
         $test->error('SOMEMESSAGE','SOMEERROR');
-            
+        
         $this->assertEquals('SOMEERROR',$this->getElement($test,'error_code'));
         $this->assertEquals('SOMEMESSAGE',$this->getElement($test,'error_message'));
-        $this->assertEquals('FAILED',$this->getElement($test,'result'));        
+        $this->assertEquals('FAILED',$this->getElement($test,'result'));
     }
-
-            
+    
+    
     public function testErrorDefault()
     {
         $test = new Response();
         $test->error('SOMEMESSAGE');
-            
+        
         $this->assertEquals('UNKNOWNERROR',$this->getElement($test,'error_code'));
         $this->assertEquals('SOMEMESSAGE',$this->getElement($test,'error_message'));
-        $this->assertEquals('FAILED',$this->getElement($test,'result'));        
+        $this->assertEquals('FAILED',$this->getElement($test,'result'));
     }
-
+    
 }

@@ -2,7 +2,7 @@
 
 namespace Sunhill\InfoMarket\Tests\Feature;
 
-use Sunhill\InfoMarket\Test\InfoMarketTestCase;
+use Sunhill\Basic\Tests\SunhillAppTestCase;
 use Sunhill\InfoMarket\Market\InfoMarket;
 use Sunhill\InfoMarket\Market\MarketException;
 use Sunhill\InfoMarket\Marketeers\MarketeerBase;
@@ -130,7 +130,7 @@ class TestMarketeer2 extends MarketeerBase
     }
 }
 
-class InfoMarketBase extends InfoMarketTestCase
+class InfoMarketBase extends SunhillAppTestCase
 {
 
     protected function getMarket()
