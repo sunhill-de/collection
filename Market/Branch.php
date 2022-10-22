@@ -75,13 +75,33 @@ class Branch extends Element
     
     protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
     {
-        
+        if (isset($this->subbranches[$element])) {
+            return $this->subbranches[$element]->route($remains,$credentials,$response);
+        } else {
+            return false;
+        }
     }
-    
-    protected function doGetOffer(string $filter, string $credentials, int $depth)
+ 
+    protected function routeFinished(string $credentials, Response &$response)
     {
-        
     }
     
+    protected function doGetOffer(string $credentials, string $filter, int $depth)
+    {
+        if ($depth == 0) { // Respect $depth
+            return [];
+        }
+        $result = [];
+        foreach ($this->subbranches as $subbranch) {
+            $suboffer = $subbranch->getOffer($credentials,$filter,$depth-1);
+            if (!empty($this->name)) {
+             for ($i=0;$i<count($suboffer);$i++) {
+                 $suboffer[$i] = $this->getName().'.'.$suboffer[$i];
+             }
+            }
+            $result = array_merge($result,$suboffer);
+        }
+        return $result;
+    }
     
 }

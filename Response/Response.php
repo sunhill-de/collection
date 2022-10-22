@@ -32,6 +32,11 @@ class Response
         return $this;
     }
     
+    public function getElement(string $name)
+    {
+        return $this->elements->$name;    
+    }
+    
     /**
      * Checks if a update field was given. If not assume asap
      */
@@ -85,11 +90,6 @@ class Response
     public function hasElement(string $element): bool
     {
         return property_exists($this->elements,$element);
-    }
-    
-    public function getElement(string $element)
-    {
-        return $this->elements->$element;
     }
     
     /**

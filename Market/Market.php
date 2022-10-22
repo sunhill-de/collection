@@ -2,7 +2,9 @@
 
 namespace Sunhill\InfoMarket\Market;
 
-class Market extends Marketeer
+use Sunhill\Basic\Loggable;
+
+class Market extends Loggable
 {
     
     /**
@@ -12,6 +14,11 @@ class Market extends Marketeer
      */    
     public function installMarketeer($class)
     {
+        if (is_string($class) && class_exists($class)) {
+            $class = new $class();
+        } else if (!is_a($class,Marketeer::class)) {
+            throw new InfoMarketException(__("Can't process marketeer."));
+        }
         
     }
     
@@ -30,7 +37,7 @@ class Market extends Marketeer
         $response = new Response();
         $response->setElement('request',$path);
         $response->setElement('parameters',[]);
-        
+        $response->setElement('method','get');
         $parts = explode('.',$path);
         
         if ($this->route($parts,$credentials,$response)) {
@@ -59,7 +66,18 @@ class Market extends Marketeer
 
     public function setItem(string $path, $value, string $credentials = 'anybody')
     {
+        $response = new Response();
+        $response->setElement('request',$path);
+        $response->setElement('parameters',[]);
+        $response->setElement('method','set');
+        $parts = explode('.',$path);
         
+        if ($this->route($parts,$credentials,$response)) {
+            $response->OK();
+        } else {
+            $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND');
+        }
+        return $response->get($format);        
     }
     
     public function setItemList($path, $value, string $credentials = 'anybody')

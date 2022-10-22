@@ -179,6 +179,13 @@ abstract class Element extends Loggable
     abstract protected function doRoute(string $element, array $remains, string $credentials, Response &$response);
     
     /**
+     * Is called whenever there is no routing left (so we must have a leaf or an error)
+     * @param string $credentials
+     * @param Response $response
+     */
+    abstract protected function routeFinished(string $credentials, Response &$response);
+    
+    /**
      * Wrapper for doTryToRoute
      * @param string $path
      * @param Response $response
@@ -190,7 +197,7 @@ abstract class Element extends Loggable
             $first = array_shift($parts);
             return $this->doRoute($first,$parts,$credentials,$response);
         } else {
-            return false;
+            return $this->routeFinished($credentials,$response);
         }
     }
     
@@ -199,7 +206,7 @@ abstract class Element extends Loggable
      * @param string $filter
      * @param int $depth
      */
-    abstract protected function doGetOffer(string $filter, string $credentials, int $depth);
+    abstract protected function doGetOffer(string $credentials, string $filter, int $depth);
     
     /**
      * Wrapper for doGetOffer()
@@ -207,8 +214,8 @@ abstract class Element extends Loggable
      * @param int $depth
      * @return unknown
      */
-    public function getOffer(string $filter = '', string $credentials, int $depth = 0)
+    public function getOffer(string $credentials = 'anybody', string $filter = '', int $depth = 0)
     {
-        return $this->doGetOffer($filer,$depth);
+        return $this->doGetOffer($credentials, $filter, ($depth==0)?2147483647:$depth);
     }
 }
