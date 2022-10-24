@@ -18,7 +18,9 @@ class FakeMarketeer extends Marketeer
     protected function getOffering(): array
     {
         return [
-            'this.is.a.test'=>MarketeerFakeItem::class
+            'this.is.a.test'=>MarketeerFakeItem::class,
+            'this.is.another.test'=>MarketeerFakeItem::class,
+            'and.this.a.complete.different'=>MarketeerFakeItem::class,
         ];
     }
 }
@@ -38,6 +40,17 @@ class MarketeerTest extends SunhillNoAppTestCase
     public function testGetOffer()
     {
         $test = new FakeMarketeer();
-        $this->assertEquals(['this.is.a.test'],$test->getOffer());
+        $result = $test->getOffer();
+        sort($result);
+        $this->assertEquals(['and.this.a.complete.different','this.is.a.test','this.is.another.test'],$result);
     }
+    
+    public function testGetRootOffering()
+    {
+        $test = new FakeMarketeer();
+        $result = $test->getRootOffering();
+        sort($result);
+        $this->assertEquals(['and','this'],$result);
+    }
+    
 }
