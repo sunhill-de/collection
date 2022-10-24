@@ -44,5 +44,17 @@ abstract class Marketeer extends Branch
             return $subbranch;
         }
     }
-    
+ 
+    /**
+     * Returns only the first part of each branch. This method is used by the market to start routing
+     * @return array of strings the first part of each branch
+     */
+    public function getRootOffering(): array
+    {
+        $result = [];
+        foreach ($this->subbranches as $subbranch => $item) {
+            $result[] = $subbranch;
+        }
+        return $result;
+    }
 }

@@ -3,9 +3,32 @@
 namespace Sunhill\InfoMarket\Market;
 
 use Sunhill\Basic\Loggable;
+use Sunhill\InfoMarket\Response\Response;
 
 class Market extends Loggable
 {
+    
+    /**
+     * key => array of marketeer
+     * @var array
+     */
+    protected $branch_starts = [];
+    
+    /**
+     * Takes all branch beginnings from the given marketeer $class and sorts them into $branch_starts
+     * @param Marketeer $class
+     */
+    protected function collectRootOffering(Marketeer $class)
+    {
+        $parts = $class->getRootOffering();
+        foreach ($parts as $part) {
+            if (isset($this->branch_starts[$part])) {
+                $this->branch_starts[$part][] = $class;
+            } else {
+                $this->branch_starts[$part] = [$class];                
+            }
+        }        
+    }
     
     /**
      * Installs a new marketeer that is reachable by this InfoMarket.
@@ -20,6 +43,27 @@ class Market extends Loggable
             throw new InfoMarketException(__("Can't process marketeer."));
         }
         
+        $this->collectRootOffering($class);
+    }
+    
+    /**
+     * Traverses all marketeers to check if any one can route this request
+     * @param array $parts
+     * @param string $credentials
+     * @param Response $response
+     * @return boolean true if successful otherwise false
+     */
+    protected function route(array $parts, string $credentials, Response $response)
+    {
+        $first = $parts[0];
+        if (isset($this->branch_starts[$first])) {
+            foreach ($this->branch_starts[$first] as $marketeer) {
+                if ($marketeer->route($parts, $credentials, $response)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     /**
