@@ -39,8 +39,9 @@ class LeafTest extends SunhillNoAppTestCase
     {
         $test = new FakeLeaf();
         $response = new Response();
-        $response->setElement('method','get'); 
-        $this->assertEquals(4,$test->route([],'anybody',$response));
+        $response->setElement('method','get');
+        $test->route([],'anybody',$response);
+        $this->assertEquals(4,$response->get('object')->value);
     }
     
     public function testSetItem()
