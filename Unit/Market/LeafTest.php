@@ -7,27 +7,19 @@ use Sunhill\InfoMarket\Response\Response;
 
 class FakeLeaf extends Leaf
 {
-    public $value = 4;
-    
-    public function switchAllowOn()
+    protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
     {
-        $this->remains_allowed = true;    
+        return false;
     }
     
-    protected function isWriteable($response, $remains)
+    /**
+     * This is the expected end point for items.
+     * {@inheritDoc}
+     * @see \Sunhill\InfoMarket\Market\Leaf::routeFinished()
+     */
+    protected function routeFinished(string $credentials, Response &$response)
     {
-        return true;
-    }
-    
-    protected function doGetItemValue(Response &$response, array $remains = [])
-    {
-        return $this->value;
-    }
-    
-    protected function doSetItemValue($value, Response &$response, array $remains = [])
-    {
-        $this->value = $value;
-        return true;
+        return false;
     }
     
 }
@@ -35,43 +27,6 @@ class FakeLeaf extends Leaf
 class LeafTest extends SunhillNoAppTestCase
 {
     
-    public function testGetItem()
-    {
-        $test = new FakeLeaf();
-        $response = new Response();
-        $response->setElement('method','get');
-        $test->route([],'anybody',$response);
-        $this->assertEquals(4,$response->get('object')->value);
-    }
-    
-    public function testSetItem()
-    {
-        $test = new FakeLeaf();
-        $response = new Response();
-        $response->setElement('value',5);
-        $response->setElement('method','set');
-        $test->route([],'anybody',$response);
-        
-        $this->assertEquals(5,$test->value);        
-    }
-    
-    public function testRemainForbidden()
-    {
-        $test = new FakeLeaf();
-        $response = new Response();
-        $response->setElement('method','get');
-        $this->assertFalse($test->route(['a'],'anybody',$response));        
-    }
-    
-    public function testRemainAllowed()
-    {
-        $test = new FakeLeaf();
-        $test->switchAllowOn();
-        $response = new Response();
-        $response->setElement('method','get');
-        $this->assertTrue($test->route(['a'],'anybody',$response));        
-    }
-
     /**
      * @dataProvider checkRestrictionProvider
      * @param unknown $restriction
