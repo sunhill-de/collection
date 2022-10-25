@@ -18,4 +18,74 @@ use Sunhill\InfoMarket\Response\Response;
 abstract class PseudoLeaf extends Leaf
 {
 
+    /**
+     * A pseudo leaf needs more routing information, so if we get here, it is a mistake
+     * {@inheritDoc}
+     * @see \Sunhill\InfoMarket\Market\Leaf::routeFinished($credentials, $response)
+     */
+    protected function routeFinished(string $credentials, Response &$response)
+    {
+        $resonse->error("Too few routing informations","TOFEWINFORMATIONS");
+        return false;
+    }
+    
+    /**
+     * Pseudo leafs must have more routing informations
+     * {@inheritDoc}
+     * @see \Sunhill\InfoMarket\Market\Leaf::doRoute()
+     */
+    protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
+    {
+        switch ($response->getElement('method')) {
+            case 'get':
+                return $this->getItem($remains, $credentials, $response);
+            case 'set':
+                return $this->setItem($remains, $response->getElement('value'), $credentials, $response);                
+        }
+    }
+    
+    protected function getItem(array $remains, string $credentials, Response &$response)
+    {
+        if (!$this->isAllowedForReading($credentials, $response, $remains)) {
+            $response->error('USERNOTALLOWEDTOREAD',__("The current user ':credentials' is not allowed to read the item ':name'",['credentials'=>$credentials, 'name'=>$response->getElement('request')]));
+            return true;
+        }
+        $this->getMetadata($response, $remains);
+        if ($this->isReadable($response, $remains)) {
+            $response->value($this->doGetItemValue($remains, $response));
+        }
+        return true;
+    }
+    
+    protected function setItem(array $remains, $value, string $credentials, Response &$response)
+    {
+        if (!$this->isWriteable($response, $remains)) {
+            $response->error('ITEMNOTWRITEABLE',__("The item ':name' is not writeable",['name'=>$response->getElement('request')]));
+            return true;
+        }
+        if (!$this->isAllowedForWriting($credentials, $response, $remains)) {
+            $response->error('USERNOTALLOWEDTOWRITE',__("The current user ':credentials' is not allowed to write the item ':name'",['credentials'=>$credentials, 'name'=>$response->getElement('request')]));
+            return true;
+        }
+        $this->getMetadata($response, $remains);
+        
+        // The response includes the previous value
+        if ($this->isReadable($response, $remains) && $this->isAllowedForWriting($credentials, $response, $remains)) {
+            $response->value($this->doGetItemValue($remains, $response));
+        }
+        $this->doSetItemValue($remains, $value, $response);
+        return true;
+        
+    }
+    
+    protected function doGetItemValue(array $remains, Response &$response)
+    {
+        return true;
+    }
+    
+    protected function doSetItemValue(array $remains, $value, Response &$response)
+    {
+        return true;
+    }
+    
 }

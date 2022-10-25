@@ -73,6 +73,12 @@ class Branch extends Element
         }
     }
     
+    /**
+     * doRoute is called, whenever there is more information for routing. If the branch doesn't have
+     * a subbranch that fits to the next part of these information, stop the routing (return false)
+     * {@inheritDoc}
+     * @see \Sunhill\InfoMarket\Market\Element::doRoute()
+     */
     protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
     {
         if (isset($this->subbranches[$element])) {
@@ -82,8 +88,16 @@ class Branch extends Element
         }
     }
  
+    /**
+     * routeFinished is called whenever there is no more routing information. When this
+     * happens inside a branch, then the request does not finish. Return an error. 
+     * {@inheritDoc}
+     * @see \Sunhill\InfoMarket\Market\Element::routeFinished()
+     */
     protected function routeFinished(string $credentials, Response &$response)
     {
+        $response->error("Route unfinished","ROUTEUNFINISHED");
+        return false;
     }
     
     protected function doGetOffer(string $credentials, string $filter, int $depth)
