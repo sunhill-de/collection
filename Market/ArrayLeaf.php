@@ -5,7 +5,7 @@ namespace Sunhill\InfoMarket\Market;
 use Sunhill\InfoMarket\Response\Response;
 use Sunhill\InfoMarket\InfoMarketException;
 
-abstract class ArrayLeaf extends Leaf
+abstract class ArrayLeaf extends PseudoLeaf
 {
     protected $remains_allowed = true;
     

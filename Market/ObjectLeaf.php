@@ -2,7 +2,7 @@
 
 namespace Sunhill\InfoMarket\Market;
 
-class ObjectLeaf extends Leaf
+class ObjectLeaf extends PseudoLeaf
 {
     
 }
