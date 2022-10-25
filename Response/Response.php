@@ -15,6 +15,7 @@
 namespace Sunhill\InfoMarket\Response;
 
 use \StdClass;
+use Sunhill\InfoMarket\InfoMarketException;
 
 class Response
 {
@@ -133,7 +134,7 @@ class Response
      * First it checks if the type exists then if the combination is valid
      * @param string $type
      * @param unknown $subtype
-     * @throws MarketeerException
+     * @throws InfoMarketException
      * @return Response
      */
     public function type(string $type,$subtype=null): Response
@@ -143,15 +144,15 @@ class Response
             case 'Array':
             case 'Record':
                 if (is_null($subtype)) {
-                    throw new MarketeerException("An array or record needs a subtype. None given.");
+                    throw new InfoMarketException("An array or record needs a subtype. None given.");
                 }
                 if (($type == 'Array') && ($subtype == 'Array')) {
-                    throw new MarketeerException("No nested arrays allowed.");
+                    throw new InfoMarketException("No nested arrays allowed.");
                 }
                 if (($type == 'Array') &&
                     !(in_array(ucfirst(strtolower($subtype)),
                         ['Integer','Float','String','Boolean','Date','Time','Datetime','Record']))) {
-                            throw new MarketeerException("Unknown type for array: '$subtype");
+                            throw new InfoMarketException("Unknown type for array: '$subtype");
                         }
                         $this->setElement('subtype',$subtype);
             case 'Integer':
@@ -164,7 +165,7 @@ class Response
                 $this->setElement('type',$type);
                 break;
             default:
-                throw new MarketeerException("Unknown type '$type'.");
+                throw new InfoMarketException("Unknown type '$type'.");
         }
         return $this;
     }
@@ -172,7 +173,7 @@ class Response
     /**
      * Sets the unit and unit_int field according to the given (internal) unit
      * @param string $unit
-     * @throws MarketeerException
+     * @throws InfoMarketException
      * @return Response
      */
     public function unit(string $unit): Response
@@ -195,7 +196,7 @@ class Response
                 $this->setUnit($unit);
                 break;
             default:
-                throw new MarketeerException("Unkown unit '$unit'.");
+                throw new InfoMarketException("Unkown unit '$unit'.");
         }
         return $this;
     }
@@ -253,7 +254,7 @@ class Response
                 $this->setElement('update',$key);
                 break;
             default:
-                throw new MarketeerException("Unkown update frequency '$key'.");
+                throw new InfoMarketException("Unkown update frequency '$key'.");
         }
         return $this;
     }
@@ -261,7 +262,7 @@ class Response
     /**
      * Sets the semantic and semantic_int field according to the given (internal) semantic vaoue
      * @param string $unit
-     * @throws MarketeerException
+     * @throws InfoMarketException
      * @return Response
      */
     public function semantic(string $unit): Response
@@ -279,7 +280,7 @@ class Response
                 $this->setSemantic($unit);
                 break;
             default:
-                throw new MarketeerException("Unkown semantic meaning '$unit'.");
+                throw new InfoMarketException("Unkown semantic meaning '$unit'.");
         }
         return $this;
     }
@@ -339,7 +340,7 @@ class Response
      * Sets the value and at the same time the human_readable_value depending on unit which
      * has to be set before.
      * @param unknown $value
-     * @throws MarketeerException
+     * @throws InfoMarketException
      * @return Response
      */
     public function value($value): Response
@@ -360,7 +361,7 @@ class Response
                     $this->setElement('human_readable_value',$value.' '.$this->elements->unit);
             }
         } else {
-            throw new MarketeerException("Unit has to be set before value.");
+            throw new InfoMarketException("Unit has to be set before value.");
         }
         return $this;
     }
