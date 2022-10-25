@@ -1,10 +1,10 @@
 <?php
 namespace Sunhill\InfoMarket\Tests\Unit\Response;
 
-use Sunhill\Basic\Tests\SunhillAppTestCase;
+use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Response\Response;
 
-class ResponseTest extends SunhillAppTestCase
+class ResponseTest extends SunhillNoAppTestCase
 {
     
     protected function getElements(&$test)
