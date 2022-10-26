@@ -9,14 +9,14 @@ class FakePseudoLeaf extends PseudoLeaf
 
     public $value = 5;
     
-    protected function doGetItemValue(array $remains, Response &$response)
+    protected function doGetItemValue(string $first, array $remains, Response &$response)
     {
-        return $remains[0]*2;
+        return intval($first)*2;
     }
     
-    protected function doSetItemValue(array $remains, $value, Response &$response)
+    protected function doSetItemValue(string $first, array $remains, $value, Response &$response)
     {
-        $this->value = $remains[0]*$value;
+        $this->value = intval($first)*$value;
     }
   
     protected function isWriteable($response, array $remains = [])
