@@ -46,19 +46,23 @@ abstract class PseudoLeaf extends Leaf
     
     protected function getItem(array $remains, string $credentials, Response &$response)
     {
-        if (!$this->isAllowedForReading($credentials, $response, $remains)) {
+        $first = array_shift($remains);
+        
+        if (!$this->isAllowedForReading($credentials, $response)) {
             $response->error('USERNOTALLOWEDTOREAD',__("The current user ':credentials' is not allowed to read the item ':name'",['credentials'=>$credentials, 'name'=>$response->getElement('request')]));
             return true;
         }
-        $this->getMetadata($response, $remains);
-        if ($this->isReadable($response, $remains)) {
-            $response->value($this->doGetItemValue($remains, $response));
+        $this->getMetadata($response);
+        if ($this->isReadable($response)) {
+            $response->value($this->doGetItemValue($first, $remains, $response));
         }
         return true;
     }
     
     protected function setItem(array $remains, $value, string $credentials, Response &$response)
     {
+        $first = array_shift($remains);
+        
         if (!$this->isWriteable($response, $remains)) {
             $response->error('ITEMNOTWRITEABLE',__("The item ':name' is not writeable",['name'=>$response->getElement('request')]));
             return true;
@@ -71,19 +75,19 @@ abstract class PseudoLeaf extends Leaf
         
         // The response includes the previous value
         if ($this->isReadable($response, $remains) && $this->isAllowedForWriting($credentials, $response, $remains)) {
-            $response->value($this->doGetItemValue($remains, $response));
+            $response->value($this->doGetItemValue($first, $remains, $response));
         }
-        $this->doSetItemValue($remains, $value, $response);
+        $this->doSetItemValue($first, $remains, $value, $response);
         return true;
         
     }
     
-    protected function doGetItemValue(array $remains, Response &$response)
+    protected function doGetItemValue(string $first, array $remains, Response &$response)
     {
         return true;
     }
     
-    protected function doSetItemValue(array $remains, $value, Response &$response)
+    protected function doSetItemValue(string $first, array $remains, $value, Response &$response)
     {
         return true;
     }
