@@ -128,5 +128,44 @@ class Market extends Loggable
     {
         
     }
+    
+    protected function getElement(string $first, array $remain)
+    {
+        if (!isset($this->branch_starts[$first])) {
+            return false;
+        }
+        if (empty($remain)) {
+            // We are searching for root element
+            $result = new \StdClass();
+            $result->element = $this->branch_starts[$first];
+            $result->remains = $remain; 
+            return $result;
+        } else {
+            foreach ($this->branch_starts[$first] as $marketeer) {
+                if ($result = $marketeer->getElement($first, $remain)) {
+                    return $result;
+                }
+            }
+            return false;
+        }
+    }
+    
+    public function getMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
+    {
+        $parts = explode('.',$path);
+        $first = array_shift($parts);
         
+        if ($element = $this->getElement($first, $parts)) {
+            if ($element->element->isAllowedToRead($credentials, $parts)) {
+                $result = new Response();
+                $result->setElement('request',$path);
+                $element->element->getThisMetadata($result, $element->remains);
+                return $result->get($format);
+            }
+        } else {
+            $result = new Response();
+            $result->error('ITEMNOTFOUND',"The item was not found");
+            return $result->get($format);
+        }
+    }
 }

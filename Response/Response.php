@@ -162,6 +162,7 @@ class Response
             case 'Date':
             case 'Time':
             case 'Datetime':
+            case 'Branch':
                 $this->setElement('type',$type);
                 break;
             default:
@@ -276,6 +277,7 @@ class Response
             case 'capacity':
             case 'switch':
             case 'light':
+            case 'branch':
                 $this->setElement('semantic_int',$unit);
                 $this->setSemantic($unit);
                 break;
@@ -321,6 +323,9 @@ class Response
                 break;
             case 'ratio':
                 $this->setElement('semantic',$this->translate('Ratio'));
+                break;
+            case 'branch':
+                $this->setElement('semantic',$this->translate('Branch'));
                 break;
         }
     }

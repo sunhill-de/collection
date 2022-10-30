@@ -172,6 +172,43 @@ abstract class Element extends Loggable
     }
     
     /**
+     * Tries to return the best avaiable element or null if none found
+     * @param string $next The next part of the search (the one that this item has to process first)
+     * @param array $remains The remaining parts of the search
+     * @return \StdClass|false
+     */
+    abstract public function getElement(string $next, array $remains);
+
+    /**
+     * Returns the metadata of this element
+     * @param Response $response
+     * @param array $remains
+     */
+    abstract public function getThisMetadata(Response &$response, array $remains = [] );
+
+    /**
+     * Gets the value of this element or null if there is no value
+     * @param Response $response
+     * @param array $remains
+     */
+    abstract public function getThisValue(array $remains = []);
+    
+    /**
+     * Sets the value of this element or ignores the request if it's not possible to set a value
+     * @param unknown $value
+     * @param array $remains
+     */
+    abstract public function setThisValue($value, array $remains = []);
+    
+    /**
+     * Returns if the current user is allowed to read this element
+     * @param string $credentials
+     * @param array $remains
+     * @return bool
+     */
+    abstract public function isAllowedToRead(string $credentials, array $remains = []): bool;
+    
+    /**
      * Tries to route the given $path
      * @param string $path
      * @param Response $response

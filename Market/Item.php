@@ -108,4 +108,55 @@ abstract class Item extends Leaf
     {
         return false;
     }
+    
+    /**
+     * As an extension to the leaf function only return $this when $remains is empty
+     * @param string $next
+     * @param array $remains
+     */
+    public function getElement(string $next, array $remains)
+    {
+        if (empty($remains)) {
+            return parent::getElement($next, $remains);
+        } else {
+            return null;
+        }
+    }
+    
+    public function getThisMetadata(Response &$response, array $remains = [] )
+    {
+        $this->getMetadata($response, $remains);
+    }
+    
+    /**
+     * Gets the value of this element or null if there is no value
+     * @param Response $response
+     * @param array $remains
+     */
+    public function getThisValue(array $remains = [])
+    {
+        
+    }
+    
+    /**
+     * Sets the value of this element or ignores the request if it's not possible to set a value
+     * @param unknown $value
+     * @param array $remains
+     */
+    public function setThisValue($value, array $remains = [])
+    {
+        
+    }
+    
+    /**
+     * Returns if the current user is allowed to read this element
+     * @param string $credentials
+     * @param array $remains
+     * @return bool
+     */
+    public function isAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        return true;
+    }
+    
 }

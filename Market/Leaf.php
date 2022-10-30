@@ -21,7 +21,20 @@ abstract class Leaf extends Element
         'type'=>'String',
         'update'=>'late'        
     ];
-        
+    
+    /**
+     * In this case (we are a leaf) the best fitting element is $this
+     * @param string $next
+     * @param array $remains
+     */
+    public function getElement(string $next, array $remains)
+    {
+        $result = new \StdClass();
+        $result->element = $this;
+        $result->remains = $remains;
+        return $result;
+    }
+    
     /**
      * Returns a merge metadata array for further processing
      * @param array $override
