@@ -46,4 +46,12 @@ class MarketTest extends SunhillNoAppTestCase
         $this->assertEquals(5,$item->value);
     }
     
+    public function testGetMetadata()
+    {
+        $test = new FakeMarket();
+        $test->installMarketeer(FakeMarketMarketeer::class);
+        $data = $test->getMetadata('this.is.a.test', 'anybody', 'object');
+        
+        $this->assertEquals('String',$data->type);
+    }
 }

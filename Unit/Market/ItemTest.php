@@ -54,4 +54,18 @@ class ItemTest extends SunhillNoAppTestCase
         $this->assertTrue($this->callProtectedMethod($test,'routeFinished',['anybody',&$response]));
         $this->assertEquals(10,$test->value);
     }
+    
+    public function testGetElementPass()
+    {
+        $test = new FakeItem();
+        $result = $this->callProtectedMethod($test, 'getElement', ['test',[]]);
+        $this->assertEquals($test,$result->element);
+    }
+    
+    public function testGetElementFail()
+    {
+        $test = new FakeItem();
+        $result = $this->callProtectedMethod($test, 'getElement', ['test',['remain']]);
+        $this->assertEquals(null,$result);        
+    }
 }

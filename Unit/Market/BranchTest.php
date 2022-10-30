@@ -2,6 +2,7 @@
 
 use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Branch;
+use Sunhill\InfoMarket\Response\Response;
 
 class BranchTest extends SunhillNoAppTestCase
 {
@@ -42,5 +43,65 @@ class BranchTest extends SunhillNoAppTestCase
         $this->assertTrue($subbranch->hasSubbranch('subtest1'));
         $this->assertTrue($subbranch->hasSubbranch('subtest2'));
     }
+    
+    public function testGetElementPass()
+    {
+        $test = new Branch();
+        $test->setName('test');
+        $element = new Branch();
+        $element->setName('element');
+        $test->addSubbranch($element);
+        
+        $result = $this->callProtectedMethod($test, 'getElement', ['element',[]]);
+        
+        $this->assertEquals($element,$result->element);
+    }
+
+    public function testGetElementPass2()
+    {
+        $test = new Branch();
+        $test->setName('test');
+        $element = new Branch();
+        $element->setName('element');
+        $subelement = new Branch();
+        $subelement->setName('subelement');
+        $element->addSubbranch($subelement);
+        $test->addSubbranch($element);
+        
+        $result = $this->callProtectedMethod($test, 'getElement', ['element',['subelement']]);
+        
+        $this->assertEquals($subelement,$result->element);
+    }
+    
+    public function testGetElementFail()
+    {
+        $test = new Branch();
+        $test->setName('test');
+        $element = new Branch();
+        $element->setName('element');
+        $test->addSubbranch($element);
+        
+        $result = $this->callProtectedMethod($test, 'getElement', ['notexisting',[]]);
+        
+        $this->assertEquals(null,$result);
+    }
+    
+    public function testGetThisMetadata()
+    {
+        $test = new Branch();
+        $test->setName('test');
+        $response = new Response();
+        $this->assertTrue($test->getThisMetadata($response));
+        $this->assertEquals('Branch',$response->getElement('type'));
+    }
+
+    public function testGetThisMetadataFail()
+    {
+        $test = new Branch();
+        $test->setName('test');
+        $response = new Response();
+        $this->assertFalse($test->getThisMetadata($response,['some']));
+    }
+    
     
 }

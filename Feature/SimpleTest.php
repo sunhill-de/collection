@@ -18,4 +18,22 @@ class SimpleTest extends MarketBase
         $item = $test->getItem('simple.test.entry2','anybody','object');        
         $this->assertEquals('TesT',$item->value);
     }
+    
+    /**
+     * @dataProvider GetMetadataProvider
+     * @param unknown $path
+     * @param unknown $data
+     * @param unknown $expect
+     */
+    public function testGetMetadata($path, $data, $expect)
+    {
+        
+    }
+    
+    public function GetMetadataProvider()
+    {
+        return [
+            ['simple.test','type','Branch']
+        ];
+    }
 }
