@@ -7,46 +7,39 @@ use Sunhill\InfoMarket\Response\Response;
 class FakePseudoLeaf extends PseudoLeaf
 {
 
-    public $value = 5;
+    public $values = ['A'=>1,'B'=>2,'C'=>3];
     
-    protected function doGetItemValue(string $first, array $remains, Response &$response)
+    protected function getSubroutedValue(string $first, array $remains)
     {
-        return intval($first)*2;
+        return $this->values[$first];    
     }
     
-    protected function doSetItemValue(string $first, array $remains, $value, Response &$response)
+    protected function setSubroutedValue(string $first, $value, array $remains)
     {
-        $this->value = intval($first)*$value;
+        $this->values[$first] = $value;
     }
-  
-    protected function isWriteable($response, array $remains = [])
-    {
-        return true;
-    }
-    
-    
 }
 
 class PseudoLeafTest extends SunhillNoAppTestCase
 {
     
-    public function testGetValue()
+    public function testGetValuePass()
     {
         $test = new FakePseudoLeaf();
-        $response = new Response();
-        $response->setElement('method','get');
-        $this->assertTrue($this->callProtectedMethod($test,'doRoute',['test',[5],'anybody',&$response]));
-        $this->assertEquals(10,$response->get('object')->value);        
+        $this->assertEquals(1,$test->getValue(['A']));
+    }
+    
+    public function testGetValueFail()
+    {
+        $test = new FakePseudoLeaf();
+        $this->assertEquals(null,$test->getValue([]));
     }
     
     public function testSetValue()
     {
         $test = new FakePseudoLeaf();
-        $response = new Response();
-        $response->setElement('method','set');
-        $response->setElement('value',10);
-        $this->assertTrue($this->callProtectedMethod($test,'doRoute',['test',[2],'anybody',&$response]));
-        $this->assertEquals(20,$test->value);
+        $test->setValue('Z',['A']);
+        $this->assertEquals('Z',$test->getValue(['A']));
     }
     
 }
