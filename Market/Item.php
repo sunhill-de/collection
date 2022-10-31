@@ -108,6 +108,7 @@ abstract class Item extends Leaf
             $response
             ->setElement('write_restriction',$this->getWriteRestriction($response, $remains));
         }
+        return true;
     }
             
     /**
