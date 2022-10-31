@@ -8,6 +8,21 @@ use Sunhill\InfoMarket\InfoMarketException;
 abstract class ArrayLeaf extends PseudoLeaf
 {
      
+    /**
+     * This are the default metadata and should be overwritten by derrived items
+     * @var array
+     */
+    private $default_metadata = [
+        'read_restriction'=>'anybody',
+        'write_restriction'=>'anybody',
+        'readable'=>true,
+        'writeable'=>false,
+        'unit'=>' ',
+        'semantic'=>'name',
+        'type'=>'String',
+        'update'=>'late'
+    ];
+    
     protected $metadata = [];
     
     /**
@@ -18,53 +33,86 @@ abstract class ArrayLeaf extends PseudoLeaf
     {
         parent::__construct();
         // Overwrite the defaults (if necessary)
-        $this->default_metadata = $this->mergeMetadata($this->metadata);
+        $this->default_metadata = $this->mergeMetadata($this->default_metadata, $this->metadata);
     }
     
-    abstract function doGetArrayCount(Response &$response): int;
-     
-    protected function getMetadata(Response &$response, array $remains = [])
+    abstract protected function getCount(): int;
+    
+    protected function getSubroutedMetadata(string $first, Response &$response, array $remains)
     {
-        
-    }
-    
-     protected function getArrayCount(Response &$response)
-     {
-         return 
-         $response
-            ->OK()
+        if ($first == 'count') {
+            if (!empty($remains)) {
+                $response->error(__("Can't process further routing after count.",['TOOMUCHINFORMATIONAFTERCOUNT']));
+                return false;
+            }
+            $response->OK()
             ->setElement('readable',true)
-            ->setElement('writeable',false)
+            ->setWriteable('writeable',false)
             ->unit(' ')
             ->semantic('count')
             ->type('Integer')
             ->update('asap')
-            ->setElement('read_restriction',$this->getReadRestriction($response, $remains))
-            ->value($this->doGetArrayCount($response));
-     }
-     
-     protected function doGetItemValue(array $remains, Response &$response)
-     {
-         $first = array_shift($remains);
-         if ($first == 'count') {
-             return $this->getArrayCount($remains, $response);
-         } else if (is_numeric(first)) {
-             $index = intval($first);
-             return 
-         }
-     }
-     
-     protected function doSetItemValue(array $remains, $value, Response &$response)
+            ->setElement('read_restriction','anybody')
+            ->value($this->getCount());
+        } else if (is_numeric($first)) {
+            $response->OK()
+            ->setElement('readable',$this->default_metadata['readable'])
+            ->setWriteable('writeable',$this->default_metadata['writeable'])
+            ->unit($this->default_metadata['unit'])
+            ->semantic($this->default_metadata['semantic'])
+            ->type($this->default_metadata['type'])
+            ->update($this->default_metadata['update'])
+            ->setElement('read_restriction',$this->default_metadata['read_restrictions'])
+            ->value($this->getSubroutedValue($first, $remains));
+            return true;
+        } else {
+            $response->error(__("Can't interepret :first in arrays.",['first'=>$first]),'UNKNOWNVARIABLEINARRAY');
+            return false;
+        }
+    }
+    
+    protected function getSubroutedValue(string $first, array $remains)
+    {
+        if ($first == 'count') {
+            if (!empty($remains)) {
+                return false;
+            }
+            return $this->getCount();
+        } else if (is_numeric($first)) {
+            $index = intval($first);
+            return $this->getIndexValue($index, $remains);
+        } else {
+            return false;
+        }
+    }
+    
+    protected function setSubroutedValue(string $first, $value, array $remains)
+    {
+      if (is_numeric($first)) {
+        $index = intval($first);
+        return $this->setIndexValue($index, $value, $remains);
+      } else {
+        return false;
+      }    
+    }
+    
+    protected function isSubroutedAllowedToRead(string $first, string $credentials, array $remains): bool
+    {
+        
+    }
+    
+    protected function isSubroutedAllowedToWrite(string $first, string $credentials, array $remains): bool
+    {
+        
+    }
+    
+    
+     protected function getIndexValue(int $index, array $remains)
      {
          return true;
      }
      
-     protected function getIndexValue(int $index, Response &$response)
-     {
-         return true;
-     }
-     
-     protected function setIndexValue(int $index, $value, Response &$response)
+     protected function setIndexValue(int $index, $value, array $remains)
      {
          return true;         
      }
