@@ -18,6 +18,26 @@ class FeatureMarketeer1Item1 extends Item
     
 }
 
+class FeatureMarketeer1Item2 extends ArrayLeaf
+{
+    public $values = [2,3,5,7];
+    
+    protected $metadata = [
+        'type'=>'Integer'        
+    ];
+    
+    protected function getThisCount(array $remains)
+    {
+        return 4;
+    }
+    
+    protected function getThisElement(int $index, array $remains)
+    {
+        return $this->values[$index];
+    }
+    
+}
+
 class FeatureMarketeer1 extends Marketeer
 {
     
