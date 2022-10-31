@@ -14,12 +14,12 @@ class FakeItem extends Item
         'writeable'=>true
     ];  
     
-    protected function doGetItemValue(Response &$response)
+    protected function getItemValue()
     {
         return $this->value;
     }
     
-    protected function doSetItemValue($value, Response &$response)
+    protected function setItemValue($value)
     {
         $this->value = $value;
     }
@@ -36,36 +36,32 @@ class ItemTest extends SunhillNoAppTestCase
         $this->assertEquals('C',$this->callProtectedMethod($test,'getUnit',[[],$response]));
     }
     
+    public function testGetThisElementPass()
+    {
+        $test = new FakeItem();
+        $result = $test->getElement('A',[]);
+        $this->assertEquals($test,$result->element);
+    }
+    
+    public function testGetThisElementFail()
+    {
+        $test = new FakeItem();
+        $result = $test->getElement('A',['B','C']);
+        $this->assertEquals(null,$result);        
+    }
+    
     public function testGetValue()
     {
         $test = new FakeItem();
-        $response = new Response();
-        $response->setElement('method','get');
-        $this->assertTrue($this->callProtectedMethod($test,'routeFinished',['anybody',&$response]));
-        $this->assertEquals(5,$response->get('object')->value);
+        $this->assertEquals(5,$test->getValue());
     }
+
     
     public function testSetValue()
     {
         $test = new FakeItem();
-        $response = new Response();
-        $response->setElement('method','set'); 
-        $response->setElement('value',10);
-        $this->assertTrue($this->callProtectedMethod($test,'routeFinished',['anybody',&$response]));
-        $this->assertEquals(10,$test->value);
+        $test->setValue(6);
+        $this->assertEquals(6,$test->getValue());
     }
     
-    public function testGetElementPass()
-    {
-        $test = new FakeItem();
-        $result = $this->callProtectedMethod($test, 'getElement', ['test',[]]);
-        $this->assertEquals($test,$result->element);
-    }
-    
-    public function testGetElementFail()
-    {
-        $test = new FakeItem();
-        $result = $this->callProtectedMethod($test, 'getElement', ['test',['remain']]);
-        $this->assertEquals(null,$result);        
-    }
 }
