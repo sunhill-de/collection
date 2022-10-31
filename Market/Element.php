@@ -177,28 +177,64 @@ abstract class Element extends Loggable
      * @param array $remains The remaining parts of the search
      * @return \StdClass|false
      */
-    abstract public function getElement(string $next, array $remains);
+    abstract protected function getThisElement(string $next, array $remains);
 
+    /**
+     * Wrapper for getThisElement()
+     * @param string $next
+     * @param array $remains
+     * @return unknown
+     */
+    public function getElement(string $next, array $remains)
+    {
+        return $this->getThisElement($next, $remains);    
+    }
+    
     /**
      * Returns the metadata of this element
      * @param Response $response
      * @param array $remains
      */
-    abstract public function getThisMetadata(Response &$response, array $remains = [] );
+    abstract protected function getThisMetadata(Response &$response, array $remains = [] );
 
+    public function getMetadata(Response &$response, array $remains = [])
+    {
+        return $this->getThisMetadata($response, $remains);    
+    }
+    
     /**
      * Gets the value of this element or null if there is no value
      * @param Response $response
      * @param array $remains
      */
-    abstract public function getThisValue(array $remains = []);
+    abstract protected function getThisValue(array $remains = []);
+    
+    /**
+     * Wrapper for getThisValue
+     * @param array $remains
+     */
+    public function getValue(array $remains = [])
+    {
+        return $this->getThisValue($remains);
+    }
     
     /**
      * Sets the value of this element or ignores the request if it's not possible to set a value
      * @param unknown $value
      * @param array $remains
      */
-    abstract public function setThisValue($value, array $remains = []);
+    abstract protected function setThisValue($value, array $remains = []);
+    
+    /**
+     * Wrapper for setThisValue
+     * @param unknown $value
+     * @param array $remains
+     * @return unknown
+     */
+    public function setValue($value, array $remains = [])
+    {
+        return $this->setThisValue($value, $remains);    
+    }
     
     /**
      * Returns if the current user is allowed to read this element
@@ -206,36 +242,24 @@ abstract class Element extends Loggable
      * @param array $remains
      * @return bool
      */
-    abstract public function isAllowedToRead(string $credentials, array $remains = []): bool;
+    abstract protected function isThisAllowedToRead(string $credentials, array $remains = []): bool;
     
-    /**
-     * Tries to route the given $path
-     * @param string $path
-     * @param Response $response
-     */
-    abstract protected function doRoute(string $element, array $remains, string $credentials, Response &$response);
-    
-    /**
-     * Is called whenever there is no routing left (so we must have a leaf or an error)
-     * @param string $credentials
-     * @param Response $response
-     */
-    abstract protected function routeFinished(string $credentials, Response &$response);
-    
-    /**
-     * Wrapper for doTryToRoute
-     * @param string $path
-     * @param Response $response
-     * @return unknown
-     */
-    public function route(array $parts, string $credentials, Response &$response): bool
+    public function isAllowedToRead(string $credentials, array $remains = []): bool
     {
-        if (!empty($parts)) {
-            $first = array_shift($parts);
-            return $this->doRoute($first,$parts,$credentials,$response);
-        } else {
-            return $this->routeFinished($credentials,$response);
-        }
+        return $this->isThisAllowedToRead($credentials, $remains);    
+    }
+    
+    /**
+     * Returns if the current user is allowed to read this element
+     * @param string $credentials
+     * @param array $remains
+     * @return bool
+     */
+    abstract protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool;
+    
+    public function isAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return $this->isThisAllowedToWrite($credentials, $remains);
     }
     
     /**
@@ -243,7 +267,7 @@ abstract class Element extends Loggable
      * @param string $filter
      * @param int $depth
      */
-    abstract protected function doGetOffer(string $credentials, string $filter, int $depth);
+    abstract protected function getThisOffer(int $depth);
     
     /**
      * Wrapper for doGetOffer()
@@ -251,8 +275,11 @@ abstract class Element extends Loggable
      * @param int $depth
      * @return unknown
      */
-    public function getOffer(string $credentials = 'anybody', string $filter = '', int $depth = 0)
+    public function getOffer(int $depth = 0)
     {
-        return $this->doGetOffer($credentials, $filter, ($depth==0)?2147483647:$depth);
+        if ($depth < 0) {
+            return;
+        }
+        return $this->getThisOffer(($depth==0)?2147483647:$depth);
     }
 }
