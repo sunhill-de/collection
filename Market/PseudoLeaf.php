@@ -18,78 +18,79 @@ use Sunhill\InfoMarket\Response\Response;
 abstract class PseudoLeaf extends Leaf
 {
 
-    /**
-     * A pseudo leaf needs more routing information, so if we get here, it is a mistake
-     * {@inheritDoc}
-     * @see \Sunhill\InfoMarket\Market\Leaf::routeFinished($credentials, $response)
-     */
-    protected function routeFinished(string $credentials, Response &$response)
+    protected function getSubroutedMetadata(string $first, Response &$response, array $remains)
     {
-        $resonse->error("Too few routing informations","TOFEWINFORMATIONS");
-        return false;
+        
     }
     
-    /**
-     * Pseudo leafs must have more routing informations
-     * {@inheritDoc}
-     * @see \Sunhill\InfoMarket\Market\Leaf::doRoute()
-     */
-    protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
+    final protected function getThisMetadata(Response &$response, array $remains = [] )
     {
-        switch ($response->getElement('method')) {
-            case 'get':
-                return $this->getItem($remains, $credentials, $response);
-            case 'set':
-                return $this->setItem($remains, $response->getElement('value'), $credentials, $response);                
+        if (empty($remains)) {
+            return null;
         }
-    }
-    
-    protected function getItem(array $remains, string $credentials, Response &$response)
-    {
         $first = array_shift($remains);
         
-        if (!$this->isAllowedForReading($credentials, $response)) {
-            $response->error('USERNOTALLOWEDTOREAD',__("The current user ':credentials' is not allowed to read the item ':name'",['credentials'=>$credentials, 'name'=>$response->getElement('request')]));
-            return true;
-        }
-        $this->getMetadata($response);
-        if ($this->isReadable($response)) {
-            $response->value($this->doGetItemValue($first, $remains, $response));
-        }
-        return true;
+        return $this->getSubroutedMetadata($first, $response, $remains);
     }
     
-    protected function setItem(array $remains, $value, string $credentials, Response &$response)
+    protected function getSubroutedValue(string $first, array $remains)
     {
+        
+    }
+    
+    final protected function getThisValue(array $remains = [])
+    {
+        if (empty($remains)) {
+            return null;
+        }
+        $first = array_shift($remains);
+    
+        return $this->getSubroutedValue($first, $remains);
+    }
+    
+    protected function setSubroutedValue(string $first, $value, array $remains)
+    {
+        
+    }
+    
+    protected function setThisValue($value, array $remains = [])
+    {
+        if (empty($remains)) {
+            return null;
+        }
         $first = array_shift($remains);
         
-        if (!$this->isWriteable($response, $remains)) {
-            $response->error('ITEMNOTWRITEABLE',__("The item ':name' is not writeable",['name'=>$response->getElement('request')]));
-            return true;
-        }
-        if (!$this->isAllowedForWriting($credentials, $response, $remains)) {
-            $response->error('USERNOTALLOWEDTOWRITE',__("The current user ':credentials' is not allowed to write the item ':name'",['credentials'=>$credentials, 'name'=>$response->getElement('request')]));
-            return true;
-        }
-        $this->getMetadata($response, $remains);
-        
-        // The response includes the previous value
-        if ($this->isReadable($response, $remains) && $this->isAllowedForWriting($credentials, $response, $remains)) {
-            $response->value($this->doGetItemValue($first, $remains, $response));
-        }
-        $this->doSetItemValue($first, $remains, $value, $response);
-        return true;
+        return $this->setSubroutedValue($first, $value, $remains);
+    }
+
+    protected function isSubroutedAllowedToRead(string $first, string $credentials, array $remains): bool
+    {
         
     }
     
-    protected function doGetItemValue(string $first, array $remains, Response &$response)
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
-        return true;
+        if (empty($remains)) {
+            return false;
+        }
+        $first = array_shift($remains);
+        
+        return $this->isSubroutedAllowedToRead($first, $value, $remains);        
     }
     
-    protected function doSetItemValue(string $first, array $remains, $value, Response &$response)
+    protected function isSubroutedAllowedToWrite(string $first, string $credentials, array $remains): bool
     {
-        return true;
+        
     }
     
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        if (empty($remains)) {
+            return false;
+        }
+        $first = array_shift($remains);
+        
+        return $this->isSubroutedAllowedToWrite($first, $value, $remains);
+    }
+        
 }
