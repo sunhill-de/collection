@@ -24,7 +24,7 @@ class Branch extends Element
      * @return \StdClass|unknown|NULL
      * Test test\Unit\Market\BranchTest::testGetElementPass, test\Unit\Market\BranchTest::testGetElementPass2
      */
-    public function getElement(string $next, array $remains)
+    protected function getThisElement(string $next, array $remains)
     {
         if ($this->hasSubbranch($next)) {
             $branch = $this->getSubbranch($next);
@@ -42,7 +42,7 @@ class Branch extends Element
         }
     }
     
-    public function getThisMetadata(Response &$response, array $remains = [] )
+    protected function getThisMetadata(Response &$response, array $remains = [] )
     {
         if (!empty($remains)) {
             return false; // A branch mustn't have a getMetadata-request with remains
@@ -64,7 +64,7 @@ class Branch extends Element
      * @param Response $response
      * @param array $remains
      */
-    public function getThisValue(array $remains = [])
+    protected function getThisValue(array $remains = [])
     {
         return null;   
     }
@@ -74,7 +74,7 @@ class Branch extends Element
      * @param unknown $value
      * @param array $remains
      */
-    public function setThisValue($value, array $remains = [])
+    protected function setThisValue($value, array $remains = [])
     {
         // Ignore request
     }
@@ -85,12 +85,17 @@ class Branch extends Element
      * @param array $remains
      * @return bool
      */
-    public function isAllowedToRead(string $credentials, array $remains = []): bool
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
         if (!empty($remains)) {
             return false; // A branch mustn't have a getMetadata-request with remains
         }
         return true; // At the moment all branches are readable
+    }
+    
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return false; // Branches are not writeable
     }
     
     /**
@@ -152,40 +157,19 @@ class Branch extends Element
     }
     
     /**
-     * doRoute is called, whenever there is more information for routing. If the branch doesn't have
-     * a subbranch that fits to the next part of these information, stop the routing (return false)
-     * {@inheritDoc}
-     * @see \Sunhill\InfoMarket\Market\Element::doRoute()
+     * Branch implementation of getThisOffer
+     * @param int $depth
+     * @return array
+     * test /tests/Unit/Market/BranchTest::testGetOffer()
      */
-    protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
-    {
-        if (isset($this->subbranches[$element])) {
-            return $this->subbranches[$element]->route($remains,$credentials,$response);
-        } else {
-            return false;
-        }
-    }
- 
-    /**
-     * routeFinished is called whenever there is no more routing information. When this
-     * happens inside a branch, then the request does not finish. Return an error. 
-     * {@inheritDoc}
-     * @see \Sunhill\InfoMarket\Market\Element::routeFinished()
-     */
-    protected function routeFinished(string $credentials, Response &$response)
-    {
-        $response->error("Route unfinished","ROUTEUNFINISHED");
-        return false;
-    }
-    
-    protected function doGetOffer(string $credentials, string $filter, int $depth)
+    protected function getThisOffer(int $depth)
     {
         if ($depth == 0) { // Respect $depth
             return [];
         }
         $result = [];
         foreach ($this->subbranches as $subbranch) {
-            $suboffer = $subbranch->getOffer($credentials,$filter,$depth-1);
+            $suboffer = $subbranch->getOffer($depth-1);
             if (!empty($this->name)) {
              for ($i=0;$i<count($suboffer);$i++) {
                  $suboffer[$i] = $this->getName().'.'.$suboffer[$i];
