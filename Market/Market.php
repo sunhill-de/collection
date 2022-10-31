@@ -47,52 +47,6 @@ class Market extends Loggable
     }
     
     /**
-     * Traverses all marketeers to check if any one can route this request
-     * @param array $parts
-     * @param string $credentials
-     * @param Response $response
-     * @return boolean true if successful otherwise false
-     */
-    protected function route(array $parts, string $credentials, Response $response)
-    {
-        $first = $parts[0];
-        if (isset($this->branch_starts[$first])) {
-            foreach ($this->branch_starts[$first] as $marketeer) {
-                if ($marketeer->route($parts, $credentials, $response)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    
-    /**
-     * Return all avaiable informations (=metadatas) of this item
-     * @param $path string: The path to the item
-     * @param $credentials string: The current user (default anybody)
-     * @params $format string: In what format should the values be returned
-     * @returns dependig on $format:
-     *  - json  = a json encoded string
-     *  - array = a php array
-     *  - object = a StdClass
-     */    
-    public function getItem(string $path, string $credentials = 'anybody', string $format = 'json') 
-    {
-        $response = new Response();
-        $response->setElement('request',$path);
-        $response->setElement('parameters',[]);
-        $response->setElement('method','get');
-        $parts = explode('.',$path);
-        
-        if ($this->route($parts,$credentials,$response)) {
-            $response->OK();
-        } else {
-            $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND');            
-        }
-        return $response->get($format);
-    }
-    
-    /**
      * Return all avaiable informations (=metadatas) of this item
      * @param $path: A list of the wanted items.
      *  - if $path is a string then it's treated as a json encoded list
@@ -108,22 +62,6 @@ class Market extends Loggable
         
     }
 
-    public function setItem(string $path, $value, string $credentials = 'anybody')
-    {
-        $response = new Response();
-        $response->setElement('request',$path);
-        $response->setElement('parameters',[]);
-        $response->setElement('method','set');
-        $parts = explode('.',$path);
-        
-        if ($this->route($parts,$credentials,$response)) {
-            $response->OK();
-        } else {
-            $response->error(__("The item ':path' doesn't exist.",['path'=>$path]),'ITEMNOTFOUND');
-        }
-        return $response->get($format);        
-    }
-    
     public function setItemList($path, $value, string $credentials = 'anybody')
     {
         
@@ -150,12 +88,73 @@ class Market extends Loggable
         }
     }
     
-    public function getMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
+    /**
+     * Return the best fitting element or null if there is none
+     * @param string $path
+     */
+    protected function route(string $path)
     {
         $parts = explode('.',$path);
         $first = array_shift($parts);
         
-        if ($element = $this->getElement($first, $parts)) {
+        return $this->getElement($first, $parts);
+    }
+    
+    /**
+     * Return all avaiable informations (=metadatas) and the current value of this item
+     * @param $path string: The path to the item
+     * @param $credentials string: The current user (default anybody)
+     * @params $format string: In what format should the values be returned
+     * @returns dependig on $format:
+     *  - json  = a json encoded string
+     *  - array = a php array
+     *  - object = a StdClass
+     */
+    public function getItem(string $path, string $credentials = 'anybody', string $format = 'json')
+    {
+        if ($element = $this->route($path)) {
+            if ($element->element->isAllowedToRead($credentials, $parts)) {
+                $result = new Response();
+                $result->setElement('request',$path);
+                $element->element->getItem($result, $element->remains);
+                return $result->get($format);
+            }
+        } else {
+            $result = new Response();
+            $result->error('ITEMNOTFOUND',"The item was not found");
+            return $result->get($format);
+        }
+    }
+    
+    public function setItem(string $path, $value, string $credentials = 'anybody')
+    {
+        if ($element = $this->route($path)) {
+            if ($element->element->isAllowedToWrite($credentials, $parts)) {
+                $result = new Response();
+                $result->setElement('request',$path);
+                $element->element->setItem($value,$result, $element->remains);
+                return $result->get($format);
+            }
+        } else {
+            $result = new Response();
+            $result->error('ITEMNOTFOUND',"The item was not found");
+            return $result->get($format);
+        }
+    }
+    
+    /**
+     * Return all avaiable informations (=metadatas) of this item
+     * @param $path string: The path to the item
+     * @param $credentials string: The current user (default anybody)
+     * @params $format string: In what format should the values be returned
+     * @returns dependig on $format:
+     *  - json  = a json encoded string
+     *  - array = a php array
+     *  - object = a StdClass
+     */
+    public function getMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
+    {
+        if ($element = $this->route($path)) {
             if ($element->element->isAllowedToRead($credentials, $parts)) {
                 $result = new Response();
                 $result->setElement('request',$path);

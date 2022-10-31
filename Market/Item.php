@@ -7,6 +7,25 @@ use Sunhill\InfoMarket\Response\Response;
 abstract class Item extends Leaf
 {
     
+    /**
+     * This are the default metadata and should be overwritten by derrived items
+     * @var array
+     */
+    private $default_metadata = [
+        'read_restriction'=>'anybody',
+        'write_restriction'=>'anybody',
+        'readable'=>true,
+        'writeable'=>false,
+        'unit'=>' ',
+        'semantic'=>'name',
+        'type'=>'String',
+        'update'=>'late'
+    ];
+    
+    /**
+     * In this array the overwritten metadata should be stored. it is later mixed with default metadata
+     * @var array
+     */
     protected $metadata = [];
     
     /**
@@ -114,13 +133,13 @@ abstract class Item extends Leaf
      * @param string $next
      * @param array $remains
      */
-    public function getElement(string $next, array $remains)
+    protected function getThisElement(string $next, array $remains)
     {
         if (empty($remains)) {
             return parent::getElement($next, $remains);
         } else {
             return null;
-        }
+        }        
     }
     
     public function getThisMetadata(Response &$response, array $remains = [] )
@@ -133,9 +152,19 @@ abstract class Item extends Leaf
      * @param Response $response
      * @param array $remains
      */
-    public function getThisValue(array $remains = [])
+    protected function getThisValue(array $remains = [])
     {
-        
+        // Ignore by default
+    }
+    
+    /**
+     * Wrapper for getThisValue
+     * @param array $remains
+     * @return unknown
+     */
+    public function getValue(array $remains = [])
+    {
+        return $this->getThisValue($remains);    
     }
     
     /**
@@ -143,7 +172,17 @@ abstract class Item extends Leaf
      * @param unknown $value
      * @param array $remains
      */
-    public function setThisValue($value, array $remains = [])
+    protected function setThisValue($value, array $remains = [])
+    {
+        // Ignore by default
+    }
+    
+    /**
+     * Wrapper for setThisValue
+     * @param unknown $value
+     * @param array $remains
+     */
+    public function setValue($value, array $remains = [])
     {
         
     }
