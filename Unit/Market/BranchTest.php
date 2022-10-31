@@ -2,7 +2,86 @@
 
 use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Branch;
+use Sunhill\InfoMarket\Market\Element;
 use Sunhill\InfoMarket\Response\Response;
+
+class BranchItem1 extends Element
+{
+    protected function getThisElement(string $next, array $remains)
+    {
+        return $this;
+    }
+    
+    protected function getThisMetadata(Response &$response, array $remains = [] )
+    {
+        $response->unit(' ')->semantic('name');
+    }
+    
+    protected function getThisValue(array $remains = [])
+    {
+        return $this->value;
+    }
+    
+    protected function setThisValue($value, array $remains = [])
+    {
+        $this->value = $value;
+    }
+    
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        return true;
+    }
+    
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return false;
+    }
+    
+    protected function getThisOffer(int $depth)
+    {
+        return ['a.b.c'];
+    }
+    
+}
+
+class BranchItem2 extends Element
+{
+    protected function getThisElement(string $next, array $remains)
+    {
+        return $this;
+    }
+    
+    protected function getThisMetadata(Response &$response, array $remains = [] )
+    {
+        $response->unit(' ')->semantic('name');
+    }
+    
+    protected function getThisValue(array $remains = [])
+    {
+        return $this->value;
+    }
+    
+    protected function setThisValue($value, array $remains = [])
+    {
+        $this->value = $value;
+    }
+    
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        return true;
+    }
+    
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return false;
+    }
+    
+    protected function getThisOffer(int $depth)
+    {
+        return ['d.e.f'];
+    }
+    
+}
 
 class BranchTest extends SunhillNoAppTestCase
 {
@@ -91,7 +170,7 @@ class BranchTest extends SunhillNoAppTestCase
         $test = new Branch();
         $test->setName('test');
         $response = new Response();
-        $this->assertTrue($test->getThisMetadata($response));
+        $this->assertTrue($test->getMetadata($response));
         $this->assertEquals('Branch',$response->getElement('type'));
     }
 
@@ -100,8 +179,22 @@ class BranchTest extends SunhillNoAppTestCase
         $test = new Branch();
         $test->setName('test');
         $response = new Response();
-        $this->assertFalse($test->getThisMetadata($response,['some']));
+        $this->assertFalse($test->getMetadata($response,['some']));
     }
     
-    
+    public function testGetOffer()
+    {
+        $test = new Branch();
+        $element1 = new BranchItem1();
+        $element1->setName('a');
+        $element2 = new BranchItem2();
+        $element2->setName('d');
+        
+        $test->addSubbranch($element1);
+        $test->addSubbranch($element2);
+        
+        $result = $test->getOffer();
+        sort($result);
+        $this->assertEquals(['a.b.c','d.e.f'],$result);
+    }
 }
