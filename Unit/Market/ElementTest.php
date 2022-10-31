@@ -6,19 +6,41 @@ use Sunhill\InfoMarket\Response\Response;
 
 class FakeElement extends Element
 {
-    protected function doRoute(string $element, array $remains, string $credentials, Response &$response)
+    public $value = 5;
+    
+    protected function getThisElement(string $next, array $remains)
+    {
+        return $this;
+    }
+    
+    protected function getThisMetadata(Response &$response, array $remains = [] )
+    {
+        $response->unit(' ')->semantic('name');        
+    }
+    
+    protected function getThisValue(array $remains = [])
+    {
+        return $this->value;    
+    }
+    
+    protected function setThisValue($value, array $remains = [])
+    {
+        $this->value = $value;        
+    }
+    
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
         return true;
     }
     
-    protected function doGetOffer(string $credentials, string $filter, int $depth)
-    {
-        
-    }
- 
-    protected function routeFinished(string $credentials, Response &$response)
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
     {
         return false;
+    }
+    
+    protected function getThisOffer(int $depth)
+    {
+        return ['a.b.c'];
     }
     
 }
@@ -38,17 +60,17 @@ class ElementTest extends SunhillNoAppTestCase
         $this->assertEquals('TEST',$test->hasParam('test'));
     }
     
-    public function testEmptyRoute()
+    public function testWrappers()
     {
         $test = new FakeElement();
         $response = new Response();
-        $this->assertFalse($test->route([],'anybody',$response));
-    }
-    
-    public function testNonEmptyRoute()
-    {
-        $test = new FakeElement();
-        $response = new Response();
-        $this->assertTrue($test->route(['a'],'anybody',$response));        
+        $test->getMetadata($response,[]);
+        $this->assertEquals('', $response->getElement('unit'));
+        $this->assertEquals(true,$test->isAllowedToRead('anybody',[]));
+        $this->assertEquals(false,$test->isAllowedToWrite('anybody',[]));
+        $this->assertEquals(5,$test->getValue([]));
+        $test->setValue(6,[]);
+        $this->assertEquals(6,$test->value);
+        $this->assertEquals(['a.b.c'],$test->getOffer());
     }
 }
