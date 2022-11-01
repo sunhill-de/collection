@@ -90,7 +90,8 @@ abstract class ArrayLeaf extends PseudoLeaf
     {
       if (is_numeric($first)) {
         $index = intval($first);
-        return $this->setIndexValue($index, $value, $remains);
+        $result = $this->setIndexValue($index, $value, $remains);
+        return $result;
       } else {
         return false;
       }    
