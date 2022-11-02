@@ -31,6 +31,21 @@ class FakeSimpleArrayLeaf extends ArrayLeaf
     }
 }
 
+class FakeComplexArrayLeaf extends ArrayLeaf
+{
+
+    protected function getCount(): int
+    {
+        return 3;
+    }
+    
+    protected function getIndexValue(int $index, array $remains)
+    {
+        $result = new FakeSimpleArrayLeaf($index+1);
+        return $result;
+    }
+    
+}
 
 class ArrayLeafTest extends SunhillNoAppTestCase
 {
