@@ -15,14 +15,14 @@
 namespace Sunhill\InfoMarket;
 
 use Illuminate\Support\ServiceProvider;
-use Sunhill\InfoMarket\Market\InfoMarket;
+use Sunhill\InfoMarket\Market\Market;
 
 class SunhillInfoMarketServiceProvider extends ServiceProvider
 {
     public function register()
     {        
-        $this->app->singleton(InfoMarket::class, function () { return new InfoMarket(); } );
-        $this->app->alias(InfoMarket::class,'infomarket');
+        $this->app->singleton(Market::class, function () { return new Market(); } );
+        $this->app->alias(Market::class,'infomarket');
     }
     
     public function boot()
