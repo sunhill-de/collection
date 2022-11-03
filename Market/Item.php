@@ -40,52 +40,52 @@ abstract class Item extends Leaf
         $this->default_metadata = $this->mergeMetadata($this->default_metadata,$this->metadata);
     }
 
-    protected function isReadable($response, array $remains = [])
+    protected function isReadable()
     {
         return $this->default_metadata['readable'];
     }
     
-    protected function isWriteable($response, array $remains = [])
+    protected function isWriteable()
     {
         return $this->default_metadata['writeable'];
     }
     
-    protected function getReadRestriction(Response $response, array $remains = [])
+    protected function getReadRestriction()
     {
         return $this->default_metadata['read_restriction'];
     }
     
-    protected function getWriteRestriction(Response $response, array $remains = [])
+    protected function getWriteRestriction()
     {
         return $this->default_metadata['write_restriction'];
     }
     
     protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
-        return $this->checkRestriction($this->getReadRestriction($response, $remains),$credentials);
+        return $this->checkRestriction($this->getReadRestriction(),$credentials);
     }
     
     protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
     {
-        return $this->checkRestriction($this->getWriteRestriction($response, $remains),$credentials);
+        return $this->checkRestriction($this->getWriteRestriction(),$credentials);
     }
     
-    protected function getUnit($response, $remains)
+    protected function getUnit()
     {
         return $this->default_metadata['unit'];
     }
     
-    protected function getSemantic($response, $remains)
+    protected function getSemantic()
     {
         return $this->default_metadata['semantic'];
     }
     
-    protected function getType($response, $remains)
+    protected function getType()
     {
         return $this->default_metadata['type'];
     }
     
-    protected function getUpdate($response, $remains)
+    protected function getUpdate()
     {
         return $this->default_metadata['update'];
     }
@@ -94,19 +94,19 @@ abstract class Item extends Leaf
     {
         $response
         ->OK()
-        ->setElement('readable',$this->isReadable($response, $remains))
-        ->setElement('writeable',$this->isWriteable($response, $remains))
-        ->unit($this->getUnit($response, $remains))
-        ->semantic($this->getSemantic($response, $remains))
-        ->type($this->getType($response, $remains))
-        ->update($this->getUpdate($response, $remains));
-        if ($this->isReadable($response, $remains)) {
+        ->setElement('readable',$this->isReadable())
+        ->setElement('writeable',$this->isWriteable())
+        ->unit($this->getUnit())
+        ->semantic($this->getSemantic())
+        ->type($this->getType())
+        ->update($this->getUpdate());
+        if ($this->isReadable()) {
             $response
-            ->setElement('read_restriction',$this->getReadRestriction($response, $remains));
+            ->setElement('read_restriction',$this->getReadRestriction());
         }
-        if ($this->isWriteable($response, $remains)) {
+        if ($this->isWriteable()) {
             $response
-            ->setElement('write_restriction',$this->getWriteRestriction($response, $remains));
+            ->setElement('write_restriction',$this->getWriteRestriction());
         }
         return true;
     }

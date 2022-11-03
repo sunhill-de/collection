@@ -113,7 +113,7 @@ class Market extends Loggable
     public function getItem(string $path, string $credentials = 'anybody', string $format = 'json')
     {
         if ($element = $this->route($path)) {
-            if ($element->element->isAllowedToRead($credentials, $parts)) {
+            if ($element->element->isAllowedToRead($credentials, $element->remains)) {
                 $result = new Response();
                 $result->setElement('request',$path);
                 $element->element->getItem($result, $element->remains);
@@ -129,7 +129,7 @@ class Market extends Loggable
     public function setItem(string $path, $value, string $credentials = 'anybody')
     {
         if ($element = $this->route($path)) {
-            if ($element->element->isAllowedToWrite($credentials, $parts)) {
+            if ($element->element->isAllowedToWrite($credentials, $element->remains)) {
                 $result = new Response();
                 $result->setElement('request',$path);
                 $element->element->setItem($value,$result, $element->remains);
