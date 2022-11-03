@@ -34,6 +34,15 @@ class FakeSimpleArrayLeaf extends ArrayLeaf
 class FakeComplexArrayLeaf extends ArrayLeaf
 {
 
+    protected $values = [];
+    
+    public function __construct()
+    {
+        $this->values[] = new FakeSimpleArrayLeaf(1);    
+        $this->values[] = new FakeSimpleArrayLeaf(2);
+        $this->values[] = new FakeSimpleArrayLeaf(3);
+    }
+    
     protected function getCount(): int
     {
         return 3;
@@ -41,8 +50,7 @@ class FakeComplexArrayLeaf extends ArrayLeaf
     
     protected function getIndexValue(int $index, array $remains)
     {
-        $result = new FakeSimpleArrayLeaf($index+1);
-        return $result;
+        return $this->values[$index];
     }
     
 }
@@ -50,22 +58,48 @@ class FakeComplexArrayLeaf extends ArrayLeaf
 class ArrayLeafTest extends SunhillNoAppTestCase
 {
     
-    public function testGetCount()
+    public function testSimpleGetCount()
     {
         $test = new FakeSimpleArrayLeaf();
         $this->assertEquals(3,$test->getValue(['count']));
     }
     
-    public function testGetIndex()
+    public function testSimpleGetIndex()
     {
         $test = new FakeSimpleArrayLeaf();
         $this->assertEquals(4,$test->getValue(['1']));
     }
     
-    public function testSetIndex()
+    public function testSimpleSetIndex()
     {
         $test = new FakeSimpleArrayLeaf();
         $test->setValue(9,['1']);
         $this->assertEquals(9,$test->getValue(['1']));
     }
+    
+    public function testComplexGetCount()
+    {
+        $test = new FakeComplexArrayLeaf();
+        $this->assertEquals(3,$test->getValue(['1','count']));
+    }
+    
+    public function testComplexGetIndex()
+    {
+        $test = new FakeComplexArrayLeaf();
+        $this->assertEquals(6,$test->getValue(['0','2']));        
+        $this->assertEquals(8,$test->getValue(['1','1']));
+        $this->assertEquals(6,$test->getValue(['2','0']));
+    }
+
+    public function testComplexSetIndex()
+    {
+        $test = new FakeComplexArrayLeaf();
+        $test->setValue('A',['0','2']);
+        $test->setValue('B',['1','1']);
+        $test->setValue('C',['2','0']);
+        $this->assertEquals('A',$test->getValue(['0','2']));
+        $this->assertEquals('B',$test->getValue(['1','1']));
+        $this->assertEquals('C',$test->getValue(['2','0']));
+    }
+    
 }
