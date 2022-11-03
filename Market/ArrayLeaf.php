@@ -82,8 +82,7 @@ abstract class ArrayLeaf extends PseudoLeaf
             $index = intval($first);
             $result =  $this->getIndexValue($index, $remains);
             if (is_a($result, Element::class)) {
-               $next = array_shift($remains);
-               return $result->getElement($next,$remains)->getValue($remains);
+                return $result->getValue($remains);
             } else {                      
                return $result;
             }        
@@ -96,8 +95,12 @@ abstract class ArrayLeaf extends PseudoLeaf
     {
       if (is_numeric($first)) {
         $index = intval($first);
-        $result = $this->setIndexValue($index, $value, $remains);
-        return $result;
+        $result =  $this->getIndexValue($index, $remains);
+        if (is_a($result, Element::class)) {
+            return $result->setValue($value,$remains);
+        } else {
+            return $this->setIndexValue($index, $value, $remains);
+        }
       } else {
         return false;
       }    
