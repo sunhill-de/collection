@@ -7,7 +7,7 @@ use Sunhill\InfoMarket\Response\Response;
 
 class MarketeerFakeItem extends Item
 {
-    protected function doGetItemValue(Response &$response, array $remains = [])
+    protected function getItemValue()
     {
         return 5;
     }
@@ -33,8 +33,8 @@ class MarketeerTest extends SunhillNoAppTestCase
         $test = new FakeMarketeer();
         $response = new Response();
         $response->setElement('method','get');
-        $test->route(['this','is','a','test'],'anybody',$response);
-        $this->assertEquals(5,$response->get('object')->value);
+        $element = $test->getElement('this',['is','a','test']);
+        $this->assertEquals(5,$element->element->getValue());
     }
     
     public function testGetOffer()

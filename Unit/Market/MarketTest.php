@@ -10,7 +10,7 @@ use Sunhill\InfoMarket\Response\Response;
 class FakeMarketItem extends Item
 {
     
-    protected function doGetItemValue(Response &$response, array $remains = [])
+    protected function getItemValue()
     {
         return 5;
     }
