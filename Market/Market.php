@@ -116,7 +116,8 @@ class Market extends Loggable
             if ($element->element->isAllowedToRead($credentials, $element->remains)) {
                 $result = new Response();
                 $result->setElement('request',$path);
-                $element->element->getItem($result, $element->remains);
+                $element->element->getMetadata($result, $element->remains);
+                $result->value($element->element->getValue($element->remains));
                 return $result->get($format);
             }
         } else {
@@ -155,10 +156,10 @@ class Market extends Loggable
     public function getMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
     {
         if ($element = $this->route($path)) {
-            if ($element->element->isAllowedToRead($credentials, $parts)) {
+            if ($element->element->isAllowedToRead($credentials, $element->remains)) {
                 $result = new Response();
                 $result->setElement('request',$path);
-                $element->element->getThisMetadata($result, $element->remains);
+                $element->element->getMetadata($result, $element->remains);
                 return $result->get($format);
             }
         } else {
