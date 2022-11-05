@@ -11,11 +11,35 @@ use Sunhill\InfoMarket\Response\Response;
 class FakeMarketItem extends Item
 {
     
+    public $value = 5;
+    
     protected function getItemValue()
     {
-        return 5;
+        return $this->value;
     }
     
+    protected function setItemValue($value)
+    {
+        $this->value = $value;
+    }
+    
+}
+
+class FakeMarketItem2 extends Item
+{
+    
+    public $value = 10;
+    
+    protected function getItemValue()
+    {
+        return $this->value;
+    }
+
+    protected function setItemValue($value)
+    {
+        $this->value = $value;
+    }
+        
 }
 
 class FakeMarketMarketeer extends Marketeer
@@ -24,7 +48,8 @@ class FakeMarketMarketeer extends Marketeer
     protected function getOffering(): array
     {
         return [
-            'this.is.a.test'=>FakeMarketItem::class
+            'this.is.a.test'=>FakeMarketItem::class,
+            'this.is.another.test'=>FakeMarketItem2::class
         ];
     }
     
@@ -55,4 +80,35 @@ class MarketTest extends SunhillNoAppTestCase
         
         $this->assertEquals('String',$data->type);
     }
+    
+    public function testSetItem()
+    {
+        $test = new FakeMarket();
+        $test->installMarketeer(FakeMarketMarketeer::class);
+        
+        $test->setItem('this.is.a.test',7,'anybody','object');
+        $item = $test->getItem('this.is.a.test','anybody','object');
+        
+        $this->assertEquals(7,$item->value);
+    }
+
+    public function testGetItemList()
+    {
+        $test = new FakeMarket();
+        $test->installMarketeer(FakeMarketMarketeer::class);
+        
+        $data = $test->getItemList(['this.is.a.test','this.is.another.test'],'anybody','object');
+        $this->assertEquals(5,$data[0]->value);
+    }
+
+    public function testSetItemList()
+    {
+        $test = new FakeMarket();
+        $test->installMarketeer(FakeMarketMarketeer::class);
+        
+        $data = $test->setItemList(['this.is.a.test','this.is.another.test'],7,'anybody','object');
+        $item = $test->getItem('this.is.a.test','anybody','object');
+        $this->assertEquals(7,$item->value);
+    }
+    
 }
