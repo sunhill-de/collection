@@ -9,6 +9,12 @@ class Market extends Loggable
 {
     
     /**
+     * Stores the marketeers
+     * @var array
+     */
+    protected $marketeers = [];
+    
+    /**
      * key => array of marketeer
      * @var array
      */
@@ -42,7 +48,7 @@ class Market extends Loggable
         } else if (!is_a($class,Marketeer::class)) {
             throw new InfoMarketException(__("Can't process marketeer."));
         }
-        
+        $this->marketeers[] = $class;
         $this->collectRootOffering($class);
     }
     
@@ -194,4 +200,44 @@ class Market extends Loggable
             return $result->get($format);
         }
     }
+    
+    protected function addEntryToTree(string $entry, $path, &$tree) {
+        if (empty($entry)) {
+            return;
+        }
+        $parts = explode('.',$entry);
+        $first = array_shift($parts);
+        $remain = implode('.',$parts);
+        if (!isset($tree[$first])) {
+            $tree[$first] = ['name'=>$first,'entries'=>[],'path'=>($remain == "")?$path:null];
+        }
+        $this->addEntryToTree($remain,$path,$tree[$first]['entries']);
+    }
+    
+    protected function makeTree(array $input): array
+    {
+        $result = [];
+        foreach ($input as $entry) {
+            $this->addEntryToTree($entry, $entry, $result);
+        }
+        return $result;
+    }
+    
+    public function getOffer(bool $flat = true, string $format = 'array')
+    {
+        $result = [];
+        
+        foreach ($this->marketeers as $marketeer) {
+            $offer = $marketeer->getOffer();
+            $result = array_merge($result,$offer);
+        }
+        if (!$flat) {
+            $result = $this->makeTree($result);
+        }
+        switch ($format) {
+            case 'array': return $result;
+            case 'json': return json_encode($result);
+        }
+    }
+    
 }
