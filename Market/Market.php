@@ -46,6 +46,15 @@ class Market extends Loggable
         $this->collectRootOffering($class);
     }
     
+    protected function parseList($list): array
+    {
+        if (is_array($list)) {
+            return $list;
+        } else if (is_string($list)) {
+            $list = json_decode($list,true);
+        }
+    }
+    
     /**
      * Return all avaiable informations (=metadatas) of this item
      * @param $path: A list of the wanted items.
@@ -59,12 +68,28 @@ class Market extends Loggable
      */
     public function getItemList($path, string $credentials = 'anybody', string $format = 'json')
     {
-        
+        $result = [];
+        $list = $this->parseList($path);
+        foreach ($list as $entry) {
+            $result[] = $this->getItem($entry, $credentials, 'object');    
+        }
+        switch ($format) {
+            case 'object': return $result;
+            case 'json' : return json_encode($result);
+        }
     }
 
-    public function setItemList($path, $value, string $credentials = 'anybody')
+    public function setItemList($path, $value, string $credentials = 'anybody', string $format = 'json')
     {
-        
+        $result = [];
+        $list = $this->parseList($path);
+        foreach ($list as $entry) {
+            $result[] = $this->setItem($entry, $value, $credentials, 'object');
+        }
+        switch ($format) {
+            case 'object': return $result;
+            case 'json' : return json_encode($result);            
+        }
     }
     
     protected function getElement(string $first, array $remain)
@@ -127,13 +152,14 @@ class Market extends Loggable
         }
     }
     
-    public function setItem(string $path, $value, string $credentials = 'anybody')
+    public function setItem(string $path, $value, string $credentials = 'anybody', string $format = 'json')
     {
         if ($element = $this->route($path)) {
             if ($element->element->isAllowedToWrite($credentials, $element->remains)) {
                 $result = new Response();
                 $result->setElement('request',$path);
-                $element->element->setItem($value,$result, $element->remains);
+                $element->element->getMetadata($result, $element->remains);
+                $element->element->setValue($value, $element->remains);
                 return $result->get($format);
             }
         } else {
