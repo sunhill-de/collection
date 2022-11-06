@@ -1,8 +1,8 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\ArrayLeaf;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakeSimpleArrayLeaf extends ArrayLeaf
 {
@@ -55,7 +55,7 @@ class FakeComplexArrayLeaf extends ArrayLeaf
     
 }
 
-class ArrayLeafTest extends SunhillNoAppTestCase
+class ArrayLeafTest extends InfoMarketTest
 {
     
     public function testSimpleGetCount()
