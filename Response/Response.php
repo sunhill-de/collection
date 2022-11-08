@@ -20,6 +20,12 @@ use Sunhill\InfoMarket\InfoMarketException;
 class Response
 {
     
+    protected $type;
+    
+    protected $unit;
+    
+    protected $semantic;
+    
     protected $elements;
     
     public function __construct()
@@ -130,44 +136,24 @@ class Response
     }
     
     /**
-     * Sets the type and subtype (if neccessary)
-     * First it checks if the type exists then if the combination is valid
+     * Sets the type 
+     * Checks if the type exists
      * @param string $type
      * @param unknown $subtype
      * @throws InfoMarketException
      * @return Response
      */
-    public function type(string $type,$subtype=null): Response
+    public function type(string $type): Response
     {
         $type = ucfirst(strtolower($type));
-        switch ($type) {
-            case 'Array':
-            case 'Record':
-                if (is_null($subtype)) {
-                    throw new InfoMarketException("An array or record needs a subtype. None given.");
-                }
-                if (($type == 'Array') && ($subtype == 'Array')) {
-                    throw new InfoMarketException("No nested arrays allowed.");
-                }
-                if (($type == 'Array') &&
-                    !(in_array(ucfirst(strtolower($subtype)),
-                        ['Integer','Float','String','Boolean','Date','Time','Datetime','Record']))) {
-                            throw new InfoMarketException("Unknown type for array: '$subtype");
-                        }
-                        $this->setElement('subtype',$subtype);
-            case 'Integer':
-            case 'Float':
-            case 'String':
-            case 'Boolean':
-            case 'Date':
-            case 'Time':
-            case 'Datetime':
-            case 'Branch':
+        $namespace = "Sunhill\\InfoMarket\\Response\\Types\\".$type;
+        if (class_exists($namespace)) {
                 $this->setElement('type',$type);
-                break;
-            default:
+                $this->type = new $namespace();
+        }  else {
+                // @todo insert ResponseManager here
                 throw new InfoMarketException("Unknown type '$type'.");
-        }
+        }    
         return $this;
     }
     
@@ -179,26 +165,17 @@ class Response
      */
     public function unit(string $unit): Response
     {
-        switch ($unit) {
-            case 's':
-            case 'K':
-            case 'p':
-            case 'm':
-            case 'c':
-            case 'l':
-            case 'M':
-            case 'G':
-            case 'T':
-            case 'P':
-            case 'd':
-            case 'C':
-            case ' ':
-                $this->setElement('unit_int',$unit);
-                $this->setUnit($unit);
-                break;
-            default:
-                throw new InfoMarketException("Unkown unit '$unit'.");
-        }
+        if (empty($unit)) {
+            return $this;
+        }       
+        $namespace = "Sunhill\\InfoMarket\\Response\\Units\\".$unit;
+        if (class_exists($namespace)) {
+                $this->setElement('unit',$unit);
+                $this->unit = new $namespace();
+        }  else {
+                // @todo insert ResponseManager here
+                throw new InfoMarketException("Unknown type '$unit'.");
+        }    
         return $this;
     }
     
