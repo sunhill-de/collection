@@ -12,7 +12,7 @@
  * PSR-State: complete
  */
 
-namespace Sunhill\InfoMarket\Response;
+namespace Sunhill\InfoMarket\Response\Types;
 
 use Sunhill\InfoMarket\Response\ResponseElement;
 
