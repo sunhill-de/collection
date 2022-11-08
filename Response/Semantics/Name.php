@@ -16,5 +16,10 @@ namespace Sunhill\InfoMarket\Response\Semantics;
 
 class Name extends Semantic
 {
+    public function __construct()
+    {
+        $this->setName('Name');
+    }
+    
     // A name uses the default processing of Semantic    
 }
