@@ -12,7 +12,7 @@
  * PSR-State: complete
  */
 
-namespace Sunhill\InfoMarket\Response;
+namespace Sunhill\InfoMarket\Response\Types;
 
 class Float extends Type
 {
