@@ -12,6 +12,9 @@ class InternalMarketeer extends Marketeer
         return [
           'infomarket.name'=>InfoMarketNameItem::class,
           'infomarket.version'=>InfoMarketVersionItem::class
+          'infomarket.types'=>InfoMarketTypesItem::class,
+          'infomarket.units'=>InfoMarketUnitsItem::class,
+          'infomarket.semantics'=>InfoMarketSemanticsItem::class,
         ];
     }
 
