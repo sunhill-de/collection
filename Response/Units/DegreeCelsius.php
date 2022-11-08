@@ -16,6 +16,11 @@ namespace Sunhill\InfoMarket\Response\Units;
 
 class DegreeCelsius extends Unit
 {
+    public function __construct()
+    {
+        $this->setName('DegreeCelsius');
+    }
+  
     public function getHumanReadableUnit()
     {
         return "°C";
