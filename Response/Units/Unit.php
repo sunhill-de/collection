@@ -6,5 +6,8 @@ use Sunhill\InfoMarket\Response\ResponseElement;
 
 class Unit extends ResponseElement
 {
-    
+    public function getHumanReadableUnit()
+    {
+        return "";
+    }
 }
