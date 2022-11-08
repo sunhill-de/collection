@@ -179,47 +179,6 @@ class Response
         return $this;
     }
     
-    /**
-     * Sets the unit field depending of unit_int
-     * @param string $unit
-     */
-    protected function setUnit(string $unit)
-    {
-        switch ($unit) {
-            case 's':
-            case 'm':
-                $this->setElement('unit',$unit);
-                break;
-            case ' ':
-                $this->setElement('unit','');
-                break;
-            case 'C':
-                $this->setElement('unit','°C');
-                break;
-            case 'p':
-                $this->setElement('unit','mmHg');
-                break;
-            case 'c':
-                $this->setElement('unit','cm');
-                break;
-            case 'l':
-                $this->setElement('unit','lx');
-                break;
-            case 'M':
-                $this->setElement('unit','MB');
-                break;
-            case 'G':
-                $this->setElement('unit','GB');
-                break;
-            case 'T':
-                $this->setElement('unit','TB');
-                break;
-            case 'P':
-                $this->setElement('unit','%');
-                break;
-        }
-    }
-    
     public function update(string $key)
     {
         switch ($key) {
@@ -243,68 +202,18 @@ class Response
      * @throws InfoMarketException
      * @return Response
      */
-    public function semantic(string $unit): Response
+    public function semantic(string $semantic): Response
     {
-        switch ($unit) {
-            case 'temp':
-            case 'air_temp':
-            case 'uptime':
-            case 'number':
-            case 'name':
-            case 'capacity':
-            case 'switch':
-            case 'light':
-            case 'branch':
-                $this->setElement('semantic_int',$unit);
-                $this->setSemantic($unit);
-                break;
-            default:
-                throw new InfoMarketException("Unkown semantic meaning '$unit'.");
-        }
+        $namespace = "Sunhill\\InfoMarket\\Response\\Semantics\\".semantic;
+        if (class_exists($namespace)) {
+                $this->setElement('semantic',$semantic);
+                $this->semantic = new $namespace();
+                $this->type($this->semantic->getDefaultType())->$this->unit($this->semantic->getDefaultUnit());
+        }  else {
+                // @todo insert ResponseManager here
+                throw new InfoMarketException("Unknown semantic '$semantic'.");
+        }    
         return $this;
-    }
-    
-    /**
-     * Sets the semantic field depending of unit_int
-     * @param string $unit
-     */
-    protected function setSemantic(string $unit)
-    {
-        switch ($unit) {
-            case 'temp':
-                $this->setElement('semantic',$this->translate('Temperature'));
-                break;
-            case 'air_temp':
-                $this->setElement('semantic',$this->translate('Air temperature'));
-                break;
-            case 'uptime':
-                $this->setElement('semantic',$this->translate('Uptime'));
-                break;
-            case 'number':
-                $this->setElement('semantic',$this->translate('Number'));
-                break;
-            case 'capacity':
-                $this->setElement('semantic',$this->translate('Capacity'));
-                break;
-            case 'switch':
-                $this->setElement('semantic',$this->translate('Switch'));
-                break;
-            case 'light':
-                $this->setElement('semantic',$this->translate('Light'));
-                break;
-            case 'name':
-                $this->setElement('semantic',$this->translate('Name'));
-                break;
-            case 'count':
-                $this->setElement('semantic',$this->translate('Count'));
-                break;
-            case 'ratio':
-                $this->setElement('semantic',$this->translate('Ratio'));
-                break;
-            case 'branch':
-                $this->setElement('semantic',$this->translate('Branch'));
-                break;
-        }
     }
     
     /**
@@ -327,24 +236,11 @@ class Response
      */
     public function value($value): Response
     {
+        $value = $this->semantic->processValue($this->unit->processValue($value));        
         $this->setElement('value',$value);
-        if (property_exists($this->elements,'unit_int')) {
-            switch ($this->elements->unit_int) {
-                case 'd':
-                    $this->setElement('human_readable_value',$this->getDuration($value));
-                    break;
-                case 'K':
-                    $this->setElement('human_readable_value',$this->getCapacity($value));
-                    break;
-                case ' ':
-                    $this->setElement('human_readable_value',$value);
-                    break;
-                default:
-                    $this->setElement('human_readable_value',$value.' '.$this->elements->unit);
-            }
-        } else {
-            throw new InfoMarketException("Unit has to be set before value.");
-        }
+        
+        $human_readable_unit = $this->unit->getHumanReadableUnit();
+        $human_readable_value = $this->semantic->processHumanReadableValue($this->type->processHumanReadableValue($value),$human_readable_unit);
         return $this;
     }
     
@@ -363,68 +259,6 @@ class Response
     public function infoNotFound(): Response
     {
         return $this->error('The information was not found.','INFONOTFOUND');
-    }
-    
-    /**
-     * When the internal unit marks a duration the best duration is calculated
-     * @param unknown $timespan
-     * @return string
-     */
-    protected function getDuration($timespan)
-    {
-        $seconds = $timespan%60;
-        $timespan = intdiv($timespan,60);
-        $minutes = $timespan%60;
-        $timespan = intdiv($timespan,60);
-        $hours = $timespan%24;
-        $timespan = intdiv($timespan,24);
-        $days = $timespan%365;
-        $years = intdiv($timespan,365);
-        if ($years > 0) {
-            return $years.' '.(($years == 1)?$this->translate('year'):$this->translate('years')).
-            ' '.$this->translate('and').' '.$days.' '.(($days == 1)?$this->translate('day'):$this->translate('days'));
-        } elseif ($days > 0) {
-            return $days.' '.(($days == 1)?$this->translate('day'):$this->translate('days')).
-            ' '.$this->translate('and').' '.$hours.' '.(($hours == 1)?$this->translate('hour'):$this->translate('hours'));
-        } elseif ($hours > 0) {
-            return $hours.' '.(($hours == 1)?$this->translate('hour'):$this->translate('hours')).
-            ' '.$this->translate('and').' '.$minutes.' '.(($minutes == 1)?$this->translate('minute'):$this->translate('minutes'));
-        } elseif ($minutes > 0) {
-            return $minutes.' '.(($minutes == 1)?$this->translate('minute'):$this->translate('minutes')).
-            ' '.$this->translate('and').' '.$seconds.' '.(($seconds == 1)?$this->translate('second'):$this->translate('seconds'));
-        } else {
-            return $seconds.' '.(($seconds == 1)?$this->translate('second'):$this->translate('seconds'));
-        }
-    }
-    
-    /**
-     * If the internal unit marks a capacity the best capacity is calculated
-     * @param unknown $value
-     * @return string
-     */
-    protected function getCapacity($value)
-    {
-        if ($value >= 1000*1000*1000*1000) {
-            return round($value/(1000*1000*1000*1000),1).' TB';
-        } elseif ($value >= 1000*1000*1000) {
-            return round($value/(1000*1000*1000),1).' GB';
-        } elseif ($value >= 1000*1000) {
-            return round($value/(1000*1000),1).' MB';
-        } elseif ($value >= 1000) {
-            return round($value/1000,1).' kB';
-        } else {
-            return $value.' Byte';
-        }
-    }
-    
-    public function number($number)
-    {
-        return $this->OK()->type('Integer')->unit(' ')->semantic('number')->value($number);
-    }
-    
-    public function capacity($number)
-    {
-        return $this->OK()->type('Integer')->unit('c')->semantic('number')->value($number);
     }
     
     public function readable(bool $value = true)
