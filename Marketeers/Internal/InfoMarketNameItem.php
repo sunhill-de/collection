@@ -2,6 +2,8 @@
 
 namespace Sunhill\InfoMarket\Marketeers\Internal;
 
+use Sunhill\InfoMarket\Market\Item;
+
 class InfoMarketNameItem extends Item
 {
     protected $metadata = [
