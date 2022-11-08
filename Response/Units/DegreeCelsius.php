@@ -16,5 +16,9 @@ namespace Sunhill\InfoMarket\Response\Units;
 
 class DegreeCelsius extends Unit
 {
+    public function getHumanReadableUnit()
+    {
+        return "°C";
+    }
 
 }
