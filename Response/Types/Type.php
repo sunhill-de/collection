@@ -18,5 +18,21 @@ use Sunhill\InfoMarket\Response\ResponseElement;
 
 class Type extends ResponseElement
 {
+    /**
+     * Somethimes the input value has to be processed to another form. This can be done here
+     * @return The processes value
+     */
+    public function processValue($value)
+    {
+        return $value;
+    }    
     
+    /**
+     * Somethimes the input value has to be processed to another form to be readable. This can be done here
+     * @return The processes value
+     */
+    public function processHumanReadableValue($value)
+    {
+        return $value;
+    }    
 }
