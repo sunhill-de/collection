@@ -117,7 +117,7 @@ class MarketTest extends SunhillNoAppTestCase
         
         $data = $test->getMetadata('this.is.a.test', 'anybody', 'object');
         
-        $this->assertEquals('String',$data->type);
+        $this->assertEquals('Str',$data->type);
     }
     
     public function testSetItem()

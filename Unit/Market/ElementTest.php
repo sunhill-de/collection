@@ -65,7 +65,6 @@ class ElementTest extends SunhillNoAppTestCase
         $test = new FakeElement();
         $response = new Response();
         $test->getMetadata($response,[]);
-        $this->assertEquals('', $response->getElement('unit'));
         $this->assertEquals(true,$test->isAllowedToRead('anybody',[]));
         $this->assertEquals(false,$test->isAllowedToWrite('anybody',[]));
         $this->assertEquals(5,$test->getValue([]));

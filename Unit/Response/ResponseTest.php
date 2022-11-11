@@ -86,7 +86,7 @@ class ResponseTest extends SunhillNoAppTestCase
             ['Integer',null,'Integer'],
             ['integer',null,'Integer'],
             ['float',null,'Float'],
-            ['string',null,'String'],
+            ['str',null,'Str'],
             ['boolean',null,'Boolean'],
             ['date',null,'Date'],
             ['time',null,'Time'],
