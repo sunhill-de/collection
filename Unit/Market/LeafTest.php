@@ -1,9 +1,9 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Element;
 use Sunhill\InfoMarket\Market\Leaf;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakeLeaf extends Leaf
 {
@@ -30,9 +30,8 @@ class FakeLeaf extends Leaf
        
 }
 
-class LeafTest extends SunhillNoAppTestCase
+class LeafTest extends InfoMarketTest
 {
-    
     /**
      * @dataProvider checkRestrictionProvider
      * @param unknown $restriction

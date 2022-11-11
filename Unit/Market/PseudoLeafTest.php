@@ -3,6 +3,7 @@
 use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\PseudoLeaf;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakePseudoLeaf extends PseudoLeaf
 {
@@ -20,7 +21,7 @@ class FakePseudoLeaf extends PseudoLeaf
     }
 }
 
-class PseudoLeafTest extends SunhillNoAppTestCase
+class PseudoLeafTest extends InfoMarketTest
 {
     
     public function testGetValuePass()

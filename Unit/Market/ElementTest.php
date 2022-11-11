@@ -1,8 +1,8 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Element;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakeElement extends Element
 {
@@ -45,7 +45,7 @@ class FakeElement extends Element
     
 }
 
-class ElementTest extends SunhillNoAppTestCase
+class ElementTest extends InfoMarketTest
 {
     
     /**

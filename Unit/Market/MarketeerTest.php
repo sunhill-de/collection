@@ -1,9 +1,9 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Item;
 use Sunhill\InfoMarket\Market\Marketeer;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class MarketeerFakeItem extends Item
 {
@@ -25,7 +25,7 @@ class FakeMarketeer extends Marketeer
     }
 }
 
-class MarketeerTest extends SunhillNoAppTestCase
+class MarketeerTest extends InfoMarketTest
 {
     
     public function testGetOffering()

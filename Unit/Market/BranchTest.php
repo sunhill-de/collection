@@ -1,9 +1,9 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Branch;
 use Sunhill\InfoMarket\Market\Element;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class BranchItem1 extends Element
 {
@@ -83,7 +83,7 @@ class BranchItem2 extends Element
     
 }
 
-class BranchTest extends SunhillNoAppTestCase
+class BranchTest extends InfoMarketTest
 {
     
     public function testAddBranch()

@@ -1,8 +1,8 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Item;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakeItem extends Item
 {
@@ -26,7 +26,7 @@ class FakeItem extends Item
     
 }
 
-class ItemTest extends SunhillNoAppTestCase
+class ItemTest extends InfoMarketTest
 {
     
     public function testOverwrite()

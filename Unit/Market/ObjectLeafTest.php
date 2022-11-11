@@ -1,7 +1,7 @@
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\ObjectLeaf;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakeObjectLeaf extends ObjectLeaf
 {
@@ -44,7 +44,7 @@ class FakeObjectLeaf extends ObjectLeaf
     
 }
 
-class ObjectLeafTest extends SunhillNoAppTestCase
+class ObjectLeafTest extends InfoMarketTest
 {
     
     public function testSimpleObjectAccess()

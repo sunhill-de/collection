@@ -1,12 +1,12 @@
 
 <?php
 
-use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 use Sunhill\InfoMarket\Market\Element;
 use Sunhill\InfoMarket\Market\Marketeer;
 use Sunhill\InfoMarket\Market\Market;
 use Sunhill\InfoMarket\Market\Item;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class FakeMarketItem extends Item
 {
@@ -73,7 +73,7 @@ class FakeMarket extends Market
     
 }
 
-class MarketTest extends SunhillNoAppTestCase
+class MarketTest extends InfoMarketTest
 {
     
     protected function getMarket()
