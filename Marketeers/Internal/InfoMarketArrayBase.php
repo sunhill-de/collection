@@ -8,7 +8,7 @@ abstract class InfoMarketArrayBase extends ArrayLeaf
 {
     protected $metadata = [
         'unit'=>'',
-        'type'=>'String',
+        'type'=>'Str',
         'semantic'=>'Name'
     ];  
 

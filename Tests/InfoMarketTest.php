@@ -2,9 +2,9 @@
 
 namespace Sunhill\InfoMarket\Tests;
 
-use Sunhill\Basic\Tests\SunhillAppTestCase;
+use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 
-class InfoMarketTest extends SunhillAppTestCase
+class InfoMarketTest extends SunhillNoAppTestCase
 {
     
 }

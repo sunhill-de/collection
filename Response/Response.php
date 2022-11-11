@@ -165,8 +165,9 @@ class Response
      */
     public function unit(string $unit): Response
     {
-        if (empty($unit)) {
-            return $this;
+        $unit = ucfirst(strtolower($unit));
+        if (empty($unit) || ($unit = ' ')) {
+            $unit = 'None';
         }       
         $namespace = "Sunhill\\InfoMarket\\Response\\Units\\".$unit;
         if (class_exists($namespace)) {
@@ -204,11 +205,13 @@ class Response
      */
     public function semantic(string $semantic): Response
     {
-        $namespace = "Sunhill\\InfoMarket\\Response\\Semantics\\".semantic;
+        $semantic = ucfirst(strtolower($semantic));
+        $namespace = "Sunhill\\InfoMarket\\Response\\Semantics\\".$semantic;
         if (class_exists($namespace)) {
                 $this->setElement('semantic',$semantic);
                 $this->semantic = new $namespace();
-                $this->type($this->semantic->getDefaultType())->$this->unit($this->semantic->getDefaultUnit());
+                $this->type($this->semantic->getDefaultType());
+                $this->unit($this->semantic->getDefaultUnit());
         }  else {
                 // @todo insert ResponseManager here
                 throw new InfoMarketException("Unknown semantic '$semantic'.");
@@ -236,7 +239,7 @@ class Response
      */
     public function value($value): Response
     {
-        $value = $this->semantic->processValue($this->unit->processValue($value));        
+        $value = $this->semantic->processValue($value);        
         $this->setElement('value',$value);
         
         $human_readable_unit = $this->unit->getHumanReadableUnit();

@@ -14,6 +14,6 @@
 
 namespace Sunhill\InfoMarket\Response\Types;
 
-class String extends Type
+class Str extends Type
 {
 }

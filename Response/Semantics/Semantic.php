@@ -30,7 +30,7 @@ class Semantic extends ResponseElement
      */
     public function getDefaultType(): string
     {
-        return 'String';
+        return 'Str';
     }
     
     /**
@@ -48,7 +48,7 @@ class Semantic extends ResponseElement
      */
     public function processHumanReadableValue($value, string $human_readable_unit = ''): string
     {
-        return $value.(empty($human_readable_unit)?"":" ".$human_readable_unit;
+        return $value.(empty($human_readable_unit)?"":" ".$human_readable_unit);
     }
     
 }

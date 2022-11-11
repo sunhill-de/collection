@@ -8,7 +8,7 @@ class InfoMarketVersionItem extends Item
 {
     protected $metadata = [
         'unit'=>'',
-        'type'=>'String',
+        'type'=>'Str',
         'semantic'=>'Name'
     ];  
 

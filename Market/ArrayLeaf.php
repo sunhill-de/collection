@@ -19,7 +19,7 @@ abstract class ArrayLeaf extends PseudoLeaf
         'writeable'=>false,
         'unit'=>' ',
         'semantic'=>'name',
-        'type'=>'String',
+        'type'=>'Str',
         'update'=>'late'
     ];
     

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\InfoMarket\Response;
+namespace Sunhill\InfoMarket\Response\Units;
 
 use Sunhill\InfoMarket\Response\ResponseElement;
 

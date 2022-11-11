@@ -18,7 +18,7 @@ abstract class Item extends Leaf
         'writeable'=>false,
         'unit'=>' ',
         'semantic'=>'name',
-        'type'=>'String',
+        'type'=>'Str',
         'update'=>'late'
     ];
     
