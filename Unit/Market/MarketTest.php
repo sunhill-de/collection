@@ -169,4 +169,56 @@ class MarketTest extends InfoMarketTest
         $this->assertTrue(array_key_exists('here',$list));
         $this->assertTrue(isset($list['here']['entries']));
     }
+    
+    /**
+     * @dataProvider TranslateAliasProvider
+     * @param unknown $alias
+     * @param unknown $target
+     * @param unknown $input
+     * @param unknown $expect
+     */
+    public function testTranslateAlias($alias, $target, $input, $expect)
+    {
+        $test = $this->getMarket();
+        $test->addAlias($target, $alias);
+        
+        $this->assertEquals($expect, $this->callProtectedMethod($test, 'translateAlias', [$input]));
+    }
+    
+    public function TranslateAliasProvider()
+    {
+        return [
+            ['alias.for.entry','this.is.entry','alias.for.entry','this.is.entry'],
+            ['alias.for.entry','this.is.entry','nothing.at.all','nothing.at.all'],
+            ['alias.for.entry','this.is.entry','alias.for.entry.with.some.more','this.is.entry.with.some.more']
+            
+        ];    
+    }
+    
+    public function testAddAlias()
+    {
+        $test = $this->getMarket();
+        $test->addAlias('this.is.a.test','we.use.an.alias');
+        $item = $test->getItem('we.use.an.alias','anybody','object');
+        
+        $this->assertEquals(5,$item->value);
+        
+    }
+    
+    public function testAliasOffer()
+    {
+        $test = $this->getMarket();
+        $test->addAlias('this.is.a.test','we.use.an.alias');
+        $list = $test->getOffer(true,'array');
+        sort($list);
+        $this->assertEquals(
+            [
+                'here.is.another.route',
+                'here.is.even.another.route',
+                'this.is.a.test',
+                'this.is.another.test',
+                'we.use.an.alias'
+            ],$list);
+            
+    }
 }
