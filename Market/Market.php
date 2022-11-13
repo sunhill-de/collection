@@ -5,6 +5,7 @@ namespace Sunhill\InfoMarket\Market;
 use Sunhill\Basic\Loggable;
 use Sunhill\InfoMarket\Response\Response;
 use Sunhill\InfoMarket\InfoMarketException;
+use Sunhill\InfoMarket\Marketeers\Internal\InternalMarketeer;
 
 class Market extends Loggable
 {
@@ -22,6 +23,38 @@ class Market extends Loggable
     protected $branch_starts = [];
     
     /**
+     * Stores the alias marketeer if there is one
+     * @var unknown
+     */
+    protected $alias = [];
+    
+    protected function alreadyInList(string $start, $class)
+    {
+        if (!isset($this->branch_starts[$start])) {
+            return false;
+        }
+        foreach ($this->branch_starts[$start] as $test) {
+            if ($test == $class) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    protected function setBranchStart($start, $class) 
+    {
+        if ($this->alreadyInList($start, $class)) {
+            return; // nothing to do
+        }
+        
+        if (isset($this->branch_starts[$start])) {
+            $this->branch_starts[$start][] = $class;
+        } else {
+            $this->branch_starts[$start] = [$class];
+        }        
+    }
+    
+    /**
      * Takes all branch beginnings from the given marketeer $class and sorts them into $branch_starts
      * @param Marketeer $class
      */
@@ -29,14 +62,15 @@ class Market extends Loggable
     {
         $parts = $class->getRootOffering();
         foreach ($parts as $part) {
-            if (isset($this->branch_starts[$part])) {
-                $this->branch_starts[$part][] = $class;
-            } else {
-                $this->branch_starts[$part] = [$class];                
-            }
+            $this->setBranchStart($part, $class);
         }        
     }
     
+    public function setupMarketeers()
+    {
+        $this->installMarketeer(InternalMarketeer::class);
+    }
+       
     /**
      * Installs a new marketeer that is reachable by this InfoMarket.
      * @param string|MarketeerBase $class if $class is a string than it is resolved to a marketeer
@@ -51,6 +85,15 @@ class Market extends Loggable
         }
         $this->marketeers[] = $class;
         $this->collectRootOffering($class);
+    }
+    
+    /**
+     * Adds an alias for another item to this market
+     * @param unknown $target
+     */
+    public function addAlias(string $target, string $alias)
+    {
+        $this->alias[$alias] = $target;
     }
     
     protected function parseList($list): array
@@ -120,12 +163,24 @@ class Market extends Loggable
         }
     }
     
+    protected function translateAlias(string $path)
+    {
+        foreach ($this->alias as $alias => $target) {
+            if (substr($path,0,strlen($alias)) == $alias) {
+                return $target.substr($path,strlen($alias));
+            }
+        }
+        return $path;
+    }
+    
     /**
      * Return the best fitting element or null if there is none
      * @param string $path
      */
     protected function route(string $path)
     {
+        $path = $this->translateAlias($path);
+        
         $parts = explode('.',$path);
         $first = array_shift($parts);
         
@@ -226,7 +281,7 @@ class Market extends Loggable
     
     public function getOffer(bool $flat = true, string $format = 'array')
     {
-        $result = [];
+        $result = array_keys($this->alias);
         
         foreach ($this->marketeers as $marketeer) {
             $offer = $marketeer->getOffer();
