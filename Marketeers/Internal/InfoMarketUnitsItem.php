@@ -4,7 +4,7 @@ namespace Sunhill\InfoMarket\Marketeers\Internal;
 
 use Sunhill\InfoMarket\Response\Units\Unit;
 
-class InfoMarketUnitItem extends InfoMarketArrayBase
+class InfoMarketUnitsItem extends InfoMarketArrayBase
 {
   
     function getBaseDir()

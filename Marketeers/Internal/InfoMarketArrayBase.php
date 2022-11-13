@@ -52,7 +52,7 @@ abstract class InfoMarketArrayBase extends ArrayLeaf
         $this->addClasses();
     }
   
-    protected function getCount()
+    protected function getCount(): int
     {
         return count($this->cache);
     }
