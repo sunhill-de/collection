@@ -60,11 +60,11 @@ class ResponseTest extends SunhillNoAppTestCase
     /**
      * @dataProvider TypeProvider
      */
-    public function testType($in_type,$in_subtype,$out_type,$out_subtype = null)
+    public function testType($in_type,$out_type)
     {
         $test = new Response();
         try {
-            $test->type($in_type,$in_subtype);
+            $test->type($in_type);
         } catch (\Exception $e) {
             if ($out_type == 'except') {
                 $this->assertTrue(true);
@@ -73,29 +73,24 @@ class ResponseTest extends SunhillNoAppTestCase
             throw $e;
         }
         $this->assertEquals($out_type,$this->getElement($test,'type'));
-        if (!is_null($out_subtype)) {
-            $this->assertEquals($out_subtype,$this->getElement($test,'subtype'));
-        } else {
-            $this->assertFalse($test->hasElement('subtype'));
-        }
     }
     
     public function TypeProvider()
     {
         return [
-            ['Integer',null,'Integer'],
-            ['integer',null,'Integer'],
-            ['float',null,'Float'],
-            ['str',null,'Str'],
-            ['boolean',null,'Boolean'],
-            ['date',null,'Date'],
-            ['time',null,'Time'],
-            ['datetime',null,'Datetime'],
-            ['none',null,'except'],
-            ['Array','Integer','Array','Integer'],
-            ['Array','none','except'],
-            ['Array','Array','except'],
-            ['Record','SomeEntry','Record','SomeEntry']
+            ['Arrayfield','Arrayfield'],
+            ['Boolean','Boolean'],
+            ['Branch','Branch'],
+            ['Date','Date'],
+            ['Datetime','Datetime'],
+            ['Floating','Floating'],
+            ['Integer','Integer'],
+            ['ObjectType','Objecttype'],
+            ['Str','Str'],
+            ['Time','Time'],
+            ['unknown','except'],
+            ['dAtE','Date'],
+            
         ];
     }
     
@@ -106,41 +101,33 @@ class ResponseTest extends SunhillNoAppTestCase
      * @param unknown $out_unit
      * @throws \Exception
      */
-    public function testUnit($unit,$out_unit_int,$out_unit)
+    public function testUnit($unit,$unit_out)
     {
         $test = new Response();
         try {
             $test->unit($unit);
         } catch (\Exception $e) {
-            if ($out_unit_int == 'except') {
+            if ($unit_out == 'except') {
                 $this->assertTrue(true);
                 return;
             }
             throw $e;
         }
-        $this->assertEquals($out_unit_int,$this->getElement($test,'unit_int'));
-        if (!is_null($out_unit)) {
-            $this->assertEquals($out_unit,$this->getElement($test,'unit'));
-        }
+        $this->assertEquals($unit_out,$this->getElement($test,'unit'));
     }
     
     public function UnitProvider()
     {
         return [
-            ['s','s','s'],
-            ['C','C','°C'],
-            ['p','p','mmHg'],
-            ['m','m','m'],
-            ['c','c','cm'],
-            ['l','l','lx'],
-            ['M','M','MB'],
-            ['G','G','GB'],
-            ['T','T','TB'],
-            ['P','P','%'],
-            ['?','except',null],
-            ['d','d',null],
-            ['K','K',null],
-            [' ',' ',''],
+            ['Centimeter','Centimeter'],
+            ['Degreecelsius','Degreecelsius'],
+            ['Lux','Lux'],
+            ['Meter','Meter'],
+            ['None','None'],
+            ['Percent','Percent'],
+            ['Second','Second'],
+            ['Torr','Torr'],
+            ['Unknown','except'],
         ];
     }
     
@@ -151,43 +138,39 @@ class ResponseTest extends SunhillNoAppTestCase
      * @param unknown $out_unit
      * @throws \Exception
      */
-    public function testSemantic($unit,$out_unit_int,$out_unit)
+    public function testSemantic($semantic,$semantic_out)
     {
         $test = new Response();
         try {
-            $test->semantic($unit);
+            $test->semantic($semantic);
         } catch (\Exception $e) {
-            if ($out_unit_int == 'except') {
+            if ($semantic_out == 'except') {
                 $this->assertTrue(true);
                 return;
             }
             throw $e;
         }
-        $this->assertEquals($out_unit_int,$this->getElement($test,'semantic_int'));
-        if (!is_null($out_unit)) {
-            $this->assertEquals($out_unit,$this->getElement($test,'semantic'));
-        }
+        $this->assertEquals($semantic_out,$this->getElement($test,'semantic'));
     }
     
     public function SemanticProvider()
     {
         return [
-            ['air_temp','air_temp','Air temperature'],
-            ['unknown','except',null],
-            
+            ['Branch','Branch'],
+            ['unknown','except'],
+            ['Capacity','Capacity'],
+            ['Duration','Duration'],
+            ['Name','Name'],            
         ];
     }
     
     /**
      * @dataProvider ValueProvider
      */
-    public function testValue($unit,$human_readable,$value)
+    public function testValue($semantic, $value, $human_readable)
     {
         $test = new Response();
-        if (!is_null($unit))
-        {
-            $test->unit($unit);
-        }
+        $test->semantic($semantic);
         try {
             $test->value($value);
         } catch (\Exception $e) {
@@ -204,43 +187,41 @@ class ResponseTest extends SunhillNoAppTestCase
     public function ValueProvider()
     {
         return [
-            [null,'except',3.2],
-            ['m','3.2 m',3.2],
-            [' ','3.2',3.2],
+            ['Name','abc','abc'],
             // Test durations
-            ['d','1 second',1],
-            ['d','45 seconds',45],
-            ['d','1 minute and 1 second',61],
-            ['d','1 minute and 25 seconds',85],
-            ['d','2 minutes and 1 second',121],
-            ['d','2 minutes and 25 seconds',145],
-            ['d','1 hour and 1 minute',60*60+60+35],
-            ['d','1 hour and 2 minutes',60*60+60*2+35],
-            ['d','2 hours and 1 minute',60*60*2+60+35],
-            ['d','2 hours and 2 minutes',60*60*2+60*2+35],
-            ['d','1 day and 1 hour',60*60*24+60*60+35],
-            ['d','1 day and 2 hours',60*60*24+2*60*60+35],
-            ['d','2 days and 1 hour',60*60*24*2+60*60+35],
-            ['d','2 days and 2 hours',60*60*24*2+60*60*2+35],
-            ['d','1 year and 1 day',60*60*24*365+60*60*24+60*60+35],
-            ['d','1 year and 2 days',60*60*24*365+60*60*24*2+2*60*60+35],
-            ['d','2 years and 1 day',60*60*24*365*2+60*60*24+60*60+35],
-            ['d','2 years and 2 days',60*60*24*365*2+60*60*24*2+60*60*2+35],
+            ['Duration',1,'1 second'],
+            ['Duration',45,'45 seconds'],
+            ['Duration',61,'1 minute and 1 second',61],
+            ['Duration',85,'1 minute and 25 seconds',85],
+            ['Duration',121,'2 minutes and 1 second',121],
+            ['Duration',145,'2 minutes and 25 seconds',145],
+            ['Duration',60*60+60+35,'1 hour and 1 minute'],
+            ['Duration',60*60+60*2+35,'1 hour and 2 minutes'],
+            ['Duration',60*60*2+60+35,'2 hours and 1 minute'],
+            ['Duration',60*60*2+60*2+35,'2 hours and 2 minutes'],
+            ['Duration',60*60*24+60*60+35,'1 day and 1 hour'],
+            ['Duration',60*60*24+2*60*60+35,'1 day and 2 hours'],
+            ['Duration',60*60*24*2+60*60+35,'2 days and 1 hour'],
+            ['Duration',60*60*24*2+60*60*2+35,'2 days and 2 hours'],
+            ['Duration',60*60*24*365+60*60*24+60*60+35,'1 year and 1 day'],
+            ['Duration',60*60*24*365+60*60*24*2+2*60*60+35,'1 year and 2 days'],
+            ['Duration',60*60*24*365*2+60*60*24+60*60+35,'2 years and 1 day'],
+            ['Duration',60*60*24*365*2+60*60*24*2+60*60*2+35,'2 years and 2 days'],
             // Test Capacity
-            ['K','1 Byte',1],
-            ['K','2 Byte',2],
-            ['K','1 kB',1000],
-            ['K','1 kB',1001],
-            ['K','1.1 kB',1100],
-            ['K','1 MB',1000*1000],
-            ['K','1 MB',1000*1010],
-            ['K','1.1 MB',1000*1100],
-            ['K','1 GB',1000*1000*1000],
-            ['K','1 GB',1000*1010*1000],
-            ['K','1.1 GB',1000*1100*1000],
-            ['K','1 TB',1000*1000*1000*1000],
-            ['K','1 TB',1000*1010*1000*1000],
-            ['K','1.1 TB',1000*1100*1000*1000],
+            ['Capacity',1,'1 Byte'],
+            ['Capacity',2,'2 Byte'],
+            ['Capacity',1000,'1 kB'],
+            ['Capacity',1001,'1 kB'],
+            ['Capacity',1100,'1.1 kB'],
+            ['Capacity',1000*1000,'1 MB'],
+            ['Capacity',1000*1010,'1 MB'],
+            ['Capacity',1000*1100,'1.1 MB'],
+            ['Capacity',1000*1000*1000,'1 GB'],
+            ['Capacity',1000*1010*1000,'1 GB'],
+            ['Capacity',1000*1100*1000,'1.1 GB'],
+            ['Capacity',1000*1000*1000*1000,'1 TB'],
+            ['Capacity',1000*1010*1000*1000,'1 TB'],
+            ['Capacity',1000*1100*1000*1000,'1.1 TB'],
         ];
     }
     
