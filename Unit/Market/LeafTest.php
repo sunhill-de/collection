@@ -95,4 +95,12 @@ class LeafTest extends InfoMarketTest
         $this->assertEquals(['AA'],$result);
     }
     
+    public function testGetDeepOffer()
+    {
+        $test = new FakeLeaf();
+        $test->setName('AA');
+        $result = $test->getDeepOffer();
+        $this->assertEquals(['AA'],$result);
+    }
+    
 }

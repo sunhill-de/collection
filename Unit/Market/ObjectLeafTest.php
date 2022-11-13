@@ -21,6 +21,11 @@ class FakeObjectLeaf extends ObjectLeaf
         $this->object->float = 4.56;
     }
     
+    protected function getAllowedFields()
+    {
+        return ['str','int','float','obj'];    
+    }
+    
     protected function getObjectValue(string $name, array $remaining)
     {
         switch ($name)
@@ -79,4 +84,22 @@ class ObjectLeafTest extends InfoMarketTest
         $this->assertEquals('XYZ',$test->object->str);
         
     }
+    
+    public function testGetOfferNormal()
+    {
+        $test = new FakeObjectLeaf();
+        $test->setName('test');
+        
+        $this->assertEquals(['test'],$test->getOffer());
+    }
+    
+    public function testGetDeepOffer()
+    {
+        $test = new FakeObjectLeaf();
+        $test->setName('test');
+        
+        $this->assertEquals(['test.str','test.int','test.float','test.obj'],$test->getDeepOffer());
+        
+    }
+    
 }
