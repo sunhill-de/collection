@@ -1,7 +1,7 @@
 <?php
 /**
- * @file DateTime.php
- * Represents an datetime
+ * @file Arrayfield.php
+ * Represents an array
  * Lang en
  * Reviewstatus: 2022-11-06
  * Localization: none
@@ -14,6 +14,11 @@
 
 namespace Sunhill\InfoMarket\Response\Types;
 
-class DateTime extends Type
+class Arrayfield extends Type
 {
+    public function __construct()
+    {
+        $this->setName('ArrayField');
+    }
+    
 }

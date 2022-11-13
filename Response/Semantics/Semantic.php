@@ -51,4 +51,9 @@ class Semantic extends ResponseElement
         return $value.(empty($human_readable_unit)?"":" ".$human_readable_unit);
     }
     
+    protected function translate(string $input): string
+    {
+        return $input;
+    }
+    
 }

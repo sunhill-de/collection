@@ -14,7 +14,7 @@
 
 namespace Sunhill\InfoMarket\Response\Semantics;
 
-class Duration extends Semantic
+class Capacity extends Semantic
 {
     public function __construct()
     {

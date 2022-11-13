@@ -16,4 +16,9 @@ namespace Sunhill\InfoMarket\Response\Types;
 
 class Str extends Type
 {
+    public function __construct()
+    {
+        $this->setName('Str');
+    }
+    
 }

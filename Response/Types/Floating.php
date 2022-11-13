@@ -1,7 +1,7 @@
 <?php
 /**
- * @file Array.php
- * Represents an array
+ * @file Floating.php
+ * Represents an float
  * Lang en
  * Reviewstatus: 2022-11-06
  * Localization: none
@@ -14,6 +14,6 @@
 
 namespace Sunhill\InfoMarket\Response\Types;
 
-class Array extends Type
+class Floating extends Type
 {
 }

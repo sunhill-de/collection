@@ -1,7 +1,7 @@
 <?php
 /**
- * @file Float.php
- * Represents an float
+ * @file DateTime.php
+ * Represents an datetime
  * Lang en
  * Reviewstatus: 2022-11-06
  * Localization: none
@@ -14,6 +14,11 @@
 
 namespace Sunhill\InfoMarket\Response\Types;
 
-class Float extends Type
+class Datetime extends Type
 {
+    public function __construct()
+    {
+        $this->setName('DateTime');
+    }
+    
 }

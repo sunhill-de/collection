@@ -4,6 +4,7 @@ namespace Sunhill\InfoMarket\Market;
 
 use Sunhill\Basic\Loggable;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\InfoMarketException;
 
 class Market extends Loggable
 {

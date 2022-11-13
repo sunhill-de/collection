@@ -14,7 +14,7 @@
 
 namespace Sunhill\InfoMarket\Response\Units;
 
-class DegreeCelsius extends Unit
+class Degreecelsius extends Unit
 {
     public function __construct()
     {

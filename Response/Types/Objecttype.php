@@ -14,6 +14,6 @@
 
 namespace Sunhill\InfoMarket\Response\Types;
 
-class Object extends Type
+class Objecttype extends Type
 {
 }

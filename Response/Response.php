@@ -166,7 +166,7 @@ class Response
     public function unit(string $unit): Response
     {
         $unit = ucfirst(strtolower($unit));
-        if (empty($unit) || ($unit = ' ')) {
+        if (empty($unit) || ($unit == ' ')) {
             $unit = 'None';
         }       
         $namespace = "Sunhill\\InfoMarket\\Response\\Units\\".$unit;
@@ -244,6 +244,10 @@ class Response
         
         $human_readable_unit = $this->unit->getHumanReadableUnit();
         $human_readable_value = $this->semantic->processHumanReadableValue($this->type->processHumanReadableValue($value),$human_readable_unit);
+        
+        $this->setElement('human_readable_unit',$human_readable_unit);
+        $this->setElement('human_readable_value',$human_readable_value);
+        
         return $this;
     }
     
