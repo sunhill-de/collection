@@ -26,6 +26,7 @@ abstract class PseudoLeaf extends Leaf
     final protected function getThisMetadata(Response &$response, array $remains = [] )
     {
         if (empty($remains)) {
+            $response->OK()->semantic('Branch')->type('Branch')->unit('None');
             return null;
         }
         $first = array_shift($remains);
@@ -41,7 +42,7 @@ abstract class PseudoLeaf extends Leaf
     final protected function getThisValue(array $remains = [])
     {
         if (empty($remains)) {
-            return null;
+            return $this->getName();
         }
         $first = array_shift($remains);
     
@@ -70,6 +71,7 @@ abstract class PseudoLeaf extends Leaf
     
     protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
+        return true;
         if (empty($remains)) {
             return false;
         }
