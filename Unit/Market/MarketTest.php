@@ -221,4 +221,33 @@ class MarketTest extends InfoMarketTest
             ],$list);
             
     }
+
+    /**
+     * @dataProvider GetNodesProvider
+     */
+    public function testGetNodes($aliases, $parent, $expect)
+    {
+        $test = $this->getMarket();
+        foreach ($aliases as $target => $name) {            
+            $test->addAlias($target, $name);
+        }
+
+        $nodes = $test->getNodes($parent);
+        $nodes = array_map(function($n) { return $n->name; },$nodes);
+        sort($nodes);
+        $this->assertEquals($expect, $nodes);
+    }
+    
+    public function GetNodesProvider() 
+    {
+        return [
+            [['this.is.a.test'=>'we.use.an.alias'], '', ['here', 'this', 'we']],
+            [['this.is.a.test'=>'we.use.an.alias'], 'here', ['is']],
+            [['this.is.a.test'=>'this.is.an.alias'], 'this', ['this']],
+            [['this.is.a.test'=>'this.is.an.alias'], 'here.is', ['another','even']],
+            [['this.is.a.test'=>'this.is.an.alias'], 'this.is', ['a', 'an', 'another']],
+            [['this.is.a.test'=>'this.is.an.alias'], 'this.is.a.test', []],
+        ];    
+    }    
+    
 }
