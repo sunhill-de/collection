@@ -71,6 +71,6 @@ abstract class Leaf extends Element
     
     public function getDeepOffer()
     {
-        return [$this->getName()];        
+        return [];        
     }
 }
