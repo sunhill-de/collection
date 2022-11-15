@@ -13,3 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/ajax/getItem/{item}', 'Sunhill\InfoMarket\Controllers\AjaxController@getItem');
+Route::post('/ajax/getNodes/{parent}', 'Sunhill\InfoMarket\Controllers\AjaxController@getNodes');
