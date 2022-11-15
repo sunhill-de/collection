@@ -296,19 +296,74 @@ class Market extends Loggable
         }
     }
     
-    public function getNodes(string $parent, string $format = 'object')
+    protected function getRootNodes()
     {
         $result = [];
-        if (($parent == "") || ($parent == "#")) {
-            foreach ($this->branch_starts as $start) {
-                $entry = new \StdClass();
-                $entry->name = $start;
-                $entry->semantic = 'Branch';
-                $result[] = $entry;
-            }    
-        }  else {
-            // @todo Implement me
+
+        foreach ($this->branch_starts as $start) {
+            $entry = new \StdClass();
+            $entry->name = $start;
+            $entry->semantic = 'Branch';
+            $result[] = $entry;
         }    
+        foreach ($this->alias as $alias) {
+            $parts = explode('.',$alias);
+            $first = array_shift($parts);
+            if (!in_array($first, $result)) {
+                   $result[] = $first;
+            }    
+        }     
+        return $result;
+    }
+
+    protected function getItemNode($element)
+    {
+        $result = [];
+        $offer = $element->getDeepOffer();
+         foreach ($offer as $single) {
+            $entry = new \StdClass();
+            $entry->name = $single;
+            $entry->semantic = 'Leaf';
+            $result[] = $entry;
+         }    
+        return $result;
+    }
+    
+    protected function getNonRootNodes(string $parent)
+    {
+            $parts = $explode('.',$parent);
+            $first = array_shift($parts);
+            if ($elelemt = $this->getElement($first, $parts) && is_a($element, Leaf::class)) {
+                return $this->getItemNode();
+            }
+            // We have a branch
+            $total_offer = [];
+            foreach ($this->entry_starts[$first] as $marketeer) {
+                $total_offer = array_merge($total_offer, $marketeer->getOffer());
+            }
+            $total_offer = array_merge($total_offer, $this->alias); // Merge in the aliases
+            $result = [];
+            foreach ($total_offer as $offer) {
+                if (str_pos($offer,$parent) === 0) {
+                    $offer = substr($offer,strlen($parent)); // Remove the leading part
+                    $parts = explode('.',$offer);
+                    $first = array_shift($parts);
+                    if (!in_array($first, $result)) {
+                        $result[] = $first;
+                    }    
+                } 
+            }
+        
+            return $result;
+    }
+    
+    public function getNodes(string $parent, string $format = 'object')
+    {
+        if (($parent == "") || ($parent == "#")) {
+            $result = $this->getRootNodes();
+        }  else {
+            $result = $this->getNonRootNodes();
+        }
         switch ($format) {
             case 'object': return $result;
             case 'json': return json_encode($result);
