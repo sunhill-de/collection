@@ -296,4 +296,23 @@ class Market extends Loggable
         }
     }
     
+    public function getNodes(string $parent, string $format = 'object')
+    {
+        $result = [];
+        if (($parent == "") || ($parent == "#")) {
+            foreach ($this->branch_starts as $start) {
+                $entry = new \StdClass();
+                $entry->name = $start;
+                $entry->semantic = 'Branch';
+                $result[] = $entry;
+            }    
+        }  else {
+            // @todo Implement me
+        }    
+        switch ($format) {
+            case 'object': return $result;
+            case 'json': return json_encode($result);
+        }
+    }
+    
 }
