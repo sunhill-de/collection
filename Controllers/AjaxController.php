@@ -20,28 +20,31 @@ class AjaxController extends Controller
       return json_encode($result);
   }
  
-  public function getNodes(string $parent, Request $request, Response $response)
+  public function getNodes(string $parent="", Request $request, Response $response)
   {
-     $nodes = InfoMarket::getNodes($parent, 'object');
+     $nodes = InfoMarket::getNodes(($parent=="!root!")?"":$parent, 'object');
      $result = [];
      foreach ($nodes as $node) {
         $node_data = [];
-        if ($parent == '#') {
+        if ($parent == '!root!') {
           $node_data['type'] = 'root';
           $node_data['id'] = $node->name;
+          $node_data['parent'] = "#";
         } else {
           $node_data['id'] = $parent.'.'.$node->name;
+          $node_data['parent'] = $parent;
         }
         $node_data['text'] = $node->name;
         if ($node->semantic == 'Branch') {
-          $node_data["icon"] = "fa fa-folder icon-lg"
+          $node_data["icon"] = "fa fa-folder icon-lg";
           $node_data["children"] = true;
         } else {
           $node_data["icon"] = "fa fa-file fa-large kt-font-default";        
-          $node_data["children"] = false;
+          $node_data["children"] = false;     
         }  
         $result[] = $node_data;
-     }  
+     } 
+     $response->header('Content-Type', 'text/json' );
      return json_encode($result);
   }
   
