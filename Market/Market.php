@@ -300,7 +300,7 @@ class Market extends Loggable
     {
         $result = [];
 
-        foreach ($this->branch_starts as $start) {
+        foreach ($this->branch_starts as $start => $marketeers) {
             $entry = new \StdClass();
             $entry->name = $start;
             $entry->semantic = 'Branch';
@@ -329,40 +329,48 @@ class Market extends Loggable
         return $result;
     }
     
-    protected function getNonRootNodes(string $parent)
+    protected function getNonRootNodes(string $parent, string $credentials)
     {
-            $parts = $explode('.',$parent);
+            $parts = explode('.',$parent);
             $first = array_shift($parts);
-            if ($elelemt = $this->getElement($first, $parts) && is_a($element, Leaf::class)) {
+            if (($element = $this->getElement($first, $parts)) && is_a($element, Leaf::class)) {
                 return $this->getItemNode();
             }
             // We have a branch
             $total_offer = [];
-            foreach ($this->entry_starts[$first] as $marketeer) {
+            foreach ($this->branch_starts[$first] as $marketeer) {
                 $total_offer = array_merge($total_offer, $marketeer->getOffer());
             }
             $total_offer = array_merge($total_offer, $this->alias); // Merge in the aliases
             $result = [];
             foreach ($total_offer as $offer) {
-                if (str_pos($offer,$parent) === 0) {
-                    $offer = substr($offer,strlen($parent)); // Remove the leading part
+                if (strpos($offer,$parent) === 0) {
+                    $element = $this->getItem($offer,$credentials,"object");
+                    $entry = new \StdClass();
+                    $offer = substr($offer,strlen($parent)+1); // Remove the leading part
                     $parts = explode('.',$offer);
                     $first = array_shift($parts);
-                    if (!in_array($first, $result)) {
-                        $result[] = $first;
+                    $entry->name = $first;
+                    if ($element->semantic == 'Branch') {
+                        $entry->semantic = 'Branch';
+                    } else {
+                        $entry->semantic = 'Leaf';
+                    }
+                    if (!array_key_exists($first, $result)) {
+                        $result[$first] = $entry;
                     }    
                 } 
             }
         
-            return $result;
+            return array_values($result);
     }
     
-    public function getNodes(string $parent, string $format = 'object')
+    public function getNodes(string $parent, string $format = 'object', string $credentials = 'anybody')
     {
         if (($parent == "") || ($parent == "#")) {
-            $result = $this->getRootNodes();
+            $result = $this->getRootNodes($credentials);
         }  else {
-            $result = $this->getNonRootNodes();
+            $result = $this->getNonRootNodes($parent,$credentials);
         }
         switch ($format) {
             case 'object': return $result;
