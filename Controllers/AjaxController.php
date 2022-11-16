@@ -44,8 +44,8 @@ class AjaxController extends Controller
         }  
         $result[] = $node_data;
      } 
-     $response->header('Content-Type', 'text/json' );
-     return json_encode($result);
+     
+     return response()->json($result);
   }
   
 }
