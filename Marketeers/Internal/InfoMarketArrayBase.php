@@ -23,14 +23,16 @@ abstract class InfoMarketArrayBase extends ArrayLeaf
       $base = $this->getBaseDir();
       $d = dir($base);
       while (false !== ($entry = $d->read())) {
-        require_once($base.'/'.$entry);
+          if (is_file($base.'/'.$entry)) {
+            require_once($base.'/'.$entry);
+          }
       }
       $d->close();
     }
   
     protected function addClasses()
     {
-        foreach ($this->get_declared_classes() as $class) {
+        foreach (get_declared_classes() as $class) {
             if ($this->classFits($class)) {
               $this->cache[] = $this->splitClassName($class);
             }
@@ -54,11 +56,13 @@ abstract class InfoMarketArrayBase extends ArrayLeaf
   
     protected function getCount(): int
     {
+        $this->fillCache();
         return count($this->cache);
     }
 
     protected function getIndexValue(int $index, array $remains)
     {
+        $this->fillCache();
         return $this->cache[$index];
     }  
   
