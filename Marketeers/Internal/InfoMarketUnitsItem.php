@@ -9,7 +9,7 @@ class InfoMarketUnitsItem extends InfoMarketArrayBase
   
     function getBaseDir()
     {
-      return dirname(__FILE__).'/../../Response/Unit';
+      return dirname(__FILE__).'/../../Response/Units';
     }  
   
     function classFits(string $test)
