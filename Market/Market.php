@@ -319,7 +319,7 @@ class Market extends Loggable
     protected function getItemNode($element)
     {
         $result = [];
-        $offer = $element->getDeepOffer();
+        $offer = $element->element->getDeepOffer();
          foreach ($offer as $single) {
             $entry = new \StdClass();
             $entry->name = $single;
@@ -333,8 +333,8 @@ class Market extends Loggable
     {
             $parts = explode('.',$parent);
             $first = array_shift($parts);
-            if (($element = $this->getElement($first, $parts)) && is_a($element, Leaf::class)) {
-                return $this->getItemNode();
+            if (($element = $this->getElement($first, $parts)) && is_a($element->element, Leaf::class)) {
+                return $this->getItemNode($element);
             }
             // We have a branch
             $total_offer = [];
