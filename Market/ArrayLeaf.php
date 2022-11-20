@@ -130,9 +130,9 @@ abstract class ArrayLeaf extends PseudoLeaf
      public function getDeepOffer()
      {
         $name = $this->getName();
-        $result = [$name.'.count'];
+        $result = ['count'];
         for ($i=0;$i<$this->getCount();$i++) {
-            $result[] = $name.'.'.$i;
+            $result[] = "$i";
         }
         return $result;
      }
