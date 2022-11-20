@@ -12,7 +12,7 @@ use Sunhill\InfoMarket\Response\Response;
  */
 abstract class Element extends Loggable
 {
-    
+ 
     /**
      * Stores the name of this element
      * @var string
@@ -20,11 +20,29 @@ abstract class Element extends Loggable
     protected $name;
     
     /**
+     * Stores the path (without name) that leads to this element
+     * @var string
+     */
+    protected $path = '';
+    
+    /**
      * Stores the owner (parent) of this element
      * @var Element
      */
     protected $owner = null;
-            
+    
+    /**
+     * Stores the calculated parameters that lead to this path
+     * @var array
+     */
+    protected $params = [];
+    
+    /**
+     * Stores the current response object
+     * @var Response
+     */
+    protected $response;
+    
     /**
      * Getter for $name
      * @return string
@@ -42,6 +60,26 @@ abstract class Element extends Loggable
     public function setName(string $name): Element
     {
         $this->name = $name;
+        return $this;
+    }
+    
+    /**
+     * Getter for $path
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;    
+    }
+    
+    /**
+     * Setter for $path
+     * @param string $path
+     * @return Element
+     */
+    public function setPath(string $path): Element
+    {
+        $this->path = $path;
         return $this;
     }
     
@@ -66,27 +104,90 @@ abstract class Element extends Loggable
     }
     
     /**
+     * Adds a param to the $param field
+     * @param string $key
+     * @param unknown $value
+     * @return Element
+     * Test Unit/Market/ElementTest::testParams
+     */
+    public function addParam(string $key, $value): Element
+    {
+        $this->params[$key] = $value;
+        return $this;
+    }
+    
+    /**
+     * Checks if the param is defined
+     * @param string $key
+     * @return unknown
+     * Test Unit/Market/ElementTest::testParams
+     */
+    public function hasParam(string $key)
+    {
+        return isset($this->params[$key]);    
+    }
+    
+    /**
+     * Gets a param from the $param field (or null if it doesn't exist)
+     * @param string $key
+     * @return unknown|NULL
+     * Test Unit/Market/ElementTest::testParams
+     */
+    public function getParam(string $key)
+    {
+        if (isset($this->params[$key])) {
+            return $this->params[$key];
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Return the whole params array
+     * @return unknown
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+    
+    /**
+     * Setter for $response
+     * @param Response $response
+     * @return Element
+     */
+    public function setResponse(Response $response): Element
+    {
+        $this->response = $response;
+        return $this;
+    }
+    
+    /**
+     * Getter for $response
+     * @return Response
+     */
+    public function getResponse(): Response
+    {
+        return $this->response;
+    }
+    
+    /**
      * Tries to return the best avaiable element or null if none found
      * @param string $next The next part of the search (the one that this item has to process first)
      * @param array $remains The remaining parts of the search
      * @return \StdClass|false
      */
     abstract protected function getThisElement(string $next, array $remains);
-    
+
     /**
      * Wrapper for getThisElement()
-     * @param string $next either the already splitrest (then there is no dot in the string
-     * or the unsplit request. It latter case we have to seperate it
-     * @param array $remains The remaining path elements (per default [])
-     * @return Element or null if there is none 
+     * @param string $next
+     * @param array $remains
+     * @return unknown
      */
-    public function getElement(string $next, array $remains = [])
+    public function getElement(string $next, array $remains)
     {
-        if (strpos($next,'.') !== false) {
-            $remains = explode('.',$next);
-            $next = array_shift($remains);
-        }
-        return $this->getThisElement($next, $remains);
+        return $this->getThisElement($next, $remains);    
     }
     
     /**
@@ -95,16 +196,10 @@ abstract class Element extends Loggable
      * @param array $remains
      */
     abstract protected function getThisMetadata(Response &$response, array $remains = [] );
-    
-    /**
-     * Wrapper for getThisMetadata
-     * @param Response $response
-     * @param array $remains
-     * @return unknown
-     */
+
     public function getMetadata(Response &$response, array $remains = [])
     {
-        return $this->getThisMetadata($response, $remains);
+        return $this->getThisMetadata($response, $remains);    
     }
     
     /**
@@ -112,10 +207,7 @@ abstract class Element extends Loggable
      * @param Response $response
      * @param array $remains
      */
-    protected function getThisValue(array $remains = [])
-    {
-        return null;
-    }
+    abstract protected function getThisValue(array $remains = []);
     
     /**
      * Wrapper for getThisValue
@@ -131,10 +223,7 @@ abstract class Element extends Loggable
      * @param unknown $value
      * @param array $remains
      */
-    protected function setThisValue($value, array $remains = [])
-    {
-        return; // Per default ignore request
-    }
+    abstract protected function setThisValue($value, array $remains = []);
     
     /**
      * Wrapper for setThisValue
@@ -144,7 +233,7 @@ abstract class Element extends Loggable
      */
     public function setValue($value, array $remains = [])
     {
-        return $this->setThisValue($value, $remains);
+        return $this->setThisValue($value, $remains);    
     }
     
     /**
@@ -157,7 +246,7 @@ abstract class Element extends Loggable
     
     public function isAllowedToRead(string $credentials, array $remains = []): bool
     {
-        return $this->isThisAllowedToRead($credentials, $remains);
+        return $this->isThisAllowedToRead($credentials, $remains);    
     }
     
     /**
@@ -174,11 +263,11 @@ abstract class Element extends Loggable
     }
     
     /**
-     * Returns all next path element that this element offers
+     * Returns all items that this element offers
      * @param string $filter
      * @param int $depth
      */
-    abstract protected function getThisOffer();
+    abstract protected function getThisOffer(int $depth);
     
     /**
      * Wrapper for doGetOffer()
@@ -186,26 +275,11 @@ abstract class Element extends Loggable
      * @param int $depth
      * @return unknown
      */
-    public function getOffer()
+    public function getOffer(int $depth = 0)
     {
-        return $this->getThisOffer();
+        if ($depth < 0) {
+            return;
+        }
+        return $this->getThisOffer(($depth==0)?2147483647:$depth);
     }
-    
-    /**
-     * Return all items that this element offers
-     * @return array
-     */
-    protected function getThisDeepOffer()
-    {
-        return [];
-    }
-    
-    /**
-     * Wrapper for getThisDeepOffer
-     */
-    public function getDeepOffer()
-    {
-        
-    }
-    
 }
