@@ -38,7 +38,7 @@ class FakeElement extends Element
         return false;
     }
     
-    protected function getThisOffer(int $depth)
+    protected function getThisOffer()
     {
         return ['a.b.c'];
     }
@@ -47,18 +47,6 @@ class FakeElement extends Element
 
 class ElementTest extends InfoMarketTest
 {
-    
-    /**
-     * Test the [has,set,get]Param mechanism
-     */
-    public function testParams()
-    {
-        $test = new FakeElement();
-        $this->assertFalse($test->hasParam('test'));
-        $test->addParam('test','TEST');
-        $this->assertTrue($test->hasParam('test'));
-        $this->assertEquals('TEST',$test->hasParam('test'));
-    }
     
     public function testWrappers()
     {
