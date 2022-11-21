@@ -133,6 +133,33 @@ class Market extends Branch
         }
     }
 
+    protected function fillMetadata(string $path, bool $read_value, string $credentials = 'anybody')
+    {
+        $result = new Response();
+        $result->setElement('request', $path);
+        if ($element = $this->getElement($path)) {
+            if ($element->element->isAllowedToRead($credentials, $element->remains)) {
+                $element->element->getMetadata($result, $element->remains);
+                if ($read_value) {
+                    $result->value($element->element->getValue($element->remains));
+                }    
+            } else {
+                $result->error('ITEMNOTALLOWEDTOREAD',"The current user is not allowed to read this item");            
+            }    
+        } else {
+            $result->error('ITEMNOTFOUND',"The item was not found");
+        }    
+    }
+    
+    /**
+     * Gets only the metadata (not the value), checks if the current user is allowed to read and returns it in the desired format
+     */
+    public function getMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
+    {
+        $result = $this->fillMetadata($path, false, $credentials);
+        return $result->get($format);
+    }
+    
     /**
      * gets the value and metadata of the given item $path, checks the access rights and returns it in the wanted format
      * @param $path string: The dot separated path to the item (or branch)
@@ -141,20 +168,43 @@ class Market extends Branch
      */
     public function getItem(string $path, string $credentials = 'anybody', string $format = 'json')
     {
-        $result = new Response();
-        $result->setElement('request',$path);
+        $result = $this->fillMetadata($path, true, $credentials);
+        return $result->get($format);
+    }
+   
+    /**
+     * gets the value and metadata of the given item $path, checks the access rights and sets the value
+     * @param $path string: The dot separated path to the item (or branch)
+     * @param $value : The value to set
+     * @param $credentials string: The current credentials of the user
+     * @param $format string ('json', 'object', 'array') The desired output format
+     */
+    public function setItem(string $path, $value, string $credentials = 'anybody', string $format = 'json')
+    {
+        $result = $this->fillMetadata($path, true, $credentials);
         if ($element = $this->getElement($path)) {
-            if ($element->element->isAllowedToRead($credentials, $element->remains)) {
-                $element->element->getMetadata($result, $element->remains);
-                $result->value($element->element->getValue($element->remains));
-                return $result->get($format);
+            if ($element->element->isAllowedToWrite($credentials, $element->remains)) {
+                $element->element->setValue($value, $element->remains);
             } else {
-                $result->error('ITEMNOTALLOWEDTOREAD',"The current user is not allowed to read this item");            
+                $result->error("ITEMNOTALLOWEDTOWRITE","The current user is not allowed to write this item");
             }    
-        } else {
-            $result->error('ITEMNOTFOUND',"The item was not found");
-        }    
+        }        
         return $result->get($format);
     }
     
+    /**
+     * Returns the complete offer of all installed marketeers
+     */
+    public function getOffer(bool $flat = true, string $format = 'array')
+    {
+    }
+    
+    public function getNodes(string $parent, string $format = 'object', string $credentials = 'anybody')
+    {
+        if (($parent == "") || ($parent == "#")) {
+        
+        } else {
+            
+        }    
+    }    
 }
