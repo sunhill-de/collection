@@ -106,7 +106,10 @@ class Branch extends Element
         }
         if (empty($remain)) {
             // There is no more information so return this subbranch
-            return $subbranch;
+            $result = new \StdClass();
+            $result->element = $subbranch;
+            $result->remains = [];
+            return $result;
         }
         // Routing goes deeper
         $first = array_shift($remain);
