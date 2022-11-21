@@ -104,7 +104,11 @@ abstract class Element extends Loggable
      */
     public function getMetadata(Response &$response, array $remains = [])
     {
-        return $this->getThisMetadata($response, $remains);
+        $this->getThisMetadata($response, $remains);
+        if ($response->getElement('readable')) {
+            $response->setElement('value',$this>->getValue($remains));
+        } 
+        return true;
     }
     
     /**
