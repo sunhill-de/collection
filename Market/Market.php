@@ -132,5 +132,29 @@ class Market extends Branch
             case 'json' : return json_encode($result);
         }
     }
-        
+
+    /**
+     * gets the value and metadata of the given item $path, checks the access rights and returns it in the wanted format
+     * @param $path string: The dot separated path to the item (or branch)
+     * @param $credentials string: The current credentials of the user
+     * @param $format string ('json', 'object', 'array') The desired output format
+     */
+    public function getItem(string $path, string $credentials = 'anybody', string $format = 'json')
+    {
+        $result = new Response();
+        $result->setElement('request',$path);
+        if ($element = $this->getElement($path)) {
+            if ($element->element->isAllowedToRead($credentials, $element->remains)) {
+                $element->element->getMetadata($result, $element->remains);
+                $result->value($element->element->getValue($element->remains));
+                return $result->get($format);
+            } else {
+                $result->error('ITEMNOTALLOWEDTOREAD',"The current user is not allowed to read this item");            
+            }    
+        } else {
+            $result->error('ITEMNOTFOUND',"The item was not found");
+        }    
+        return $result->get($format);
+    }
+    
 }
