@@ -95,6 +95,19 @@ class Market extends Branch
             $list = json_decode($list,true);
         }
     }
+
+    /**
+     * Depending on $format convert the input into the desired output format
+     * @param $input array|StdClass The input data
+     * @return string|array|StdClass The processed (or not processed) input
+     */
+    protected function processFormat($input, string $format)
+    {
+        switch ($format) {
+            case 'object': return $input;
+            case 'json' : return json_encode($input);
+        }
+    }
     
     /**
      * Return all avaiable informations (=metadatas) of this item
@@ -114,10 +127,7 @@ class Market extends Branch
         foreach ($list as $entry) {
             $result[] = $this->getItem($entry, $credentials, 'object');
         }
-        switch ($format) {
-            case 'object': return $result;
-            case 'json' : return json_encode($result);
-        }
+        return $this->processFormat($result, $format);
     }
     
     public function setItemList($path, $value, string $credentials = 'anybody', string $format = 'json')
@@ -127,10 +137,7 @@ class Market extends Branch
         foreach ($list as $entry) {
             $result[] = $this->setItem($entry, $value, $credentials, 'object');
         }
-        switch ($format) {
-            case 'object': return $result;
-            case 'json' : return json_encode($result);
-        }
+        return $this->processFormat($result, $format);
     }
 
     protected function fillMetadata(string $path, bool $read_value, string $credentials = 'anybody')
@@ -197,14 +204,20 @@ class Market extends Branch
      */
     public function getOffer(bool $flat = true, string $format = 'array')
     {
+        
     }
     
+    /**
+     * Collect all nodes from the branch $parent and return it converted to $format
+     */
     public function getNodes(string $parent, string $format = 'object', string $credentials = 'anybody')
     {
         if (($parent == "") || ($parent == "#")) {
-        
+            $result = $this->collectNodes($credentials);
         } else {
-            
-        }    
+            $element = $this->getElement($parent);
+            $result = $element->element->collectNodes($credentials);               
+        } 
+        return $this->processFormat($result, $format);
     }    
 }
