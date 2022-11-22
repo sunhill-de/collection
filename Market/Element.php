@@ -182,34 +182,37 @@ abstract class Element extends Loggable
      * @param string $filter
      * @param int $depth
      */
-    abstract protected function getThisOffer();
+    protected function collectThisOffer(array &$result, bool $flat)
+    {
+        return; // Per default do nothing
+    }    
     
     /**
-     * Wrapper for doGetOffer()
+     * Wrapper for collectThisOffer()
      * @param string $filter
      * @param int $depth
      * @return unknown
      */
-    public function getOffer()
+    final public function collectOffer(array &$result, bool $flat = true)
     {
-        return $this->getThisOffer();
+        return $this->collectThisOffer($result, $flat);
     }
     
     /**
-     * Return all items that this element offers
-     * @return array
+     * Returns all leafes that come out of this element
+     * Per default none
      */
-    protected function getThisDeepOffer()
+    protected function collectThisNodes(): array
     {
-        return [];
+        return []; // Per default no nodes
     }
     
     /**
-     * Wrapper for getThisDeepOffer
+     * Wrapper for collectThisNodes
      */
-    public function getDeepOffer()
+    final public function collectNodes(): array
     {
+        return $this->collectThisNodes();
+    }
         
-    }
-    
 }
