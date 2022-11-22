@@ -121,5 +121,10 @@ class Branch extends Element
         $resonse->OK()->semantic('Branch')->unit('None')->Type('Branch')->setElement('readable', true)
                 ->setElement('writeable',true)->setElement('read_restriction','anybody');
         return true;
+    } 
+    
+    protected function collectThisNodes(string $credentials)
+    {
+        
     }    
 }
