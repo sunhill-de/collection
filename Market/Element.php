@@ -182,7 +182,7 @@ abstract class Element extends Loggable
      * @param string $filter
      * @param int $depth
      */
-    protected function collectThisOffer(array &$result, bool $flat)
+    protected function collectThisOffer(array &$result, bool $flat, string $credentials)
     {
         return; // Per default do nothing
     }    
@@ -193,16 +193,16 @@ abstract class Element extends Loggable
      * @param int $depth
      * @return unknown
      */
-    final public function collectOffer(array &$result, bool $flat = true)
+    final public function collectOffer(array &$result, bool $flat = true, string $credentials = 'anybody')
     {
-        return $this->collectThisOffer($result, $flat);
+        return $this->collectThisOffer($result, $flat, $credentials);
     }
     
     /**
      * Returns all leafes that come out of this element
      * Per default none
      */
-    protected function collectThisNodes(): array
+    protected function collectThisNodes(string $credentials): array
     {
         return []; // Per default no nodes
     }
@@ -210,9 +210,9 @@ abstract class Element extends Loggable
     /**
      * Wrapper for collectThisNodes
      */
-    final public function collectNodes(): array
+    final public function collectNodes(string $credentials = 'anybody'): array
     {
-        return $this->collectThisNodes();
+        return $this->collectThisNodes($credentials);
     }
         
 }
