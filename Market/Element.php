@@ -157,7 +157,10 @@ abstract class Element extends Loggable
      * @param array $remains
      * @return bool
      */
-    abstract protected function isThisAllowedToRead(string $credentials, array $remains = []): bool;
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        return true;
+    }    
     
     public function isAllowedToRead(string $credentials, array $remains = []): bool
     {
@@ -170,7 +173,10 @@ abstract class Element extends Loggable
      * @param array $remains
      * @return bool
      */
-    abstract protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool;
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return false;
+    }    
     
     public function isAllowedToWrite(string $credentials, array $remains = []): bool
     {
