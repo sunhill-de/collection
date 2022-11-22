@@ -115,4 +115,11 @@ class Branch extends Element
         $first = array_shift($remain);
         return $subbranch->getElement($first, $remain);
     }
+    
+    protected function getThisMetadata(Response &$response, array $remains = [])
+    {
+        $resonse->OK()->semantic('Branch')->unit('None')->Type('Branch')->setElement('readable', true)
+                ->setElement('writeable',true)->setElement('read_restriction','anybody');
+        return true;
+    }    
 }
