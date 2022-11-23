@@ -32,53 +32,6 @@ class FakeLeaf extends Leaf
 
 class LeafTest extends InfoMarketTest
 {
-    /**
-     * @dataProvider checkRestrictionProvider
-     * @param unknown $restriction
-     * @param unknown $user
-     * @param unknown $expect
-     */
-    public function testCheckRestriction($restriction, $user, $expect)
-    {
-        $test = new FakeLeaf();
-        $this->assertEquals($expect, $this->callProtectedMethod($test,'checkRestriction',[$restriction,$user]));
-    }
-    
-    public function checkRestrictionProvider()
-    {
-        return [
-            ['anybody','anybody',true],
-            ['anybody','user',true],
-            ['anybody','advanced',true],
-            ['anybody','admin',true],
-            
-            ['user','anybody',false],
-            ['user','user',true],
-            ['user','advanced',true],
-            ['user','admin',true],
-            
-            ['advanced','anybody',false],
-            ['advanced','user',false],
-            ['advanced','advanced',true],
-            ['advanced','admin',true],
-            
-            ['admin','anybody',false],
-            ['admin','user',false],
-            ['admin','advanced',false],
-            ['admin','admin',true]
-        ];
-    }
-    
-    public function testMergeMetadata()
-    {
-        $default = ['a'=>1,'b'=>2,'c'=>3];
-        $overwrite = ['b'=>'B'];
-        
-        $test = new FakeLeaf();
-        $new = $this->callProtectedMethod($test, 'mergeMetadata', [$default, $overwrite]);
-        
-        $this->assertEquals(['a'=>1,'b'=>'B','c'=>3],$new);
-    }
     
     public function testGetElement()
     {
