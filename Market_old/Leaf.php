@@ -21,42 +21,6 @@ abstract class Leaf extends Element
         return $result;
     }
     
-    /**
-     * Returns a merge metadata array for further processing
-     * @param array $override
-     * Test tests/Unit/Market/LeafTest::testMergeMetadata
-     */
-    protected function mergeMetadata(array $default, array $override)
-    {
-        foreach ($override as $key => $value) {
-            $default[$key] = $value;
-        }
-        return $default;
-    }
-    
-    /**
-     * Checks if the given restriction ($user) fits to the required one ($restriction)
-     * @param string $restriction
-     * @param string $user
-     * @throws MarketeerException
-     * @return boolean|unknown
-     * Test /Unit/Market/LeadTest::testCheckRestrion()
-     */
-    protected function checkRestriction(string $restriction, string $user)
-    {
-        switch ($restriction) {
-            case 'anybody':
-                return true;
-            case 'user':
-                return in_array($user,['user','advanced','admin']);
-            case 'advanced':
-                return in_array($user,['advanced','admin']);
-            case 'admin':
-                return $user == 'admin';
-            default:
-                throw new MarketeerException(__("Unkown user group ':restriction'",['restriction'=>$restriction]));
-        }        
-    }
     
     /**
      * A leaf returns by default only itself

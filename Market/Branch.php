@@ -3,6 +3,7 @@
 namespace Sunhill\InfoMarket\Market;
 
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\InfoMarketException;
 
 /**
  * Class for a simple branch of the info market tree
@@ -14,6 +15,19 @@ class Branch extends Element
     
     protected $subbranches = [];
 
+    protected $read_restriction = 'anybody';
+
+    public function setReadRestriction(bool $restriction): Branch
+    {
+        $this->read_restriction = $restriction;
+        return $this;
+    }
+    
+    public function getReadRestriction(): bool
+    {
+        return $this->read_restriction;    
+    }
+    
     /**
      * Tests if this branch already has a subbranch with the name $name
      * @param string $name
@@ -47,7 +61,7 @@ class Branch extends Element
      * @param string $name
      * @return Element
      */
-    public function getSubbranch(string $name): Element
+    public function getSubbranch(string $name)
     {
         if ($this->hasSubbranch($name)) {
             return $this->subbranches[$name];
@@ -118,13 +132,21 @@ class Branch extends Element
     
     protected function getThisMetadata(Response &$response, array $remains = [])
     {
-        $resonse->OK()->semantic('Branch')->unit('None')->Type('Branch')->setElement('readable', true)
-                ->setElement('writeable',true)->setElement('read_restriction','anybody');
+        $response->OK()->semantic('Branch')->unit('None')->Type('Branch')->setElement('readable', true)
+                ->setElement('writeable',true)->setElement('read_restriction',$this->getReadRestriction());
         return true;
     } 
     
-    protected function collectThisNodes(string $credentials)
+    protected function collectThisNodes(string $credentials): array
     {
-        
+        $result = [];
+        foreach ($this->subbranches as $name => $branch) {
+            $response = new Response();
+            $branch->getMetadata($response);
+            if ($this->checkRestriction($response->getElement('read_restriction'),$credentials)) {
+                $result[] = $name;       
+            }
+        }
+        return $result;
     }    
 }

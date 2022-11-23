@@ -4,6 +4,7 @@ namespace Sunhill\InfoMarket\Market;
 
 use Sunhill\Basic\Loggable;
 use Sunhill\InfoMarket\Response\Response;
+use Sunhill\InfoMarket\InfoMarketException;
 
 /**
  * Basic class for the InfoMarket
@@ -25,6 +26,43 @@ abstract class Element extends Loggable
      */
     protected $owner = null;
             
+    /**
+     * Returns a merge metadata array for further processing
+     * @param array $override
+     * Test tests/Unit/Market/LeafTest::testMergeMetadata
+     */
+    protected function mergeMetadata(array $default, array $override)
+    {
+        foreach ($override as $key => $value) {
+            $default[$key] = $value;
+        }
+        return $default;
+    }
+    
+    /**
+     * Checks if the given restriction ($user) fits to the required one ($restriction)
+     * @param string $restriction
+     * @param string $user
+     * @throws MarketeerException
+     * @return boolean|unknown
+     * Test /Unit/Market/LeadTest::testCheckRestrion()
+     */
+    protected function checkRestriction(string $restriction, string $user)
+    {
+        switch ($restriction) {
+            case 'anybody':
+                return true;
+            case 'user':
+                return in_array($user,['user','advanced','admin']);
+            case 'advanced':
+                return in_array($user,['advanced','admin']);
+            case 'admin':
+                return $user == 'admin';
+            default:
+                throw new InfoMarketException("Unkown user group '$restriction'");
+        }
+    }
+    
     /**
      * Getter for $name
      * @return string
@@ -106,7 +144,7 @@ abstract class Element extends Loggable
     {
         $this->getThisMetadata($response, $remains);
         if ($response->getElement('readable')) {
-            $response->value($this>->getValue($remains));
+            $response->value($this->getValue($remains));
         } 
         return true;
     }
