@@ -36,13 +36,6 @@ class ItemTest extends InfoMarketTest
         $this->assertEquals('C',$this->callProtectedMethod($test,'getUnit',[[],$response]));
     }
     
-    public function testGetThisElementPass()
-    {
-        $test = new FakeItem();
-        $result = $test->getElement('A',[]);
-        $this->assertEquals($test,$result->element);
-    }
-    
     public function testGetThisElementFail()
     {
         $test = new FakeItem();
