@@ -2,6 +2,8 @@
 
 namespace Sunhill\InfoMarket\Market;
 
+use Sunhill\InfoMarket\Response\Response;
+
 abstract class Item extends Element
 {
  
@@ -116,11 +118,23 @@ abstract class Item extends Element
         
     }
     
-    abstract protected function getItemValue();
+    protected function getItemValue()
+    {
+        return null;
+    }
     
     protected function getThisValue(array $remains = [])
     {
         return $this->getItemValue();
     }
     
+    protected function setItemValue($value)
+    {
+        return;
+    }
+    
+    protected function setThisValue($value, array $remains = [])
+    {
+        $this->setItemValue($value);
+    }
 }
