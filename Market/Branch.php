@@ -17,13 +17,13 @@ class Branch extends Element
 
     protected $read_restriction = 'anybody';
 
-    public function setReadRestriction(bool $restriction): Branch
+    public function setReadRestriction(string $restriction): Branch
     {
         $this->read_restriction = $restriction;
         return $this;
     }
     
-    public function getReadRestriction(): bool
+    public function getReadRestriction(): string
     {
         return $this->read_restriction;    
     }
@@ -107,7 +107,7 @@ class Branch extends Element
      * Checks if a subbranch exists, 
      *   if yes check if there is more routing information 
      *      if yes route deeper 
-     *      if no return this 
+     *      if no return this     
      *   if no return false
      * {@inheritDoc}
      * @see \Sunhill\InfoMarket\Market\Element::getThisElement($next, $remains)
