@@ -25,21 +25,30 @@ class FakeSimpleArrayLeaf extends ArrayLeaf
         }
     }
     
-    protected function getIndexValue(int $index, array $remains, string $order, string $filter)
+    protected function calculateIndex(int $index, string $order, string $filter)
     {
         if ($filter == 'great') {
-            $index++;
+            if ($order == 'reverse') {
+                return 3-($index+1);
+            } else {
+                return $index+1;
+            }
         }
         if ($order == 'index') {
-            return $this->values[$index];
+            return $index;
         } else if ($order == 'reverse') {
-            return $this->values[2-$index];
-        }
+            return 2-$index;
+        }        
+    }
+    
+    protected function getIndexValue(int $index, array $remains, string $order, string $filter)
+    {
+        return $this->values[$this->calculateIndex($index, $order, $filter)];
     }
     
     protected function setIndexValue(int $index, $value, array $remains, string $order, string $filter)
     {
-        $this->values[$index] = $value;
+        $this->values[$this->calculateIndex($index, $order, $filter)] = $value;
     }
     
     protected function getAllowedSort(): array
@@ -158,13 +167,54 @@ class ArrayLeafTest extends InfoMarketTest
     public function testSimpleGetIndexWithOrder()
     {
         $test = new FakeSimpleArrayLeaf();
-        $this->assertEquals(4,$test->getValue(['by_reverse','1']));
+        $this->assertEquals(2,$test->getValue(['by_reverse','2']));
+    }
+    
+    public function testSimpleGetIndexWithFilter()
+    {
+        $test = new FakeSimpleArrayLeaf();
+        $this->assertEquals(4,$test->getValue(['where_great','0']));
+    }
+    
+    public function testSimpleGetIndexWithBoth()
+    {
+        $test = new FakeSimpleArrayLeaf();
+        $this->assertEquals(4,$test->getValue(['by_reverse','where_great','1']));
+        $this->assertEquals(6,$test->getValue(['by_reverse','where_great','0']));
+    }
+    
+    public function testIndexException()
+    {
+        $this->expectException(InfoMarketException::class);
+        $test = new FakeSimpleArrayLeaf();
+        $test->getValue(['where_great','2']);        
+    }
+    
+    public function testGetAll()
+    {
+        $test = new FakeSimpleArrayLeaf();
+        $result = $test->getValue(['all']);
+        $this->assertEquals(6,$result[2]);
     }
     
     public function testSimpleSetIndex()
     {
         $test = new FakeSimpleArrayLeaf();
         $test->setValue(9,['1']);
+        $this->assertEquals(9,$test->getValue(['1']));
+    }
+    
+    public function testSimpleSetIndexWithOrder()
+    {
+        $test = new FakeSimpleArrayLeaf();
+        $test->setValue(9,['by_reverse','0']);
+        $this->assertEquals(9,$test->getValue(['2']));
+    }
+    
+    public function testSimpleSetIndexWithFilter()
+    {
+        $test = new FakeSimpleArrayLeaf();
+        $test->setValue(9,['where_great','0']);
         $this->assertEquals(9,$test->getValue(['1']));
     }
     
