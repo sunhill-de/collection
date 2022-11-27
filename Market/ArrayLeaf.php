@@ -112,9 +112,38 @@ abstract class ArrayLeaf extends Element
     }
     
     /**
+     * Returns all values of this array
+     * @param array $remains
+     * @param string $order
+     * @param string $filter
+     * @return NULL[]|boolean[]
+     * @test Unit/Market/ArrayLeafTest::testGetAll
+     */
+    protected function getAll(array $remains, string $order, string $filter)
+    {
+        $result = [];
+        for ($i=0;$i<$this->getCount($filter);$i++) {
+            $value = $this->getIndexValue($i, $remains, $order, $filter);
+            if (is_a($value, Element::class)) {
+                $result[] = $value->getValue($remains);                
+            } else {
+                $result[] = $value;
+            }
+        }
+        return $result;
+    }
+    
+    /**
      * Overwrites the inherited method to check for typical array fields (like count or all)
      * {@inheritDoc}
      * @see \Sunhill\InfoMarket\Market\Element::getThisValue()
+     * @test Unit/Market/ArrayLeafTest::testSimpleGetCount
+     * @test Unit/Market/ArrayLeafTest::testSimpleGetIndex
+     * @test Unit/Market/ArrayLeafTest::testSimpleGetIndexWithOrder
+     * @test Unit/Market/ArrayLeafTest::testSimpleGetIndexWithFilter
+     * @test Unit/Market/ArrayLeafTest::testIndexException
+     * @test Unit/Market/ArrayLeafTest::testComplexGetCount
+     * @test Unit/Market/ArrayLeafTest::testComplexGetIndex
      */
     protected function getThisValue(array $remains = [])
     {
@@ -123,7 +152,7 @@ abstract class ArrayLeaf extends Element
             case 'count':
                 return $this->getCount($filter);
             case 'all':
-                return $this->getAll($order, $filter);
+                return $this->getAll($remains, $order, $filter);
             default:
                 if (is_numeric($index)) {
                     $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
@@ -140,6 +169,15 @@ abstract class ArrayLeaf extends Element
     {
     }       
     
+    /**
+     * Overwrites the inherited method to handle array fields
+     * {@inheritDoc}
+     * @see \Sunhill\InfoMarket\Market\Element::setThisValue()
+     * @test Unit/Market/ArrayLeafTest::testSimpleSetValue
+     * @test Unit/Market/ArrayLeafTest::testSimpleSetValueWithFilter
+     * @test Unit/Market/ArrayLeafTest::testSimpleSetValueWithOrder
+     * @test Unit/Market/ArrayLeafTest::testComplexSetValue
+     */
     protected function setThisValue($value, array $remains = [])
     {
         $this->checkFields($remains, $index, $order, $filter);
