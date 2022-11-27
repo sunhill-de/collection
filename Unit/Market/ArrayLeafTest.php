@@ -193,20 +193,4 @@ class ArrayLeafTest extends InfoMarketTest
         $this->assertEquals('C',$test->getValue(['2','0']));
     }
     
-    public function testGetOfferNormal()
-    {
-        $test = new FakeSimpleArrayLeaf();
-        $test->setName('test');
-        
-        $this->assertEquals(['test'],$test->getOffer());
-    }
-    
-    public function testGetDeepOffer()
-    {
-        $test = new FakeSimpleArrayLeaf();
-        $test->setName('test');
-        
-        $this->assertEquals(['test.count','test.0','test.1','test.2'],$test->getDeepOffer());
-        
-    }
 }
