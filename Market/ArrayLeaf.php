@@ -88,7 +88,7 @@ abstract class ArrayLeaf extends Element
         }
         
         if (is_numeric($remains[0])) {
-            $index = intval($remains[0]);
+            $index = intval(array_shift($remains));
             if (($index >= 0) && ($index < $this->getCount($filter))) {
                 return true;
             } else {
@@ -126,7 +126,12 @@ abstract class ArrayLeaf extends Element
                 return $this->getAll($order, $filter);
             default:
                 if (is_numeric($index)) {
-                    return $this->getIndexValue(intval($index), $remains, $order, $filter);
+                    $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
+                    if (is_a($result, Element::class)) {
+                        return $result->getValue($remains);
+                    } else {
+                        return $result;
+                    }
                 }
         }
     }
@@ -141,7 +146,12 @@ abstract class ArrayLeaf extends Element
         if (($index == 'all') || ($index == 'count')) {
             throw new InfoMarketException("Can't set a meta value '$index'");
         }
-        return $this->setIndexValue($index, $value, $remains, $order, $filter);        
+        $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
+        if (is_a($result, Element::class)) {
+            return $result->setValue($value, $remains);
+        } else {
+            return $this->setIndexValue($index, $value, $remains, $order, $filter);            
+        }
     }
     
     protected function getThisElement(string $next, array $remains)
