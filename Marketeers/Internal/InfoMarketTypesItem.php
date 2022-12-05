@@ -14,7 +14,7 @@ class InfoMarketTypesItem extends InfoMarketArrayBase
   
     function classFits(string $test)
     {
-      return is_a($test, Type::class, true);
+      return is_a($test, Type::class, true) && ($test !== Type::class);
     }  
 
 }

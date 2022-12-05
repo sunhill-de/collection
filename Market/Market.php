@@ -33,11 +33,14 @@ class Market extends Branch
         throw new InfoMarketException(__("Can't process marketeer"));        
     }
 
-    protected function processOffer(string $offer, Element $item)
+    protected function processOffer(string $offer, $item)
     {
         $parts = explode('.', $offer);
-        $first = array_shift($offer);
+        $first = array_shift($parts);
         
+        if (is_string($item)) {
+            $item = new $item();
+        }
         $this->processThisOffer($first, $parts, $item);
     }
     
@@ -155,13 +158,14 @@ class Market extends Branch
             }    
         } else {
             $result->error('ITEMNOTFOUND',"The item was not found");
-        }    
+        }
+        return $result;
     }
     
     /**
      * Gets only the metadata (not the value), checks if the current user is allowed to read and returns it in the desired format
      */
-    public function getMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
+    public function getItemMetadata(string $path, string $credentials = 'anybody', string $format = 'json')
     {
         $result = $this->fillMetadata($path, false, $credentials);
         return $result->get($format);

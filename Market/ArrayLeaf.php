@@ -194,11 +194,32 @@ abstract class ArrayLeaf extends Element
     
     protected function getThisElement(string $next, array $remains)
     {
+        $return = new \StdClass();
+        array_unshift($remains, $next);
+        $this->checkFields($remains, $index, $order, $filter);
+        $return->remains = $remains;
+        if (($index == 'all') || ($index == 'count')) {
+            $return->element = $this;
+            return $return;
+        }
+        $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
+        if (is_a($result, Element::class)) {
+            $return->element = $result;
+        } else {
+            $return->element = $this;
+        }
+        return $return;
     }
     
     protected function getThisMetadata(Response &$response, array $remains = [] )
     {
-        $this->checkField($remains);        
+        $response->update('late');
+        $this->checkFields($remains, $index, $order, $filter);
+        switch ($index) {
+            case 'count':
+                $response->type('Integer')->semantic('Count')->unit('None')->setElement('readable',true)->setElement('writeable',false);
+                break;
+        }
     }
     
     protected function collectThisOffer(array &$result, bool $flat, string $credentials)

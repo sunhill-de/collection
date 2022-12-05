@@ -54,16 +54,41 @@ abstract class InfoMarketArrayBase extends ArrayLeaf
         $this->addClasses();
     }
   
-    protected function getCount(): int
+    protected function getCount(string $filter): int
     {
         $this->fillCache();
         return count($this->cache);
     }
 
-    protected function getIndexValue(int $index, array $remains)
+    protected function getIndexValue(int $index, array $remains, string $order, string $filter)
     {
         $this->fillCache();
-        return $this->cache[$index];
+        $result = [];
+        switch ($filter) {
+            case 'begins':
+                foreach ($this->cache as $entry) {
+                    if (substr($entry,0,strlen($remains[0])) == $remains[0]) {
+                        $result[] = $entry;
+                    }
+                }
+            default:
+                $result = $this->cache;
+        }
+        switch ($order) {
+            case 'reverse':
+                $result = array_reverse($result);            
+        }
+        return $result[$index];
     }  
   
+    protected function getAllowedSort(): array
+    {
+        return ['reverse'];
+    }
+    
+    protected function getAllowedFilter(): array
+    {
+        return ['begins','contains'];
+    }
+    
 }  
