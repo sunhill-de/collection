@@ -2,38 +2,38 @@
 
 namespace Sunhill\InfoMarket\Tests\Feature;
 
-class SimpleTest extends MarketBase
+use Sunhill\Basic\Tests\SunhillAppTestCase;
+use Sunhill\InfoMarket\Facades\InfoMarket;
+
+class SimpleTest extends SunhillAppTestCase
 {
-    
-    public function testSimpleRouting()
+        
+    public function testSimpleString()
     {
-        $test = $this->getMarket();
-        
-        $item = $test->getItem('simple.test.item','anybody','object');
-        $this->assertEquals('TeSt',$item->value);
-        
-        $item = $test->getItem('simple.test.entry','anybody','object');
-        $this->assertEquals('tEsT',$item->value);
-        
-        $item = $test->getItem('simple.test.entry2','anybody','object');        
-        $this->assertEquals('TesT',$item->value);
+        $item = InfoMarket::getItem('infomarket.name','anybody','object');
+        $this->assertEquals('InfoMarket',$item->value);
+        $this->assertEquals('Str',$item->type);
+        $this->assertEquals('Name',$item->semantic);
+        $this->assertEquals('None',$item->unit);
+        $this->assertFalse($item->writeable);
+        $this->assertEquals('infomarket.name',$item->request);
     }
     
-    /**
-     * @dataProvider GetMetadataProvider
-     * @param unknown $path
-     * @param unknown $data
-     * @param unknown $expect
-     */
-    public function testGetMetadata($path, $data, $expect)
+    public function testSimpleArrayCount()
     {
-        
+        $item = InfoMarket::getItem('infomarket.types.count','anybody','object');
+        $this->assertEquals(10,$item->value);
     }
     
-    public function GetMetadataProvider()
+    public function testSimpleArrayElement()
     {
-        return [
-            ['simple.test','type','Branch']
-        ];
+        $item = InfoMarket::getItem('infomarket.types.0','anybody','object');
+        $this->assertEquals('Arrayfield',$item->value);
+    }
+    
+    public function testSimpleArrayOrder()
+    {
+        $item = InfoMarket::getItem('infomarket.types.by_reverse.0','anybody','object');
+        $this->assertEquals('Time',$item->value);        
     }
 }

@@ -243,4 +243,26 @@ class ArrayLeafTest extends InfoMarketTest
         $this->assertEquals('C',$test->getValue(['2','0']));
     }
     
+    public function testGetElement_endthis1()
+    {
+        $test = new FakeComplexArrayLeaf();
+        $item = $test->getElement('count',[]);
+        $this->assertEquals($test,$item);
+    }
+    
+    public function testGetElement_endthis2()
+    {
+        $test = new FakeComplexArrayLeaf();
+        $item = $test->getElement('all',[]);
+        $this->assertEquals($test,$item);
+    }
+    
+    public function testGetElement_endnext()
+    {
+        $test = new FakeComplexArrayLeaf();
+        $item = $test->getElement('1',['2']);
+        $this->assertTrue(is_a($item, FakeSimpleArrayLeaf::class));
+    }
+    
+    
 }
