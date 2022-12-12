@@ -1,10 +1,10 @@
 <?php
 
-namespace Sunhill\InfoMarket\Tests\Feature;
+namespace Sunhill\InfoMarket\Tests\Objects;
 
 use Sunhill\InfoMarket\Market\Item;
 
-class FeatureTestAnotherItem extends Item
+class TestSimpleItem extends Item
 {
     
     public $value = 5;

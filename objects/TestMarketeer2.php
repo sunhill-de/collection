@@ -1,16 +1,16 @@
 <?php
 
-namespace Sunhill\InfoMarket\Tests\Feature;
+namespace Sunhill\InfoMarket\Tests\Objects;
 
 use Sunhill\InfoMarket\Market\Marketeer;
 
-class FeatureMarketeer2 extends Marketeer
+class TestMarketeer2 extends Marketeer
 {
     
     protected function getOffering(): array
     {
         return [
-            'test.another'=>FeatureTestAnotherItem::class,
+            'test.another'=>TestAnotherItem::class,
         ];
     }
     
