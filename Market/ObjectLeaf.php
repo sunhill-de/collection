@@ -52,9 +52,9 @@ abstract class ObjectLeaf extends Element
     {
         $element = array_shift($remains);
         if (in_array($element,$this->getAllowedFields())) {
-            $value = $this->getObjectValue($element, $remains);
-            if (is_a($value,Element::class)) {
-                return $value->setValue($value,$remains);
+            $old_value = $this->getObjectValue($element, $remains);
+            if (is_a($old_value,Element::class)) {
+                return $old_value->setValue($value,$remains);
             } else {
                 return $this->setObjectValue($element, $value, $remains);
             }
@@ -63,6 +63,7 @@ abstract class ObjectLeaf extends Element
     
     protected function getThisElement(string $next, array $remains)
     {
+        
     }
     
     protected function getThisMetadata(Response &$response, array $remains = [] )
