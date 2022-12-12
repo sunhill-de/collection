@@ -56,9 +56,19 @@ abstract class Item extends Element
         return $this->default_metadata['readable'];
     }
     
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        return $this->isReadable();
+    }
+    
     protected function isWriteable()
     {
         return $this->default_metadata['writeable'];
+    }
+    
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return $this->isWriteable();
     }
     
     protected function getReadRestriction()
