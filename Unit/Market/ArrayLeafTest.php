@@ -158,21 +158,21 @@ class ArrayLeafTest extends InfoMarketTest
     {
         $test = new TestComplexArrayLeaf();
         $item = $test->getElement('count',[]);
-        $this->assertEquals($test,$item);
+        $this->assertEquals($test,$item->element);
     }
     
     public function testGetElement_endthis2()
     {
         $test = new TestComplexArrayLeaf();
         $item = $test->getElement('all',[]);
-        $this->assertEquals($test,$item);
+        $this->assertEquals($test,$item->element);
     }
     
     public function testGetElement_endnext()
     {
         $test = new TestComplexArrayLeaf();
         $item = $test->getElement('1',['2']);
-        $this->assertTrue(is_a($item, TestSimpleArrayLeaf::class));
+        $this->assertTrue(is_a($item->element, TestSimpleArrayLeaf::class));
     }
     
     
