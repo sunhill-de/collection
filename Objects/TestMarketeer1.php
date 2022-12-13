@@ -11,6 +11,9 @@ class TestMarketeer1 extends Marketeer
     {
         return [
             'test.simple'=>TestSimpleItem::class,
+            'item.readonly'=>TestReadonlyItem::class,
+            'item.writeonly'=>TestWriteonlyItem::class,
+            'item.restricted'=>TestRestrictedItem::class
         ];
     }
     
