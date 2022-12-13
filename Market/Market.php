@@ -148,9 +148,9 @@ class Market extends Branch
         $result = new Response();
         $result->setElement('request', $path);
         if ($element = $this->getElement($path)) {
-            if ($element->element->isAllowedToRead($credentials, $element->remains)) {
-                $element->element->getMetadata($result, $element->remains);
-                if ($read_value) {
+            $element->element->getMetadata($result, $element->remains);
+            if ($element->element->isAllowedToRead($credentials, $element->remains) || !$result->getElement('readable')) {
+                if ($read_value && $result->getElement('readable')) {
                     $result->value($element->element->getValue($element->remains));
                 }    
             } else {
