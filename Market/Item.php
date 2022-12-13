@@ -58,7 +58,7 @@ abstract class Item extends Element
     
     protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
-        return $this->isReadable();
+        return $this->isReadable() && $this->checkRestriction($this->getReadRestriction(),$credentials);
     }
     
     protected function isWriteable()
@@ -68,7 +68,7 @@ abstract class Item extends Element
     
     protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
     {
-        return $this->isWriteable();
+        return $this->isWriteable() && $this->checkRestriction($this->getWriteRestriction(),$credentials);;
     }
     
     protected function getReadRestriction()
