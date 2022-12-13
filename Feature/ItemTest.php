@@ -45,4 +45,37 @@ class ItemTest extends SunhillAppTestCase
         $this->assertEquals('FAILED',$item->result);
     }
     
+    public function testReadonlyItem()
+    {
+        InfoMarket::installMarketeer(TestMarketeer1::class);
+        InfoMarket::installMarketeer(TestMarketeer2::class);
+        $item = InfoMarket::getItem('item.readonly','anybody','object');
+        $this->assertEquals(5,$item->value);
+        $result = InfoMarket::setItem('item.readonly',10,'anybody','object');
+        $this->assertEquals('FAILED',$result->result);
+    }
+    
+    
+    public function testWriteonlyItem()
+    {
+        InfoMarket::installMarketeer(TestMarketeer1::class);
+        InfoMarket::installMarketeer(TestMarketeer2::class);
+        $item = InfoMarket::getItem('item.writeonly','anybody','object');
+        $this->assertFalse(property_exists($item,"value"));
+        $result = InfoMarket::setItem('item.writeonly',10,'anybody','object');
+        $this->assertEquals('OK',$result->result);
+        $element = InfoMarket::getElement('item',['writeonly']);
+        $this->assertEquals(10,$element->element->value);
+    }
+    
+    public function testRestrictedItem()
+    {
+        InfoMarket::installMarketeer(TestMarketeer1::class);
+        InfoMarket::installMarketeer(TestMarketeer2::class);
+        $item = InfoMarket::getItem('item.restricted','anybody','object');
+        $this->assertEquals('FAILED',$item->result);
+        $item = InfoMarket::getItem('item.restricted','admin','object');
+        $this->assertEquals('OK',$item->result);
+        $this->assertEquals(5,$item->value);
+    }
 }
