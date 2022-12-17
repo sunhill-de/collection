@@ -154,5 +154,10 @@ abstract class ObjectLeaf extends Element
     
     protected function collectThisNodes(string $credentials): array
     {
+        $result = [];
+        foreach ($this->getAllowedFields() as $field) {
+            $result[] = $field;
+        }
+        return $result;
     }
 }

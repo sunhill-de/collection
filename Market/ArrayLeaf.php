@@ -331,7 +331,7 @@ abstract class ArrayLeaf extends Element
     
     protected function collectThisOffer(array &$result, bool $flat, string $credentials)
     {
-        
+        $result[] = 'count';
     }
     
     protected function getAllowedSort(): array
@@ -353,7 +353,7 @@ abstract class ArrayLeaf extends Element
         foreach ($this->getAllowedFilter() as $filter) {
             $result[] = 'where_'.$filter;
         }
-        for ($i=0;$i<$this->getCount();$i++) {
+        for ($i=0;$i<$this->getCount("");$i++) {
             $result[] = $i;
         }
         return $result;
