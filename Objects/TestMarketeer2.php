@@ -11,6 +11,8 @@ class TestMarketeer2 extends Marketeer
     {
         return [
             'test.another'=>TestAnotherItem::class,
+            'array.simple'=>TestSimpleArrayLeaf::class,
+            'array.complex'=>TestComplexArrayLeaf::class
         ];
     }
     

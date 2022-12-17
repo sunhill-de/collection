@@ -36,4 +36,5 @@ class SimpleTest extends SunhillAppTestCase
         $list = InfoMarket::getItemList(['test.simple','test.another'],'anybody','object');
         $this->assertEquals(10,$list[1]->value);
     }
+    
 }
