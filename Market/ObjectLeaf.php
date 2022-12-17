@@ -15,6 +15,20 @@ abstract class ObjectLeaf extends Element
     
     abstract protected function getAllowedFields();
     
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        $first = array_shift($remains);
+        $metadata = $this->callSpecialMethod("getObjectMetadata", $first, $remains);
+        return $metadata['writeable'] && (isset($metadata['write_restrictions'])?($this->checkRestriction($metadata['write_restriction'], $credentials)):true);
+    }
+    
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        $first = array_shift($remains);
+        $metadata = $this->callSpecialMethod("getObjectMetadata", $first, $remains);
+        return $metadata['readable'] && (isset($metadata['read_restrictions'])?($this->checkRestriction($metadata['read_restriction'], $credentials)):true);
+    }
+    
     protected function getObjectValue(string $name, array $remaining)
     {
         // Do nothing by default
@@ -74,7 +88,7 @@ abstract class ObjectLeaf extends Element
             if (is_a($old_value,Element::class)) {
                 return $old_value->setValue($value,$remains);
             } else {
-                return $this->callSpecialMethod("setObjectValue", $element, $remaining, $value);
+                return $this->callSpecialMethod("setObjectValue", $element, $remains, $value);
             }
         }
     }
