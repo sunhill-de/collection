@@ -14,6 +14,8 @@ class TestObjectLeaf extends ObjectLeaf
     
     public $float = 1.23;
     
+    public $additional = 'DEF';
+    
     public function initObj()
     {
         $this->object = new TestObjectLeaf();
@@ -24,7 +26,12 @@ class TestObjectLeaf extends ObjectLeaf
     
     protected function getAllowedFields()
     {
-        return ['str','int','float','obj'];
+        return ['str','int','float','obj','additional'];
+    }
+    
+    protected function getObjectValue_additional(array $remaining)
+    {
+        return $this->additional;    
     }
     
     protected function getObjectValue(string $name, array $remaining)
@@ -38,6 +45,11 @@ class TestObjectLeaf extends ObjectLeaf
         }
     }
     
+    protected function setObjectValue_additional($value, array $remaining)
+    {
+        $this->additional = $value;    
+    }
+    
     protected function setObjectValue(string $first, $value, $remaining)
     {
         switch ($first)
@@ -47,6 +59,25 @@ class TestObjectLeaf extends ObjectLeaf
             case 'float': $this->float = $value;
         }
     }
-    
+   
+    protected function getObjectMetadata(string $next, array $remaining)
+    {
+        $result = ['update'=>'asap', 'unit'=>'None','readable'=>true,'witeable'=>true];
+        switch ($next) {
+            case 'str':
+                $result['type'] = 'Str';
+                $result['semantic'] = 'Name';
+                break;
+            case 'int':
+                $result['type'] = 'Integer';
+                $result['semantic'] = 'Count';
+                break;
+            case 'str':
+                $result['float'] = 'Floating';
+                $result['semantic'] = 'Name';
+                break;
+        }
+        return $result;
+    }
 }
 

@@ -13,7 +13,8 @@ class TestMarketeer2 extends Marketeer
             'test.another'=>TestAnotherItem::class,
             'array.simple'=>TestSimpleArrayLeaf::class,
             'array.complex'=>TestComplexArrayLeaf::class,
-            'object.test'=>TestObjectLeaf::class
+            'object.test'=>TestObjectLeaf::class,
+//            'object.complex'=>TestObbjectArrayLeaf::class,
         ];
     }
     
