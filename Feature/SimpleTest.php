@@ -2,38 +2,39 @@
 
 namespace Sunhill\InfoMarket\Tests\Feature;
 
-class SimpleTest extends MarketBase
+use Sunhill\Basic\Tests\SunhillAppTestCase;
+use Sunhill\InfoMarket\Facades\InfoMarket;
+
+use Sunhill\InfoMarket\Tests\Objects\TestMarketeer1;
+use Sunhill\InfoMarket\Tests\Objects\TestMarketeer2;
+
+class SimpleTest extends SunhillAppTestCase
 {
-    
-    public function testSimpleRouting()
+        
+    public function testCrossBranch()
     {
-        $test = $this->getMarket();
-        
-        $item = $test->getItem('simple.test.item','anybody','object');
-        $this->assertEquals('TeSt',$item->value);
-        
-        $item = $test->getItem('simple.test.entry','anybody','object');
-        $this->assertEquals('tEsT',$item->value);
-        
-        $item = $test->getItem('simple.test.entry2','anybody','object');        
-        $this->assertEquals('TesT',$item->value);
+        InfoMarket::installMarketeer(TestMarketeer1::class);
+        InfoMarket::installMarketeer(TestMarketeer2::class);
+        $item1 = InfoMarket::getItem('test.simple','anybody','object');
+        $item2 = InfoMarket::getItem('test.another','anybody','object');
+        $this->assertEquals(5,$item1->value);
+        $this->assertEquals(5,$item2->value);
+        InfoMarket::setItem('test.simple',10,'anybody','object');
+        $item1 = InfoMarket::getItem('test.simple','anybody','object');
+        $item2 = InfoMarket::getItem('test.another','anybody','object');
+        $this->assertEquals(10,$item1->value);
+        $this->assertEquals(5,$item2->value);        
     }
     
-    /**
-     * @dataProvider GetMetadataProvider
-     * @param unknown $path
-     * @param unknown $data
-     * @param unknown $expect
-     */
-    public function testGetMetadata($path, $data, $expect)
+    public function testList()
     {
-        
+        InfoMarket::installMarketeer(TestMarketeer1::class);
+        InfoMarket::installMarketeer(TestMarketeer2::class);
+        $list = InfoMarket::getItemList(['test.simple','test.another'],'anybody','object');
+        $this->assertEquals(5,$list[0]->value);
+        $list = InfoMarket::setItemList(['test.simple','test.another'],10,'anybody','object');
+        $list = InfoMarket::getItemList(['test.simple','test.another'],'anybody','object');
+        $this->assertEquals(10,$list[1]->value);
     }
     
-    public function GetMetadataProvider()
-    {
-        return [
-            ['simple.test','type','Branch']
-        ];
-    }
 }

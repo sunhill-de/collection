@@ -7,6 +7,8 @@ use Sunhill\InfoMarket\Tests\InfoMarketTest;
 
 class BranchItem1 extends Element
 {
+    public $value = 123;
+    
     protected function getThisElement(string $next, array $remains)
     {
         return $this;
@@ -89,80 +91,75 @@ class BranchTest extends InfoMarketTest
     public function testAddBranch()
     {
         $test = new Branch();
-        $element = new Branch();
-        $element->setName('test');
         
         $this->assertFalse($test->hasSubbranch('test'));
-        $test->addSubbranch($element);
+        $test->addSubbranch('test');
         $this->assertTrue($test->hasSubbranch('test'));
         $this->assertEquals('test',$test->getSubbranch('test')->getName());
     }
     
-    public function testMergeBranch()
+    public function testProcessThisOffer1()
     {
         $test = new Branch();
+        $test->setName('test');
         
-        $element1 = new Branch();
-        $element1->setName('test');
-        $subelement1 = new Branch();
-        $subelement1->setName('subtest1');
-        $element1->addSubbranch($subelement1);
+        $item = new BranchItem1();
+        $test->processThisOffer('item',[],$item);
+        $subbranch = $test->getSubbranch('item');
+        $this->assertEquals('item',$subbranch->getName());
+        $this->assertEquals(123,$this->callProtectedMethod($subbranch,'getValue'));
+    }
+    
+    public function testProcessThisOffer2()
+    {
+        $test = new Branch();
+        $test->setName('test');
         
-        $element2 = new Branch();
-        $element2->setName('test');
-        $subelement2 = new Branch();
-        $subelement2->setName('subtest2');
-        $element2->addSubbranch($subelement2);
-        
-        $test->addSubbranch($element1);
-        $test->addSubbranch($element2);
-        
-        $this->assertTrue($test->hasSubbranch('test'));
-        $subbranch = $test->getSubbranch('test');
-        $this->assertTrue($subbranch->hasSubbranch('subtest1'));
-        $this->assertTrue($subbranch->hasSubbranch('subtest2'));
+        $item = new BranchItem1();
+        $test->processThisOffer('sub',['subsub','item'],$item);
+        $subbranch = $test->getSubbranch('sub')->getSubbranch('subsub')->getSubbranch('item');
+        $this->assertEquals('item',$subbranch->getName());
+        $this->assertEquals(123,$this->callProtectedMethod($subbranch,'getValue'));
     }
     
     public function testGetElementPass()
     {
         $test = new Branch();
         $test->setName('test');
-        $element = new Branch();
-        $element->setName('element');
-        $test->addSubbranch($element);
+        
+        $test->addSubbranch('element');
         
         $result = $this->callProtectedMethod($test, 'getElement', ['element',[]]);
         
-        $this->assertEquals($element,$result->element);
+        $this->assertEquals('element',$result->element->getName());
     }
 
     public function testGetElementPass2()
     {
         $test = new Branch();
         $test->setName('test');
-        $element = new Branch();
-        $element->setName('element');
-        $subelement = new Branch();
-        $subelement->setName('subelement');
-        $element->addSubbranch($subelement);
-        $test->addSubbranch($element);
+        $test->addSubbranch('sub');
+        $sub = $this->callProtectedMethod($test, 'getElement', ['sub',[]]);
+        $sub->element->addSubbranch('subsub');
         
-        $result = $this->callProtectedMethod($test, 'getElement', ['element',['subelement']]);
+        $result = $this->callProtectedMethod($test, 'getElement', ['sub.subsub',[]]);
         
-        $this->assertEquals($subelement,$result->element);
+        
+        $this->assertEquals('subsub',$result->element->getName());
     }
     
     public function testGetElementFail()
     {
         $test = new Branch();
         $test->setName('test');
-        $element = new Branch();
-        $element->setName('element');
-        $test->addSubbranch($element);
+        $test->addSubbranch('sub');
+        $sub = $this->callProtectedMethod($test, 'getElement', ['sub',[]]);
+        $sub->element->addSubbranch('subsub');
         
-        $result = $this->callProtectedMethod($test, 'getElement', ['notexisting',[]]);
-        
-        $this->assertEquals(null,$result);
+        $result = $this->callProtectedMethod($test, 'getElement', ['sub.doesntexist',[]]);
+        $this->assertFalse($result);
+        $result = $this->callProtectedMethod($test, 'getElement', ['doesntexist.subsub',[]]);
+        $this->assertFalse($result);
     }
     
     public function testGetThisMetadata()
@@ -174,27 +171,23 @@ class BranchTest extends InfoMarketTest
         $this->assertEquals('Branch',$response->getElement('type'));
     }
 
-    public function testGetThisMetadataFail()
+    public function testGetNodes1()
     {
         $test = new Branch();
-        $test->setName('test');
-        $response = new Response();
-        $this->assertFalse($test->getMetadata($response,['some']));
+        $test->addSubbranch('sub1');
+        $test->addSubbranch('sub2');
+        $test->addSubbranch('sub3');
+        $result = $test->collectNodes();
+        $this->assertEquals(['sub1','sub2','sub3'],$result);
     }
-    
-    public function testGetOffer()
+
+    public function testGetNodes2()
     {
         $test = new Branch();
-        $element1 = new BranchItem1();
-        $element1->setName('a');
-        $element2 = new BranchItem2();
-        $element2->setName('d');
-        
-        $test->addSubbranch($element1);
-        $test->addSubbranch($element2);
-        
-        $result = $test->getOffer();
-        sort($result);
-        $this->assertEquals(['a.b.c','d.e.f'],$result);
+        $test->addSubbranch('sub1');
+        $test->addSubbranch('sub2')->setReadRestriction('admin');
+        $test->addSubbranch('sub3');
+        $result = $test->collectNodes('anybody');
+        $this->assertEquals(['sub1','sub3'],$result);
     }
 }
