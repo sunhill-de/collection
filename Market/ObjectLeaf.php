@@ -19,6 +19,24 @@ abstract class ObjectLeaf extends Element
     {
         // Do nothing by default
     }
+
+    protected function callSpecialMethod(string $base, string $element, array $remaining, $payload = null)
+    {
+        $method = $base.'_'.$element;
+        if (method_exists($this,$method)) {
+            if (is_null($payload)) {
+                return $this->$method($remaining);
+            } else {
+                return $this->$method($remaining, $payload);
+            }
+        } else {
+            if (is_null($payload)) {
+                return $this->$base($element, $remaining);
+            } else {
+                return $this->$base($element, $payload, $remaining);
+            }                
+        }
+    }
     
     /**
      * Overwrites the inherited method to check for typical array fields (like count or all)
@@ -29,7 +47,7 @@ abstract class ObjectLeaf extends Element
     {
         $element = array_shift($remains);
         if (in_array($element,$this->getAllowedFields())) {
-            $value = $this->getObjectValue($element, $remains);
+            $value = $this->callSpecialMethod("getObjectValue", $element, $remains);
             if (is_a($value,Element::class)) {
                 return $value->getValue($remains);
             } else {
@@ -52,28 +70,66 @@ abstract class ObjectLeaf extends Element
     {
         $element = array_shift($remains);
         if (in_array($element,$this->getAllowedFields())) {
-            $old_value = $this->getObjectValue($element, $remains);
+            $old_value = $this->callSpecialMethod("getObjectValue", $element, $remains);
             if (is_a($old_value,Element::class)) {
                 return $old_value->setValue($value,$remains);
             } else {
-                return $this->setObjectValue($element, $value, $remains);
+                return $this->callSpecialMethod("setObjectValue", $element, $remaining, $value);
             }
         }
     }
+
+    protected function getObjectElement(string $element, array $remaining)
+    {
+        $result = new \StdClass();
+        $result->element = $this;
+        $result->remains = $remaining;
+        return $result;    
+    }
     
-    protected function getThisElement(string $next, array $remains)
+    protected function getThisElement(string $next, array $remaining)
+    {
+        if (in_array($next,$this->getAllowedFields())) {
+            array_unshift($remaining, $next);
+            return $this->callSpecialMethod("getObjectElement", $next, $remaining);
+        } else {
+            return false;
+        }
+    }
+    
+    protected function getObjectMetadata(string $next, array $remains)
     {
         
     }
     
     protected function getThisMetadata(Response &$response, array $remains = [] )
     {
-        $response->update('late');
-        $this->checkFields($remains, $index, $order, $filter);
-        switch ($index) {
-            case 'count':
-                $response->type('Integer')->semantic('Count')->unit('None')->setElement('readable',true)->setElement('writeable',false);
-                break;
+        $first = array_shift($remains);
+        if (in_array($first, $this->getAllowedFields())) {
+            $metadata = $this->callSpecialMethod("getObjectMetadata", $first, $remains);
+            foreach ($metadata as $key => $value) {
+                switch ($key) {
+                    case 'semantic':
+                        $response->Semantic($value);
+                        break;
+                    case 'unit':
+                        $response->Unit($value);
+                        break;
+                    case 'type':
+                        $response->Type($value);
+                        break;
+                    default:
+                        $response->setElement($key, $value);
+                }
+            }
+            if ($response->getElement('readable')) {
+                array_unshift($remains, $first);
+                $value = $this->getValue($remains);
+                $response->value($value);
+            }
+            return true;
+        } else {
+            return false;
         }
     }
     
