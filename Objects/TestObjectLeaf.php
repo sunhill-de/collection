@@ -45,7 +45,7 @@ class TestObjectLeaf extends ObjectLeaf
         }
     }
     
-    protected function setObjectValue_additional($value, array $remaining)
+    protected function setObjectValue_additional(array $remaining, $value)
     {
         $this->additional = $value;    
     }
@@ -59,10 +59,17 @@ class TestObjectLeaf extends ObjectLeaf
             case 'float': $this->float = $value;
         }
     }
-   
+
+    protected function getObjectMetadata_additional(array $remaining)
+    {
+        return ['update'=>'asap', 'unit'=>'None','readable'=>true,'writeable'=>true,
+            'type'=>'Str','semantic'=>'Name'
+        ];
+    }
+    
     protected function getObjectMetadata(string $next, array $remaining)
     {
-        $result = ['update'=>'asap', 'unit'=>'None','readable'=>true,'witeable'=>true];
+        $result = ['update'=>'asap', 'unit'=>'None','readable'=>true,'writeable'=>true];
         switch ($next) {
             case 'str':
                 $result['type'] = 'Str';
