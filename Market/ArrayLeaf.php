@@ -12,6 +12,40 @@ use Sunhill\InfoMarket\InfoMarketException;
  */
 abstract class ArrayLeaf extends Element
 {
+    
+    /**
+     * This are the default metadata and should be overwritten by derrived items
+     * @var array
+     */
+    private $default_metadata = [
+        'read_restriction'=>'anybody',
+        'write_restriction'=>'anybody',
+        'readable'=>true,
+        'writeable'=>false,
+        'unit'=>' ',
+        'semantic'=>'name',
+        'type'=>'Str',
+        'update'=>'late'
+    ];
+    
+    /**
+     * In this array the overwritten metadata should be stored. it is later mixed with default metadata
+     * @var array
+     */
+    protected $element_metadata = [];
+    
+    /**
+     * The constructor overwrites the default metadata values with the ones
+     * defined for this item
+     * Test /tests/Unit/Market/ItemTest::testOverride()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        // Overwrite the defaults (if necessary)
+        $this->default_metadata = $this->mergeMetadata($this->default_metadata,$this->element_metadata);
+    }
+    
     abstract protected function getCount(string $filter): int;
     
     /**
@@ -152,7 +186,7 @@ abstract class ArrayLeaf extends Element
             case 'count':
                 return $this->getCount($filter);
             case 'all':
-                return $this->getAll($remains, $order, $filter);
+                return $this->getAll($remains, 'index', '');
             default:
                 if (is_numeric($index)) {
                     $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
@@ -197,18 +231,71 @@ abstract class ArrayLeaf extends Element
         $return = new \StdClass();
         array_unshift($remains, $next);
         $this->checkFields($remains, $index, $order, $filter);
-        $return->remains = $remains;
         if (($index == 'all') || ($index == 'count')) {
+            $return->remains = $remains;
             $return->element = $this;
             return $return;
         }
         $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
         if (is_a($result, Element::class)) {
-            $return->element = $result;
+            $next = array_shift($remains);
+            $return = $result->getElement($next, $remains);
         } else {
+            array_unshift($remains, $next);
+            $return->remains = $remains;
             $return->element = $this;
         }
         return $return;
+    }
+    
+    protected function isReadable()
+    {
+        return $this->default_metadata['readable'];
+    }
+    
+    protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
+    {
+        return $this->isReadable() && $this->checkRestriction($this->getReadRestriction(),$credentials);
+    }
+    
+    protected function isWriteable()
+    {
+        return $this->default_metadata['writeable'];
+    }
+    
+    protected function isThisAllowedToWrite(string $credentials, array $remains = []): bool
+    {
+        return $this->isWriteable() && $this->checkRestriction($this->getWriteRestriction(),$credentials);;
+    }
+    
+    protected function getReadRestriction()
+    {
+        return $this->default_metadata['read_restriction'];
+    }
+    
+    protected function getWriteRestriction()
+    {
+        return $this->default_metadata['write_restriction'];
+    }
+    
+    protected function getUnit()
+    {
+        return $this->default_metadata['unit'];
+    }
+    
+    protected function getSemantic()
+    {
+        return $this->default_metadata['semantic'];
+    }
+    
+    protected function getType()
+    {
+        return $this->default_metadata['type'];
+    }
+    
+    protected function getUpdate()
+    {
+        return $this->default_metadata['update'];
     }
     
     protected function getThisMetadata(Response &$response, array $remains = [] )
@@ -219,6 +306,26 @@ abstract class ArrayLeaf extends Element
             case 'count':
                 $response->type('Integer')->semantic('Count')->unit('None')->setElement('readable',true)->setElement('writeable',false);
                 break;
+            case 'all':    
+                $response->type('Arrayfield')->semantic('Branch')->unit('None')->setElement('readable',true)->setElement('writeable',false);
+                break;
+            default:
+                $response
+                ->OK()
+                ->setElement('readable',$this->isReadable())
+                ->setElement('writeable',$this->isWriteable())
+                ->unit($this->getUnit())
+                ->semantic($this->getSemantic())
+                ->type($this->getType())
+                ->update($this->getUpdate());
+                if ($this->isReadable()) {
+                    $response
+                    ->setElement('read_restriction',$this->getReadRestriction());
+                }
+                if ($this->isWriteable()) {
+                    $response
+                    ->setElement('write_restriction',$this->getWriteRestriction());
+                }                
         }
     }
     
