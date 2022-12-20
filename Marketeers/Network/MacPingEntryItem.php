@@ -7,21 +7,33 @@ use Sunhill\InfoMarket\Market\ArrayLeaf;
 class MacPingEntryItem extends ArrayLeaf
 {
 
-    protected $data;
+    protected $mac;
+    
+    protected $ip4;
+    
+    protected $vendor;
       
     public function __construct($data)
     {
-       $this->data = $data;
+       $this->parseData($data);
     }
   
+    protected function parseData($data)
+    {
+    }
+    
     protected function getAllowedFields()
     {
-        return ['mac'];
+        return ['mac','ip4','vendor'];
     }
     
     protected function getObjectValue(string $name, array $remaining)
     {
-        return $this->data[$name];
+        switch ($name) {
+            case 'mac': return $this->mac;
+            case 'ip4': return $this->ip4;
+            case 'vendor': return $this->vendor;
+        }        
     }
     
     protected function getObjectMetadata(string $next, array $remaining)
