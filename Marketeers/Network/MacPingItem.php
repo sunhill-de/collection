@@ -6,10 +6,10 @@ use Sunhill\InfoMarket\Market\ArrayLeaf;
 
 class MacPingItem extends ArrayLeaf
 {
-    protected $metadata = [
+    protected $element_metadata = [
         'unit'=>'',
         'type'=>'Str',
-        'semantic'=>'Name'
+        'semantic'=>'Branch'
     ];
     
     protected $cache;

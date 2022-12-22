@@ -122,6 +122,9 @@ abstract class ObjectLeaf extends Element
     protected function getThisMetadata(Response &$response, array $remains = [] )
     {
         $first = array_shift($remains);
+        if (empty($first)) {
+            $response->Semantic('Branch')->Type('Branch')->setElement('readable',true)->setElement('writeable',false);
+        }
         if (in_array($first, $this->getAllowedFields())) {
             $metadata = $this->callSpecialMethod("getObjectMetadata", $first, $remains);
             foreach ($metadata as $key => $value) {
