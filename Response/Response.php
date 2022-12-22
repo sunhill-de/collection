@@ -41,7 +41,11 @@ class Response
     
     public function getElement(string $name)
     {
-        return $this->elements->$name;    
+        if (property_exists($this->elements,$name)) {
+           return $this->elements->$name;
+        } else {
+            return "";
+        }
     }
     
     /**

@@ -346,15 +346,24 @@ abstract class ArrayLeaf extends Element
     
     protected function collectThisNodes(string $credentials): array
     {
-        $result = ['count','all'];
+        $response = new Response();
+        $this->getMetadata($response,['count']);
+        $result = [$this->createNode('count',$response)];
+
+        $response = new Response();
+        $this->getMetadata($response,['all']);        
+        $result[] = $this->createNode('all',$response);
+/*
         foreach ($this->getAllowedSort() as $sort) {
             $result[] = 'by_'.$sort;
         }
         foreach ($this->getAllowedFilter() as $filter) {
             $result[] = 'where_'.$filter;
-        }
+        }*/
         for ($i=0;$i<$this->getCount("");$i++) {
-            $result[] = $i;
+            $response = new Response();
+            $this->getMetadata($response,[$i]);
+            $result[] = $this->createNode($i,$response);
         }
         return $result;
     }

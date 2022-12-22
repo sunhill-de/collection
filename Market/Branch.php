@@ -144,7 +144,7 @@ class Branch extends Element
             $response = new Response();
             $branch->getMetadata($response);
             if ($this->checkRestriction($response->getElement('read_restriction'),$credentials)) {
-                $result[] = $name;       
+                $result[] = $this->createNode($name, $response);       
             }
         }
         return $result;

@@ -49,6 +49,9 @@ abstract class Element extends Loggable
      */
     protected function checkRestriction(string $restriction, string $user)
     {
+        if (empty($restriction)) {
+            $restriction = 'anybody';
+        }
         switch ($restriction) {
             case 'anybody':
                 return true;
@@ -240,6 +243,18 @@ abstract class Element extends Loggable
     final public function collectOffer(array &$result, bool $flat = true, string $credentials = 'anybody')
     {
         return $this->collectThisOffer($result, $flat, $credentials);
+    }
+    
+    protected function createNode(string $name, Response $response)
+    {
+        $result = new \StdClass();
+        $result->name = $name;
+        $result->semantic = $response->getElement('semantic');
+        $result->unit = $response->getElement('unit');
+        $result->type = $response->getElement('type');
+        $result->value = $response->getElement('value');
+        $result->human_readable_value = $response->getElement('human_readable_value');
+        return $result;        
     }
     
     /**

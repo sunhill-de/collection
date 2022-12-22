@@ -22,7 +22,7 @@ class AjaxController extends Controller
  
   public function getNodes(string $parent="", Request $request, Response $response)
   {
-     $nodes = InfoMarket::getNodes(($parent=="!root!")?"":$parent, 'object');
+     $nodes = InfoMarket::getNodes(($parent=="!root!")?"":$parent, 'object','anybody');
      $result = [];
      foreach ($nodes as $node) {
         $node_data = [];
