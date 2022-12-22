@@ -10,7 +10,7 @@ class NetworkMarketeer extends Marketeer
     protected function getOffering(): array
     {
         return [
-          'network.current'=>NetworkCurrentItem::class
+          'network.current'=>MacPingItem::class
         ];
     }
 

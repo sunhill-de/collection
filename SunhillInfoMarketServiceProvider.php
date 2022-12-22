@@ -17,6 +17,7 @@ namespace Sunhill\InfoMarket;
 use Illuminate\Support\ServiceProvider;
 use Sunhill\InfoMarket\Market\Market;
 use Sunhill\InfoMarket\Facades\InfoMarket;
+use Sunhill\InfoMarket\Marketeers\Network\NetworkMarketeer;
 
 class SunhillInfoMarketServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,6 @@ class SunhillInfoMarketServiceProvider extends ServiceProvider
         $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
         InfoMarket::setupMarketeers();
+        InfoMarket::installMarketeer(NetworkMarketeer::class);
     }
 }
