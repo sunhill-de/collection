@@ -243,14 +243,19 @@ class Response
      */
     public function value($value): Response
     {
-        $value = $this->semantic->processValue($value);        
+        if (isset($this->semantic)) {
+            $value = $this->semantic->processValue($value);
+        }
         $this->setElement('value',$value);
         
-        $human_readable_unit = $this->unit->getHumanReadableUnit();
-        $human_readable_value = $this->semantic->processHumanReadableValue($this->type->processHumanReadableValue($value),$human_readable_unit);
-        
-        $this->setElement('human_readable_unit',$human_readable_unit);
-        $this->setElement('human_readable_value',$human_readable_value);
+        if (isset($this->unit)) {
+            $human_readable_unit = $this->unit->getHumanReadableUnit();
+            $this->setElement('human_readable_unit',$human_readable_unit);
+        }
+        if (isset($this->semantic)) {
+            $human_readable_value = $this->semantic->processHumanReadableValue($this->type->processHumanReadableValue($value),$human_readable_unit);
+            $this->setElement('human_readable_value',$human_readable_value);
+        }
         
         return $this;
     }
