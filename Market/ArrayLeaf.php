@@ -238,8 +238,13 @@ abstract class ArrayLeaf extends Element
         }
         $result = $this->getIndexValue(intval($index), $remains, $order, $filter);
         if (is_a($result, Element::class)) {
-            $next = array_shift($remains);
-            $return = $result->getElement($next, $remains);
+            if (empty($remains)) {
+                $return->element = $result;
+                $return->remains = $remains;
+            } else {
+                $next = array_shift($remains);
+                $return = $result->getElement($next, $remains);
+            }
         } else {
             array_unshift($remains, $next);
             $return->remains = $remains;
