@@ -25,6 +25,9 @@ abstract class ObjectLeaf extends Element
     protected function isThisAllowedToRead(string $credentials, array $remains = []): bool
     {
         $first = array_shift($remains);
+        if (empty($first)) {
+            return true;
+        }
         $metadata = $this->callSpecialMethod("getObjectMetadata", $first, $remains);
         return $metadata['readable'] && (isset($metadata['read_restrictions'])?($this->checkRestriction($metadata['read_restriction'], $credentials)):true);
     }
@@ -156,7 +159,9 @@ abstract class ObjectLeaf extends Element
     {
         $result = [];
         foreach ($this->getAllowedFields() as $field) {
-            $result[] = $field;
+            $response = new Response();
+            $this->getMetadata($response, [$field]);
+            $result[] = $this->createNode($field,$response);
         }
         return $result;
     }
