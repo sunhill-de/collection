@@ -42,6 +42,13 @@ class Friend extends Person
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
+        self::date('date_of_death')
+            ->set_description('The deathday of this person')
+            ->setDefault(null)
+            ->set_displayable(true)
+            ->set_editable(true)
+            ->set_groupeditable(false)
+            ->searchable();
         self::varchar('birth_name')
             ->setMaxLen(100)
             ->setDefault(null)
