@@ -99,7 +99,7 @@ class Property extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
-            ->setEnumValues(['physical','virtual']); 
+            ->setEnumValues(['physical','virtual','pseudo']); 
     }
     
     protected static function setupInfos()
