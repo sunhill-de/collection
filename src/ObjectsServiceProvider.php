@@ -132,6 +132,7 @@ class ObjectsServiceProvider extends ServiceProvider
         Dialogs::addObjectKeyfield(Property::class,':name');
         Dialogs::addObjectKeyfield(Genre::class,':name');
         Dialogs::addObjectKeyfield(Network::class,':name');
+        Dialogs::addObjectKeyfield(Date::class,':name');
     }
     
     public function boot()
