@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Import;
+namespace Sunhill\Collection\Response\Database\Import;
 
 use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Classes;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ListMoviesImportResponse extends SunhillListResponse
 {
     
-    protected $template = 'visual::import.listmovies';
+    protected $template = 'collection::import.listmovies';
     
     protected function prepareHeaders(): array 
     {

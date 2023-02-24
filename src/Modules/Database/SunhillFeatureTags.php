@@ -1,9 +1,8 @@
 <?php
 
-namespace Sunhill\Visual\Modules\Database;
+namespace Sunhill\Collection\Modules\Database;
 
 use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-
 use Sunhill\Visual\Modules\SunhillModuleBase;
 
 class SunhillFeatureTags extends SunhillModuleBase
@@ -14,14 +13,14 @@ class SunhillFeatureTags extends SunhillModuleBase
         $this->setName('Tags');
         $this->setDisplayName('Tags');        
         $this->setDescription('Tags');
-        $this->addIndex(\Sunhill\Visual\Controllers\Database\TagsController::class);
+        $this->addIndex(\Sunhill\Collection\Controllers\Database\TagsController::class);
         $this->addAction('List')
-            ->addControllerAction([\Sunhill\Visual\Controllers\Database\TagsController::class, 'list'])
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'list'])
             ->setVisible(true)
             ->setRouteAddition('/{page?}')
             ->setAlias('tags.list');
         $this->addAction('Show')
-            ->addControllerAction([\Sunhill\Visual\Controllers\Database\TagsController::class, 'show'])
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'show'])
             ->setVisible(false)
             ->setRouteAddition('/{id}')
             ->setAlias('tags.show');

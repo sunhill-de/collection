@@ -1,11 +1,11 @@
 <?php
 
-namespace Sunhill\Visual\Controllers\Database;
+namespace Sunhill\Collection\Controllers\Database;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Visual\Response\SunhillTileViewResponse;
-use Sunhill\Visual\Response\Database\Import\ListMoviesImportResponse;
-use Sunhill\Visual\Response\Database\Import\LookupMovieResponse;
+use Sunhill\Collection\Response\SunhillTileViewResponse;
+use Sunhill\Collection\Response\Database\Import\ListMoviesImportResponse;
+use Sunhill\Collection\Response\Database\Import\LookupMovieResponse;
 
 class ImportsController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Marketeers;
+namespace Sunhill\Collection\Marketeers;
 
 use Sunhill\InfoMarket\Market\ObjectLeaf;
 use Sunhill\ORM\Facades\Objects;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Tiles\Computer\Database;
+namespace Sunhill\Collection\Tiles\Computer\Database;
 
 use Sunhill\Visual\Tiles\SunhillTileBase;
 use Sunhill\ORM\Facades\Classes;

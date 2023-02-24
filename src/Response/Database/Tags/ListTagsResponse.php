@@ -1,8 +1,7 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Tags;
+namespace Sunhill\Collection\Response\Database\Tags;
 
-use Sunhill\Visual\Response\BladeResponse;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\Visual\Response\ListResponse;
 
@@ -11,7 +10,7 @@ class ListTagsResponse extends ListResponse
 
     protected $columns = ['name','parent'];
     
-    protected $template = 'visual::tags.list';
+    protected $template = 'collection::tags.list';
     
     protected function prepareList($key,$order,$delta,$limit)
     {

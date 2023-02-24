@@ -1,9 +1,8 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Tags;
+namespace Sunhill\Collection\Response\Database\Tags;
 
 use Illuminate\Http\Request;
-
 use Sunhill\ORM\Objects\Tag;
 
 class ExecAddTagResponse extends TagResponseBase

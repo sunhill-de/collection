@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Objects;
+namespace Sunhill\Collection\Response\Database\Objects;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\Objects;
@@ -13,7 +13,7 @@ use Sunhill\Visual\Facades\Dialogs;
 class ShowObjectResponse extends SunhillBladeResponse
 {
 
-    protected $template = 'visual::objects.show';
+    protected $template = 'collection::objects.show';
     
     protected $id;
 

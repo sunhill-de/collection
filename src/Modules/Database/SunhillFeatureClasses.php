@@ -1,9 +1,8 @@
 <?php
 
-namespace Sunhill\Visual\Modules\Database;
+namespace Sunhill\Collection\Modules\Database;
 
 use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-
 use Sunhill\Visual\Modules\SunhillModuleBase;
 
 class SunhillFeatureClasses extends SunhillModuleBase
@@ -14,14 +13,14 @@ class SunhillFeatureClasses extends SunhillModuleBase
         $this->setName('Classes');
         $this->setDisplayName('Classes');        
         $this->setDescription('Classes');
-        $this->addIndex(\Sunhill\Visual\Controllers\Database\ClassesController::class);
+        $this->addIndex(\Sunhill\Collection\Controllers\Database\ClassesController::class);
         $this->addAction('List')
-            ->addControllerAction([\Sunhill\Visual\Controllers\Database\ClassesController::class, 'list'])
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'list'])
             ->setVisible(true)
             ->setRouteAddition('/{page?}')
             ->setAlias('classes.list');
         $this->addAction('Show')
-            ->addControllerAction([\Sunhill\Visual\Controllers\Database\ClassesController::class, 'show'])
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'show'])
             ->setVisible(false)
             ->setRouteAddition('/{class}')
             ->setAlias('classes.show');

@@ -1,17 +1,17 @@
 <?php
 
-namespace Sunhill\Visual\Controllers\Database;
+namespace Sunhill\Collection\Controllers\Database;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Visual\Response\SunhillTileViewResponse;
-use Sunhill\Visual\Response\Database\Objects\ListObjectsResponse;
-use Sunhill\Visual\Response\Database\Objects\ShowObjectResponse;
-use Sunhill\Visual\Response\Database\Objects\AddObjectResponse;
-use Sunhill\Visual\Response\Database\Objects\EditObjectResponse;
-use Sunhill\Visual\Response\Database\Classes\ChooseClassResponse;
-use Sunhill\Visual\Response\Database\Objects\ExecAddObjectResponse;
-use Sunhill\Visual\Response\Database\Objects\ExecEditObjectResponse;
-use Sunhill\Visual\Response\Database\Objects\DeleteObjectResponse;
+use Sunhill\Collection\Response\SunhillTileViewResponse;
+use Sunhill\Collection\Response\Database\Objects\ListObjectsResponse;
+use Sunhill\Collection\Response\Database\Objects\ShowObjectResponse;
+use Sunhill\Collection\Response\Database\Objects\AddObjectResponse;
+use Sunhill\Collection\Response\Database\Objects\EditObjectResponse;
+use Sunhill\Collection\Response\Database\Classes\ChooseClassResponse;
+use Sunhill\Collection\Response\Database\Objects\ExecAddObjectResponse;
+use Sunhill\Collection\Response\Database\Objects\ExecEditObjectResponse;
+use Sunhill\Collection\Response\Database\Objects\DeleteObjectResponse;
 
 class ObjectsController extends Controller
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Sunhill\Visual\Controllers\Infomarket;
+namespace Sunhill\Collection\Controllers\Infomarket;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Visual\Response\InfoMarket\IndexResponse;
-use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-use Sunhill\Visual\Response\Database\Classes\ShowClassResponse;
+use Sunhill\Collection\Response\InfoMarket\IndexResponse;
+use Sunhill\Collection\Response\Database\Classes\ListClassesResponse;
+use Sunhill\Collection\Response\Database\Classes\ShowClassResponse;
 
 class InfomarketController extends Controller
 {

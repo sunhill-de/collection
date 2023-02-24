@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\InfoMarket\Marketeers\Localhost;
+namespace Sunhill\Collection\Marketeers\Localhost;
 
 use Sunhill\InfoMarket\Market\Marketeer;
 

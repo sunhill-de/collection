@@ -1,11 +1,11 @@
 <?php
 
-namespace Sunhill\Visual\Controllers\Database;
+namespace Sunhill\Collection\Controllers\Database;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Visual\Response\SunhillTileViewResponse;
-use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-use Sunhill\Visual\Response\Database\Classes\ShowClassResponse;
+use Sunhill\Collection\Response\SunhillTileViewResponse;
+use Sunhill\Collection\Response\Database\Classes\ListClassesResponse;
+use Sunhill\Collection\Response\Database\Classes\ShowClassResponse;
 
 class ClassesController extends Controller
 {

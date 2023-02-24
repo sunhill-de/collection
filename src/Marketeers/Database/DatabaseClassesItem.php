@@ -1,11 +1,11 @@
 <?php
 
-namespace Sunhill\Visual\Marketeers;
+namespace Sunhill\Collection\Marketeers;
 
 use Sunhill\InfoMarket\Market\ArrayLeaf;
-use Sunhill\ORM\Facades\Objects;
+use Sunhill\ORM\Facades\Classes;
 
-class DatabaseObjectsItem extends ArrayLeaf
+class DatabaseClassesItem extends ArrayLeaf
 {
     protected $element_metadata = [
         'unit'=>'',
@@ -15,12 +15,12 @@ class DatabaseObjectsItem extends ArrayLeaf
 
     protected function getCount(string $filter): int
     {
-        return Objects::count();
+        return Classes::getClassCount();
     }
 
     protected function getIndexValue(int $index, array $remains, string $order, string $filter)
     {
-        return new DatabaseObjectsEntryItem($index);
+        return new DatabaseClassesEntryItem($index);
     }
     
 }

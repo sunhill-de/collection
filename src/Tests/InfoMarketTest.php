@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\InfoMarket\Tests;
+namespace Sunhill\Collection\Tests;
 
 use Sunhill\Basic\Tests\SunhillNoAppTestCase;
 

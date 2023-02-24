@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\InfoMarket\Marketeers\Home;
+namespace Sunhill\Collection\Marketeers\Home;
 
 use Sunhill\InfoMarket\Market\ObjectLeaf;
 

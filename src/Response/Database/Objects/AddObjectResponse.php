@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Objects;
+namespace Sunhill\Collection\Response\Database\Objects;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\Objects;
@@ -12,7 +12,7 @@ class AddObjectResponse extends SunhillBladeResponse
 
     use GetProperties;
     
-    protected $template = 'visual::objects.add';
+    protected $template = 'collection::objects.add';
     
     protected $class = '';
     

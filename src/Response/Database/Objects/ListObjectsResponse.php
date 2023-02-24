@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Objects;
+namespace Sunhill\Collection\Response\Database\Objects;
 
 use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Objects;
@@ -14,7 +14,7 @@ class ListObjectsResponse extends SunhillListResponse
 
     protected $columns = ['uuid'];
     
-    protected $template = 'visual::objects.list';
+    protected $template = 'collection::objects.list';
     
     protected function prepareList($key,$order,$delta,$limit)
     {

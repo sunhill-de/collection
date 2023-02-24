@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Classes;
+namespace Sunhill\Collection\Response\Database\Classes;
 
 use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Classes;
@@ -9,7 +9,7 @@ use Sunhill\Visual\Facades\SunhillSiteManager;
 class ListClassesResponse extends SunhillListResponse
 {
     
-    protected $template = 'visual::classes.list';
+    protected $template = 'collection::classes.list';
     
     protected function prepareHeaders(): array 
     {

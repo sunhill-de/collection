@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Classes;
+namespace Sunhill\Collection\Response\Database\Classes;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\Classes;
@@ -8,7 +8,7 @@ use Sunhill\ORM\Facades\Classes;
 class ShowClassResponse extends SunhillBladeResponse
 {
     
-    protected $template = 'visual::classes.show';
+    protected $template = 'collection::classes.show';
     
     protected $class = '';
     

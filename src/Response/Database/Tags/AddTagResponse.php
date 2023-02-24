@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Tags;
+namespace Sunhill\Collection\Response\Database\Tags;
 
 use Sunhill\Visual\Response\BladeResponse;
 use Sunhill\ORM\Facades\Tags;
@@ -8,7 +8,7 @@ use Sunhill\ORM\Facades\Tags;
 class AddTagResponse extends BladeResponse
 {
 
-    protected $template = 'visual::tags.edit';
+    protected $template = 'collection::tags.edit';
         
     protected function prepareResponse()
     {

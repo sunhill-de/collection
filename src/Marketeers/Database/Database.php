@@ -12,7 +12,7 @@
  * PSR-State: complete
  */
 
-namespace Sunhill\Visual\Marketeers;
+namespace Sunhill\Collection\Marketeers;
 
 use Sunhill\InfoMarket\Market\Marketeer;
 

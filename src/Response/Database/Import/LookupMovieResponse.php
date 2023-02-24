@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Import;
+namespace Sunhill\Collection\Response\Database\Import;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\Classes;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class LookupMovieResponse extends SunhillBladeResponse
 {
     
-    protected $template = 'visual::import.lookupmovie';
+    protected $template = 'collection::import.lookupmovie';
     
     protected $id = 0;
     

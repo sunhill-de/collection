@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database\Objects;
+namespace Sunhill\Collection\Response\Database\Objects;
 
 use Illuminate\Http\Request;
 

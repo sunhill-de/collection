@@ -1,12 +1,12 @@
 <?php
 
-namespace Sunhill\Visual\Response\Database;
+namespace Sunhill\Collection\Response\Database;
 
 use Sunhill\Visual\Response\BladeResponse;
 
 class IndexResponse extends BladeResponse
 {
     
-    protected $template = 'visual::database.index';
+    protected $template = 'collection::database.index';
     
 }

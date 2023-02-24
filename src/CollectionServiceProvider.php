@@ -4,7 +4,7 @@ namespace Sunhill\Collection;
 
 use Illuminate\Support\ServiceProvider;
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\Visual\Facades\Dialogs;
+use Sunhill\Collection\Facades\Dialogs;
 
 use Sunhill\Collection\Objects\Address;
 use Sunhill\Collection\Objects\Anniversary;
@@ -155,10 +155,19 @@ class ObjectsServiceProvider extends ServiceProvider
         
     }
     
+    protected function registerMarketeers()
+    {
+        InfoMarket::installMarketeer(NetworkMarketeer::class);        
+        InfoMarket::installMarketeer(Database::class);
+    }
+    
     public function boot()
     {
         $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
+        $this->loadViewsFrom(__DIR__.'/../resources/views','collection');
+
         $this->registerClasses();
         $this->defineDialogs();
+        $this->registerMarketeers();
     }
 }
