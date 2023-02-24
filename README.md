@@ -1,2 +1,2 @@
 # collection
-A collection of useful views, infomarkets and other components of the sunhill project
+A collection of useful objects, views, infomarkets and other components of the sunhill project
