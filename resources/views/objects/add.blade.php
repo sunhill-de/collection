@@ -23,11 +23,11 @@
  <input type="hidden" name="_class" value="{{ $class->name }}" />
  @foreach ($class->fields as $field)
   <div style="width:33%;">
-  <x-visual-input id="{{ $class->name }}" name="{{ $field->name }}" action="add" />
+  <x-collection-input id="{{ $class->name }}" name="{{ $field->name }}" action="add" />
  </div>
  @endforeach
  <div class="pt-2 pb-2">
-   <x-visual-input id="{{ $class->name }}" name="tags" action="add" />
+   <x-collection-input id="{{ $class->name }}" name="tags" action="add" />
  </div>
  <div class="field is-grouped">
   <div class="control">

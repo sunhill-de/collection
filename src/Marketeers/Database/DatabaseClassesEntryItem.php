@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Marketeers;
+namespace Sunhill\Collection\Marketeers\Database;
 
 use Sunhill\InfoMarket\Market\ObjectLeaf;
 use Sunhill\ORM\Facades\Classes;

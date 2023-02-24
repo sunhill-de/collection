@@ -8,7 +8,7 @@ use Sunhill\ORM\Facades\Classes;
 class ObjectsTile extends SunhillTileBase
 {
     
-    protected $tile_template = 'visual::tiles.database.objects';
+    protected $tile_template = 'collection::tiles.database.objects';
     
     protected function getParams()
     {

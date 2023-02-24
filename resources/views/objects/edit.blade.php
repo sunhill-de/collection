@@ -12,9 +12,9 @@
  <div class="dialogelements">
  @csrf
  @foreach ($fields as $field)
-  <x-visual-input id="{{ $object->getID() }}" name="{{ $field->name }}" action="edit" />
+  <x-collection-input id="{{ $object->getID() }}" name="{{ $field->name }}" action="edit" />
  @endforeach
- <x-visual-input id="{{ $object->getID() }}" name="tags" action="edit" />
+ <x-collection-input id="{{ $object->getID() }}" name="tags" action="edit" />
 
  <div class="field is-grouped">
   <div class="control">

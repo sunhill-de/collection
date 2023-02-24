@@ -1,6 +1,6 @@
 {
-	"name" : "sunhill/objects",
-	"description" : "The sunhill collection of objects",
+	"name" : "sunhill/collection",
+	"description" : "The sunhill collection of useful objects, marketeers and views",
 	"type" : "library",
 	"license" : "MIT",
 	"authors" : [{
@@ -9,25 +9,30 @@
 		}
 	],
 	"minimum-stability" : "dev",
+	"require": {
+		"sunhill/orm":"*",
+		"sunhill/infomarket":"*",
+		"sunhill/visual":"*"
+	},
 	"autoload" : {
 		"psr-4" : {
-			"Sunhill\\Objects\\Tests\\" : [
+			"Sunhill\\Collection\\Tests\\" : [
 				"tests",
 				"tests/lib",
 				"tests/objects"
 			],
-			"Sunhill\\Objects\\Test\\" : [
+			"Sunhill\\Collection\\Test\\" : [
 				"tests",
 				"tests/lib",
 				"tests/objects"
 			],
-			"Sunhill\\Objects\\" : "src"
+			"Sunhill\\Collection\\" : "src"
 		}
 	},
 	"extra" : {
 		"laravel" : {
 			"providers" : [
-				"Sunhill\\Objects\\ObjectsServiceProvider"
+				"Sunhill\\Collection\\CollectionServiceProvider"
 			]
 		}
 	}

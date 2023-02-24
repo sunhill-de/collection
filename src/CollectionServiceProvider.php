@@ -4,7 +4,12 @@ namespace Sunhill\Collection;
 
 use Illuminate\Support\ServiceProvider;
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\Collection\Facades\Dialogs;
+use Sunhill\Visual\Facades\Dialogs;
+use Sunhill\InfoMarket\Facades\InfoMarket;
+use Sunhill\Collection\Components\Input;
+
+use Sunhill\Collection\Marketeers\Network\NetworkMarketeer;
+use Sunhill\Collection\Marketeers\Database\Database;
 
 use Sunhill\Collection\Objects\Address;
 use Sunhill\Collection\Objects\Anniversary;
@@ -51,9 +56,10 @@ use Sunhill\Collection\Objects\VisualWork;
 use Sunhill\Collection\Objects\WatchingEvent;
 use Sunhill\Collection\Objects\WrittenMedium;
 use Sunhill\Collection\Objects\WrittenWork;
+use Illuminate\Support\Facades\Blade;
 
 
-class ObjectsServiceProvider extends ServiceProvider
+class CollectionServiceProvider extends ServiceProvider
 {
     public function register()
     {
@@ -165,7 +171,8 @@ class ObjectsServiceProvider extends ServiceProvider
     {
         $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
         $this->loadViewsFrom(__DIR__.'/../resources/views','collection');
-
+        Blade::component('collection-input', Input::class);
+        
         $this->registerClasses();
         $this->defineDialogs();
         $this->registerMarketeers();

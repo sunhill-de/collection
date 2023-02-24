@@ -3,8 +3,7 @@
 namespace Sunhill\Collection\Modules\Database;
 
 use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-
-use Sunhill\Collection\Modules\SunhillModuleBase;
+use Sunhill\Visual\Modules\SunhillModuleBase;
 
 class SunhillFeatureObjects extends SunhillModuleBase
 {
