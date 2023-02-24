@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: Medium
  */
-namespace Sunhill\Objects\Objects;
+namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
 

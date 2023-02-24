@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: fileobject
  */
-namespace Sunhill\Objects\Objects;
+namespace Sunhill\Collection\Objects;
 
 /**
  * The class for FamilyMembers

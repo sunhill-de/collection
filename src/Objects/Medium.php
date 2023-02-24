@@ -12,7 +12,7 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Objects\Objects;
+namespace Sunhill\Collection\Objects;
 
 /**
  * The class for mediums
