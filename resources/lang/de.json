@@ -502,7 +502,7 @@
   "':value' is not an object-id":"':value' ist keine Objekt-ID",
   "':value' is not an allowed value":"':value' ist kein erlaubter Wert",
   "':value' is not a valid object id":"':value' ist keine gültige Objekt-ID",
-  "':value' is not an allowed object for this field":"'value' ist kein erlaubtes Objekt für dieses Feld",
+  "':value' is not an allowed object for this field":"':value' ist kein erlaubtes Objekt für dieses Feld",
   "Add tag":"Tag hinzufügen",
   "Tag name":"Tagname",
   "Tag parent":"Elterntag",
@@ -517,5 +517,8 @@
   "Movie name":"Name des Films",
   
   "Choose class":"Klasse auswählen",
-  "Select classes":"Klassen auswählen"
+  "Select classes":"Klassen auswählen",
+  
+  "Search":"Suche",
+  "Current setting":"Aktuelle Werte"
 }
