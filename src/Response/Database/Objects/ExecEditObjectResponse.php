@@ -13,13 +13,14 @@ class ExecEditObjectResponse extends ObjectResponseBase
     
     protected $target = '/';
 
+    protected $id = 0;
+   
     protected function getWorkingObject()
     {
-        $object_id = request()->input('id');
-        $object = Objects::load($object_id);        
+        $object = Objects::load($this->id);        
         
         $this->clearLists($object);
-        $this->target = SunhillSiteManager::getCurrentFeaturePath().'/Show/'.$object_id;
+        $this->target = route('objects.show',['id'=>$this->id]);
         
         return $object;       
     }
@@ -38,6 +39,13 @@ class ExecEditObjectResponse extends ObjectResponseBase
           $object->tags = [];
 //          $object->attributes = [];
         }  
-    }  
+    } 
+    
+    public function setID($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
 }  
     
