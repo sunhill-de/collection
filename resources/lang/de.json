@@ -139,6 +139,8 @@
                         
   "**** FamilyMember":"FamilyMember ****",
   "time_of_birth":"Geburtszeit",
+  "date_of_death":"Todesdatum",
+  "The deathday of this person":"Das Todesdatum dieser Person",
   "When was this person born":"Wann wurde diese Person geboren",
   "place_of_birth":"Geburtsort",
   "Where was this person born":"Wo wurde diese Person geboren",
@@ -275,6 +277,11 @@
   "network device":"Netzwerkgerät",
   "network devices":"Netzwerkgeräte",
   "Stores informationen about network devices":"Speichert Informationen über ein Netzwerkgerät",
+  
+  "**** Object":"Object *****",
+  "created_at":"Zeitstempel der Erzeugung",
+  "updated_at":"Zeitstempel der Änderung",
+  "uuid":"Eindeutige ID",
   
   "**** Organisation":"Organisation ****",
   "The name of this organisation":"Der Name der Organisation",

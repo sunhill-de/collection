@@ -2,9 +2,17 @@
   "**** Adresss":"Adress ****",
   "house_number":"house number",
 
+  "***** FamilyMember":"FamilyMember ****",
+  "date_of_death":"Date of death",
+
   "***** Genre":"Genre ******",
   "media_type":"media type",
 
+  "**** Object":"Object *****",
+  "created_at":"Creation timestamp",
+  "updated_at":"Modification timestamp",
+  "uuid":"unique id",
+  
   "firstname":"First name",
   "lastname":"Last name"    
 }
