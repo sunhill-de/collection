@@ -514,5 +514,8 @@
   "Movie":"Film",
   "Movies":"Filme",
   "List movies":"Filme auflisten",
-  "Movie name":"Name des Films"
+  "Movie name":"Name des Films",
+  
+  "Choose class":"Klasse auswählen",
+  "Select classes":"Klassen auswählen"
 }

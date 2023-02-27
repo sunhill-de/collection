@@ -24,6 +24,14 @@ class SunhillFeatureClasses extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{class}')
             ->setAlias('classes.show');
+        $this->addAction('Choose')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'choose'])
+            ->setVisible(false)
+            ->setAlias('classes.choose');
+        $this->addAction('Select')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'select'])
+            ->setVisible(false)
+            ->setAlias('classes.select');
     }
     
     

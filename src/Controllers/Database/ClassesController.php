@@ -6,6 +6,8 @@ use Illuminate\Routing\Controller;
 use Sunhill\Collection\Response\SunhillTileViewResponse;
 use Sunhill\Collection\Response\Database\Classes\ListClassesResponse;
 use Sunhill\Collection\Response\Database\Classes\ShowClassResponse;
+use Sunhill\Collection\Response\Database\Classes\ChooseClassResponse;
+use Sunhill\Collection\Response\Database\Classes\SelectClassesResponse;
 
 class ClassesController extends Controller
 {
@@ -29,4 +31,17 @@ class ClassesController extends Controller
         $response->setClass($class);
         return $response->response();
     }
+    
+    public function select()
+    {
+       $response = new SelectClassesResponse();
+       return $response->response();
+    }
+    
+    public function choose()
+    {
+        $response = new ChooseClassResponse();
+        return $response->response();
+    }
+    
 }
