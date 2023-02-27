@@ -5,7 +5,6 @@
    <label class="label">{{__( "Search" ) }}</label>
    <div class="control">
     <input class="input" type="text" name="input_{{ $name }}" id="input_{{ $name }}" />
-    <input type="hidden" name="value_{{ $name }}" id="value_{{ $name }}" /> <!-- only for compatibility -->
     <div class="control">
      <input class="button is-info" type="button" value="+" onClick="addEntry( '{{  $name }}', false )">
     </div>
@@ -17,7 +16,7 @@
      @isset($values)
      @foreach($values as $value)
      <div class="control">
-      <input type="text" class="input dynamic_entry" readonly name="{{ $name }}[]" />
+      <input type="text" class="input dynamic_entry" readonly name="{{ $name }}[]" value="{{ $value }}"/>
      </div>
      @endforeach
      @endisset
