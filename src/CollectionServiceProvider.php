@@ -159,6 +159,8 @@ class CollectionServiceProvider extends ServiceProvider
 
         Dialogs::addObjectListFields(Transaction::class,['order_id','shop'=>'shop=>name']);
         
+        Dialogs::addCSSResource(__DIR__.'/../resources/css');
+        Dialogs::addJSResource(__DIR__.'/../resources/js');
     }
     
     protected function registerMarketeers()
