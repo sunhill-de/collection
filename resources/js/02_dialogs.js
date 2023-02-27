@@ -6,7 +6,7 @@ function lookupField( id, classid, ajaxmethod ) {
 		$("#input_"+id).autocomplete({
 			source: function( request, response ) {
 				$.ajax({
-					url:"/ajax/"+ajaxmethod+"/"+classid+"/"+id+"/",
+					url:"{{ asset("/ajax/") }}/"+ajaxmethod+"/"+classid+"/"+id+"/",
 					type:"get",
 					dataType:"json",
 					data: { 
