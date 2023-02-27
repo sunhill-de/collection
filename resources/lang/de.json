@@ -465,13 +465,14 @@
   "Classes":"Klassen",
   "Objects":"Objekte",
   "Tags":"Tags",
-  "list classes":"Klassen auflisten",
-  "list objects":"Objekte auflisten",
-  "list tags":"Tags auflisten",
+
+  "List classes":"Klassen auflisten",
+  "List objects":"Objekte auflisten",
+  "List tags":"Tags auflisten",
+
   "keyfield":"Schlüsselfeld",
   "class":"Klasse",
   "No entries":"Keine Einträge",
-  "List classes":"Klassen auflisten",
   "Class name":"Klassenname",
   "Name":"Name",
   "Description":"Beschreibung",
@@ -527,5 +528,8 @@
   "Select classes":"Klassen auswählen",
   
   "Search":"Suche",
-  "Current setting":"Aktuelle Werte"
+  "Current setting":"Aktuelle Werte",
+  
+  "Object hirarchy":"Objekthirarchie",
+  "List objects of ':key'":"Objekte vom Typ ':key' auflisten"
 }

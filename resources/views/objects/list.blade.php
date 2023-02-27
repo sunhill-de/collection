@@ -1,15 +1,15 @@
 @extends('visual::basic.list')
 
-@section('title','Objekte auflisten')
+@section('title',__('List objects'))
 
 @section('caption')
-Objekte von '{{ $key }}' auflisten
+{{ __("List objects of ':key'",['key'=>$key]) }} 
 @endsection
 
 @section('tableheader')
 <div class="hirarchy">
  <ul>
- <li>Objekthirarchie</li>  
+ <li>{{ __("Object hirarchy") }}</li>  
   @foreach ($inheritance as $ancestor)
   <li><a href="{{ route('objects.list',['key'=>$ancestor]) }}">{{ $ancestor }}</a></li>
   @endforeach  
