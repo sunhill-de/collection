@@ -53,16 +53,28 @@ class ShowObjectResponse extends SunhillBladeResponse
                         $entry->value = __($property->getValue());
                         break;
                     case "Date":
-                        $datetime = new \DateTime($property->getValue());
+                        if (empty($date = $property->getValue())) {
+                            $entry->value = "";
+                            continue 2;
+                        }
+                        $datetime = new \DateTime($date);
                         $entry->value = $datetime->format('d.m.Y');
                         break;
                     case "Time":
-                        $datetime = new \DateTime($property->getValue());
+                        if (empty($date = $property->getValue())) {
+                            $entry->value = "";
+                            continue 2;
+                        }
+                        $datetime = new \DateTime($date);
                         $entry->value = $datetime->format('H:i:s');
                         break;
                     case "DateTime":
                     case "Timestamp":    
-                        $datetime = new \DateTime($property->getValue());
+                        if (empty($date = $property->getValue())) {
+                            $entry->value = "";
+                            continue 2;
+                        }
+                        $datetime = new \DateTime($date);
                         $entry->value = $datetime->format('d.m.Y H:i:s');
                         break;
                     default:
