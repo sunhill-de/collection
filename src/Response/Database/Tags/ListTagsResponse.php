@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Response\Database\Tags;
 
 use Sunhill\ORM\Facades\Tags;
-use Sunhill\Visual\Response\ListResponse;
+use Sunhill\Visual\Response\SunhillListResponse;
 
-class ListTagsResponse extends ListResponse
+class ListTagsResponse extends SunhillListResponse
 {
 
     protected $columns = ['name','parent'];
