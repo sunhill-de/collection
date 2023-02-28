@@ -4,7 +4,7 @@ namespace Sunhill\Collection\Response\Database\Tags;
 
 use Illuminate\Http\Request;
 
-use Sunhill\Visual\Response\RedirectResponse;
+use Sunhill\Visual\Response\SunhillRedirectResponse;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Utils\ObjectList;
 use Sunhill\Visual\Traits\GetProperties;
@@ -12,7 +12,7 @@ use Sunhill\Visual\Traits\GetProperties;
 /**
  * A baseclass for adding oder modifying tags
  */
-abstract class TagResponseBase extends RedirectResponse
+abstract class TagResponseBase extends SunhillRedirectResponse
 {
     
     abstract protected function getWorkingTag();    
@@ -21,15 +21,17 @@ abstract class TagResponseBase extends RedirectResponse
     {    
         $tag = $this->getWorkingTag();
       
-        if (empty($name = $this->request->input('name'))) {
+        if (empty($name = request()->input('name'))) {
           throw new \Exception(__("Tag name must't be empty"));
         }
         $tag->setName($name);
       
-        $parent = $this->request->input('value_parent');
-        $tag->parent = $parent;
+        $parent = request()->input('value_parent');
+        if (!empty($parent)) {
+            $tag->parent = $parent;
+        }
       
-        if ($this->request->input('leafable')) {
+        if (request()->input('leafable')) {
           $options = TO_LEAFABLE;
         }  else {
           $options =  0;

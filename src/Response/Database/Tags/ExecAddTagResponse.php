@@ -11,10 +11,9 @@ class ExecAddTagResponse extends TagResponseBase
     protected function getWorkingTag()
     {
         $tag = new Tag();
+        $this->target = route('tags.list');
         return $tag;
     }
-    
-    protected $target = '/';
-    
+        
 }  
     

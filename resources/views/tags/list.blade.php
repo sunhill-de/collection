@@ -8,6 +8,6 @@
 
 @section('tablefooter')
 <button>   
-<a href="{{ route('tags.add',['class'=> $key]) }}">{{ __('add') }}</a>
+<a href="{{ route('tags.add') }}">{{ __('add') }}</a>
 </button>
 @endsection

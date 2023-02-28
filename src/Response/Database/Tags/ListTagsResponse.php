@@ -25,7 +25,7 @@ class ListTagsResponse extends SunhillListResponse
     
     protected function getTagLink($key, $order = 'id', $delta = 0)
     {
-        return $this->params['prefix']."/Tags/list/$key/$delta/$order";    
+        return route('tags.list',['key'=>$key,'order'=>$order,'delta'=>$delta]); 
     }
     
     protected function createEntry($name,$link=null)
@@ -54,17 +54,17 @@ class ListTagsResponse extends SunhillListResponse
         $result = [];
         foreach ($input as $tag) {
             $row = [];
-            $row[] = $this->createEntry($tag->getID(),$this->params['prefix'].'/Tags/show/'.$tag->getID());
-            $row[] = $this->createEntry($tag->getName());
-            $parent = $tag->getParent();
+            $row[] = $this->createEntry($tag->id,route('tags.show',['id'=>$tag->id]));
+            $row[] = $this->createEntry($tag->name);
+            $parent = $tag->parent_id;
             if (is_null($parent)) {
                 $row[] = $this->createEntry('&nsbp;');
             } else {
-                $row[] = $this->createEntry($parent->getFullpath());
+                $row[] = $this->createEntry('');
             }    
-            $row[] = $this->createEntry($tag->getFullpath());
-            $row[] = $this->createEntry(__("edit"),$this->params['prefix'].'/Tags/edit/'.$tag->getID());
-            $row[] = $this->createEntry(__("delete"),$this->params['prefix'].'/Tags/delete/'.$tag->getID());
+            $row[] = $this->createEntry('');
+            $row[] = $this->createEntry(__("edit"),route('tags.edit',['id'=>$tag->id]));
+            $row[] = $this->createEntry(__("delete"),route('tags.delete',['id'=>$tag->id]));
             $result[] = $row;
         }
         return $result;
@@ -72,8 +72,7 @@ class ListTagsResponse extends SunhillListResponse
     
     function getParams(): array
     { 
-       $result = $this->solveRemaining('key=ORMObject/delta=0/order=id');        
-       return $result;
+        return ['key'=>$this->key,'delta'=>$this->delta,'order'=>$this->order];
     }
   
 }
