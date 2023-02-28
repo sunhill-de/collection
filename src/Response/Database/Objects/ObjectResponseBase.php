@@ -141,22 +141,24 @@ abstract class ObjectResponseBase extends SunhillRedirectResponse
     
     protected function getObject($value,$field)
     {
-        return $this->checkAndCreateObject(request()->input('value_'.$field->getName()), $field);
+        return $this->checkAndCreateObject(request()->input($field->getName()), $field);
     }
     
 
     protected function getArrayOfStrings($value, $field)
     {
-        $value = request()->input('value_'.$field->getName());
+        $value = request()->input($field->getName());
         return $value;
     }
     
     protected function getArrayOfObjects($value, $field)
     {
         $result = [];
-        $values = request()->input('value_'.$field->getName());
-        foreach ($values as $value) {
-            $result[] = $this->checkAndCreateObject($value, $field);
+        $values = request()->input($field->getName());
+        if (!empty($values)) {
+            foreach ($values as $value) {
+                $result[] = $this->checkAndCreateObject($value, $field);
+            }
         }
         return $result;
     }

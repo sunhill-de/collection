@@ -1,24 +1,27 @@
-<div class="field has-addons">
+<div class="field">
  <label class="label">{{ __( "Tags" ) }}</label>
- <div class="control">
-  <input class="input" type="text" name="input_tags" id="input_tags" />
- </div>
- <div class="control">
-  <input class="button is-info" type="button" value="+" onClick="addEntry( 'tags', false )">
- </div>
- <input type="hidden" name="value_tags" id="value_tags" /> <!-- only for compatibility -->
+ <div class="columns">
  
- 
- <ul class="selectable" name="list_tags" id="list_tags">
-  @isset($values)
-  @foreach($values as $value)
- <li>{{ $value }}<input type="hidden" name="value_tags{{ $loop->index+1 }}" value="{{ $value }}"/></li>
-  @endforeach
- @endisset
- </ul>
- <input type="hidden" name="count_tags" id="count_tags" value="@isset($values){{ count($values) }} @else 0 @endisset"/>
+  <div class="control column">
+   <label class="label is-size-7">{{__( "Search" ) }}</label>
+   <input class="input is-small" type="text" name="input_tags" id="input_tags" />
+  </div>
+  <div class="control column">
+   <label class="label is-size-7">&nbsp;</label>
+   <input class="button is-info is-small" type="button" value="+" onClick="addEntry( 'tags', false )">
+  </div>
+  <div class="column">
+   <label class="label is-size-7">{{__( "Current setting" ) }}</label>  
+   @isset($values)
+   @foreach($values as $value)
+    <div class="control">
+     <input type="text" class="input dynamic_entry" readonly name="tags[]" value="{{ $value }}"/>
+    </div>
+   @endforeach
+   @endisset 
+  </div> 
  <script>
  	$( function() { tags('{{ $class}}'); } );
  </script>
- </siv>	     
+ </div>	     
 </div>

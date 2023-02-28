@@ -18,13 +18,15 @@ function lookupField( id, classid, ajaxmethod ) {
 				});
 			},
 			select: function( event, ui ) {
-				$("#input_"+id).val(ui.item.label);
+				$("#current_"+id).val(ui.item.label);
 				$("#value_"+id).val(ui.item.id);
+				$("#"+id).val(ui.item.id);
 				return false;
 			},
 			focus: function( event, ui ) {
 				$("#input_"+id).val(ui.item.label);
 				$("#value_"+id).val(ui.item.id);
+				$("#"+id).val(ui.item.id);
 				return false;
 			}
 		})
@@ -72,15 +74,20 @@ function addEntry( id, valueonly ) {
  	  
       // Append it to the visual part
       if (valueonly || entry_value) {
-	  	$('#list_'+id).append('<input type="hidden" name="value_'+id+'[]" id="value_'+id+'[]" value="'+entry_value+'"/>');
+	  	$('#list_'+id).append('<input type="hidden" name="'+id+'[]" id='+id+'[]" value="'+entry_value+'"/>');
 	  	$('#list_'+id).append('<div class="control"><input readonly type="input" class"input" name="name_'+id+'[]" id="value_'+id+'[]" value="'+entry_text+'"/></div>');
 
       } else {
-	  	$('#list_'+id).append('<div class="control"><input readonly type="input" class"input" name="value_'+id+'[]" id="value_'+id+'[]" value="'+entry_text+'"/></div>');
+	  	$('#list_'+id).append('<div class="control"><input readonly type="input" class"input" name="'+id+'[]" id="value_'+id+'[]" value="'+entry_text+'"/></div>');
 	  }
 	  // Append it to the hidden part
       $( "#input_"+id ).val("");
       $( "#value_"+id ).val("");
     }     
 }
-  
+
+function removeEntry( id ) {
+	$( "#input_"+id ).val("");
+	$( "#value_"+id ).val("");
+	$( "#current_"+id).val("");
+}  

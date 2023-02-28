@@ -59,7 +59,8 @@ class Input extends Component
     public function render()
     {
         $name = $this->name;
-        switch ($this->property->getType()) {
+        $type = ($name == 'tags')?'Tags':$this->property->getType();
+        switch ($type) {
             case 'Varchar':
                 return view(
                     'collection::components.varchar', 
