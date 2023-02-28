@@ -173,6 +173,7 @@ class CollectionServiceProvider extends ServiceProvider
     {
         $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
         $this->loadViewsFrom(__DIR__.'/../resources/views','collection');
+        $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
         Blade::component('collection-input', Input::class);
         
         $this->registerClasses();
