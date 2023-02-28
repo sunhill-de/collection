@@ -33,8 +33,7 @@ class SunhillFeatureObjects extends SunhillModuleBase
             ->setMethod('post')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ObjectsController::class, 'execadd'])
             ->setVisible(false)
-            ->setAlias('objects.execadd')
-            ->setMethod('post');
+            ->setAlias('objects.execadd');
         $this->addAction('Edit')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ObjectsController::class, 'edit'])
             ->setVisible(false)
