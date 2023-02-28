@@ -30,10 +30,10 @@
    <x-collection-input id="{{ $class->name }}" name="tags" action="add" />
  </div>
  <div class="field is-grouped">
-  <div class="control">
+  <div class="control is-small">
     <button class="button is-link">{{ __('submit') }}</button>
   </div>
-  <div class="control">
+  <div class="control is-small">
     <button class="button is-link is-light">{{ __('cancel') }}</button>
   </div>
  </div>
