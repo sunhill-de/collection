@@ -34,7 +34,7 @@ class ExecEditObjectResponse extends ObjectResponseBase
           $property = $object->getProperty($name);  
           $fieldtype = $property->getType();
           if (($fieldtype == 'ArrayOfStrings') || ($fieldtype == 'ArrayOfObjects')) {
-            $object->$name = [];
+            $object->$name = null;
           }
           $object->tags = [];
 //          $object->attributes = [];
