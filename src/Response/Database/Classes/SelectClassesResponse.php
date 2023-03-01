@@ -5,7 +5,7 @@ namespace Sunhill\Collection\Response\Database\Classes;
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\Classes;
 
-class SelectClassResponse extends SunhillBladeResponse
+class SelectClassesResponse extends SunhillBladeResponse
 {
     
     protected $template = 'collection::classes.select';
