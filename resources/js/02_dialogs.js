@@ -74,7 +74,7 @@ function addEntry( id, valueonly ) {
  	  
       // Append it to the visual part
       if (valueonly || entry_value) {
-	  	$('#list_'+id).append('<div class="control><input type="hidden" name="'+id+'[]" id='+id+'[]" value="'+entry_value+'"/>'+
+	  	$('#list_'+id).append('<div class="control"><input type="hidden" name="'+id+'[]" id='+id+'[]" value="'+entry_value+'"/>'+
 	  						  '<input readonly type="input" class="input is-small dynamic_entry" name="name_'+id+'[]" id="value_'+id+'[]" value="'+entry_text+'" onclick="removeElement( $(this) )" /></div>');
 
       } else {
