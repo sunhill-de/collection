@@ -22,8 +22,9 @@ class Database extends Marketeer
     protected function getOffering(): array
     {
         return [
-   //         'database.classes'=>DatabaseClassesItem::class,
+            'database.classes'=>DatabaseClassesItem::class,
             'database.objects'=>DatabaseObjectsItem::class,
+            'database.tags'=>DatabaseTagsItem::class,
         ];
     }
     

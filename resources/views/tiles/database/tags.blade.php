@@ -3,6 +3,6 @@
 @section('tilecaption', __('Tags'))
 
 @section('tilebody')
-Number of Tags: {{ $number_of_tags }}
+Number of Tags: <x-visual-data name="database.tags.count" />
 
 @endsection

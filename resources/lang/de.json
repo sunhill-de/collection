@@ -531,5 +531,11 @@
   "Current setting":"Aktuelle Werte",
   
   "Object hirarchy":"Objekthirarchie",
-  "List objects of ':key'":"Objekte vom Typ ':key' auflisten"
+  "List objects of ':key'":"Objekte vom Typ ':key' auflisten",
+  
+  "Total number of waiting imports":"Gesamtzahl wartender Importe",
+  "Number of waiting movie imports":"Wartende Filmimporte",
+  "Number of waiting book imports":"Wartende Buchimporte", 
+  "Number of waiting person imports":"Wartende Buchimporte"
+
 }
