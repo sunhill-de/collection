@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Controllers;
 
 use Illuminate\Routing\Controller;
+use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\Dialogs;
 
 use Illuminate\Http\Request;
@@ -73,4 +74,36 @@ class AjaxController extends Controller
       }
       return $this->getOutput($newresult);      
   }
+  
+  public function getClass(string $parent="", Request $request, Response $response)
+  {
+      
+      $children = Classes::getChildrenOfClass($parent,1);
+      
+      $result = [];
+      foreach ($children as $child => $info) {
+          $node_data = [];
+          $node_data['id'] = $child;
+          
+          if ($parent == 'object') {
+              $node_data['type'] = 'root';
+              $node_data['parent'] = "#";
+          } else {
+              $node_data['parent'] = $parent;
+          }
+          $node_data['text'] = $child;
+          if (empty(Classes::getChildrenOfClass($child,1))) {
+              $node_data["icon"] = "fa fa-file fa-large kt-font-default";
+              $node_data["children"] = false;              
+          } else {
+              $node_data["icon"] = "fa fa-folder icon-lg";
+              $node_data["children"] = true;              
+          }
+          $result[] = $node_data;
+      }
+      
+      return response()->json($result);
+  }
+  
+  
 }
