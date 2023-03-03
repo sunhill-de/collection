@@ -21,5 +21,6 @@ class ChooseClassResponse extends SunhillBladeResponse
     public function prepareResponse()
     {
         parent::prepareResponse();
+        $this->params['target'] = $this->action;
     }
 }  

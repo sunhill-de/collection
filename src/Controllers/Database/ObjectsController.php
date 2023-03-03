@@ -42,7 +42,7 @@ class ObjectsController extends Controller
     {
         if (is_null($class)) {
             $response = new ChooseClassResponse();
-            $response->setAction('add');
+            $response->setAction(route('objects.add'));
         } else {
             $response = new AddObjectResponse();
             $response->setClass($class);
