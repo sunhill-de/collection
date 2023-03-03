@@ -4,11 +4,11 @@
  <div class="control columns">
   
   <div class="control column">
-  <input  class="input is-small" name="input_{{ $name }}" id="input_{{ $name }}"  @isset($key) value="{{ $obj_key }}" @endisset />
+  <input  class="input is-small" name="input_{{ $name }}" id="input_{{ $name }}"  />
   </div>
   <div class="control column">
-  <input  class="input is-small" readonly name="current_{{ $name }}" id="current_{{ $name }}"  @isset($key) value="{{ $obj_key }}" @endisset />
-  <input type="hidden" name="{{ $name }}" id="{{ $name }}" @isset($id) value="{{ $obj_id }}" @endisset/>
+  <input  class="input is-small" readonly name="current_{{ $name }}" id="current_{{ $name }}"  @isset($obj_key) value="{{ $obj_key }}" @endisset />
+  <input type="hidden" name="{{ $name }}" id="{{ $name }}" @isset($obj_id) value="{{ $obj_id }}" @endisset/>
   </div>
   <div class="control">
      <input class="button is-info is-small" type="button" value="-" onClick="removeEntry( '{{  $name }}', false )">
