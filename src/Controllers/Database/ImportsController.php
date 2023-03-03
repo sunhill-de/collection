@@ -6,6 +6,8 @@ use Illuminate\Routing\Controller;
 use Sunhill\Collection\Response\SunhillTileViewResponse;
 use Sunhill\Collection\Response\Database\Import\ListMoviesImportResponse;
 use Sunhill\Collection\Response\Database\Import\LookupMovieResponse;
+use Sunhill\Collection\Response\Database\Import\ImportFileResponse;
+use Sunhill\Collection\Response\Database\Import\ExecImportFileResponse;
 
 class ImportsController extends Controller
 {
@@ -14,6 +16,18 @@ class ImportsController extends Controller
     {
         $response = new SunhillTileViewResponse();
         return $response->response();
+    }
+    
+    public function ImportFile()
+    {
+        $response = new ImportFileResponse();
+        return $response->response();
+    }
+
+    public function ExecImportFile()
+    {
+        $response = new ExecImportFileResponse();
+        return $response->response();        
     }
     
     public function listMovies($page = 0)

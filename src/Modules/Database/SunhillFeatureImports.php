@@ -14,6 +14,15 @@ class SunhillFeatureImports extends SunhillModuleBase
         $this->setDisplayName('Imports');        
         $this->setDescription('Imports');
         $this->addIndex(\Sunhill\Collection\Controllers\Database\ImportsController::class);
+        $this->addAction('ImportFile')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ImportFile'])
+            ->setVisible(true)
+            ->setAlias('imports.file');
+        $this->addAction('ExecImportFile')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ExecImportFile'])
+            ->setVisible(false)
+            ->setMethod('post')
+            ->setAlias('imports.execfile');
         $this->addAction('Movies')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ListMovies'])
             ->setVisible(true)

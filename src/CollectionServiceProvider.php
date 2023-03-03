@@ -2,6 +2,7 @@
 
 namespace Sunhill\Collection;
 
+use Sunhill\Collection\Managers\ImportManager;
 use Illuminate\Support\ServiceProvider;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\Dialogs;
@@ -63,6 +64,8 @@ class CollectionServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->app->singleton(ImportManager::class, function () { return new ImportManager(); } );
+        $this->app->alias(ImportManager::class,'importmanager');
     }
     
     protected function registerClasses() {

@@ -466,6 +466,9 @@
   "Objects":"Objekte",
   "Tags":"Tags",
 
+  "submit":"abschicken",
+  "cancel":"abbrechen",
+  
   "List classes":"Klassen auflisten",
   "List objects":"Objekte auflisten",
   "List tags":"Tags auflisten",
@@ -536,6 +539,10 @@
   "Total number of waiting imports":"Gesamtzahl wartender Importe",
   "Number of waiting movie imports":"Wartende Filmimporte",
   "Number of waiting book imports":"Wartende Buchimporte", 
-  "Number of waiting person imports":"Wartende Buchimporte"
+  "Number of waiting person imports":"Wartende Buchimporte",
 
+  "Import File":"Datei importieren",
+  "File":"Datei",
+  "Filter":"Importfilter",
+  "Auto detect":"Automatische Erkennung"
 }
