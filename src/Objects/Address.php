@@ -38,6 +38,13 @@ class Address extends Location
     protected static function setupProperties()
     {
         parent::setupProperties();
+        self::varchar('zip')
+            ->setMaxLen(10)
+            ->set_description('The zip of this city')
+            ->set_displayable(true)
+            ->set_editable(true)
+            ->set_groupeditable(false)
+            ->searchable();
         self::integer('house_number')
             ->set_description('What is the house number')
             ->searchable()

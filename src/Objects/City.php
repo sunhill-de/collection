@@ -35,13 +35,6 @@ class City extends Location
     protected static function setupProperties()
     {
         parent::setupProperties();
-        self::varchar('zip')
-            ->setMaxLen(10)
-            ->set_description('The zip of this city')
-            ->set_displayable(true)
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->searchable();
         self::varchar('area_code')
             ->setMaxLen(10)
             ->set_description('The area code of this city')
