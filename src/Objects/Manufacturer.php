@@ -48,10 +48,10 @@ class Manufacturer extends Organisation
 	{
 		static::addInfo('name','Manufacturer');
 		static::addInfo('table','manufacturers');
-    static::addInfo('name_s','manufacturer',true);
-    static::addInfo('name_p','manufacturers',true);
-    static::addInfo('description','Informations about a manufacturer');
-    static::addInfo('options',0); 
+        static::addInfo('name_s','manufacturer',true);
+        static::addInfo('name_p','manufacturers',true);
+        static::addInfo('description','Informations about a manufacturer');
+        static::addInfo('options',0); 
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
 	}

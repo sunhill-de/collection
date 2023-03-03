@@ -51,7 +51,7 @@ class Network extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('descriptirion')
+        self::varchar('description')
             ->set_description('A more verbose description of the network')
             ->searchable()
             ->set_editable(true)

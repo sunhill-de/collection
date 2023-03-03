@@ -43,7 +43,7 @@ class WrittenWork extends CreativeWork
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::arrayOfObjects('authors')
-            ->setAllowedObject('person')
+            ->setAllowedObjects('Person')
             ->set_description('Who is/are the author(s)')
             ->searchable()
             ->set_displayable(true)
@@ -55,10 +55,10 @@ class WrittenWork extends CreativeWork
 	{
 		static::addInfo('name','WrittenWork');
 		static::addInfo('table','writtenworks');
-    static::addInfo('name_s','written work',true);
-    static::addInfo('name_p','written works',true);
-    static::addInfo('description','Stores informations about written works');
-    static::addInfo('options',0);
+        static::addInfo('name_s','written work',true);
+        static::addInfo('name_p','written works',true);
+        static::addInfo('description','Stores informations about written works');
+        static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
 	}
