@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Baseclass for importer
+ * @file Importer.php
+ * Explaination
+ * @author Klaus Dimde
+ * Lang en
+ * Reviewstatus: 04.03.2023
+ * Localization: none
+ * Documentation: unknown
+ * Tests: Unit/Importer/ImporterTest
+ * Coverage: unknown
+ * PSR-State: incompleted
+ * Dependencies: none
+ */
 namespace Sunhill\Collection\Importer;
 
 use Sunhill\Basic\Loggable;
@@ -15,6 +29,9 @@ class Importer extends Loggable
     const IMPORT_JSON = 2; /* The file is a json file */
     const IMPORT_XML  = 3; /* The file is a xml file */
     const IMPORT_CSV  = 4; /* The file is a csv file */
+    const IMPORT_EXEC = 5; /* The source is the result of a command execution */
+    const IMPORT_HTML = 6; /* The source is a website (full html code) */
+    const IMPORT_WEB  = 7; /* The source is a website (only rendered text) */
     
     /**
      * Should the run() command actually do something or just simulate it
@@ -174,6 +191,39 @@ class Importer extends Loggable
         return $this->processData($csv);
     }
     
+    protected function runExecImporter(): bool
+    {
+        
+    }
+    
+    /**
+     * Returns the command to execute for the IMPORT_EXEC importer
+     * @return string
+     */
+    protected function getExecCommand(): string
+    {
+        return '';    
+    }
+    
+    protected function runHTMLImporter(): bool
+    {
+        
+    }
+    
+    protected function runWebImporter(): bool
+    {
+        
+    }
+    
+    /**
+     * Returns the website to load for the IMPORT_HTML and IMPORT_WEB importers
+     * @return string
+     */
+    protected function getSite(): string
+    {
+        return '';
+    }
+
     public function run(): bool
     {
         if (!file_exists($this->import_file)) {
@@ -184,6 +234,9 @@ class Importer extends Loggable
             case self::IMPORT_JSON: return $this->runJSONImporter();
             case self::IMPORT_XML: return $this->runXMLImporter();
             case self::IMPORT_CSV: return $this->runCSVImporter();
+            case self::IMPORT_EXEC: return $this->runExecImporter();
+            case self::IMPORT_HTML: return $this->runHTMLImporter();
+            case self::IMPORT_WEB: return $this->runWebImporter();
             default:
                 throw new \Exception("Unknown import type");
         }
