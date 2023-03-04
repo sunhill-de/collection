@@ -4,13 +4,9 @@ namespace Sunhill\Collection;
 
 use Sunhill\Collection\Managers\ImportManager;
 use Illuminate\Support\ServiceProvider;
-use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\Dialogs;
-use Sunhill\InfoMarket\Facades\InfoMarket;
 use Sunhill\Collection\Components\Input;
 
-use Sunhill\Collection\Marketeers\Network\NetworkMarketeer;
-use Sunhill\Collection\Marketeers\Database\Database;
 
 use Sunhill\Collection\Objects\Address;
 use Sunhill\Collection\Objects\Anniversary;
@@ -68,54 +64,6 @@ class CollectionServiceProvider extends ServiceProvider
         $this->app->alias(ImportManager::class,'importmanager');
     }
     
-    protected function registerClasses() {
-        Classes::registerClass(Address::class);
-        Classes::registerClass(Anniversary::class);
-        Classes::registerClass(AnniversaryCelebration::class);
-        Classes::registerClass(Appointment::class);
-        Classes::registerClass(AudioMedium::class);
-        Classes::registerClass(Celebration::class);
-        Classes::registerClass(City::class);
-        Classes::registerClass(Computer::class);
-        Classes::registerClass(Country::class);
-        Classes::registerClass(CreativeWork::class);
-        Classes::registerClass(Date::class);
-        Classes::registerClass(ElectronicDevice::class);
-        Classes::registerClass(Event::class);
-        Classes::registerClass(FamilyMember::class);
-        Classes::registerClass(Floor::class);
-        Classes::registerClass(Friend::class);
-        Classes::registerClass(Genre::class);
-        Classes::registerClass(ListeningEvent::class);
-        Classes::registerClass(Location::class);
-        Classes::registerClass(Manufacturer::class);
-        Classes::registerClass(MediaDevice::class);
-        Classes::registerClass(Medium::class);
-        Classes::registerClass(Mime::class);
-        Classes::registerClass(MobileDevice::class);
-        Classes::registerClass(MusicalArtist::class);
-        Classes::registerClass(Network::class);
-        Classes::registerClass(NetworkDevice::class);
-        Classes::registerClass(Organisation::class);
-        Classes::registerClass(Person::class);
-        Classes::registerClass(PersonsRelation::class);
-        Classes::registerClass(ProductGroup::class);
-        Classes::registerClass(Property::class);
-        Classes::registerClass(ReadingEvent::class);
-        Classes::registerClass(Room::class);
-        Classes::registerClass(Server::class);
-        Classes::registerClass(Shop::class);
-        Classes::registerClass(Street::class);
-        Classes::registerClass(Transaction::class);
-        Classes::registerClass(Trip::class);
-        Classes::registerClass(VideoDevice::class);
-        Classes::registerClass(VisualMedium::class);
-        Classes::registerClass(VisualWork::class);
-        Classes::registerClass(WatchingEvent::class);
-        Classes::registerClass(WrittenMedium::class);
-        Classes::registerClass(WrittenWork::class);        
-    }
-    
     protected function defineDialogs()
     {
         Dialogs::addObjectListFields(Anniversary::class,['name','type']);
@@ -168,8 +116,6 @@ class CollectionServiceProvider extends ServiceProvider
     
     protected function registerMarketeers()
     {
-        InfoMarket::installMarketeer(NetworkMarketeer::class);        
-        InfoMarket::installMarketeer(Database::class);
     }
     
     public function boot()
@@ -179,8 +125,6 @@ class CollectionServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
         Blade::component('collection-input', Input::class);
         
-        $this->registerClasses();
         $this->defineDialogs();
-        $this->registerMarketeers();
     }
 }
