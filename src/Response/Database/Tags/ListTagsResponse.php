@@ -52,17 +52,17 @@ class ListTagsResponse extends SunhillListResponse
     protected function prepareMatrix($input): array
     {
         $result = [];
-        foreach ($input as $tag) {
+        foreach ($input as $tag_desc) {
+            $tag = Tags::loadTag($tag_desc->id);
             $row = [];
-            $row[] = $this->createEntry($tag->id,route('tags.show',['id'=>$tag->id]));
+            $row[] = $this->createEntry($tag->getID(),route('tags.show',['id'=>$tag->getID()]));
             $row[] = $this->createEntry($tag->name);
-            $parent = $tag->parent_id;
-            if (is_null($parent)) {
-                $row[] = $this->createEntry('&nsbp;');
-            } else {
+            if (is_null($tag->parent)) {
                 $row[] = $this->createEntry('');
+            } else {
+                $row[] = $this->createEntry($tag->parent->name);
             }    
-            $row[] = $this->createEntry('');
+            $row[] = $this->createEntry($tag->getFullpath());
             $row[] = $this->createEntry(__("edit"),route('tags.edit',['id'=>$tag->id]));
             $row[] = $this->createEntry(__("delete"),route('tags.delete',['id'=>$tag->id]));
             $result[] = $row;
