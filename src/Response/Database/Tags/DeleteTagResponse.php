@@ -4,23 +4,18 @@ namespace Sunhill\Collection\Response\Database\Tags;
 
 use Illuminate\Http\Request;
 
-use Sunhill\Visual\Response\RedirectResponse;
-use Sunhill\ORM\Facades\Classes;
+use Sunhill\Visual\Response\SunhillRedirectResponse;
+use Sunhill\ORM\Facades\Tags;
 
 class DeleteTagResponse extends TagResponseBase
 {
     
-    protected $target = '/';
-   
-    protected function getWorkingTag()
+    protected function prepareResponse()
     {
-        $id = $this->solveRemaining('id');
-        
-        $tag = Tags::loadTag($id);
-        $this->target = $this->getPrefix().'/Tags/show/'.$id;
-        
-        return $tag;
+        parent::prepareResponse();
+        Tags::deleteTag($this->id);
+        $this->target = route('tags.list');
     }
-
+    
 }  
     
