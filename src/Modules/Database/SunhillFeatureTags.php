@@ -35,7 +35,7 @@ class SunhillFeatureTags extends SunhillModuleBase
              ->setAlias('tags.edit');
         $this->addAction('ExecEdit')
              ->setMethod('post')
-             ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'execadd'])
+             ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'execedit'])
              ->setRouteAddition('/{id}')
              ->setVisible(false)
              ->setAlias('tags.execedit');

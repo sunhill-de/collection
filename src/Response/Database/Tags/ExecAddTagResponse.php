@@ -21,6 +21,7 @@ class ExecAddTagResponse extends SunhillRedirectResponse
     
     protected function prepareResponse()
     {
+        parent::prepareResponse();
         $tag = new Tag();
         if (empty($tag->name = request()->input('name'))) {
             $this->nameEmpty();

@@ -13,20 +13,20 @@
  <div class="field">
  <label class="label">{{__('Name')}}</label>
  <div class="control">
-  <input class="input is-small" type="text" name="name" id="name" @isset($value)) value="{{ $value }}" @endisset />
+  <input class="input is-small" type="text" name="name" id="name" @isset($name)) value="{{ $name }}" @endisset />
  </div>
 </div>
  <div class="field">
  <label class="label">{{__('Parent')}}</label>
  <div class="control">
-  <input class="input is-small" type="text" name="input_parent" id="input_parent" @isset($value)) value="{{ $parent_name }}" @endisset />
-  <input type="hidden" name="value_parent" id="value_parent" @isset($value)) value="{{ $parent_id }}" @endisset />
+  <input class="input is-small" type="text" name="input_parent" id="input_parent" @isset($input_parent)) value="{{ $input_parent }}" @endisset />
+  <input type="hidden" name="value_parent" id="value_parent" @isset($value_parent)) value="{{ $value_parent }}" @endisset />
  </div>
 </div>
 <div class="control">
  <div class="columns">
   <div class="column"><label class="label" for="leafable">{{ __('leafable') }}</label></div>
-  <div class="column"><input type="checkbox" name="leafable" id="leafable"></div>
+  <div class="column"><input type="checkbox" name="leafable" id="leafable" @if($leafable) checked @endif></div>
  </div>
 </div>
  <div class="field is-grouped">
