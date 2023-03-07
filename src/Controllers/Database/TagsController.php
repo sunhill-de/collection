@@ -11,6 +11,7 @@ use Sunhill\Collection\Response\Database\Tags\EditTagResponse;
 use Sunhill\Collection\Response\Database\Tags\ExecEditTagResponse;
 use Sunhill\Collection\Response\Database\Tags\DeleteTagResponse;
 use Sunhill\Collection\Response\Database\Tags\ListTagsResponse;
+use Sunhill\Collection\Response\Database\Tags\ShowTagResponse;
 
 class TagsController extends Controller
 {
@@ -30,7 +31,7 @@ class TagsController extends Controller
     
     public function show($id)
     {
-        $response = new ShowTagsResponse();
+        $response = new ShowTagResponse();
         $response->setID($id);
         return $response->response();
     }

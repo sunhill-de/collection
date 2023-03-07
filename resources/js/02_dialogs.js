@@ -4,9 +4,9 @@
   
 function lookupField( id, classid, ajaxmethod ) {
 		$("#input_"+id).autocomplete({
-			source: function( request, response ) {
+			source: function( request, response) {
 				$.ajax({
-					url:"{{ asset("/ajax/") }}/"+ajaxmethod+"/"+classid+"/"+id+"/",
+					url:"{{ asset("/ajax/") }}/"+ajaxmethod+"/"+((classid)?classid+"/":"")+"/"+id+"/",
 					type:"get",
 					dataType:"json",
 					data: { 
@@ -59,6 +59,10 @@ function tags( classid ) {
 function objectArrayField( id, classid ) {
 	listField( id );
 	lookupField( id, classid, "searchObjects" );
+}
+
+function tagField( id, classid ) {
+	lookupField( id, classid, "searchTags" );
 }
 
 /**

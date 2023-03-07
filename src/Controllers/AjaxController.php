@@ -4,6 +4,7 @@ namespace Sunhill\Collection\Controllers;
 
 use Illuminate\Routing\Controller;
 use Sunhill\ORM\Facades\Classes;
+use Sunhill\ORM\Facades\Tags;
 use Sunhill\Visual\Facades\Dialogs;
 
 use Illuminate\Http\Request;
@@ -20,11 +21,13 @@ class AjaxController extends Controller
   public function searchTags(string $class="", Request $request,Response $response)
   {
        $search = $request->input('search');
-       $query = DB::table('tagcache')->select('tag_id')->where('name','like','%'.$search.'%')->get();
+       $query = DB::table('tagcache')->select('tag_id')->where('name','like','%'.$search.'%')->groupBy('tag_id')->get();
        $newresult = [];
        foreach ($query as $entry) {
            $newentry = new \StdClass();
-           $newentry->label = $entry->tag_id;
+           
+           $tag = Tags::findTag($entry->tag_id);
+           $newentry->label = $tag->fullpath;
            $newentry->id = $entry->tag_id;
            $newresult[] = $newentry;
        }

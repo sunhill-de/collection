@@ -19,8 +19,8 @@
  <div class="field">
  <label class="label">{{__('Parent')}}</label>
  <div class="control">
-  <input class="input is-small" type="text" name="parent_name" id="parent_name" @isset($value)) value="{{ $parent_name }}" @endisset />
-  <input type="hidden" name="parent_id" id="parent_id" @isset($value)) value="{{ $parent_id }}" @endisset />
+  <input class="input is-small" type="text" name="input_parent" id="input_parent" @isset($value)) value="{{ $parent_name }}" @endisset />
+  <input type="hidden" name="value_parent" id="value_parent" @isset($value)) value="{{ $parent_id }}" @endisset />
  </div>
 </div>
 <div class="control">
@@ -38,5 +38,10 @@
   </div>
  </div>
 </form>
+
+<script>
+ 	$( function() { tagField('parent', ''); } );
+</script>
+
 @endsection
   
