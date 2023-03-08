@@ -35,6 +35,19 @@ class AjaxController extends Controller
        
   }
   
+  public function searchClass()
+  {
+      $result = [];  
+      $search = request()->input('search');
+      $classes = Classes::getAllClasses();
+      foreach ($classes as $class => $info) {
+          if (strpos($class,$search) !== false) {
+              $result[] = $class;
+          }
+      }
+      return $this->getOutput($result);
+  }
+  
   protected function mergeResult($result1,$result2)
   {
   }
