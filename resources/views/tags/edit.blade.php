@@ -13,7 +13,10 @@
  <div class="field">
  <label class="label">{{__('Name')}}</label>
  <div class="control">
-  <input class="input is-small" type="text" name="name" id="name" @isset($name)) value="{{ $name }}" @endisset />
+  <input class="input is-small @isset( $error_name ) is-danger @endisset" type="text" name="name" id="name" @isset($name)) value="{{ $name }}" @endisset />
+  @isset( $error_name )
+    <p class="help is-danger">{{ $error_name }}</p>  
+  @endisset
  </div>
 </div>
  <div class="field">

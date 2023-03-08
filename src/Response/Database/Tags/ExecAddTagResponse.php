@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Objects\Tag;
 use Sunhill\Visual\Response\SunhillRedirectResponse;
+use Sunhill\Visual\Response\SunhillResponseException;
 
 class ExecAddTagResponse extends SunhillRedirectResponse
 {
@@ -16,7 +17,18 @@ class ExecAddTagResponse extends SunhillRedirectResponse
      */
     protected function nameEmpty()
     {
-        throw new \Exception("The tag name must't be empty");    
+        $error = new TagErrorResponse();
+        $error->setParams([
+                'action'=>route('tags.execadd'),
+                'error_name'=>__("Name must't be empty."),
+                'value_parent'=>request()->input('value_parent'),
+                'input_parent'=>request()->input('input_parent'),
+                'leafable'=>request()->input('leafable'),
+                'title'=>__('Edit tag')
+            
+            ]);
+        $this->setError($error);
+        throw new SunhillResponseException('Invalid field');
     }
     
     protected function prepareResponse()
