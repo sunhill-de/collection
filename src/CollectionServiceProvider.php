@@ -62,6 +62,7 @@ class CollectionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ImportManager::class, function () { return new ImportManager(); } );
         $this->app->alias(ImportManager::class,'importmanager');
+        $this->mergeConfigFrom(__DIR__.'/../config/collection.php', 'collection');
     }
     
     protected function defineDialogs()

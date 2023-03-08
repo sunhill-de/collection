@@ -49,6 +49,16 @@ class SunhillFeatureTags extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{id}')
             ->setAlias('tags.delete');
+        $this->addAction('ListChildren')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'listChildren'])
+            ->setVisible(false)
+            ->setRouteAddition('/{id}/{page?}')
+            ->setAlias('tags.listchildren');
+        $this->addAction('ListObjects')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'listAssociatedObjects'])
+            ->setVisible(false)
+            ->setRouteAddition('/{id}/{page?}')
+            ->setAlias('tags.listobjects');
     }
     
     

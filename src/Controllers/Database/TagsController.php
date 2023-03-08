@@ -12,6 +12,8 @@ use Sunhill\Collection\Response\Database\Tags\ExecEditTagResponse;
 use Sunhill\Collection\Response\Database\Tags\DeleteTagResponse;
 use Sunhill\Collection\Response\Database\Tags\ListTagsResponse;
 use Sunhill\Collection\Response\Database\Tags\ShowTagResponse;
+use Sunhill\Collection\Response\Database\Tags\ListChildrenResponse;
+use Sunhill\Collection\Response\Database\Tags\ListAssociatedObjectsResponse;
 
 class TagsController extends Controller
 {
@@ -68,4 +70,19 @@ class TagsController extends Controller
         $response->setID($id);
         return $response->response();        
     }
+    
+    public function listChildren(int $id, $offset = 0)
+    {
+        $response = new ListChildrenResponse();
+        $response->setID($id);
+        return $response->response();        
+    }
+    
+    public function listAssociatedObjects(int $id, $offset = 0)
+    {
+        $response = new ListAssociatedObjectsResponse();
+        $response->setID($id);
+        return $response->response();        
+    }
 }
+    

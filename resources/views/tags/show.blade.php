@@ -57,8 +57,17 @@
   </tr>   
    @endforelse  
  </tbody>
+@if ($childtagcount > config('collection.entries_per_small_table'))
+ <tfoot>
+  <tr>
+   <td colspan="100">
+	<a href="{{ route('tags.listchildren', ['id'=>$id]) }}">{{ __('List all children') }}</a>
+   </td>
+  </tr> 	
+ </tfoot>
+@endif
+ 
 </table> 
-
 <table class="table">
  <caption>{{ __('Associated objects') }}</caption>
  <thead>

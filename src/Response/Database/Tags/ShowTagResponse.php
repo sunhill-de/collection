@@ -32,13 +32,16 @@ class ShowTagResponse extends SunhillBladeResponse
     {
         parent::prepareResponse();
         $tag = Tags::loadTag($this->id);
+        $short = config('collection.entries_per_short_table',5);
+        $this->params['id'] = $this->id;
         $this->params['name'] = $tag->name;
         $this->params['parent'] = ($tag->parent)?$tag->parent->name:'';
         $this->params['fullpath'] = $tag->getFullpath();
         $this->params['leafable'] = ($tag->options & Tag::TO_LEAFABLE)?__('yes'):__('no');
-        
-        $this->params['tags'] = $this->getChildTags();
-        $this->params['objects'] = $this->getChildObjects();
+        $this->params['childtagcount'] = Tags::getChildTagCount($this->id);
+        $this->params['tags'] = Tags::getChildTagsOf($this->id,0,$short);
+        $this->params['objectcount'] = Tags::getAssociatedObjectsCount($this->id);
+        $this->params['objects'] = $this->getChildObjects($this->id,0,$short);
     }
     
 }  
