@@ -536,16 +536,25 @@
   
   "Full path":"Vollständiger Pfad",
   "Add tag":"Tag hinzufügen",
+  "Edit tag":"Tag bearbeiten",
+  "Show tag":"Tag anzeigen",
   "Tag name":"Tagname",
   "Tag parent":"Elterntag",
   "leafable":"Darf einem Objekt zugeordnet werden",
   "Associated tags":"Assoziierte Tags",
   "Associated objects":"Assoziierte Objekte",
 	
+  "Add attribute":"Attribut hinzufügen",
+  "Edit attribute":"Attribut bearbeiten",
+  "Show attribute":"Attribut anzeigen",
+  "Allowed classes":"Erlaubte Klassen",
+  "List attributes":"Attribute auflisten",
+  "Property":"Eigenschaft",
+  	
   "Total number of waiting imports":"Gesamtzahl wartender Importe",
   "Number of waiting movie imports":"Wartende Filmimporte",
   "Number of waiting book imports":"Wartende Buchimporte", 
-  "Number of waiting person imports":"Wartende Buchimporte",
+  "Number of waiting person imports":"Wartende Personenimporte",
 
   "Import File":"Datei importieren",
   "File":"Datei",
