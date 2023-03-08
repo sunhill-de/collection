@@ -17,6 +17,17 @@ class ShowTagResponse extends SunhillBladeResponse
     {
         $this->id = $id;
     }
+    
+    protected function getChildTags()
+    {
+        return Tags::getChildTagsOf($this->id);
+    }
+    
+    protected function getChildObjects()
+    {
+        return [];    
+    }
+    
     protected function prepareResponse()
     {
         parent::prepareResponse();
@@ -25,6 +36,9 @@ class ShowTagResponse extends SunhillBladeResponse
         $this->params['parent'] = ($tag->parent)?$tag->parent->name:'';
         $this->params['fullpath'] = $tag->getFullpath();
         $this->params['leafable'] = ($tag->options & Tag::TO_LEAFABLE)?__('yes'):__('no');
+        
+        $this->params['tags'] = $this->getChildTags();
+        $this->params['objects'] = $this->getChildObjects();
     }
     
 }  

@@ -472,7 +472,9 @@
   "List classes":"Klassen auflisten",
   "List objects":"Objekte auflisten",
   "List tags":"Tags auflisten",
-
+  "yes":"Ja",
+  "no":"Nein",
+  	
   "keyfield":"Schlüsselfeld",
   "class":"Klasse",
   "No entries":"Keine Einträge",
@@ -514,10 +516,6 @@
   "':value' is not an allowed value":"':value' ist kein erlaubter Wert",
   "':value' is not a valid object id":"':value' ist keine gültige Objekt-ID",
   "':value' is not an allowed object for this field":"':value' ist kein erlaubtes Objekt für dieses Feld",
-  "Add tag":"Tag hinzufügen",
-  "Tag name":"Tagname",
-  "Tag parent":"Elterntag",
-  "leafable":"Darf einem Objekt zugeordnet werden",
   "send":"abschicken",
   "Add object":"Objekt hinzufügen",
   "Add object of ':classname'":"Objekt der Klasse ':classname' hinzufügen",
@@ -536,6 +534,14 @@
   "Object hirarchy":"Objekthirarchie",
   "List objects of ':key'":"Objekte vom Typ ':key' auflisten",
   
+  "Full path":"Vollständiger Pfad",
+  "Add tag":"Tag hinzufügen",
+  "Tag name":"Tagname",
+  "Tag parent":"Elterntag",
+  "leafable":"Darf einem Objekt zugeordnet werden",
+  "Associated tags":"Assoziierte Tags",
+  "Associated objects":"Assoziierte Objekte",
+	
   "Total number of waiting imports":"Gesamtzahl wartender Importe",
   "Number of waiting movie imports":"Wartende Filmimporte",
   "Number of waiting book imports":"Wartende Buchimporte", 
