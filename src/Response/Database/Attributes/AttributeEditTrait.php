@@ -31,7 +31,7 @@ trait AttributeEditTrait
                 $first = false;
             }
         }
-        if (empty($property = request()->input('property'))) {
+        if (empty($result['property'] = request()->input('property'))) {
             $property = '';
         }
         return $result;
