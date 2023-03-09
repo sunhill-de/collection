@@ -2,6 +2,8 @@
 
 namespace Sunhill\Collection\Response\Database\Tags;
 
+use Sunhill\ORM\Objects\Tag;
+
 trait TagEditTrait
 {
     function checkParams()
