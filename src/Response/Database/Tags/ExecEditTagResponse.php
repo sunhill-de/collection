@@ -4,39 +4,29 @@ namespace Sunhill\Collection\Response\Database\Tags;
 
 use Illuminate\Http\Request;
 
-use Sunhill\Visual\Response\SunhillRedirectResponse;
+use Sunhill\Visual\Response\SunhillFormActionResponse;
+use Sunhill\Collection\Utils\HasID;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Objects\Tag;
 
-class ExecEditTagResponse extends TagResponseBase
+class ExecEditTagResponse extends SunhillFormActionResponse
 {
     
-    /**
-     * @todo replace me with a redirect to the dialog
-     * @throws \Exception
-     */
-    protected function nameEmpty()
-    {
-        throw new \Exception("The tag name must't be empty");
-    }
+    use HasID, TagEditTrait;
     
+    protected $title = 'Edit tags';
+    
+    protected $action = 'tags.execedit';
+    
+    protected $form = 'collection::tags.edit';
     
     protected function prepareResponse()
     {
         parent::prepareResponse();
-        if (empty($name = request()->input('name'))) {
-            $this->nameEmpty();
-        }
-        $fields = ['name'=>$name];
-        if (request()->input('leafable')) {
-            $fields['options'] = Tag::TO_LEAFABLE;
-        }
-        if ($parent = request()->input('input_parent')) {
-            $fields['parent'] = $parent;
-        }
+        $params = $this->checkParams();
         $this->target = route('tags.list');
-        Tags::changeTag($this->id,$fields);
+        Tags::changeTag($this->id,$params);
     }
 
 }  

@@ -13,7 +13,10 @@
  <div class="field">
  <label class="label">{{__('Name')}}</label>
  <div class="control">
-  <input class="input is-small" type="text" name="name" id="name" @isset($name)) value="{{ $name }}" @endisset />
+  <input class="input is-small" type="text" name="name" id="name" @isset($name) value="{{ $name }}" @endisset />
+  @isset( $error_name )
+    <p class="help is-danger">{{ $error_name }}</p>  
+  @endisset
  </div>
 </div>
  <div class="field">
@@ -26,6 +29,9 @@
    <option value="float" @isset($type) @if ($type == 'float') selected @endif @endisset>{{ __('Float') }}</option>
    <option value="text" @isset($type) @if ($type == 'text') selected @endif @endisset>{{ __('Text') }}</option>
   </select>
+  @isset( $error_type )
+    <p class="help is-danger">{{ $error_type }}</p>  
+  @endisset
   </div>
  </div>
 </div>

@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Attributes;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
+use Sunhill\Collection\Utils\HasID;
 use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Objects\Attribute;
 
@@ -11,12 +12,7 @@ class EditAttributeResponse extends SunhillBladeResponse
 
     protected $template = 'collection::attributes.edit';
     
-    protected $id = 0;
-    
-    public function setID(int $id)
-    {
-        $this->id = $id;    
-    }
+    use HasID;
     
     protected function prepareResponse()
     {

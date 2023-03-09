@@ -29,7 +29,7 @@
 <div class="control">
  <div class="columns">
   <div class="column"><label class="label" for="leafable">{{ __('leafable') }}</label></div>
-  <div class="column"><input type="checkbox" name="leafable" id="leafable" @if($leafable) checked @endif></div>
+  <div class="column"><input type="checkbox" name="leafable" id="leafable" @if(!empty($leafable)) checked @endif></div>
  </div>
 </div>
  <div class="field is-grouped">

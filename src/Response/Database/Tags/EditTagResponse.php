@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Tags;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
+use Sunhill\Collection\Utils\HasID;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Objects\Tag;
 
@@ -11,12 +12,7 @@ class EditTagResponse extends SunhillBladeResponse
 
     protected $template = 'collection::tags.edit';
     
-    protected $id = 0;
-    
-    public function setID(int $id)
-    {
-        $this->id = $id;    
-    }
+    use HasID;
     
     protected function prepareResponse()
     {

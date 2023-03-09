@@ -8,43 +8,22 @@ use Sunhill\Visual\Response\SunhillRedirectResponse;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Objects\Attribute;
+use Sunhill\Visual\Response\SunhillFormActionResponse;
 
-class ExecEditAttributeResponse extends AttributeResponseBase
+class ExecEditAttributeResponse extends SunhillFormActionResponse
 {
     
-    /**
-     * @todo replace me with a redirect to the dialog
-     * @throws \Exception
-     */
-    protected function nameEmpty()
-    {
-        throw new \Exception("The Attribute name must't be empty");
-    }
+    protected $title = 'Edit attribute';
     
+    protected $action = 'attributes.execedit';
+    
+    protected $form = 'collection::attributes.edit';
     
     protected function prepareResponse()
     {
         parent::prepareResponse();
-        if (empty($name = request()->input('name'))) {
-            $this->nameEmpty();
-        }
-        if (empty($type = request()->input('type'))) {
-            $this->typeEmpty();
-        }
-        if (empty(request()->input('allowedclasses'))) {
-            $allowed_classes = 'Object';
-        } else {
-            $allowed_classes = '';
-            $first = true;
-            foreach (request()->input('allowedclasses') as $class) {
-                $allowed_classes .= ($first?"":","). $class;
-                $first = false;
-            }
-        }
-        if (empty($property = request()->input('property'))) {
-            $property = '';
-        }
-        Attributes::updateAttribute($this->id,$name,$type,$allowed_classes,$property);
+        $params = $this->checkParams();
+        Attributes::updateAttribute($this->id,$params['name'],$params['$type'],$params['allowed_classes'],$params['property']);
         $this->target = route('attributes.list');
     }
 
