@@ -19,8 +19,8 @@
     </div>
    @endforeach
    @endisset
-    </div>
    </div>
+  </div>
  </div>
 </div>
 
