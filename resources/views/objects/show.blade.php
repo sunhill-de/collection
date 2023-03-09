@@ -36,14 +36,42 @@
      <tr><td colspan="100">{{ __('No fields set') }}</td></tr>
      @endforelse
     </table>
-    <h2>{{ __('Tags') }}</h2>
-    <ul>
+    
+    <table class="table">
+     <caption>{{ __('Tags') }}</caption>
+     <thead>
+      <tr><th>{{ __('Tag') }}</th></tr>
+     </thead>
+     <tbody>
      @forelse ($tags as $tag)
-      <li>{{ $tag->name }}</li>
+      <tr><td>{{ $tag->name }}</td></tr>
      @empty
-      <li>{{ __('No tags set') }}</li>
-     @endforelse 
-    </ul>
+      <tr><td>{{ __('No tags set') }}</td></tr>
+     @endforelse      
+     </tbody>
+    </table>
+
+    <table class="table">
+     <caption>{{ __('Attributes') }}</caption>
+     <thead>
+      <tr>
+       <th>{{ __('Name') }}</th>
+       <th>{{ __('Type') }}</th>
+       <th>{{ __('Value') }}</th>
+      </tr>	
+     </thead>
+     <tbody>
+     @forelse ($attributes as $attribute)
+      <tr>
+       <td>{{ $attribute->name }}</td>
+       <td>{{ $attribute->type }}</td>
+       <td>{{ $attribute->value }}</td>
+      </tr>
+     @empty
+      <tr><td colspan="100">{{ __('No attributes set') }}</td></tr>
+     @endforelse      
+     </tbody>
+    </table>
 </div>
 @endsection
   

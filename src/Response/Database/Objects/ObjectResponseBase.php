@@ -45,10 +45,10 @@ abstract class ObjectResponseBase extends SunhillRedirectResponse
               }
           }
         }
-        if (request()->has('tagcount')) {
+        if (request()->has('tags')) {
             $this->getTags($object);
         }
-        if (request()->has('attributecount')) {
+        if (request()->has('attributes')) {
             $this->getAttributes($object);   
         }
         $object->commit();
@@ -208,8 +208,8 @@ abstract class ObjectResponseBase extends SunhillRedirectResponse
     
     protected function getTags($object)
     {
-        for ($i=0;$i<$this->request->input('tagcount');$i++) {
-            $tag = $this->request->input('tag'.$i);
+        $tags = request()->input('tags');
+        foreach ($tags as $tag) {
             $object->tags->stick($tag);                 
         }
     }

@@ -20,15 +20,15 @@ class ShowObjectResponse extends SunhillBladeResponse
     protected function prepareResponse()
     {
         parent::prepareResponse();
-        $this->params['fields'] = $this->getFields($this->id);
-        $this->params['tags'] = $this->getTags($this->id);
-        $this->params['attributes'] = $this->getAttributes($this->id);
+        $object = Objects::load($this->id);
+        $this->params['fields'] = $this->getFields($object);
+        $this->params['tags'] = $this->getTags($object);
+        $this->params['attributes'] = $this->getAttributes($object);
     }
     
-    protected function getFields(int $id)
+    protected function getFields($object)
     {
         $result = [];
-        $object = Objects::load($id);
         $properties = $object->getProperties()->get();
         foreach ($properties as $property) {
           if (!is_a($property,PropertyTags::class) &&
@@ -122,13 +122,18 @@ class ShowObjectResponse extends SunhillBladeResponse
         return $result;
     }
     
-    protected function getTags(int $id)
+    protected function getTags($object)
     {
         $result = [];
+        foreach ($object->tags as $tag) {
+           $element = new \StdClass();
+           $element->name = $tag->name;
+           $result[] = $element;
+        }
         return $result;
     }
     
-    protected function getAttributes(int $id)
+    protected function getAttributes($object)
     {
         $result = [];
         return $result;        
