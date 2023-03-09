@@ -18,9 +18,9 @@ define('LIMIT', 10);
 class AjaxController extends Controller
 {
 
-  public function searchTags(string $class="", Request $request,Response $response)
+  public function searchTags(string $class = "", string $field = "")
   {
-       $search = $request->input('search');
+       $search = request()->input('search');
        $query = DB::table('tagcache')->select('tag_id')->where('name','like','%'.$search.'%')->groupBy('tag_id')->get();
        $newresult = [];
        foreach ($query as $entry) {
