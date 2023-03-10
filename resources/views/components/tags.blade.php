@@ -15,7 +15,7 @@
    @isset($values)
    @foreach($values as $value)
     <div class="control">
-     <input type="text" class="input is-small dynamic_entry" readonly name="tags[]" value="{{ $value }}"/>
+     <input type="input" class="input is-small dynamic_entry" readonly name="tags[]" value="{{ $value }}" onclick="removeElement( $(this) )"/>
     </div>
    @endforeach
    @endisset 
