@@ -2,18 +2,15 @@
 
 namespace Sunhill\Collection\Response\Database\Objects;
 
-use Illuminate\Http\Request;
-
-use Sunhill\Visual\Response\RedirectResponse;
-use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Objects;
+use Sunhill\Collection\Utils\HasID;
 
 class ExecEditObjectResponse extends ObjectResponseBase
 {
+
+    use HasID;
     
     protected $target = '/';
-
-    protected $id = 0;
    
     protected function getWorkingObject()
     {
@@ -36,16 +33,10 @@ class ExecEditObjectResponse extends ObjectResponseBase
           if (($fieldtype == 'ArrayOfStrings') || ($fieldtype == 'ArrayOfObjects')) {
             $object->$name = null;
           }
-          $object->tags = [];
 //          $object->attributes = [];
         }  
+        $object->tags = [];
     } 
-    
-    public function setID($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
     
 }  
     
