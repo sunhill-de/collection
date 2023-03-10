@@ -474,6 +474,9 @@
   "List tags":"Tags auflisten",
   "yes":"Ja",
   "no":"Nein",
+  "Yes":"Ja",
+  "No":"Nein",
+  "ID of this Object":"ID dieses Objektes",
   	
   "keyfield":"Schlüsselfeld",
   "class":"Klasse",

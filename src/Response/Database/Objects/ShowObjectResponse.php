@@ -21,6 +21,7 @@ class ShowObjectResponse extends SunhillBladeResponse
     {
         parent::prepareResponse();
         $object = Objects::load($this->id);
+        $this->params['id'] = $this->id;
         $this->params['fields'] = $this->getFields($object);
         $this->params['tags'] = $this->getTags($object);
         $this->params['attributes'] = $this->getAttributes($object);
@@ -136,6 +137,9 @@ class ShowObjectResponse extends SunhillBladeResponse
     protected function getAttributes($object)
     {
         $result = [];
+/*        foreach ($object->attributes as $attribute) {
+            $element = new \StdClass();
+        } */
         return $result;        
     }
   
