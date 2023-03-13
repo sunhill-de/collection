@@ -13,7 +13,23 @@
    <label class="label is-size-7">&nbsp;</label>
      <input class="button is-info is-small" type="button" value="+" onClick="addAttribute()">
   </div>
-   <div class="control column" name="curren_attributes" id="current_attributes">
+  <div class="control column" name="current_attributes" id="current_attributes">
+   @isset($cur_attr)
+   @foreach($cur_attr as $attribute)
+    <div class="control"><label class="label is-size-7">{{ $attribute->name }}</label>
+    @switch ($attribute->type)
+	 @case("int")
+	<input name="{{ $attribute->name }}" type="number" value="{{ $attribute->value }}"/> @break;
+	@case("char")
+    <input name="{{ $attribute->name }}" type="text"  value="{{ $attribute->value }}"/> @break;
+	@case("float")			
+	<input name="{{ $attribute->name }}" type="number"  value="{{ $attribute->value }}"/> @break;
+	@case("text")
+	<textarea name="{{ $attribute->name }}">{{ $attribute->value }}</textarea> @break;    
+    @endswitch
+    </div>
+   @endforeach
+   @endisset
   </div>
  </div>
 </div>

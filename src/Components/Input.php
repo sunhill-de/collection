@@ -187,11 +187,24 @@ class Input extends Component
                 break;
             case "Attributes":
                 $attributes = Attributes::getAvaiableAttributesForClass($this->class);
+                $result = [];
+                if (!is_null($this->object)) {
+                    $cur_attributes = $this->object->getDynamicProperties();
+                    foreach ($cur_attributes as $attribute) {
+                        $name = $attribute->getAttributeName();
+                        $element = new \StdClass();
+                        $element->name  = $attribute->getAttributeName();
+                        $element->type  = $attribute->getAttributeType();
+                        $element->value = $this->object->$name;
+                        $result[] = $element;
+                    }
+                }
                 return view(
                     
                     'collection::components.attributes',
                     [
-                        'avail_attr'=>$attributes
+                        'avail_attr'=>$attributes,
+                        'cur_attr'=>$result
                     ]
                 );
                 break;

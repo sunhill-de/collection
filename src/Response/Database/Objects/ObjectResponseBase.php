@@ -5,6 +5,7 @@ namespace Sunhill\Collection\Response\Database\Objects;
 use Illuminate\Http\Request;
 
 use Sunhill\Visual\Response\SunhillRedirectResponse;
+use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Utils\ObjectList;
@@ -48,9 +49,7 @@ abstract class ObjectResponseBase extends SunhillRedirectResponse
         if (request()->has('tags')) {
             $this->getTags($object);
         }
-        if (request()->has('attributes')) {
-            $this->getAttributes($object);   
-        }
+        $this->getAttributes($object);   
         $object->commit();
     }
 
@@ -215,12 +214,14 @@ abstract class ObjectResponseBase extends SunhillRedirectResponse
     }
     
     protected function getAttributes($object)
-    {
-        for ($i=0;$i<$this->request->input('attributecount');$i++) {
-            $attribute_name = $this->request->input('attribute_name'.$i);
-            $attribute_value = $this->request->input('attribute_value'.$i);
-            $object->$attribute_name = $attribute_value;
-        }        
+    {        
+        $avaiable = Attributes::getAvaiableAttributesForClass($object::getInfo('name'));
+        foreach ($avaiable as $candidate) {
+            $name = $candidate->name;
+            if (request()->has($name)) {
+                $object->$name = request()->input($name);
+            }
+        }
     }
 }  
     

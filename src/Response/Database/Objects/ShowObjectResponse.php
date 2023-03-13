@@ -138,8 +138,12 @@ class ShowObjectResponse extends SunhillBladeResponse
     {
         $result = [];
         $attributes = $object->getDynamicProperties();
-        foreach ($object->attributes as $attribute) {
+        foreach ($attributes as $attribute) {
             $element = new \StdClass();
+            $element->name  = $attribute->getAttributeName();
+            $element->type  = $attribute->getAttributeType();
+            $element->value = $attribute->value;
+            $result[] = $element;
         } 
         return $result;        
     }
