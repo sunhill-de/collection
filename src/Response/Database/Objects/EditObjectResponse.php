@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Objects;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
+use Sunhill\Collection\Utils\HasID;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Utils\ObjectList;
 use Sunhill\Visual\Traits\GetProperties;
@@ -10,11 +11,9 @@ use Sunhill\Visual\Traits\GetProperties;
 class EditObjectResponse extends SunhillBladeResponse
 {
 
-    use GetProperties;
+    use GetProperties, HasID;
     
     protected $template = 'collection::objects.edit';
-    
-    protected $id;
     
     protected function prepareResponse()
     {
@@ -29,9 +28,4 @@ class EditObjectResponse extends SunhillBladeResponse
         $this->params['object'] = $object;
     }
     
-    public function setID($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
 }  
