@@ -32,7 +32,7 @@ trait AttributeEditTrait
             }
         }
         if (empty($result['property'] = request()->input('property'))) {
-            $property = '';
+            $result['property'] = '';
         }
         return $result;
     }        
