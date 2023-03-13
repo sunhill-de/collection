@@ -1,15 +1,5 @@
 @extends('visual::basic.navigation')
 
-@push('css')
-  <style>
-  .feedback { font-size: 1.4em; }
-  .selectable .ui-selecting { background: #FECA40; }
-  .selectable .ui-selected { background: #F39814; color: white; }
-  .selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-  .selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-  </style>
-@endpush
-
 @section('title',__('add object'))
 
 @section('caption')
@@ -29,6 +19,10 @@
  <div class="pt-2 pb-2">
    <x-collection-input id="{{ $class->name }}" name="tags" action="add" />
  </div>
+ <div class="pt-2 pb-2">
+   <x-collection-input id="{{ $class->name }}" name="attributes" action="add" />
+ </div>
+
  <div class="field is-grouped">
   <div class="control is-small">
     <button class="button is-link">{{ __('submit') }}</button>

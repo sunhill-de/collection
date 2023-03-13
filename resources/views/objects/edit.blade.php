@@ -15,6 +15,9 @@
   <x-collection-input id="{{ $object->getID() }}" name="{{ $field->name }}" action="edit" />
  @endforeach
  <x-collection-input id="{{ $object->getID() }}" name="tags" action="edit" />
+ <div class="pt-2 pb-2">
+   <x-collection-input id="{{ $class->name }}" name="attributes" action="edit" />
+ </div>
 
  <div class="field is-grouped">
   <div class="control">
