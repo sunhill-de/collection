@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Controllers;
 
 use Illuminate\Routing\Controller;
+use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\Visual\Facades\Dialogs;
@@ -121,5 +122,9 @@ class AjaxController extends Controller
       return response()->json($result);
   }
   
+  public function getAttributeType(string $attribute)
+  {
+      return Attributes::getAttributeType($attribute);    
+  }
   
 }
