@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Components;
 
 use Illuminate\View\Component;
+use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\Visual\Facades\Dialogs;
@@ -59,7 +60,13 @@ class Input extends Component
     public function render()
     {
         $name = $this->name;
-        $type = ($name == 'tags')?'Tags':$this->property->getType();
+        if ($name == 'tags') {
+            $type = 'Tags';
+        } else if ($name == 'attributes') {
+            $type = 'Attributes';
+        } else {
+            $type = $this->property->getType();
+        }
         switch ($type) {
             case 'Varchar':
                 return view(
@@ -177,6 +184,16 @@ class Input extends Component
                         'values'=>$values
                     ]
                     );
+                break;
+            case "Attributes":
+                $attributes = Attributes::getAvaiableAttributesForClass($this->class);
+                return view(
+                    
+                    'collection::components.attributes',
+                    [
+                        'avail_attr'=>$attributes
+                    ]
+                );
                 break;
             default:
                 return view('collection::components.notimplemented', ['class'=>$this->class,'name'=>$this->name, 'type'=>$this->property->getType()]);
