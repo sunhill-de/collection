@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file Address.php
  * Provides informations about a address
@@ -10,6 +9,7 @@
  * Tests: none
  * Coverage: unknown
  * Dependencies: Location
+ * Test:
  */
 namespace Sunhill\Collection\Objects;
 
