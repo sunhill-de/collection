@@ -67,7 +67,7 @@ class Input extends Component
         } else {
             $type = $this->property->getType();
         }
-        switch ($type) {
+        switch (ucfirst($type)) {
             case 'Varchar':
                 return view(
                     'collection::components.varchar', 
