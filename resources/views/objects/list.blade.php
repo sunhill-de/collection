@@ -18,7 +18,7 @@
 @endsection
 
 @section('tablefooter')
-@if ($namespace::getInfo('instantiable'))
+@if ($namespace::getInfo('instantiable', false))
 <button>   
 <a href="{{ route('objects.add',['class'=> $key]) }}">{{ __('add') }}</a>
 </button>
