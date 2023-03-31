@@ -39,8 +39,9 @@ class ShowObjectResponse extends SunhillBladeResponse
                 $entry->name = __($name);
                 $entry->description = __($property->get_description());
                 $entry->class = $property->getClass();
-                $entry->type = __($property->getType());
-                switch ($property->getType()) {
+                $type = ucfirst($property->getType());
+                $entry->type = __($type);
+                switch ($type) {
                     case 'ArrayOfStrings':
                         $entry->value = $this->getArrayOfString($object,$name);
                         break;
