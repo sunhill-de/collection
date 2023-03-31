@@ -88,9 +88,6 @@ class CollectionServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectKeyfield(Location::class,':name');
 
-        Dialogs::addObjectListFields(Mime::class,['mimegroup','item']);
-        Dialogs::addObjectKeyfield(Mime::class,':mimegroup / :item');        
-
         Dialogs::addObjectListFields(MusicalArtist::class,['name','sort_name']);
         Dialogs::addObjectKeyfield(MusicalArtist::class,':name');        
         
