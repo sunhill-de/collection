@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class Floor extends Location
 {
-    public static $table_name = 'floors';
-    
-    public static $object_infos = [
-        'name'=>'Floor',       // A repetition of static:$object_name @todo see above
-        'table'=>'floors',     // A repitition of static:$table_name
-        'name_s' => 'floor',
-        'name_p' => 'floors',
-        'description' => 'Class for floors',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -50,7 +40,7 @@ class Floor extends Location
 		static::addInfo('table','floors');
        	static::addInfo('name_s','floor',true);
        	static::addInfo('name_p','floors',true);
-       	static::addInfo('description','Informations about a floor');
+       	static::addInfo('description','Informations about a floor', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

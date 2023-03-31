@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class Genre extends ORMObject
 {
-    public static $table_name = 'genres';
-    
-    public static $object_infos = [
-        'name'=>'Genre',       // A repetition of static:$object_name @todo see above
-        'table'=>'genres',     // A repitition of static:$table_name
-        'name_s' => 'genre',
-        'name_p' => 'genres',
-        'description' => 'Class for genres',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -65,7 +55,7 @@ class Genre extends ORMObject
 		static::addInfo('table','genres');
       	static::addInfo('name_s','genre',true);
        	static::addInfo('name_p','genres',true);
-       	static::addInfo('description','Stores information about music, movie or literature genres');
+       	static::addInfo('description','Stores information about music, movie or literature genres', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

@@ -21,18 +21,9 @@ use Sunhill\Crawler\Facades\FileManager;
  * @author lokal
  *        
  */
-class MobileDevice extends NetworkDevice {
+class MobileDevice extends NetworkDevice 
+{
 
-    public static $table_name = 'mobiledevices';
-
-    public static $object_infos = [
-        'name'=>'MobileDevice',       // A repetition of static:$object_name @todo see above
-        'table'=>'mobiledevices',     // A repitition of static:$table_name
-        'name_s' => 'mobile device',
-        'name_p' => 'mobile devices',
-        'description' => 'Class for mobile devices',
-        'options'=>0,           // Reserved for later pu40rposes
-    ];
 
     protected static function setupProperties()
     {
@@ -59,7 +50,7 @@ class MobileDevice extends NetworkDevice {
         static::addInfo('table','mobiledevices');
         static::addInfo('name_s','mobile device',true);
         static::addInfo('name_p','mobile devices',true);
-        static::addInfo('description','Informations about a mobile device');
+        static::addInfo('description','Informations about a mobile device', true);
         static::addInfo('options',0);
         static::addInfo('editable',true);
         static::addInfo('instantiable',true);

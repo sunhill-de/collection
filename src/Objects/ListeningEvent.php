@@ -23,17 +23,7 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class ListeningEvent extends Event
 {
-    public static $table_name = 'listeningevents';
-    
-    public static $object_infos = [
-        'name'=>'ListeningEvent',       // A repetition of static:$object_name @todo see above
-        'table'=>'listeningevents',     // A repitition of static:$table_name
-        'name_s' => 'listening event',
-        'name_p' => 'listening events',
-        'description' => 'Stores a event of listening to a musical work',
-        'options'=>0,           // Reserved for later purposes
-    ];
-    
+     
     protected static function setupProperties()
     {
         parent::setupProperties();
@@ -52,7 +42,7 @@ class ListeningEvent extends Event
 		static::addInfo('table','listeningevents');
       	static::addInfo('name_s','listening event',true);
        	static::addInfo('name_p','listening events',true);
-       	static::addInfo('description','Stores a event of listening to a musical work');
+       	static::addInfo('description','Stores a event of listening to a musical work', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

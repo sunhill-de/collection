@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class FamilyMember extends Friend
 {
-    public static $table_name = 'familymembers';
-    
-    public static $object_infos = [
-        'name'=>'FamilyMember',       // A repetition of static:$object_name @todo see above
-        'table'=>'familymembers',     // A repitition of static:$table_name
-        'name_s' => 'family member',
-        'name_p' => 'family members',
-        'description' => 'Class for family members',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -70,7 +60,7 @@ class FamilyMember extends Friend
 		static::addInfo('table','familymembers');
        	static::addInfo('name_s','family member',true);
        	static::addInfo('name_p','family members',true);
-       	static::addInfo('description','Informations about a family member');
+       	static::addInfo('description','Informations about a family member', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

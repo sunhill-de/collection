@@ -23,17 +23,7 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class AnniversaryCelebration extends Celebration
 {
-    public static $table_name = 'anniversarycelebrations';
-    
-    public static $object_infos = [
-        'name'=>'AnniversaryCelebration',       // A repetition of static:$object_name @todo see above
-        'table'=>'anniversarycelebrations',     // A repitition of static:$table_name
-        'name_s' => 'anniversary celebration',
-        'name_p' => 'anniversary celebrations',
-        'description' => 'Stores informations about an anniversary celebration',
-        'options'=>0,           // Reserved for later purposes
-    ];
-    
+
     protected static function setupProperties()
     {
           parent::setupProperties();
@@ -52,7 +42,7 @@ class AnniversaryCelebration extends Celebration
 		static::addInfo('table','anniversarycelebrations');
       	static::addInfo('name_s','anniversary celebration',true);
        	static::addInfo('name_p','anniversary celebrations',true);
-       	static::addInfo('description','Saves Anniversary Celebrations');
+       	static::addInfo('description','Saves Anniversary Celebrations', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

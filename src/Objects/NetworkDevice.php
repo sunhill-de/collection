@@ -21,18 +21,8 @@ use Sunhill\Crawler\Facades\FileManager;
  * @author lokal
  *        
  */
-class NetworkDevice extends ElectronicDevice {
-
-    public static $table_name = 'networkdevices';
-
-    public static $object_infos = [
-        'name'=>'NetworkDevice',       // A repetition of static:$object_name @todo see above
-        'table'=>'networkdevices',     // A repitition of static:$table_name
-        'name_s' => 'network device',
-        'name_p' => 'network devices',
-        'description' => 'Class for network devices',
-        'options'=>0,           // Reserved for later purposes
-    ];
+class NetworkDevice extends ElectronicDevice 
+{
 
     protected static function setupProperties()
     {
@@ -86,7 +76,7 @@ class NetworkDevice extends ElectronicDevice {
 		static::addInfo('table','networkdevices');
       	static::addInfo('name_s','network device',true);
        	static::addInfo('name_p','network devices',true);
-       	static::addInfo('description','Stores informationen about network devices');
+       	static::addInfo('description','Stores informationen about network devices', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

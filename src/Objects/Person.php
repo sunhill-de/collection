@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class Person extends ORMObject
 {
-    public static $table_name = 'persons';
-    
-    public static $object_infos = [
-        'name'=>'Person',       // A repetition of static:$object_name @todo see above
-        'table'=>'persons',     // A repitition of static:$table_name
-        'name_s' => 'peroson',
-        'name_p' => 'persons',
-        'description' => 'Class for persons',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -86,7 +76,7 @@ class Person extends ORMObject
 		static::addInfo('table','persons');
        	static::addInfo('name_s','person',true);
        	static::addInfo('name_p','persons',true);
-       	static::addInfo('description','Informations about a person');
+       	static::addInfo('description','Informations about a person', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

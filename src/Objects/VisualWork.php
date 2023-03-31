@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class VisualWork extends CreativeWork
 {
-    public static $table_name = 'visualworks';
-    
-    public static $object_infos = [
-        'name'=>'VisualWork',       // A repetition of static:$object_name @todo see above
-        'table'=>'visualworks',     // A repitition of static:$table_name
-        'name_s' => 'visual work',
-        'name_p' => 'visual works',
-        'description' => 'Stores informations about visual works',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -57,7 +47,7 @@ class VisualWork extends CreativeWork
 		static::addInfo('table','visualworks');
     static::addInfo('name_s','visual work',true);
     static::addInfo('name_p','visual works',true);
-    static::addInfo('description','Stores informations about visual works');
+    static::addInfo('description','Stores informations about visual works', true);
     static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

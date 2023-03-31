@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class CreativeWork extends ORMObject
 {
-    public static $table_name = 'creativeworks';
-    
-    public static $object_infos = [
-        'name'=>'Creativework',       // A repetition of static:$object_name @todo see above
-        'table'=>'creativeworks',     // A repitition of static:$table_name
-        'name_s' => 'creative work',
-        'name_p' => 'creative works',
-        'description' => 'Class for creative works',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -57,7 +47,7 @@ class CreativeWork extends ORMObject
 		static::addInfo('table','creativeworks');
        	static::addInfo('name_s','creative work',true);
        	static::addInfo('name_p','creative works',true);
-       	static::addInfo('description','Informations about a creative work');
+       	static::addInfo('description','Informations about a creative work', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

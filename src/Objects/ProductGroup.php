@@ -23,17 +23,7 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class ProductGroup extends ORMObject
 {
-    public static $table_name = 'productgroups';
-    
-    public static $object_infos = [
-        'name'=>'ProductGroup',       // A repetition of static:$object_name @todo see above
-        'table'=>'productgroups',     // A repitition of static:$table_name
-        'name_s' => 'product group',
-        'name_p' => 'product groups',
-        'description' => 'Stores Informations about a product group',
-        'options'=>0,           // Reserved for later purposes
-    ];
-    
+     
     protected static function setupProperties()
     {
         parent::setupProperties();
@@ -59,7 +49,7 @@ class ProductGroup extends ORMObject
 		static::addInfo('table','productgroups');
       	static::addInfo('name_s','product group',true);
        	static::addInfo('name_p','product groups',true);
-       	static::addInfo('description','Stores Informations about a product group');
+       	static::addInfo('description','Stores Informations about a product group', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

@@ -23,17 +23,7 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class Event extends ORMObject
 {
-    public static $table_name = 'events';
-    
-    public static $object_infos = [
-        'name'=>'Event',       // A repetition of static:$object_name @todo see above
-        'table'=>'events',     // A repitition of static:$table_name
-        'name_s' => 'event',
-        'name_p' => 'events',
-        'description' => 'Class for events',
-        'options'=>0,           // Reserved for later purposes
-    ];
-    
+     
     protected static function setupProperties()
     {
         parent::setupProperties();
@@ -63,7 +53,7 @@ class Event extends ORMObject
 		static::addInfo('table','events');
        	static::addInfo('name_s','event',true);
        	static::addInfo('name_p','events',true);
-       	static::addInfo('description','Informations about an event');
+       	static::addInfo('description','Informations about an event', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

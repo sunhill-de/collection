@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class Location extends ORMObject
 {
-    public static $table_name = 'locations';
-    
-    public static $object_infos = [
-        'name'=>'Location',       // A repetition of static:$object_name @todo see above
-        'table'=>'locations',     // A repitition of static:$table_name
-        'name_s' => 'location',
-        'name_p' => 'locations',
-        'description' => 'Class for locations',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -59,7 +49,7 @@ class Location extends ORMObject
         static::addInfo('table','locations');
         static::addInfo('name_s','location',true);
         static::addInfo('name_p','locations',true);
-        static::addInfo('description','A class for locations');
+        static::addInfo('description','A class for locations', true);
         static::addInfo('options',0);
         static::addInfo('editable',true);
         static::addInfo('instantiable',true);

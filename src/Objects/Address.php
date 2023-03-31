@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class Address extends Location
 {
-    public static $table_name = 'addresses';
-    
-    public static $object_infos = [
-        'name'=>'Address',       // A repetition of static:$object_name @todo see above
-        'table'=>'addresses',     // A repitition of static:$table_name
-        'name_s' => 'address',
-        'name_p' => 'addresses',
-        'description' => 'Class for addresses',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     /**
      * Sets up the properties. In this case only the house number. 
@@ -59,7 +49,7 @@ class Address extends Location
 		static::addInfo('table','addresses');
        	static::addInfo('name_s','address',true);
        	static::addInfo('name_p','addresses',true);
-       	static::addInfo('description','Informations about an address');
+       	static::addInfo('description','Informations about an address', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

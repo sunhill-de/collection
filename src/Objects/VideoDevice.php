@@ -23,17 +23,6 @@ use Sunhill\Crawler\Facades\FileManager;
  */
 class VideoDevice extends NetworkDevice {
 
-    public static $table_name = 'videodevices';
-
-    public static $object_infos = [
-        'name'=>'VideoDevice',       // A repetition of static:$object_name @todo see above
-        'table'=>'videodevices',     // A repitition of static:$table_name
-        'name_s' => 'video device',
-        'name_p' => 'video devices',
-        'description' => 'Class for video devices',
-        'options'=>0,           // Reserved for later pu40rposes
-    ];
-
     protected static function setupProperties()
     {
         parent::setupProperties();
@@ -82,7 +71,7 @@ class VideoDevice extends NetworkDevice {
         static::addInfo('table','videodevices');
         static::addInfo('name_s','video device',true);
         static::addInfo('name_p','video devices',true);
-        static::addInfo('description','Informations about a video device');
+        static::addInfo('description','Informations about a video device', true);
         static::addInfo('options',0);
         static::addInfo('editable',true);
         static::addInfo('instantiable',true);

@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class Appointment extends Date
 {
-    public static $table_name = 'appointments';
-    
-    public static $object_infos = [
-        'name'=>'Appointment',       // A repetition of static:$object_name @todo see above
-        'table'=>'appointments',     // A repitition of static:$table_name
-        'name_s' => 'appointment',
-        'name_p' => 'appointments',
-        'description' => 'Stores informations about an appointment',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -52,7 +42,7 @@ class Appointment extends Date
 		static::addInfo('table','appointments');
       	static::addInfo('name_s','appointment',true);
        	static::addInfo('name_p','appointments',true);
-       	static::addInfo('description','Saves appointments');
+       	static::addInfo('description','Saves appointments', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

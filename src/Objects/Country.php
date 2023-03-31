@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class Country extends Location
 {
-    public static $table_name = 'countries';
-    
-    public static $object_infos = [
-        'name'=>'Country',       // A repetition of static:$object_name @todo see above
-        'table'=>'countries',     // A repitition of static:$table_name
-        'name_s' => 'country',
-        'name_p' => 'countries',
-        'description' => 'Class for countries',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -62,7 +52,7 @@ class Country extends Location
 		static::addInfo('table','countries');
        	static::addInfo('name_s','country',true);
        	static::addInfo('name_p','countries',true);
-       	static::addInfo('description','Informations about a country');
+       	static::addInfo('description','Informations about a country', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

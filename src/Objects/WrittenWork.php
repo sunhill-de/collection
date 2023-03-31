@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class WrittenWork extends CreativeWork
 {
-    public static $table_name = 'writtenworks';
-    
-    public static $object_infos = [
-        'name'=>'WrittenWork',       // A repetition of static:$object_name @todo see above
-        'table'=>'writtenworks',     // A repitition of static:$table_name
-        'name_s' => 'written work',
-        'name_p' => 'written works',
-        'description' => 'Stores informations about written works',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -57,7 +47,7 @@ class WrittenWork extends CreativeWork
 		static::addInfo('table','writtenworks');
         static::addInfo('name_s','written work',true);
         static::addInfo('name_p','written works',true);
-        static::addInfo('description','Stores informations about written works');
+        static::addInfo('description','Stores informations about written works', true);
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

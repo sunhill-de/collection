@@ -22,16 +22,6 @@ namespace Sunhill\Collection\Objects;
  */
 class Medium extends Property
 {
-    public static $table_name = 'mediums';
-    
-    public static $object_infos = [
-        'name'=>'Medium',       // A repetition of static:$object_name @todo see above
-        'table'=>'mediums',     // A repitition of static:$table_name
-        'name_s' => 'medium',
-        'name_p' => 'mediums',
-        'description' => 'Class for mediums',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -65,7 +55,7 @@ class Medium extends Property
 		static::addInfo('table','mediums');
        	static::addInfo('name_s','medium',true);
        	static::addInfo('name_p','mediums',true);
-       	static::addInfo('description','Informations about a medium');
+       	static::addInfo('description','Informations about a medium', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

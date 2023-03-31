@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class ElectronicDevice extends Property
 {
-    public static $table_name = 'electronicdevices';
-    
-    public static $object_infos = [
-        'name'=>'ElectronicDevice',       // A repetition of static:$object_name @todo see above
-        'table'=>'electronicdevices',     // A repitition of static:$table_name
-        'name_s' => 'electronic device',
-        'name_p' => 'electronic devices',
-        'description' => 'Class for electronic devices',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -73,7 +63,7 @@ class ElectronicDevice extends Property
 		static::addInfo('table','electronicdevices');
        	static::addInfo('name_s','electronic device',true);
        	static::addInfo('name_p','electronic devices',true);
-       	static::addInfo('description','Informations about a electronic device');
+       	static::addInfo('description','Informations about a electronic device', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

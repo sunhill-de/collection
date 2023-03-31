@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class Network extends ORMObject
 {
-    public static $table_name = 'networks';
-    
-    public static $object_infos = [
-        'name'=>'Network',       // A repetition of static:$object_name @todo see above
-        'table'=>'networks',     // A repitition of static:$table_name
-        'name_s' => 'network',
-        'name_p' => 'networks',
-        'description' => 'Class for networks',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -71,7 +61,7 @@ class Network extends ORMObject
 		static::addInfo('table','networks');
        	static::addInfo('name_s','network',true);
        	static::addInfo('name_p','networks',true);
-       	static::addInfo('description','Informations about a network');
+       	static::addInfo('description','Informations about a network', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

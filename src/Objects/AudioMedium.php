@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class AudioMedium extends ORMObject
 {
-    public static $table_name = 'audiomediums';
-    
-    public static $object_infos = [
-        'name'=>'AudioMedium',       // A repetition of static:$object_name @todo see above
-        'table'=>'audiomediums',     // A repitition of static:$table_name
-        'name_s' => 'audio medium',
-        'name_p' => 'audio mediums',
-        'description' => 'Stores information about an audio medium',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -59,7 +49,7 @@ class AudioMedium extends ORMObject
 		static::addInfo('table','audiomediums');
       	static::addInfo('name_s','audio medium',true);
        	static::addInfo('name_p','audio mediums',true);
-       	static::addInfo('description','Stores information about an audio medium');
+       	static::addInfo('description','Stores information about an audio medium', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

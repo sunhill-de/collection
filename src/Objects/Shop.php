@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class Shop extends Organisation
 {
-    public static $table_name = 'shops';
-    
-    public static $object_infos = [
-        'name'=>'Shop',       // A repetition of static:$object_name @todo see above
-        'table'=>'shops',     // A repitition of static:$table_name
-        'name_s' => 'shop',
-        'name_p' => 'shops',
-        'description' => 'Class for shops',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -50,7 +40,7 @@ class Shop extends Organisation
 		static::addInfo('table','shops');
        	static::addInfo('name_s','shop',true);
        	static::addInfo('name_p','shops',true);
-       	static::addInfo('description','Informations about a shop');
+       	static::addInfo('description','Informations about a shop', true);
        	static::addInfo('options',0); 
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

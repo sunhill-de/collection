@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class MediaDevice extends NetworkDevice
 {
-    public static $table_name = 'mediadevices';
-    
-    public static $object_infos = [
-        'name'=>'MediaDevice',       // A repetition of static:$object_name @todo see above
-        'table'=>'mediadevices',     // A repitition of static:$table_name
-        'name_s' => 'media device',
-        'name_p' => 'media devices',
-        'description' => 'Class for media devices',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -50,7 +40,7 @@ class MediaDevice extends NetworkDevice
         static::addInfo('table','mediadevices');
         static::addInfo('name_s','media device',true);
         static::addInfo('name_p','media devices',true);
-        static::addInfo('description','Informations about a media device');
+        static::addInfo('description','Informations about a media device', true);
         static::addInfo('options',0);
         static::addInfo('editable',true);
         static::addInfo('instantiable',true);

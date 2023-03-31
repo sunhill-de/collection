@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class MusicalArtist extends ORMObject
 {
-    public static $table_name = 'musicalartists';
-    
-    public static $object_infos = [
-        'name'=>'MusicalArtist',       // A repetition of static:$object_name @todo see above
-        'table'=>'musicalartists',     // A repitition of static:$table_name
-        'name_s' => 'musical artist',
-        'name_p' => 'musical artists',
-        'description' => 'Stores informations about a musical artist',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -93,7 +83,7 @@ class MusicalArtist extends ORMObject
 		static::addInfo('table','musicalartists');
       	static::addInfo('name_s','musical artist',true);
        	static::addInfo('name_p','musical artists',true);
-       	static::addInfo('description','Stores informations about a musical artist');
+       	static::addInfo('description','Stores informations about a musical artist', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

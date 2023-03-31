@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class WrittenMedium extends Medium
 {
-    public static $table_name = 'writtenmediums';
-    
-    public static $object_infos = [
-        'name'=>'WrittenMedium',       // A repetition of static:$object_name @todo see above
-        'table'=>'writtenmediums',     // A repitition of static:$table_name
-        'name_s' => 'written medium',
-        'name_p' => 'written mediums',
-        'description' => 'Informations about a written medium (e.g. book)',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -70,7 +60,7 @@ class WrittenMedium extends Medium
 		    static::addInfo('table','writtenmediums');
       	static::addInfo('name_s','written medium',true);
        	static::addInfo('name_p','written mediums',true);
-       	static::addInfo('description','Informations about a written medium (e.g. book)');
+       	static::addInfo('description','Informations about a written medium (e.g. book)', true);
        	static::addInfo('options',0);
 		    static::addInfo('editable',true);
 		    static::addInfo('instantiable',true);

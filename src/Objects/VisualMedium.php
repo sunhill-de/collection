@@ -23,16 +23,6 @@ use Sunhill\ORM\Objects\ORMObject;
  */
 class VisualMedium extends Medium
 {
-    public static $table_name = 'visualmediums';
-    
-    public static $object_infos = [
-        'name'=>'VisualMedium',       // A repetition of static:$object_name @todo see above
-        'table'=>'visualmediums',     // A repitition of static:$table_name
-        'name_s' => 'visual medium',
-        'name_p' => 'visual mediums',
-        'description' => 'Stores informations about a visual medium',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -59,7 +49,7 @@ class VisualMedium extends Medium
 		static::addInfo('table','visualmediums');
       	static::addInfo('name_s','visual medium',true);
        	static::addInfo('name_p','visual mediums',true);
-       	static::addInfo('description','Stores informations about a visual medium');
+       	static::addInfo('description','Stores informations about a visual medium', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

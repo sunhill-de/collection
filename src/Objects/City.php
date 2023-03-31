@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class City extends Location
 {
-    public static $table_name = 'cities';
-    
-    public static $object_infos = [
-        'name'=>'City',       // A repetition of static:$object_name @todo see above
-        'table'=>'cities',     // A repitition of static:$table_name
-        'name_s' => 'city',
-        'name_p' => 'cities',
-        'description' => 'Class for cities',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -49,7 +39,7 @@ class City extends Location
 		static::addInfo('table','cities');
        	static::addInfo('name_s','city',true);
        	static::addInfo('name_p','cities',true);
-       	static::addInfo('description','Informations about a city');
+       	static::addInfo('description','Informations about a city', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

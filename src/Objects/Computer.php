@@ -21,16 +21,6 @@ namespace Sunhill\Collection\Objects;
  */
 class Computer extends NetworkDevice
 {
-    public static $table_name = 'computers';
-    
-    public static $object_infos = [
-        'name'=>'Computer',       // A repetition of static:$object_name @todo see above
-        'table'=>'computers',     // A repitition of static:$table_name
-        'name_s' => 'computer',
-        'name_p' => 'computers',
-        'description' => 'Class for computers',
-        'options'=>0,           // Reserved for later purposes
-    ];
     
     protected static function setupProperties()
     {
@@ -58,7 +48,7 @@ class Computer extends NetworkDevice
 		static::addInfo('table','computers');
        	static::addInfo('name_s','computer',true);
        	static::addInfo('name_p','computers',true);
-       	static::addInfo('description','Informations about a computer');
+       	static::addInfo('description','Informations about a computer', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
