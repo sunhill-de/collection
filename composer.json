@@ -10,6 +10,7 @@
 	],
 	"minimum-stability" : "dev",
 	"require": {
+		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
 		"sunhill/infomarket":"*",
 		"sunhill/visual":"*"

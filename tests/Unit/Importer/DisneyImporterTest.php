@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\DisneyImporter;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class DisneyImporterTest extends InfoMarketTest
+class DisneyImporterTest extends TestCase
 {
 
 }

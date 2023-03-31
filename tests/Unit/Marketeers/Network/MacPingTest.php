@@ -2,9 +2,9 @@
 
 use Sunhill\InfoMarket\Marketeers\Network\MacPingItem;
 use Sunhill\InfoMarket\Response\Response;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class MacPingTest extends InfoMarketTest
+class MacPingTest extends TestCase
 {
 
     public function testDeviceCount()

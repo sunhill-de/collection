@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\YouTubeImporter;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class YouTubeImporterTest extends InfoMarketTest
+class YouTubeImporterTest extends TestCase
 {
 
 }

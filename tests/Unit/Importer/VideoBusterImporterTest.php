@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\VideoBusterImporter;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class VideoBusterImporterTest extends InfoMarketTest
+class VideoBusterImporterTest extends TestCase
 {
 
 }

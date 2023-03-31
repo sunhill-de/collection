@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\AmazonShoppingImporter;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class AmazonShoppingImporterTest extends InfoMarketTest
+class AmazonShoppingImporterTest extends TestCase
 {
 
 }

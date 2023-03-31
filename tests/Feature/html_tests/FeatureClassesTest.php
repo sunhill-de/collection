@@ -8,8 +8,9 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureObjects;
 use Sunhill\Collection\Modules\Database\SunhillFeatureTags;
 use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class FeatureClassesTest extends CollectionTestCase
+class FeatureClassesTest extends DatabaseTestCase
 {
     
     public function setUp(): void

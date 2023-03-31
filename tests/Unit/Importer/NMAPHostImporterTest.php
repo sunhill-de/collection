@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\NMAPHostImporter;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class NMAPHostImporterTest extends InfoMarketTest
+class NMAPHostImporterTest extends TestCase
 {
 
 }

@@ -1,0 +1,77 @@
+{
+	"name" : "sunhill/collection",
+	"description" : "The sunhill collection of useful objects, marketeers and views",
+	"type" : "library",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Klaus Dimde",
+			"email" : "klaus@dimde.info"
+		}
+	],
+	"minimum-stability" : "dev",
+        "repositories" : [{
+                        "type" : "path",
+                        "url" : "../basic",
+                        "options" : {
+                                "symlink" : true
+                        }
+                },{
+                        "type" : "path",
+                        "url" : "../orm",
+                        "options" : {
+                                "symlink" : true
+                        }
+                },{
+                        "type" : "path",
+                        "url" : "../infomarket",
+                        "options" : {
+                                "symlink" : true
+                        }
+                },{
+                        "type" : "path",
+                        "url" : "../visual",
+                        "options" : {
+                                "symlink" : true
+                        }
+                }
+                
+                ],
+	"require": {
+		"sunhill/basic":"*",
+		"sunhill/orm":"*",
+		"sunhill/infomarket":"*",
+		"sunhill/visual":"*"
+	},
+        "require-dev" : {
+                "phpunit/phpunit" : "^9.5.10",
+                "orchestra/testbench" : "7.x-dev",
+                "doctrine/dbal": "3.7.x"
+        },
+	"autoload" : {
+		"psr-4" : {
+			"Sunhill\\ORM\\Test\\" : [
+				"tests",
+				"tests/lib",
+				"tests/Objects"
+			],
+			"Sunhill\\ORM\\Tests\\" : [
+				"tests",
+				"tests/lib",
+				"tests/Objects"
+			],
+			"Sunhill\\ORM\\" : "src",
+			"Sunhill\\ORM\\Database\\" : "database"
+		}
+	},
+	"extra" : {
+		"laravel" : {
+			"providers" : [
+				"Sunhill\\ORM\\SunhillServiceProvider"
+			],
+			"aliases" : {
+				"Classes" : "Sunhill\\ORM\\Facades\\Classes",
+				"Operators" : "Sunhill\\ORM\\Facades\\Operators"
+			}
+		}
+	}
+}

@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\HandyLibraryImporter;
-use Sunhill\InfoMarket\Tests\InfoMarketTest;
+use Sunhill\Collection\Tests\TestCase;
 
-class HandyLibraryImporterTest extends InfoMarketTest
+class HandyLibraryImporterTest extends TestCase
 {
 
 }
