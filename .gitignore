@@ -29,5 +29,6 @@ Homestead.json
 *~
 /storage
 /composer.lock
+/composer-dev.lock
 /.settings
 /.buildpath

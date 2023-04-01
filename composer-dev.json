@@ -23,12 +23,6 @@
                         }
                 },{
                         "type" : "path",
-                        "url" : "../infomarket",
-                        "options" : {
-                                "symlink" : true
-                        }
-                },{
-                        "type" : "path",
                         "url" : "../visual",
                         "options" : {
                                 "symlink" : true
@@ -37,7 +31,7 @@
                 
                 ],
 	"require": {
-		"sunhill/basic":"*",
+		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
 		"sunhill/infomarket":"*",
 		"sunhill/visual":"*"
@@ -49,29 +43,21 @@
         },
 	"autoload" : {
 		"psr-4" : {
-			"Sunhill\\ORM\\Test\\" : [
+			"Sunhill\\Collection\\Tests\\" : [
 				"tests",
-				"tests/lib",
-				"tests/Objects"
+				"src/Tests"
 			],
-			"Sunhill\\ORM\\Tests\\" : [
-				"tests",
-				"tests/lib",
-				"tests/Objects"
+			"Sunhill\\Collection\\Test\\" : [
+				"tests"
 			],
-			"Sunhill\\ORM\\" : "src",
-			"Sunhill\\ORM\\Database\\" : "database"
+			"Sunhill\\Collection\\" : "src"
 		}
 	},
 	"extra" : {
 		"laravel" : {
 			"providers" : [
-				"Sunhill\\ORM\\SunhillServiceProvider"
-			],
-			"aliases" : {
-				"Classes" : "Sunhill\\ORM\\Facades\\Classes",
-				"Operators" : "Sunhill\\ORM\\Facades\\Operators"
-			}
+				"Sunhill\\Collection\\CollectionServiceProvider"
+			]
 		}
 	}
 }

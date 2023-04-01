@@ -1,5 +1,7 @@
 <?php
 
+namespace Sunhill\Collection\Tests\Feature\html_tests;
+
 use Sunhill\Collection\Tests\CollectionTestCase;
 
 use Sunhill\Visual\Facades\SunhillSiteManager;
@@ -12,30 +14,6 @@ use Sunhill\Collection\Tests\DatabaseTestCase;
 
 class FeatureClassesTest extends DatabaseTestCase
 {
-    
-    public function setUp(): void
-    {
-        parent::setUp();    
-    }
-    
-    protected function getEnvironmentSetUp($app)
-    {
-        
-        SunhillSiteManager::setName('Testsite');
-        SunhillSiteManager::setDisplayName('Testsite');
-        SunhillSiteManager::setDescription('Mainpage');
-        SunhillSiteManager::addIndex(\App\Http\Controllers\IndexController::class);
-        //     SunhillSiteManager::addIndex('IndexController');
-        
-        SunhillSiteManager::addDefaultSubmodule('Database','Database','Database',function($owner) {
-          $owner->addSubmodule(new SunhillFeatureClasses());
-          $owner->addSubmodule(new SunhillFeatureObjects());
-          $owner->addSubmodule(new SunhillFeatureTags());
-          $owner->addSubmodule(new SunhillFeatureAttributes());
-          $owner->addSubmodule(new SunhillFeatureImports());
-        });
-        SunhillSiteManager::installRoutes();
-    }
     
     /**
      * @dataProvider checkFor200Provider

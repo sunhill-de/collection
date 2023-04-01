@@ -11,7 +11,7 @@ use Sunhill\Collection\CollectionServiceProvider;
 class TestCase extends SunhillOrchestraTestCase
 {
     
-    protected function getPackageProvider($app)
+    protected function getPackageProviders($app)
     {
         return [
             SunhillBasicServiceProvider::class,
@@ -20,6 +20,5 @@ class TestCase extends SunhillOrchestraTestCase
             CollectionServiceProvider::class,            
         ];
     }
-    
-    
+        
 }
