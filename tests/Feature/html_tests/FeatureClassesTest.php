@@ -21,14 +21,17 @@ class FeatureClassesTest extends DatabaseTestCase
     public function testCheckFor200($route)
     {
         $response = $this->get($route);        
-        $response->assertStatus(200);        
+        $response->assertStatus(200);
+        $response->assertDontSee(__('User error'));
     }
     
     public function checkFor200Provider()
     {
         return [
-            ['/Database/Classes/List'], 
-            ['/Database/Classes/Show/1'],
+            ['/Database/Classes/List'],          // Default list classes
+            ['/Database/Classes/List/2'],        // List classes with page
+            ['/Database/Classes/Show/Person'],   // Show class with existing name
+            ['/Database/Classes/Show/1'],        // Show class with existing index
         ];
     }
     
@@ -44,7 +47,9 @@ class FeatureClassesTest extends DatabaseTestCase
     public function checkFor500Provider()
     {
         return [
-            ['/Database/Classes/Show/NonExistingClass'],
+            ['/Database/Classes/Show/NonExistingClass'],  // Show non existing class
+            ['/Database/Classes/Show/1000'],              // Show class with non existing index
+            ['/Database/Classes/List/1000'],              // List classes with non existing page
         ];        
     }
 }
