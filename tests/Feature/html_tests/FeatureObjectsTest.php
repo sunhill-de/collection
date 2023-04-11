@@ -12,7 +12,7 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
 use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class FeatureClassesTest extends DatabaseTestCase
+class FeatureObjectsTest extends DatabaseTestCase
 {
     
     /**
@@ -27,8 +27,8 @@ class FeatureClassesTest extends DatabaseTestCase
     public function checkFor200Provider()
     {
         return [
-            ['/Database/Classes/List'], 
-            ['/Database/Classes/Show/1'],
+            ['/Database/Objects/List'], 
+            ['/Database/Objects/Show/1'],
         ];
     }
     
@@ -44,7 +44,7 @@ class FeatureClassesTest extends DatabaseTestCase
     public function checkFor500Provider()
     {
         return [
-            ['/Database/Classes/Show/NonExistingClass'],
+            ['/Database/Objects/Show/10000'],
         ];        
     }
 }
