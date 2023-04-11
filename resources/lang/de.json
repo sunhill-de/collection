@@ -564,5 +564,10 @@
   "Import File":"Datei importieren",
   "File":"Datei",
   "Filter":"Importfilter",
-  "Auto detect":"Automatische Erkennung"
+  "Auto detect":"Automatische Erkennung",
+  
+  "************ User errors":"User errors ********************************",
+  "User error":"Benutzerfehler",
+  "The class ':classname' does not exist.":"Die Klasse ':classname' existiert nicht.",
+  "The object with the id ':id' does not exist.":"Das Objekt mit der ID ':id' existiert nicht."
 }
