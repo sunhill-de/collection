@@ -2,7 +2,6 @@
 
 namespace Sunhill\Collection\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\SunhillSiteManager;
 use Sunhill\Collection\Tests\Database\Seeders\DatabaseSeeder;
@@ -13,10 +12,9 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureTags;
 use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
 
-class DatabaseTestCase extends TestCase
+class DatabaseTestCase extends CollectionTestCase
 {
     
-    use RefreshDatabase;
     
     public function setUp(): void
     {
@@ -27,6 +25,7 @@ class DatabaseTestCase extends TestCase
     
     protected function defineDatabaseMigrations()
     {
+        $this->loadMigrationsFrom(realpath(__DIR__.'/../../vendor/sunhill/orm/database/migrations'));
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../../tests/Database/migrations');
     }

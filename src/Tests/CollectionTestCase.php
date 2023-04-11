@@ -8,7 +8,7 @@ use Sunhill\ORM\SunhillServiceProvider;
 use Sunhill\Visual\VisualServiceProvider;
 use Sunhill\Collection\CollectionServiceProvider;
 
-class TestCase extends SunhillOrchestraTestCase
+class CollectionTestCase extends SunhillOrchestraTestCase
 {
     
     protected function getPackageProviders($app)

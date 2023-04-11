@@ -14,7 +14,15 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ObjectsTableSeeder::class);
         $this->call(StringObjectAssignsTableSeeder::class);
+        $this->call(ObjectObjectAssignsTableSeeder::class);
         
         $this->call(PersonsTableSeeder::class);
+        $this->call(FriendsTableSeeder::class);
+        $this->call(FamilyMembersTableSeeder::class);
+
+        $this->call(LocationsTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(CitiesTableSeeder::class);
+        
     }
 }
