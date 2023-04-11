@@ -23,6 +23,21 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationsTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
+        $this->call(StreetsTableSeeder::class);
+        $this->call(AddressesTableSeeder::class);
         
+        $this->call(AnniversariesTableSeeder::class);
+        $this->call(DatesTableSeeder::class);
+        $this->call(CelebrationsTableSeeder::class);
+        $this->call(AnniversaryCelebrationsTableSeeder::class);
+
+        $this->call(NetworksTableSeeder::class);
+        $this->call(ServersTableSeeder::class);
+        $this->call(ComputersTableSeeder::class);
+        $this->call(NetworkDevicesTableSeeder::class);
+        $this->call(ElectronicDevicesTableSeeder::class);
+        $this->call(PropertiesTableSeeder::class);
+        
+        $this->call(MusicalArtistsTableSeeder::class);
     }
 }

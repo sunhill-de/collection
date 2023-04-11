@@ -23,6 +23,11 @@ class LocationsTableSeeder extends Seeder {
 	        ['id'=>20,'name'=>"Roma"],
 	        ['id'=>21,'name'=>"Milano"],
 	        
+	        ['id'=>22,'name'=>"Evergreen Terrace"],
+	        ['id'=>23,'name'=>"Unter den Linden"],
+
+	        ['id'=>24,'name'=>"742 Evergreen Terrace"],
+	        
 	    ]);
 	}
 }
