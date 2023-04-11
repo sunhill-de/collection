@@ -9,6 +9,7 @@ use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Properties\PropertyTags;
 use Sunhill\ORM\Properties\PropertyExternalHooks;
 use Sunhill\Visual\Facades\Dialogs;
+use Sunhill\Visual\Response\SunhillUserException;
 
 class ShowObjectResponse extends SunhillBladeResponse
 {
@@ -20,7 +21,9 @@ class ShowObjectResponse extends SunhillBladeResponse
     protected function prepareResponse()
     {
         parent::prepareResponse();
-        $object = Objects::load($this->id);
+        if (!$object = Objects::load($this->id)) {
+            throw new SunhillUserException(__("The object with the id ':id' does not exist.",['id'=>$this->id]));
+        }
         $this->params['id'] = $this->id;
         $this->params['fields'] = $this->getFields($object);
         $this->params['tags'] = $this->getTags($object);
