@@ -56,6 +56,7 @@ class ObjectsTableSeeder extends Seeder {
 	        ['id'=>39,'classname'=>"Server",'uuid'=>'8ad8ccfb-ecc8-4125-89c7-a9c92ac50038','created_at'=>'2023-04-01 00:55:00'],
 	        ['id'=>40,'classname'=>"Computer",'uuid'=>'8ad8ccfb-ecc8-4125-89c7-a9c92ac50039','created_at'=>'2023-04-01 00:55:00'],
 	        
+	        ['id'=>41,'classname'=>"Shop",'uuid'=>'8ad8ccfb-ecc8-4125-89c7-a9c92ac50040','created_at'=>'2023-04-01 00:55:00'],
 	        
 	    ]);
 	}

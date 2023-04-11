@@ -13,8 +13,6 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
-
 /**
  * The class for 
  *

@@ -38,6 +38,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ElectronicDevicesTableSeeder::class);
         $this->call(PropertiesTableSeeder::class);
         
+        $this->call(OrganisationsTableSeeder::class);
+        $this->call(ShopsTableSeeder::class);
+        
         $this->call(MusicalArtistsTableSeeder::class);
     }
 }
