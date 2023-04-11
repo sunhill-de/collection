@@ -7,6 +7,8 @@ use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Utils\ObjectList;
 use Sunhill\Visual\Traits\GetProperties;
+use Sunhill\Visual\Response\SunhillUserException;
+use Sunhill\ORM\Facades\Classes;
 
 class AddObjectResponse extends SunhillBladeResponse
 {
@@ -20,15 +22,19 @@ class AddObjectResponse extends SunhillBladeResponse
     protected function prepareResponse()
     {
         parent::prepareResponse();
+        if (!Classes::searchClass($this->class)) {
+            throw new SunhillUserException(__("The class ':classname' does not exist.",['classname'=>$this->class]));            
+        }
+            
         $classnamespace = $this->getNamespace($this->class);
         if (!$classnamespace::getInfo('instantiable')) {
-            throw new \Exception('Tried to instantiate object of uninstantiable class: '.$this->class);
+            throw new SunhillUserException(__("Tried to instantiate object of uninstantiable class: ':classname'.",['classname'=>$this->class]));
         }
         $class = new \StdClass();
         $class->name = $this->class;
         $class->namespace = $classnamespace;
         $class->fields = $this->getEditable($classnamespace);
-        $class->tablename = $classnamespace::$object_infos['table'];
+        $class->tablename = $classnamespace::getInfo('table');
         $this->params['key'] = $this->class;
         $this->params['class'] = $class;
     }
