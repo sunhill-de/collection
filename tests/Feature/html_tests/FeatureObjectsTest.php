@@ -12,39 +12,21 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
 use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class FeatureObjectsTest extends DatabaseTestCase
+class FeatureObjectsTest extends HtmlTestBase
 {
     
-    /**
-     * @dataProvider checkFor200Provider
-     */
-    public function testCheckFor200($route)
-    {
-        $response = $this->get($route);        
-        $response->assertStatus(200);        
-    }
-    
-    public function checkFor200Provider()
+ 
+    public function HTMLProvider()
     {
         return [
-            ['/Database/Objects/List'], 
-            ['/Database/Objects/Show/1'],
+            ['/Database/Objects/List',200],
+            ['/Database/Objects/Show/1',200],
+            ['/Database/Objects/Add/Country',200],
+            
+            ['/Database/Objects/Show/10000',500],
+            ['/Database/Objects/Add/Object',500],
+            ['/Database/Objects/Add/NonExistingClass',500],
         ];
     }
     
-    /**
-     * @dataProvider checkFor500Provider
-     */
-    public function testCheckForUsererror($route)
-    {
-        $response = $this->get($route);
-        $response->assertSeeText(__('User error'));
-    }
-    
-    public function checkFor500Provider()
-    {
-        return [
-            ['/Database/Objects/Show/10000'],
-        ];        
-    }
 }
