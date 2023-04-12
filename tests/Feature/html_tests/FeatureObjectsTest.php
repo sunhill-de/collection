@@ -45,4 +45,12 @@ class FeatureObjectsTest extends HtmlTestBase
         $response = $this->get('/Database/Objects/Delete/1');
         $this->assertDatabaseMissing('persons',['lastname'=>'King']);
     }
+    
+    public function testEditObject()
+    {
+        $this->assertDatabaseHas('locations',['name'=>'Germany']);
+        $response = $this->post('/Database/Objects/ExecEdit/11',['name'=>'Deutschland']);
+        $response->assertRedirect('/Database/Objects/Show/11');
+        $this->assertDatabaseHas('locations',['name'=>'Deutschland']);
+    }
 }
