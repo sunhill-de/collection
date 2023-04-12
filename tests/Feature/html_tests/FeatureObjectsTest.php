@@ -26,6 +26,9 @@ class FeatureObjectsTest extends HtmlTestBase
             ['/Database/Objects/Show/10000',500],
             ['/Database/Objects/Add/Object',500],
             ['/Database/Objects/Add/NonExistingClass',500],
+            ['/Database/Objects/Delete/10000',500],
+            ['/Database/Objects/Edit/10000',500],
+            ['/Database/Objects/ExecEdit/10000',500,'post'],
         ];
     }
     
@@ -34,5 +37,12 @@ class FeatureObjectsTest extends HtmlTestBase
         $response = $this->post('/Database/Objects/ExecAdd',['_class'=>'Country','name'=>'Canada']);
         $this->assertDatabaseHas('locations',['name'=>'Canada']);
         $response->assertRedirect('/Database/Objects/List/Country');
+    }
+    
+    public function testDeleteObject()
+    {
+        $this->assertDatabaseHas('persons',['lastname'=>'King']);
+        $response = $this->get('/Database/Objects/Delete/1');
+        $this->assertDatabaseMissing('persons',['lastname'=>'King']);
     }
 }
