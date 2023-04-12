@@ -29,4 +29,10 @@ class FeatureObjectsTest extends HtmlTestBase
         ];
     }
     
+    public function testAddObject()
+    {
+        $response = $this->post('/Database/Objects/ExecAdd',['_class'=>'Country','name'=>'Canada']);
+        $this->assertDatabaseHas('locations',['name'=>'Canada']);
+        $response->assertRedirect('/Database/Objects/List/Country');
+    }
 }
