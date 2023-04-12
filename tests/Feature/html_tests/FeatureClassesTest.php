@@ -8,8 +8,8 @@ class FeatureClassesTest extends HtmlTestBase
     public function HTMLProvider()
     {
         return [
-            ['/Database/Classes/List',200,'Address'],          // Default list classes
-            ['/Database/Classes/List/2',200,'Network'],        // List classes with page
+            ['/Database/Classes/List',200,'get','Address'],          // Default list classes
+            ['/Database/Classes/List/2',200,'get','Network'],        // List classes with page
             ['/Database/Classes/Show/Person',200],   // Show class with existing name
             ['/Database/Classes/Show/1',200],        // Show class with existing index            
             
