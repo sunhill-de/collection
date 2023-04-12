@@ -12,11 +12,13 @@ class EditTagResponse extends SunhillBladeResponse
 
     protected $template = 'collection::tags.edit';
     
-    use HasID;
+    use HasID, CheckTag;
     
     protected function prepareResponse()
     {
         parent::prepareResponse();
+        $this->checkTag();
+        
         $tag = Tags::loadTag($this->id);
         
         $this->params['title'] = __('Edit tag');

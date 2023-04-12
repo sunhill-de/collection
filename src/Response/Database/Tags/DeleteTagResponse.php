@@ -11,11 +11,13 @@ use Sunhill\ORM\Facades\Tags;
 class DeleteTagResponse extends SunhillRedirectResponse
 {
     
-    use HasID;
+    use HasID, CheckTag;
     
     protected function prepareResponse()
     {
         parent::prepareResponse();
+        $this->checkTag();
+        
         Tags::deleteTag($this->id);
         $this->target = route('tags.list');
     }

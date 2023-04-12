@@ -13,7 +13,7 @@ use Sunhill\ORM\Objects\Tag;
 class ExecEditTagResponse extends SunhillFormActionResponse
 {
     
-    use HasID, TagEditTrait;
+    use HasID, TagEditTrait, CheckTag;
     
     protected $title = 'Edit tags';
     
@@ -24,6 +24,8 @@ class ExecEditTagResponse extends SunhillFormActionResponse
     protected function prepareResponse()
     {
         parent::prepareResponse();
+        $this->checkTag();
+        
         $params = $this->checkParams();
         $this->target = route('tags.list');
         Tags::changeTag($this->id,$params);
