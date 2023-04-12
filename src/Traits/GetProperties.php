@@ -17,6 +17,7 @@
 namespace Sunhill\Collection\Traits;
 
 use Sunhill\ORM\Facades\Classes;
+use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Objects\ORMObject;
 
 trait GetProperties 
@@ -25,7 +26,7 @@ trait GetProperties
     protected function testForInt($item)
     {
         if (is_int($item)) {
-            
+            return Objects::getClassNamespaceOf($item);
         }
         return false;
     }
