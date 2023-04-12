@@ -2,43 +2,27 @@
 
 namespace Sunhill\Collection\Response\Database\Objects;
 
-use Illuminate\Http\Request;
-
-use Sunhill\Visual\Response\RedirectResponse;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\Visual\Response\SunhillRedirectResponse;
+use Sunhill\Visual\Response\SunhillUserException;
+use Sunhill\Collection\Utils\HasID;
 
 class DeleteObjectResponse extends SunhillRedirectResponse
 {
     
+    use HasID;
+    
     protected $target = '/';
 
-    protected function getWorkingObject()
+    protected function prepareResponse()
     {
-        $object_id = request()->input('id');
-        $object = Objects::load($object_id);        
-        
-        $this->clearLists($object);
-        $this->target = SunhillSiteManager::getCurrentFeaturePath().'/Show/'.$object_id;
-        
-        return $object;       
+        if (!$object = Objects::load($this->id)) {
+            throw new SunhillUserException(__("The object with the id ':id' does not exist.",['id'=>$this->id]));
+        }
+        $object->delete();
+        $this->setTarget(route('objects.list'));        
     }
     
-    protected function clearLists($object)
-    {
-        $fields = $this->getEditable($object);
-
-        foreach ($fields as $field) {
-          $name = $field->name;
-          $property = $object->getProperty($name);  
-          $fieldtype = $property->getType();
-          if (($fieldtype == 'ArrayOfStrings') || ($fieldtype == 'ArrayOfObjects')) {
-            $object->$name = [];
-          }
-          $object->tags = [];
-//          $object->attributes = [];
-        }  
-    }  
 }  
     
