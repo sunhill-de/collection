@@ -9,7 +9,7 @@ use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Utils\ObjectList;
-use Sunhill\Visual\Traits\GetProperties;
+use Sunhill\Collection\Traits\GetProperties;
 
 /**
  * A baseclass for adding oder modifying objects

@@ -6,7 +6,7 @@ use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\Collection\Utils\HasID;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Utils\ObjectList;
-use Sunhill\Visual\Traits\GetProperties;
+use Sunhill\Collection\Traits\GetProperties;
 
 class EditObjectResponse extends SunhillBladeResponse
 {

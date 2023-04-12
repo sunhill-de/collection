@@ -6,7 +6,7 @@ use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\Attributes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Utils\ObjectList;
-use Sunhill\Visual\Traits\GetProperties;
+use Sunhill\Collection\Traits\GetProperties;
 use Sunhill\Visual\Response\SunhillUserException;
 use Sunhill\ORM\Facades\Classes;
 
