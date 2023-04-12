@@ -10,9 +10,9 @@ class HtmlTestBase extends DatabaseTestCase
     /**
      * @dataProvider HTMLProvider
      */
-    public function testHTMLResponse(string $route, int $response_code = 200, string $expect_to_see = "", string $dont_expect_to_see = "")
+    public function testHTMLResponse(string $route, int $response_code = 200, string $method = 'get', string $expect_to_see = "", string $dont_expect_to_see = "")
     {
-        $response = $this->get($route);
+        $response = $this->$method($route);
         $response->assertStatus($response_code);
         if (!empty($expect_to_see)) {
             $response->assertSeeText($expect_to_see);
