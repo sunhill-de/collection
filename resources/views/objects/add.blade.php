@@ -25,10 +25,10 @@
 
  <div class="field is-grouped">
   <div class="control is-small">
-    <button class="button is-link">{{ __('submit') }}</button>
+    <button class="button is-link" name="submit">{{ __('submit') }}</button>
   </div>
   <div class="control is-small">
-    <button class="button is-link is-light">{{ __('cancel') }}</button>
+    <button class="button is-link is-light" name="cancel">{{ __('cancel') }}</button>
   </div>
  </div>
 
