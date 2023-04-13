@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\AmazonMusicImporter;
-use Sunhill\Collection\Tests\TestCase;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class AmazonMusicImporterTest extends TestCase
+class AmazonMusicImporterTest extends DatabaseTestCase
 {
 
 }

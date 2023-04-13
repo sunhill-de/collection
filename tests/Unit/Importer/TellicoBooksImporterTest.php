@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\TellicoBooksImporter;
-use Sunhill\Collection\Tests\TestCase;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class TellicoBooksImporterTest extends TestCase
+class TellicoBooksImporterTest extends DatabaseTestCase
 {
 
 }

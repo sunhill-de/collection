@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\ClementineImporter;
-use Sunhill\Collection\Tests\TestCase;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class ClementineImporterTest extends TestCase
+class ClementineImporterTest extends DatabaseTestCase
 {
 
 }

@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\MyMoviesImporter;
-use Sunhill\Collection\Tests\TestCase;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class MyMoviesImporterTest extends TestCase
+class MyMoviesImporterTest extends DatabaseTestCase
 {
 
 }

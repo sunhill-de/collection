@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Importer;
 
 use Sunhill\Collection\Importer\LastFMImporter;
-use Sunhill\Collection\Tests\TestCase;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class LastFMImporterTest extends TestCase
+class LastFMImporterTest extends DatabaseTestCase
 {
 
 }
