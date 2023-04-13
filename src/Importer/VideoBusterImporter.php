@@ -16,8 +16,26 @@
  */
 namespace Sunhill\Collection\Importer;
 
+use Illuminate\Support\Facades\DB;
+
 class VideoBusterImporter extends Importer
 {
     
+    use MovieUtils;
+    
+    protected $import_type = self::IMPORT_CSV;
+    
+    protected function processRow($row)
+    {
+        $movie1 = $this->searchOrInsert($row['Film1'],$row['Ausgang']);
+        $movie2 = $this->searchOrInsert($row['Film2'],$row['Ausgang']);
+    }
+    
+    protected function processData($data)
+    {
+        foreach ($data as $row) {
+            $this->processRow($row);
+        }
+    }
     
 }
