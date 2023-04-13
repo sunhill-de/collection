@@ -23,6 +23,14 @@ use Sunhill\ORM\Objects\ORMObject;
 trait GetProperties 
 {
 
+    /**
+     * Tests if the given item is an integer. If yes return the class of the object with with id
+     * 
+     * @param unknown $item
+     * @return unknown|boolean
+     * 
+     * Test: Unit/Traits/GetPropertiesTest::testForInt
+     */
     protected function testForInt($item)
     {
         if (is_int($item)) {
@@ -31,6 +39,15 @@ trait GetProperties
         return false;
     }
     
+    /**
+     * Tests if the given item is an string. if yes and it is the name of a class, we're finished
+     * otherwise it could be the name of a class
+     *
+     * @param unknown $item
+     * @return unknown|boolean
+     *
+     * Test: Unit/Traits/GetPropertiesTest::testForString
+     */
     protected function testForString($item)
     {
         if (is_string($item)) {
@@ -45,6 +62,14 @@ trait GetProperties
         return false;
     }
     
+    /**
+     * Tests if the given item is an object of class ORMObject, if yes return it's namespace
+     *
+     * @param unknown $item
+     * @return unknown|boolean
+     *
+     * Test: Unit/Traits/GetPropertiesTest::testForObject
+     */    
     protected function testForObject($item)
     {
         if (is_a ($item,ORMObject::class)) {
@@ -60,7 +85,9 @@ trait GetProperties
      * If item is an int, that it's treated as a object Id
      * If item is a string, than it can be already a namespace of a class Id
      * If Item is a ORMObject return its class
-     * @return unknown
+     * @return string|boolean
+     * 
+     * Test: Unit/Traits/GetPropertiesTest::getNamespace
      */
     protected function getNamespace($item)
     {
