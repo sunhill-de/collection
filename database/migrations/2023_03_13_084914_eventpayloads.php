@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('import_events', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->string('refering_table',100);
-            $table->integer('refering_id')->default(0);
-            $table->string('event_type',100);
-            $table->date('date');
-            $table->integer('event_id')->default(0);
+        Schema::create('eventpayloads', function (Blueprint $table) {
+            $table->integer('event')->unique();
+            $table->float('payload',10)->nullable()->default(null);
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('import_events');
+        Schema::dropIfExists('eventpayloads');
     }
 };
