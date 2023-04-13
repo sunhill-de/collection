@@ -13,7 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('import_events', function (Blueprint $table) {
+            $table->id()->autoIncrement();
+            $table->string('refering_table',100);
+            $table->integer('refering_id')->default(0);
+            $table->string('event_type',100);
+            $table->date('date');
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('import_events');
     }
 };

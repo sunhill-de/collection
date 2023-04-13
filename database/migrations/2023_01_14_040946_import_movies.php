@@ -15,16 +15,11 @@ return new class extends Migration
     {
         Schema::create('import_movies', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->integer('imported_id');
-            $table->integer('possible_duplicate')->default(0);
-            $table->string('title',200);
-            $table->string('ean',30)->searchable()->nullable();
-            $table->enum('medium_type',['DVD','Blu-ray','Stream']);
-            $table->string('year',4)->nullable();
-            $table->string('imdb_id',15)->searchable()->nullable();
-            $table->integer('length')->nullable();
-            $table->integer('director')->default(0);
-            $table->integer('object_id')->default(0);
+            $table->string('title', 200);       // Title of the movie
+            $table->string('source', 50);       // Source of the movie (like videobuster, MyMovies, etc.)
+            $table->string('source_id', 20)->nullable()->default(null);  // If possible an unique id of the source 
+            $table->string('imdb_id', 10)->nullable()->default(null);      // If given the imdb id
+            $table->integer('object_id')->default(0);       // If already imported the object id
         });
     }
     

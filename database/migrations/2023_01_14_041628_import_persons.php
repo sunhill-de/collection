@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('first_names',100);
             $table->string('last_names',100);
+            $table->string('type',50);
             $table->integer('object_id')->default(0);            
         });
     }
