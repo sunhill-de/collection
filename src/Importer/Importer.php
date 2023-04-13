@@ -51,6 +51,8 @@ class Importer extends Loggable
      */
     protected $import_type = self::IMPORT_LINE;
     
+    protected $expected_seperator = ";";
+    
     /**
      * Setter for dry_run
      * @param bool $on
@@ -181,14 +183,46 @@ class Importer extends Loggable
         return $this->processData($result);        
     }
     
-    protected function runCSVImporter(): bool
+    /**
+     * In some CSV files the header row has some skipped columns. The later algorithm would
+     * cause an unexpected overwrite of columnnames, so make every column in the header unique 
+     * by exchanging empty column names with the previous column with an extra _1.
+     * Note: When there are two empty columns the name would be something_1_1
+     * 
+     * @param array $header_row
+     * @return array
+     * 
+     * Test: tests/Unit/Importer/ImporterTest->testProcessCVSHeader
+     */
+    protected function processCSVHeader(array $header_row): array
     {
-        $csv = array_map('str_getcsv', file($this->import_file));
+        for ($i=1;$i<count($header_row);$i++) {
+            if (empty($header_row[$i])) {
+                $header_row[$i] = $header_row[$i-1]."_1";
+            }
+        }
+        return $header_row;
+    }
+    
+    /**
+     * Imports a csv file linewise, correctes the header and combines every data row 
+     * with the header. It returns an associative array 
+     * 
+     * @return array
+     * 
+     * Test: tests/Unit/Importer/ImporterTest->testRunCSVImporter()
+     */
+    protected function runCSVImporter()
+    {
+        $csv = array_map(function($row) {
+            return str_getcsv($row, $this->expected_seperator);
+        }, file($this->import_file));
+        $csv[0] = $this->processCSVHeader($csv[0]);
         array_walk($csv, function(&$a) use ($csv) {
             $a = array_combine($csv[0], $a);
         });
         array_shift($csv); # remove column header
-        return $this->processData($csv);
+        return $csv;
     }
     
     protected function runExecImporter(): bool
@@ -224,11 +258,8 @@ class Importer extends Loggable
         return '';
     }
 
-    public function run(): bool
+    protected function getData()
     {
-        if (!file_exists($this->import_file)) {
-            throw new \Exception("The file '".$this->import_file."' was not found.");
-        }
         switch ($this->import_type) {
             case self::IMPORT_LINE: return $this->runLineImporter();
             case self::IMPORT_JSON: return $this->runJSONImporter();
@@ -239,6 +270,18 @@ class Importer extends Loggable
             case self::IMPORT_WEB: return $this->runWebImporter();
             default:
                 throw new \Exception("Unknown import type");
+        }        
+    }
+    
+    
+    public function run(): bool
+    {
+        if (!file_exists($this->import_file)) {
+            throw new \Exception("The file '".$this->import_file."' was not found.");
         }
+        if (!$data = $this->getData()) {
+            return false;   
+        }
+        return $this->processData($data);
     }
 }
