@@ -3,9 +3,9 @@
 namespace Sunhill\Collection\Tests\Unit\Managers;
 
 use Sunhill\Collection\Importer\ImportManager;
-use Sunhill\Collection\Tests\TestCase;
+use Sunhill\Collection\Tests\DatabaseTestCase;
 
-class ImportManagerTest extends TestCase
+class ImportManagerTest extends DatabaseTestCase
 {
 
 }
