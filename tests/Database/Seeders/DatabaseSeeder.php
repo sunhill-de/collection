@@ -19,7 +19,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TagObjectAssignsTableSeeder::class);
         $this->call(AttributesTableSeeder::class);
         
+        $this->call(EventTypesTableSeeder::class);
+        $this->call(EventsTableSeeder::class);
+        
         $this->call(MovieImportsTableSeeder::class);
+        $this->call(ImportEventsTableSeeder::class);
         
         $this->call(PersonsTableSeeder::class);
         $this->call(FriendsTableSeeder::class);
