@@ -58,6 +58,7 @@ class ObjectsTableSeeder extends Seeder {
 	        
 	        ['id'=>41,'classname'=>"Shop",'uuid'=>'8ad8ccfb-ecc8-4125-89c7-a9c92ac50040','created_at'=>'2023-04-01 00:55:00'],
 	        
+	        ['id'=>42,'classname'=>"VisualWork",'uuid'=>'8ad8ccfb-ecc8-4125-89c7-a9c92ac50041','created_at'=>'2023-04-01 00:55:00'],
 	    ]);
 	}
 }

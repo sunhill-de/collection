@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(TagObjectAssignsTableSeeder::class);
         $this->call(AttributesTableSeeder::class);
         
+        $this->call(MovieImportsTableSeeder::class);
+        
         $this->call(PersonsTableSeeder::class);
         $this->call(FriendsTableSeeder::class);
         $this->call(FamilyMembersTableSeeder::class);
@@ -45,5 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ShopsTableSeeder::class);
         
         $this->call(MusicalArtistsTableSeeder::class);
+        $this->call(CreativeWorksTableSeeder::class);
+        $this->call(VisualWorksTableSeeder::class);
     }
 }
