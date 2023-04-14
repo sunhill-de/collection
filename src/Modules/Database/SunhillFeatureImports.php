@@ -27,12 +27,12 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ListMovies'])
             ->setVisible(true)
             ->setRouteAddition('/{page?}')
-            ->setAlias('movies.list');
+            ->setAlias('imports.movies.list');
         $this->addAction('ShowMovie')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ShowMovie'])
             ->setVisible(false)
             ->setRouteAddition('/{id}')
-            ->setAlias('movies.show');
+            ->setAlias('imports.movies.show');
         $this->addAction('EditMovie')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'EditMovie'])
             ->setVisible(false)
