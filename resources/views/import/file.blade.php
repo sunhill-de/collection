@@ -7,7 +7,7 @@
 @endsection
   
 @section('content')
-<form action="{{ route('imports.execfile') }}" method="post">
+<form action="{{ route('imports.execfile') }}" method="post" enctype="multipart/form-data">
  @csrf
  
  <div class="field">
@@ -31,10 +31,10 @@
  
  <div class="field is-grouped">
   <div class="control is-small">
-    <button class="button is-link">{{ __('submit') }}</button>    
+    <input type="submit" class="button is-link">    
   </div>
   <div class="control is-small">
-    <button class="button is-link is-light">{{ __('cancel') }}</button>
+    <input type="reset" class="button is-link is-light">
   </div>
  </div>
 </form>
