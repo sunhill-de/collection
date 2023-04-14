@@ -284,4 +284,9 @@ class Importer extends Loggable
         }
         return $this->processData($data);
     }
+    
+    public static function autodetect(string $content): bool
+    {
+        return false;
+    }
 }
