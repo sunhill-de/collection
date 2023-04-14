@@ -55,9 +55,15 @@ class EventUtilsTest extends DatabaseTestCase
     /**
      * tests: src/Importer/MovieUtils->isAlreadyImported()
      */
-    public function testIsAlreadyImported()
+    public function testEventIsAlreadyImported()
     {
-        $this->assertFalse($this->isAlreadyImported(1));
-        $this->assertTrue($this->isAlreadyImported(2));
+        $this->assertFalse($this->eventIsAlreadyImported(1));
+        $this->assertTrue($this->eventIsAlreadyImported(2));
+    }
+    
+    public function testGetDate()
+    {
+        $this->assertEquals('2022-02-02',$this->getDate('02.02.2022'));
+        $this->assertEquals('2022-02-02',$this->getDate('2.2.2022'));
     }
 }
