@@ -17,9 +17,14 @@ trait EventUtils
         return false;
     }
 
+    /**
+     * Transforms a german date (dd.mm.YYYY) into a database date (YYY-mm-dd)
+     * @param unknown $date
+     * @return string
+     */
     protected function getDate($date)
     {
-        return Carbon::createFromFormat('d.m.Y', $date)->format('Y-m-d');
+        return Carbon::createFromFormat('d.m.Y', trim($date))->format('Y-m-d');
     }
     
     protected function insertEvent(string $refering_table, int $refering_id, string $event_type, string $date)
@@ -36,7 +41,7 @@ trait EventUtils
         return $this->insertEvent($refering_table,$refering_id,$event_type,$date);
     }
     
-    protected function isAlreadyImported(int $id)
+    protected function eventIsAlreadyImported(int $id)
     {
         $result = DB::table('import_events')->where('id',$id)->first();
         return $result->event_id > 0;
