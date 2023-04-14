@@ -42,23 +42,27 @@ class Property extends ORMObject
             ->set_displayable(true);
         self::enum('ingress_kind')        
             ->setEnumValues(['made','bought','present','swap'])
+            ->setDefault('bought')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::date('ingress_date')
             ->searchable()
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::float('ingress_price')
             ->searchable()
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::object('ingress_source')
             ->setAllowedObjects(['Shop','Person'])
             ->searchable()
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
@@ -70,22 +74,26 @@ class Property extends ORMObject
             ->setAllowedObjects('Location');
         self::enum('egress_kind')
             ->searchable()
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
             ->setEnumValues(['trash','sold','lost','present','swap']);
         self::date('egress_date')
             ->searchable()
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
         self::float('egress_price')
             ->searchable()
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);            
         self::enum('type')
             ->searchable()
+            ->setDefault('physical')
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)

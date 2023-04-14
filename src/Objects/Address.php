@@ -34,7 +34,8 @@ class Address extends Location
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->setDefault(null);
         self::integer('house_number')
             ->set_description('What is the house number')
             ->searchable()

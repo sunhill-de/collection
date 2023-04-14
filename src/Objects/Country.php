@@ -43,7 +43,8 @@ class Country extends Location
             ->set_description('The phone prefix')
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->setDefault(null);
     }
     
     protected static function setupInfos()

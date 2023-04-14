@@ -27,10 +27,10 @@ class Street extends Location
         parent::setupProperties();
         self::integer('number_of_houses')
             ->set_description('How many houses are on this street')
-            ->set_default(null)
             ->set_displayable(true)
             ->set_editable(true)
-            ->set_groupeditable(false);
+            ->set_groupeditable(false)
+            ->setDefault(null);
     }
     
     protected static function setupInfos()

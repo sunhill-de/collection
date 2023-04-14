@@ -30,7 +30,8 @@ class City extends Location
             ->set_description('The area code of this city')
             ->set_editable(true)
             ->set_groupeditable(true)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->setDefault(null);
     }
 
     protected static function setupInfos()
