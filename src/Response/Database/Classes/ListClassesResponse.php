@@ -3,6 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Classes;
 
 use Sunhill\Visual\Response\SunhillListResponse;
+use Sunhill\Visual\Response\SunhillOldListResponse;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\SunhillSiteManager;
 use Sunhill\Visual\Response\ListDescriptor;
@@ -11,10 +12,23 @@ class ListClassesResponse extends SunhillListResponse
 {
     
     protected $template = 'collection::classes.list';
-    
+  
+    /*
+    public function setOffset(int $offset): SunhillListResponse
+    {
+        $this->setDelta($offset);  
+        return $this;
+    }
+    */
     protected function defineList(ListDescriptor &$descriptor)
     {
-            
+         $descriptor->column('class')->title('Class name')->searchable();
+         $descriptor->column('name')->title('Name')->searchable();
+         $descriptor->column('description')->title('Description');
+         $descriptor->column('parent')->title('Paremt');
+         $descriptor->column('')->link('objects.list',['key'=>'name']);
+         $descriptor->column('')->link('objects.add',['class'=>'name']);
+         $descriptor->column('')->link('classes.show',['class'=>'name']);
     }
     
     /**
