@@ -2,12 +2,12 @@
 
 namespace Sunhill\Collection\Response\Database\Import;
 
-use Sunhill\Visual\Response\SunhillListResponse;
+use Sunhill\Visual\Response\SunhillOldListResponse;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\SunhillSiteManager;
 use Illuminate\Support\Facades\DB;
 
-class ListMoviesImportResponse extends SunhillListResponse
+class ListMoviesImportResponse extends SunhillOldListResponse
 {
     
     protected $template = 'collection::import.listmovies';

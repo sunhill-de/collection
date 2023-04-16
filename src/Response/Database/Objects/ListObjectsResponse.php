@@ -2,14 +2,14 @@
 
 namespace Sunhill\Collection\Response\Database\Objects;
 
-use Sunhill\Visual\Response\SunhillListResponse;
+use Sunhill\Visual\Response\SunhillOldListResponse;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Utils\ObjectList;
 use Sunhill\Visual\Facades\Dialogs;
 use Sunhill\Visual\Facades\SunhillSiteManager;
 
-class ListObjectsResponse extends SunhillListResponse
+class ListObjectsResponse extends SunhillOldListResponse
 {
 
     protected $columns = ['uuid'];

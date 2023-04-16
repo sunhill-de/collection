@@ -5,11 +5,26 @@ namespace Sunhill\Collection\Response\Database\Classes;
 use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\SunhillSiteManager;
+use Sunhill\Visual\Response\ListDescriptor;
 
 class ListClassesResponse extends SunhillListResponse
 {
     
     protected $template = 'collection::classes.list';
+    
+    protected function defineList(ListDescriptor &$descriptor)
+    {
+            
+    }
+    
+    /**
+     * Returns the count of entries for the given filter (if any)
+     * @param string $filter
+     */
+    protected function getEntryCount(string $filter = '')
+    {
+        return Classes::getClassCount();        
+    }
     
     protected function prepareHeaders(): array 
     {

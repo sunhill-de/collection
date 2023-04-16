@@ -21,7 +21,7 @@ class ClassesController extends Controller
     public function list($page=0)
     {
         $response = new ListClassesResponse();
-        $response->setdelta($page);
+        $response->setOffset($page);
         return $response->response();
     }
     
