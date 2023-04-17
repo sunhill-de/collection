@@ -2,100 +2,68 @@
 
 namespace Sunhill\Collection\Response\Database\Objects;
 
-use Sunhill\Visual\Response\SunhillOldListResponse;
+use Sunhill\Visual\Response\ListDescriptor;
+use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\ORM\Utils\ObjectList;
 use Sunhill\Visual\Facades\Dialogs;
-use Sunhill\Visual\Facades\SunhillSiteManager;
 
-class ListObjectsResponse extends SunhillOldListResponse
+class ListObjectsResponse extends SunhillListResponse
 {
-
-    protected $columns = ['uuid'];
     
     protected $template = 'collection::objects.list';
     
-    protected function prepareList($key,$order,$delta,$limit)
-    {
-        if (empty($key)) {
-            $key = 'ORMObject';
-        }
-        $this->params['namespace'] = Classes::getNamespaceOfClass($key);
-        return Objects::getPartialObjectList($key,$order,$delta*$limit,$limit); 
-    }
+    protected $route = 'objects.list';
     
-    protected function getObjectLink($key, $order = 'id', $delta = 0)
+    /*
+     public function setOffset(int $offset): SunhillListResponse
+     {
+     $this->setDelta($offset);
+     return $this;
+     }
+     */
+    protected function defineList(ListDescriptor &$descriptor)
     {
-        return route('objects.list',['key'=>$key,'page'=>$delta,'order'=>$order]); 
-    }
-    
-    protected function createEntry($name,$link=null)
-    {
-        $result = new \StdClass();
-        $result->name = $name;
-        $result->link = $link;
-        return $result;
-    }
-    
-    protected function prepareHeaders(): array
-    {
-        $result = [
-            $this->createEntry(__('id'),$this->getObjectLink($this->params['key'],$this->params['order'],$this->params['delta'])),
-            $this->createEntry(__('class'))            
-        ];    
+        $descriptor->column('id')->title('id')->searchable();
+        $descriptor->column('class')->title('class')->link('objects.list',['key'=>'class'])->searchable();
         
-        $columns = Dialogs::getObjectListFields($this->params['key']);
+        $columns = Dialogs::getObjectListFields($this->key);
         foreach ($columns as $index => $column) {
-            
+            $column_obj = $descriptor->column($column);
             if (is_int($index)) {
-                $result[] = $this->createEntry(__($column),$this->getObjectLink($this->params['key'],$column,$this->params['delta']));
+                $column_obj = $column_obj->title($column);
             } else {
-                $result[] = $this->createEntry(__($index));                
+                $column_obj = $column_obj->title($index);
             }
         }
-        $result[] = $this->createEntry(" ");
-        $result[] = $this->createEntry(" ");
-        return $result;
+        
+        $descriptor->column('edit')->link('objects.edit',['id'=>'id']);
+        $descriptor->column('delete')->link('objects.add',['id'=>'id']);
     }
     
-    protected function parseColumn($object,$column)
+    /**
+     * Returns the count of entries for the given filter (if any)
+     * @param string $filter
+     */
+    protected function getEntryCount(): int
     {
-        if (strpos($column,"=>")) {
-            list($key,$subkey) = explode("=>",$column);
-            $key_object = $object->$key;
-            if (is_null($key_object)) {
-                return null;            
-            } else {
-                return $key_object->$subkey;
-            }
-        } else if ($column == "keyfield") {
-            return Dialogs::getObjectKeyfield($object);
-        } else {
-            return $object->$column;
-        }
+        $class_namespace = Classes::getNamespaceOfClass(isset($this->params['key'])?$this->params['key']:'object');
+        return $class_namespace::search()->count();
     }
     
-    protected function prepareMatrix($input): array
+    protected function getData()
     {
-        $result = [];
-        foreach ($input as $object) {
-            $row = [];
-            $row[] = $this->createEntry($object->getID(),route('objects.show',['id'=>$object->getID()]));
-            $row[] = $this->createEntry($object::getInfo('name'),$this->getObjectLink($object::getInfo('name')));            
-            $columns = Dialogs::getObjectListFields($this->params['key']);
-            foreach ($columns as $index => $column) {
-                if (is_int($index)) {
-                    $row[] = $this->createEntry($this->parseColumn($object,$column));
-                } else {
-                    $row[] = $this->createEntry($this->parseColumn($object,$column));                    
-                }
-            }
-            $row[] = $this->createEntry(__("edit"),route('objects.edit',['id'=>$object->getID()]));
-            $row[] = $this->createEntry(__("delete"),route('objects.delete',['id'=>$object->getID()]));
-            $result[] = $row;
+        if (empty($this->key)) {
+            $this->key = 'ORMObject';
         }
-        return $result;
+        $this->params['namespace'] = Classes::getNamespaceOfClass($this->key);
+        return Objects::getPartialObjectList($this->key,$this->order,$this->offset*self::ENTRIES_PER_PAGE,self::ENTRIES_PER_PAGE);
+    }
+
+    protected function prepareResponse()
+    {
+        parent::prepareResponse();
+        $this->processAdditional();
     }
     
     protected function getFixedInheritance(string $class)
@@ -107,27 +75,9 @@ class ListObjectsResponse extends SunhillOldListResponse
         }
     }
     
-    function getParams(): array
-    { 
-       return ['key'=>$this->key,'delta'=>$this->delta,'order'=>$this->order];
-    }
-  
     protected function processAdditional()
     {
         $this->params['inheritance'] = array_reverse($this->getFixedInheritance($this->params['key']));
     }
 
-    protected function getTotalEntryCount()
-    {
-        $class_namespace = Classes::getNamespaceOfClass(isset($this->params['key'])?$this->params['key']:'object');
-        return $class_namespace::search()->count();
-    }
-    
-    
-    protected function getPaginatorLink(int $index)
-    {
-        $class = isset($this->params['key'])?$this->params['key']:'object';
-        return route('objects.list',['key'=>$class,'page'=>$index]); 
-    }
-        
 }  
