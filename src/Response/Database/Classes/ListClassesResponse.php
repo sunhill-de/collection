@@ -44,7 +44,7 @@ class ListClassesResponse extends SunhillListResponse
         return Classes::getClassCount();        
     }
     
-    protected function getData(): array
+    protected function getData()
     {
         $data = Classes::getAllClasses();
         usort($data, function($a,$b) {
