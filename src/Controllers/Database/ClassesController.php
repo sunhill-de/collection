@@ -18,10 +18,11 @@ class ClassesController extends Controller
         return $response->response();
     }
     
-    public function list($page=0)
+    public function list($page = 0, $order = 'name')
     {
         $response = new ListClassesResponse();
         $response->setOffset($page);
+        $response->setOrder($order);
         return $response->response();
     }
     

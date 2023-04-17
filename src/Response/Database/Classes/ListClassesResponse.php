@@ -13,6 +13,10 @@ class ListClassesResponse extends SunhillListResponse
     
     protected $template = 'collection::classes.list';
   
+    protected $route = 'classes.list';
+    
+    protected $order = 'name';
+    
     /*
     public function setOffset(int $offset): SunhillListResponse
     {
@@ -25,80 +29,33 @@ class ListClassesResponse extends SunhillListResponse
          $descriptor->column('class')->title('Class name')->searchable();
          $descriptor->column('name')->title('Name')->searchable();
          $descriptor->column('description')->title('Description');
-         $descriptor->column('parent')->title('Paremt');
-         $descriptor->column('')->link('objects.list',['key'=>'name']);
-         $descriptor->column('')->link('objects.add',['class'=>'name']);
-         $descriptor->column('')->link('classes.show',['class'=>'name']);
+         $descriptor->column('parent')->title('Parent');
+         $descriptor->column('list')->link('objects.list',['key'=>'name']);
+         $descriptor->column('add')->link('objects.add',['class'=>'name']);
+         $descriptor->column('show')->link('classes.show',['class'=>'name']);
     }
     
     /**
      * Returns the count of entries for the given filter (if any)
      * @param string $filter
      */
-    protected function getEntryCount(string $filter = '')
+    protected function getEntryCount(): int
     {
         return Classes::getClassCount();        
     }
     
-    protected function prepareHeaders(): array 
+    protected function getData(): array
     {
-        $this->params['headers'] = [
-            $this->getStdClass(['name'=>__('Class name'),'link'=>null]),
-            $this->getStdClass(['name'=>__('Name'),'link'=>null]),
-            $this->getStdClass(['name'=>__('Description'),'link'=>null]),
-            $this->getStdClass(['name'=>__('Parent'),'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-        ];
-        return $this->params['headers'];
-    }
-    
-    protected function prepareList($key,$order,$delta,$limit)
-    {
-        return $this->sliceList(Classes::getAllClasses(),$delta);
-    }
-
-    protected function getPrefix()
-    {
-        return SunhillSiteManager::getPrefix();    
-    }
-    
-    protected function prepareMatrix($input): array
-    {
-        $result = [];        
-        foreach ($input as $name => $description)
-        {
-            if ($description['name'] == 'object') {
-                $description['name'] = 'ORMObject'; // @todo: Dirty hack to remove error in list objects
+        $data = Classes::getAllClasses();
+        usort($data, function($a,$b) {
+            if ($a[$this->order] == $b[$this->order]) {
+                return 0;
             }
-            $row = [];
-            $row[] = $this->getStdClass(['name'=>$description['class'],'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>$description['name'],'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>(isset($description['description'])?$description['description']:""),'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>$description['parent'],'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>__('list'),'link'=>route('objects.list',['key'=>$description['name']])]);
-            $classname = $description['class'];
-            if ($classname::getInfo('instantiable', false)) {
-                $row[] = $this->getStdClass(['name'=>__('add'),'link'=>route('objects.add',['class'=>$description['name']])]);
-            } else {
-                $row[] = $this->getStdClass(['name'=>__('add'),'link'=>null]);                
-            }
-            $row[] = $this->getStdClass(['name'=>__('show'),'link'=>route('classes.show',['class'=>$description['name']])]);
-            $result[] = $row;
-        }
-        return $result;        
-    }
-    
-    protected function getTotalEntryCount()
-    {
-        return Classes::getClassCount();
-    }
-    
-    
-    protected function getPaginatorLink(int $index)
-    {
-        return route('classes.list',['page'=>$index]); 
+            return ($a[$this->order] < $b[$this->order]) ? -1 : 1;
+        });
+        $data = $this->sliceData($data);
+        
+        return $data;
     }
     
 }  
