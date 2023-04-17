@@ -20,11 +20,10 @@ class ExecImportFileResponse extends SunhillRedirectResponse
         if (!request()->file('file')->isValid()) {
             throw new SunhillUserException(__("File was not valid."));
         }
-        $all = request()->all();
         $file = request()->file('file')->getPathname();
         $filter = request()->input('filter');
-        Imports::importFile($file, $filter);
-        $this->setTarget(route('imports.movies.list'));
+        $target = Imports::importFile($file, $filter);
+        $this->setTarget(route("imports.$target.list"));
     }
     
 }  

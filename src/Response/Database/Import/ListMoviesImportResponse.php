@@ -65,7 +65,7 @@ class ListMoviesImportResponse extends SunhillOldListResponse
     
     protected function getPaginatorLink(int $index)
     {
-        return SunhillSiteManager::getCurrentFeaturePath().'/ListMovies/'.$index;
+        return route('imports.movies.list',['page'=>$index]); 
     }
     
 }  
