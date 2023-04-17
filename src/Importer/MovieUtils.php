@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 trait MovieUtils
 {
     
+    protected function getImportTarget()
+    {
+        return 'movies';    
+    }
+    
     /**
      * Searches the movie with the title $name in the import table. $source and $key have
      * to match too. The import table doesn't care if any other source has imported the 
