@@ -23,7 +23,7 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->setVisible(false)
             ->setMethod('post')
             ->setAlias('imports.execfile');
-        $this->addAction('Movies')
+        $this->addAction('Movies/List')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ListMovies'])
             ->setVisible(true)
             ->setRouteAddition('/{page?}')
