@@ -24,10 +24,11 @@ class TagsController extends Controller
         return $response->response();
     }
     
-    public function list($page=0)
+    public function list($page = 0, $order = 'id')
     {
         $response = new ListTagsResponse();
-        $response->setdelta($page);
+        $response->setOffset($page);
+        $response->setOrder($order);
         return $response->response();
     }
     

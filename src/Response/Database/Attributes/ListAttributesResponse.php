@@ -3,71 +3,48 @@
 namespace Sunhill\Collection\Response\Database\Attributes;
 
 use Sunhill\ORM\Facades\Attributes;
+use Sunhill\Visual\Response\ListDescriptor;
+use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\Visual\Response\SunhillOldListResponse;
 
-class ListAttributesResponse extends SunhillOldListResponse
+class ListAttributesResponse extends SunhillListResponse
 {
 
-    protected $columns = ['name','parent'];
-    
     protected $template = 'collection::attributes.list';
     
-    protected function prepareList($key,$order,$delta,$limit)
+    protected $route = 'attributes.list';
+    
+    protected function defineList(ListDescriptor &$descriptor)
     {
-        $attributes = Attributes::getAllAttributes($delta*$limit,$limit); 
-        return $attributes;
+        $descriptor->column('id')->title('Id')->searchable();
+        $descriptor->column('name')->title('Name')->searchable();
+        $descriptor->column('type')->title('Type');
+        $descriptor->column('allowed_classes')->title('Allowed classes');
+        $descriptor->column('add')->link('attributes.edit',['id'=>'id']);
+        $descriptor->column('delete')->link('attributes.delete',['id'=>'id']);
+        $descriptor->column('show')->link('attributes.show',['id'=>'id']);
     }
     
-    protected function getTotalEntryCount()
+    /**
+     * Returns the count of entries for the given filter (if any)
+     * @param string $filter
+     */
+    protected function getEntryCount(): int
     {
         return Attributes::getCount();
     }
     
-    protected function getAttributeLink($key, $order = 'id', $delta = 0)
+    protected function getData()
     {
-        return route('attributes.list',['key'=>$key,'order'=>$order,'delta'=>$delta]); 
+        $data = Attributes::getAllAttributes($this->offset*self::ENTRIES_PER_PAGE,self::ENTRIES_PER_PAGE);
+/*        usort($data, function($a,$b) {
+            if ($a[$this->order] == $b[$this->order]) {
+                return 0;
+            }
+            return ($a[$this->order] < $b[$this->order]) ? -1 : 1;
+        }); */
+            
+       return $data;
     }
-    
-    protected function createEntry($name,$link=null)
-    {
-        $result = new \StdClass();
-        $result->name = $name;
-        $result->link = $link;
-        return $result;
-    }
-    
-    protected function prepareHeaders(): array
-    {
-        $result = [
-            $this->createEntry(__('Id'),  $this->getAttributeLink($this->params['key'],$this->params['order'],$this->params['delta'])),
-            $this->createEntry(__('Name'),$this->getAttributeLink($this->params['key'],'name',$this->params['delta'])),
-            $this->createEntry(__('Type'),$this->getAttributeLink($this->params['key'],'parent',$this->params['delta'])),
-            $this->createEntry(__('Allowed classes'),$this->getAttributeLink($this->params['key'],'full_path',$this->params['delta'])),
-            $result[] = $this->createEntry(" "),
-            $result[] = $this->createEntry(" ")
-        ];    
-        return $result;
-    }
-    
-    protected function prepareMatrix($input): array
-    {
-        $result = [];
-        foreach ($input as $attribute) {
-            $row = [];
-            $row[] = $this->createEntry($attribute->id,route('attributes.show',['id'=>$attribute->id]));
-            $row[] = $this->createEntry($attribute->name);
-            $row[] = $this->createEntry($attribute->type);
-            $row[] = $this->createEntry($attribute->allowedobjects);
-            $row[] = $this->createEntry(__("edit"),route('attributes.edit',['id'=>$attribute->id]));
-            $row[] = $this->createEntry(__("delete"),route('attributes.delete',['id'=>$attribute->id]));
-            $result[] = $row;
-        }
-        return $result;
-    }
-    
-    function getParams(): array
-    { 
-        return ['key'=>$this->key,'delta'=>$this->delta,'order'=>$this->order];
-    }
-  
+        
 }

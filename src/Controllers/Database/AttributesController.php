@@ -24,10 +24,10 @@ class AttributesController extends Controller
         return $response->response();
     }
     
-    public function list($page=0)
+    public function list($page = 0)
     {
         $response = new ListAttributesResponse();
-        $response->setdelta($page);
+        $response->setOffset($page);
         return $response->response();
     }
     

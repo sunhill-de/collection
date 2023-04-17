@@ -17,13 +17,6 @@ class ListClassesResponse extends SunhillListResponse
     
     protected $order = 'name';
     
-    /*
-    public function setOffset(int $offset): SunhillListResponse
-    {
-        $this->setDelta($offset);  
-        return $this;
-    }
-    */
     protected function defineList(ListDescriptor &$descriptor)
     {
          $descriptor->column('class')->title('Class name')->searchable();

@@ -3,14 +3,67 @@
 namespace Sunhill\Collection\Response\Database\Tags;
 
 use Sunhill\ORM\Facades\Tags;
+use Sunhill\Visual\Response\ListDescriptor;
+use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\Visual\Response\SunhillOldListResponse;
 
-class ListTagsResponse extends SunhillOldListResponse
+class ListTagsResponse extends SunhillListResponse
 {
 
-    protected $columns = ['name','parent'];
-    
     protected $template = 'collection::tags.list';
+    
+    protected $route = 'tags.list';
+    
+    protected $order = 'name';
+    
+    protected function defineList(ListDescriptor &$descriptor)
+    {
+        $descriptor->column('id')->title('id')->searchable();
+        $descriptor->column('name')->title('Name')->searchable();
+        $descriptor->column('parent')->title('Parent');
+        $descriptor->column('fullpath')->title('Full path');
+        $descriptor->column('edit')->link('tags.add',['id'=>'id']);
+        $descriptor->column('show')->link('tags.show',['id'=>'id']);
+    }
+    
+    /**
+     * Returns the count of entries for the given filter (if any)
+     * @param string $filter
+     */
+    protected function getEntryCount(): int
+    {
+        return Tags::getCount();
+    }
+    
+    protected function getData()
+    {
+        $tags = Tags::getAllTags();
+        $result = [];
+        foreach ($tags as $tag) {
+            $entry = new \StdClass();
+            $entry->id = $tag->id;
+            $entry->name = $tag->name;
+            $entry->fullpath = $tag->fullpath;
+            if ($tag->parent_id) {
+                $parent = Tags::findTag($tag->parent_id);
+                $entry->parent = $parent->name;
+            } else {
+                $entry->parent = '';
+            }
+            $entry->parent_id = $tag->parent_id;
+            $result[] = $entry;
+        }
+        usort($result, function($a,$b) {
+            $order = $this->order;
+            if ($a->$order == $b->$order) {
+                return 0;
+            }
+            return ($a->$order < $b->$order) ? -1 : 1;
+        });
+        $result = $this->sliceData($result);
+       return $result;
+    }
+    
     
     protected function prepareList($key,$order,$delta,$limit)
     {

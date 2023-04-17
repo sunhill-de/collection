@@ -8,9 +8,11 @@ use Sunhill\Visual\Response\SunhillOldListResponse;
 class ListAssociatedObjectsResponse extends SunhillOldListResponse
 {
 
-    protected $columns = ['name','parent'];
-    
     protected $template = 'collection::tags.list';
+    
+    protected $route = 'tags.list';
+    
+    protected $order = 'name';
     
     protected function prepareList($key,$order,$delta,$limit)
     {
