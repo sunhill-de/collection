@@ -34,7 +34,11 @@ class ImportManager
     {
         $filter_object = new $filter_class();
         $filter_object->setImportFile($name);
-        return $filter_object->run();        
+        if ($filter_object->run()) {
+            return $filter_object->getImportTarget();
+        } else {
+            throw new SunhillUserException(__("Import failed."));
+        }
     }
     
     public function importFile(string $name, string $filter = 'autodetect')
