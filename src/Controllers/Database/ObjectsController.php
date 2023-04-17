@@ -25,7 +25,7 @@ class ObjectsController extends Controller
     public function list($key='object',$page=0,$order='id')
     {
         $response = new ListObjectsResponse();
-        $response->setDelta($page);
+        $response->setOffset($page);
         $response->setKey($key);
         $response->setOrder($order);
         return $response->response();
