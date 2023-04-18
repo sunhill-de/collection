@@ -19,8 +19,8 @@ class ListMoviesImportResponse extends SunhillListResponse
     {
         $descriptor->column('id')->title('id')->searchable();
         $descriptor->column('title')->title('Movie name')->searchable();
-        $descriptor->column('imdb_id')->title('IMDB-ID');
-        $descriptor->column('imported')->title('imported');
+        $descriptor->column('imdb_id')->title('IMDB-ID')->nullable();
+        $descriptor->column('object_id')->title('imported');
         $descriptor->column('lookup')->link('imports.movies.lookup',['id'=>'id']);
         $descriptor->column('import')->link('imports.movies.import',['id'=>'id']);
         $descriptor->column('edit')->link('imports.movies.edit',['id'=>'id']);
