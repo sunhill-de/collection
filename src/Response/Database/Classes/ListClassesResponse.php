@@ -3,9 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Classes;
 
 use Sunhill\Visual\Response\SunhillListResponse;
-use Sunhill\Visual\Response\SunhillOldListResponse;
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\Visual\Facades\SunhillSiteManager;
 use Sunhill\Visual\Response\ListDescriptor;
 
 class ListClassesResponse extends SunhillListResponse

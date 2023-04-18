@@ -5,7 +5,6 @@ namespace Sunhill\Collection\Response\Database\Tags;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\Visual\Response\ListDescriptor;
 use Sunhill\Visual\Response\SunhillListResponse;
-use Sunhill\Visual\Response\SunhillOldListResponse;
 
 class ListTagsResponse extends SunhillListResponse
 {

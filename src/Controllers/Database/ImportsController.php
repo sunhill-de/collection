@@ -33,7 +33,7 @@ class ImportsController extends Controller
     public function listMovies($page = 0)
     {
         $response = new ListMoviesImportResponse();
-        $response->setDelta($page);
+        $response->setOffset($page);
         return $response->response();        
     }
     

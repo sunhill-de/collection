@@ -2,70 +2,54 @@
 
 namespace Sunhill\Collection\Response\Database\Import;
 
-use Sunhill\Visual\Response\SunhillOldListResponse;
-use Sunhill\ORM\Facades\Classes;
-use Sunhill\Visual\Facades\SunhillSiteManager;
+use Sunhill\Visual\Response\ListDescriptor;
+use Sunhill\Visual\Response\SunhillListResponse;
 use Illuminate\Support\Facades\DB;
 
-class ListMoviesImportResponse extends SunhillOldListResponse
+class ListMoviesImportResponse extends SunhillListResponse
 {
     
     protected $template = 'collection::import.listmovies';
     
-    protected function prepareHeaders(): array 
+    protected $route = 'imports.movies.list';
+    
+    protected $order = 'id';
+    
+    protected function defineList(ListDescriptor &$descriptor)
     {
-        $this->params['headers'] = [
-            $this->getStdClass(['name'=>__('ID'),'link'=>null]),
-            $this->getStdClass(['name'=>__('Movie name'),'link'=>null]),
-            $this->getStdClass(['name'=>__('IMDB-ID'),'link'=>null]),
-            $this->getStdClass(['name'=>__('Imported'),'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-            $this->getStdClass(['name'=>"",'link'=>null]),
-        ];
-        return $this->params['headers'];
+        $descriptor->column('id')->title('id')->searchable();
+        $descriptor->column('title')->title('Movie name')->searchable();
+        $descriptor->column('imdb_id')->title('IMDB-ID');
+        $descriptor->column('imported')->title('imported');
+        $descriptor->column('lookup')->link('imports.movies.lookup',['id'=>'id']);
+        $descriptor->column('import')->link('imports.movies.import',['id'=>'id']);
+        $descriptor->column('edit')->link('imports.movies.edit',['id'=>'id']);
+        $descriptor->column('delete')->link('imports.movies.delete',['id'=>'id']);
     }
     
-    protected function prepareList($key,$order,$delta,$limit)
+    protected function getQuery()
     {
-        return DB::table('import_movies')->offset($delta*self::ENTRIES_PER_PAGE)->limit(self::ENTRIES_PER_PAGE)->get(['id','title','imdb_id','object_id']);
-    }
-
-    protected function getPrefix()
-    {
-        return SunhillSiteManager::getPrefix();    
-    }
-    
-    protected function prepareMatrix($input): array
-    {
-        $result = [];        
-        foreach ($input as $name => $description)
-        {
-            $row = [];
-            $row[] = $this->getStdClass(['name'=>$description->id,'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>$description->title,'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>$description->imdb_id,'link'=>null]);
-            $row[] = $this->getStdClass(['name'=>($description->object_id > 0)?__('yes'):__('no'),'link'=>null]);
-            
-            $row[] = $this->getStdClass(['name'=>__('lookup'),'link'=>SunhillSiteManager::getCurrentFeaturePath().'/LookupMovie/'.$description->id]);
-            $row[] = $this->getStdClass(['name'=>__('import'),'link'=>SunhillSiteManager::getCurrentFeaturePath().'/ImportMovie/'.$description->id]);
-            $row[] = $this->getStdClass(['name'=>__('edit'),'link'=>SunhillSiteManager::getCurrentFeaturePath().'/EditMovie/'.$description->id]);
-            $row[] = $this->getStdClass(['name'=>__('delete'),'link'=>SunhillSiteManager::getCurrentFeaturePath().'/DeleteMovie/'.$description->id]);
-            $result[] = $row;
-        }
-        return $result;        
+        $query = DB::table('import_movies');
+        
+        $query = $query->offset($this->offset*self::ENTRIES_PER_PAGE)->limit(self::ENTRIES_PER_PAGE);
+        
+        return $query;
     }
     
-    protected function getTotalEntryCount()
+    /**
+     * Returns the count of entries for the given filter (if any)
+     * @param string $filter
+     */
+    protected function getEntryCount(): int
     {
-        return DB::table('import_movies')->count();
+        $query = $this->getQuery();
+        return $query->count();
     }
     
-    
-    protected function getPaginatorLink(int $index)
+    protected function getData()
     {
-        return route('imports.movies.list',['page'=>$index]); 
+        $query = $this->getQuery();
+        return $query->get();
     }
-    
+        
 }  
