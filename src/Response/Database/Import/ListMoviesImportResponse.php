@@ -30,9 +30,7 @@ class ListMoviesImportResponse extends SunhillListResponse
     protected function getQuery()
     {
         $query = DB::table('import_movies');
-        
-        $query = $query->offset($this->offset*self::ENTRIES_PER_PAGE)->limit(self::ENTRIES_PER_PAGE);
-        
+                
         return $query;
     }
     
@@ -49,6 +47,7 @@ class ListMoviesImportResponse extends SunhillListResponse
     protected function getData()
     {
         $query = $this->getQuery();
+        $query = $query->offset($this->offset*self::ENTRIES_PER_PAGE)->limit(self::ENTRIES_PER_PAGE);
         return $query->get();
     }
         
