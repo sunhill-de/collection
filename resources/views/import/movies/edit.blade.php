@@ -63,11 +63,33 @@
  <div class="field">
  <label class="label">{{__('Type')}}</label>
  <div class="control">
-  <select class="input is-small" name="type" id="type">
+  <select class="input is-small" name="type" id="type" onchange="testepisode()">
    <option value="movie" @selected($type=='movie')>{{ __('Movie') }}</option>
    <option value="series" @selected($type=='series')>{{ __('Series') }}</option>
    <option value="episode" @selected($type=='episode')>{{ __('Episode') }}</option>
   </select>
+  @isset( $error_name )
+    <p class="help is-danger">{{ $error_name }}</p>  
+  @endisset
+ </div>
+</div>
+ 
+ <script>
+ 	$( function() { testepisode() } );
+ 	function testepisode() {
+ 		if ($("#type").val() == "episode") {
+ 	  		$("#series_info").show();
+ 		} else {
+ 	  		$("#series_info").hide();
+    	} 	  
+ 	}
+ </script>
+ <div id="series_info">
+ <div class="field">
+ <label class="label">{{__('Series')}}</label>
+ <div class="control">
+  <input class="input is-small @isset( $error_name ) is-danger @endisset" type="text" name="series" id="series" @isset($series)) value="{{ $series }}" @endisset />
+  <input type="hidden" name="series_id" id="series_id" @isset($series_id)) value="{{ $series_id }}" @endisset>
   @isset( $error_name )
     <p class="help is-danger">{{ $error_name }}</p>  
   @endisset
@@ -93,7 +115,7 @@
   @endisset
  </div>
 </div>
-
+</div>
  <div class="field is-grouped">
   <div class="control is-small">
     <button class="button is-link" name="submit">{{ __('submit') }}</button>

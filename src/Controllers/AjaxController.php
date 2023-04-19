@@ -36,6 +36,20 @@ class AjaxController extends Controller
        
   }
   
+  public function searchImportSeries()
+  {
+     $search = request()->input('search');
+     $query = DB::table('import_movies')->where('title','like','%'.$search.'%')->where('type','series')->limit(10)->get();
+     $result = [];
+     foreach ($query as $entry) {
+        $listentry = new \StdClass();
+        $listentry->label = $entry->title;
+        $listentry->id = $entry->id;
+        $result[] = $listentry;
+     }
+     return $this->getOutput($result);
+  }
+  
   public function searchClass()
   {
       $result = [];  

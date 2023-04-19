@@ -19,3 +19,4 @@ Route::get('/ajax/searchArrayOfString/{class}/{field}', 'Sunhill\Collection\Cont
 Route::get('/ajax/searchClass/{class?}', 'Sunhill\Collection\Controllers\AjaxController@searchClass');
 Route::get('/ajax/getClass/{class}', 'Sunhill\Collection\Controllers\AjaxController@getClass');
 Route::get('/ajax/getAttributeType/{name}', 'Sunhill\Collection\Controllers\AjaxController@getAttributeType');
+Route::get('/ajax/searchImportSeries', 'Sunhill\Collection\Controllers\AjaxController@searchImportSeries');
