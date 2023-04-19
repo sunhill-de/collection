@@ -13,8 +13,8 @@
 		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
 		"sunhill/infomarket":"*",
-		"sunhill/visual":"*"
-	},
+		"sunhill/visual":"*"	
+		},
 	"autoload" : {
 		"psr-4" : {
 			"Sunhill\\Collection\\Tests\\" : [

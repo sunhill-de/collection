@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Sunhill\Collection\Response\SunhillTileViewResponse;
 use Sunhill\Collection\Response\Database\Import\ListMoviesImportResponse;
 use Sunhill\Collection\Response\Database\Import\LookupMovieResponse;
+use Sunhill\Collection\Response\Database\Import\ExecLookupMovieResponse;
 use Sunhill\Collection\Response\Database\Import\ImportFileResponse;
 use Sunhill\Collection\Response\Database\Import\ExecImportFileResponse;
 
@@ -64,4 +65,10 @@ class ImportsController extends Controller
         return $response->response();
     }
     
+    public function execLookupMovie($id)
+    {
+        $response = new ExecLookupMovieResponse();
+        $response->setID($id);
+        return $response->response();
+    }
 }

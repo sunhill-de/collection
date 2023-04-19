@@ -49,6 +49,13 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{id}')
             ->setAlias('imports.movies.lookup');
+        $this->addAction('ExecLookupMovie')
+            ->setDisplayName('Lookup movie')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ExecLookupMovie'])
+            ->setVisible(false)
+            ->setRouteAddition('/{id}')
+            ->setMethod('post')            
+            ->setAlias('imports.movies.execlookup');            
         $this->addAction('ImportMovie')
             ->setDisplayName('Import movie')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'Importmovie'])
