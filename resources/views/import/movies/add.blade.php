@@ -1,16 +1,15 @@
 @extends('visual::basic.navigation')
 
-@section('title',__('Lookup movie'))
+@section('title',__('Edit movie'))
 
 @section('caption')
-{{ __('Lookup movie') }}
+{{ __('Edit movie') }}
 @endsection
   
 @section('content')
-<form action="{{ route('imports.movies.execedit',['id'=>$id]) }}" method="post">
+<form action="{{ route('imports.movies.execadd') }}" method="post">
   @csrf
-
- <div class="field">
+  <div class="field">
  <label class="label">{{__('Name')}}</label>
  <div class="control">
   <input class="input is-small @isset( $error_name ) is-danger @endisset" type="text" name="title" id="title" @isset($title)) value="{{ $title }}" @endisset />
@@ -20,26 +19,6 @@
  </div>
 </div>
  
- <div class="field">
- <label class="label">{{__('Source')}}</label>
- <div class="control">
-  <input class="input is-small @isset( $error_name ) is-danger @endisset" type="text" name="source" id="source" @isset($source)) value="{{ $source }}" @endisset />
-  @isset( $error_name )
-    <p class="help is-danger">{{ $error_name }}</p>  
-  @endisset
- </div>
-</div>
-
- <div class="field">
- <label class="label">{{__('Source ID')}}</label>
- <div class="control">
-  <input class="input is-small @isset( $error_name ) is-danger @endisset" type="text" name="source_id" id="source_id" @isset($source_id)) value="{{ $source_id }}" @endisset />
-  @isset( $error_name )
-    <p class="help is-danger">{{ $error_name }}</p>  
-  @endisset
- </div>
-</div>
-
  <div class="field">
  <label class="label">{{__('IMDb ID')}}</label>
  <div class="control">

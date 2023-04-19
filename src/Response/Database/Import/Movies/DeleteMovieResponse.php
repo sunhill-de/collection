@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Response\Database\Import;
+namespace Sunhill\Collection\Response\Database\Import\Movies;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\Collection\Utils\HasID;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use hmerritt\Imdb;
 
-class ImportMovieResponse extends SunhillBladeResponse
+class DeleteMovieResponse extends SunhillBladeResponse
 {
     
     use HasID;

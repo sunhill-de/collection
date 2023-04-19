@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Response\Database\Import;
+namespace Sunhill\Collection\Response\Database\Import\Movies;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\Collection\Utils\HasID;
@@ -14,13 +14,13 @@ class LookupMovieResponse extends SunhillBladeResponse
     
     use HasID;
     
-    protected $template = 'collection::import.lookupmovie';
+    protected $template = 'collection::import.movies.lookup';
         
     protected function collectCandidates(string $title): array
     {
         
         $imdb = new Imdb();
-        $search = $imdb->search($title, ['category'=>'tt'])['titles'];
+        $search = $imdb->search($title)['titles'];
         
         for ($i=0;$i<count($search);$i++) {
             $movie = $imdb->film($search[$i]['id']);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Response\Database\Import;
+namespace Sunhill\Collection\Response\Database\Import\Movies;
 
 use Sunhill\Visual\Response\SunhillRedirectResponse;
 use Illuminate\Support\Facades\DB;

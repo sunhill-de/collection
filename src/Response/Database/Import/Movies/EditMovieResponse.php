@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Response\Database\Import;
+namespace Sunhill\Collection\Response\Database\Import\Movies;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\Collection\Utils\HasID;
@@ -14,7 +14,7 @@ class EditMovieResponse extends SunhillBladeResponse
     
     use HasID;
     
-    protected $template = 'collection::import.editmovie';
+    protected $template = 'collection::import.movies.edit';
         
     public function prepareResponse()
     {
@@ -25,5 +25,6 @@ class EditMovieResponse extends SunhillBladeResponse
             $this->params[$key] = $value;
         }
         $this->params['id'] = $this->id;
+        $this->params['return_to'] = request('return_to',0);
     }
 }  
