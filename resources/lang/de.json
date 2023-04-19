@@ -566,6 +566,13 @@
   "Filter":"Importfilter",
   "Auto detect":"Automatische Erkennung",
   
+  "Lookup movie":"Film nachschlagen",
+  "Source":"Quelle",
+  "Source ID":"Quell ID",
+  "Object ID":"Objekt-ID",
+  "Season":"Staffel",
+  "Episode":"Episode",
+  
   "************ User errors":"User errors ********************************",
   "The class ':classname' does not exist.":"Die Klasse ':classname' existiert nicht.",
   "The object with the id ':id' does not exist.":"Das Objekt mit der ID ':id' existiert nicht.",
