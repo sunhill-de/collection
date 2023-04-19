@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 trait MovieUtils
 {
     
-    protected function getImportTarget()
+    public function getImportTarget()
     {
         return 'movies';    
     }
