@@ -20,7 +20,7 @@ class LookupMovieResponse extends SunhillBladeResponse
     {
         
         $imdb = new Imdb();
-        $search = $imdb->search($title)['titles'];
+        $search = $imdb->search($title, ['category'=>'tt'])['titles'];
         
         for ($i=0;$i<count($search);$i++) {
             $movie = $imdb->film($search[$i]['id']);
