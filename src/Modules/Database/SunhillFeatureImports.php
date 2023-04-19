@@ -23,6 +23,7 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->setVisible(false)
             ->setMethod('post')
             ->setAlias('imports.execfile');
+
         $this->addAction('Movies/List')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ListMovies'])
             ->setVisible(true)
@@ -38,6 +39,12 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{id}')
             ->setAlias('imports.movies.edit');
+        $this->addAction('ExecEditMovie')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ExecEditMovie'])
+            ->setVisible(false)
+            ->setRouteAddition('/{id}')
+            ->setMethod('post')
+            ->setAlias('imports.movies.execedit');
         $this->addAction('DeleteMovie')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'DeleteMovie'])
             ->setVisible(false)
