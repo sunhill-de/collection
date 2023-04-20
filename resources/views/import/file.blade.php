@@ -21,7 +21,7 @@
  <label class="label">{{__('Filter')}}</label>
  <div class="control">
   <select name="filter" id="filter">
-   <option value="0">{{ __('Auto detect') }}</option>
+   <option value="autodetect">{{ __('Auto detect') }}</option>
    @foreach (\Sunhill\Collection\Facades\Imports::getFilters() as $name => $filter)
    <option value="{{ $name }}">{{ $name }}</option>
    @endforeach  
