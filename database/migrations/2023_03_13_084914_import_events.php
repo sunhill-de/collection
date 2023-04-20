@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('event_type',100);
             $table->date('date');
             $table->integer('event_id')->default(0);
+            $table->string('user')->default('');
         });
     }
 
