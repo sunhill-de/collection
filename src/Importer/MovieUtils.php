@@ -84,4 +84,56 @@ trait MovieUtils
         return $query->object_id;
     }
     
+    protected function searchSeries(string $title)
+    {
+        if ($query = DB::table('import_movies')->where('title',$title)->where('type','series')->first()) {
+            return $query->id;
+        }
+        return false;
+    }
+    
+    protected function insertSeries(string $title)
+    {
+        DB::table('import_movies')->insert(['title'=>$title,'type'=>'series','source'=>'manual']);
+        return DB::getPdo()->lastInsertId();
+    }
+    
+    protected function searchOrInsertSeries(string $title)
+    {
+        if ($id = $this->searchSeries($title)) {
+            return $id;
+        }
+        return $this->insertSeries($title);
+    }
+    
+    protected function searchEpisode($series_id, $season, $episode, $source, $source_id)
+    {
+        if ($query = DB::table('import_movies')
+            ->where('type','episode')
+            ->where('series',$series_id)
+            ->where('season',$season)
+            ->where('episode',$episode)
+            ->where('source',$source)
+            ->where('source_id',$source_id)
+            ->first())
+
+        {
+            return $query->id;
+        }
+        return false;
+    }
+    
+    protected function insertEpisode($title, $series_id, $season, $episode, $source, $source_id)
+    {
+        DB::table('import_movies')->insert(['title'=>$title,'series'=>$series_id,'season'=>$season,'episode'=>$episode,'type'=>'episode','source'=>$source,'source_id'=>$source_id]);
+        return DB::getPdo()->lastInsertId();
+    }
+    
+    protected function searchOrInsertEpisode($title, $series_id, $season, $episode, $source, $source_id)
+    {
+        if ($id = $this->searchEpisode($title, $series_id, $season, $episode, $source, $source_id)) {
+            return $id;
+        }
+        return $this->insertEpisode($title, $series_id, $season, $episode, $source, $source_id);
+    }
 }
