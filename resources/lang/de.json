@@ -566,6 +566,11 @@
   "Filter":"Importfilter",
   "Auto detect":"Automatische Erkennung",
   
+  "movie":"Film",
+  "series":"Serie",
+  "episode":"Serienepisode",
+  "Add series":"Serie hinzufügen",
+  "Edit movie":"Film bearbeiten",
   "Lookup movie":"Film nachschlagen",
   "Source":"Quelle",
   "Source ID":"Quell ID",
