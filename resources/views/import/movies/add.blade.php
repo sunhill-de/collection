@@ -1,9 +1,9 @@
 @extends('visual::basic.navigation')
 
-@section('title',__('Edit movie'))
+@section('title',__('Add series'))
 
 @section('caption')
-{{ __('Edit movie') }}
+{{ __('Add series') }}
 @endsection
   
 @section('content')
