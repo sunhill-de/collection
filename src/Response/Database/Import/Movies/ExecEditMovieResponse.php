@@ -21,7 +21,12 @@ class ExecEditMovieResponse extends SunhillRedirectResponse
         $params['source_id'] = request('source_id');
         $params['imdb_id'] = request('imdb_id');
         $params['object_id'] = request('object_id');
-        
+        $params['type'] = request('type');
+        if (request('type') == 'episode') {
+            $params['series'] = request('series_id');
+            $params['season'] = request('season');
+            $params['episode'] = request('episode');
+        }
         DB::table('import_movies')->where('id',$this->id)->update($params);
     
         $this->target = route('imports.movies.list',['offset'=>request('return_to',0)]);

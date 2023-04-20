@@ -44,7 +44,7 @@ class VideoBusterImporter extends Importer
     public function processMovie(string $name, string $date)
     {
         $movie = $this->searchOrInsertInImports($name,'videobuster',$date);
-        $this->searchOrInsertEvent('import_movies',$movie,'watch',$this->getDate($date));        
+        $this->searchOrInsertEvent('import_movies',$movie,'watch',$this->getDate($date),'Klaus');        
     }
     
     /**
