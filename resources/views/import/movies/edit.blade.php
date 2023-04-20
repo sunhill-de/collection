@@ -74,16 +74,6 @@
  </div>
 </div>
  
- <script>
- 	$( function() { testepisode() } );
- 	function testepisode() {
- 		if ($("#type").val() == "episode") {
- 	  		$("#series_info").show();
- 		} else {
- 	  		$("#series_info").hide();
-    	} 	  
- 	}
- </script>
  <div id="series_info">
  <div class="field">
  <label class="label">{{__('Series')}}</label>
@@ -124,6 +114,45 @@
     <button class="button is-link is-light" name="cancel">{{ __('cancel') }}</button>
   </div>
  </div>
+ <script>
+ 	$( function() { 
+ 		testepisode() 
+ 	
+ 		$("#series").autocomplete({
+			source: function( request, response) {
+				$.ajax({
+					url:"{{ asset("/ajax/searchImportSeries") }}",
+					type:"get",
+					dataType:"json",
+					data: { 
+						search: request.term 
+					},
+					success: function( data ) {
+						response( data );
+				}	
+				});
+			},
+			select: function( event, ui ) {
+				$("#series").val(ui.item.label);
+				$("#series_id").val(ui.item.id);
+				return false;
+			},
+			focus: function( event, ui ) {
+				$("#series").val(ui.item.label);
+				$("#series_id").val(ui.item.id);
+				return false;
+			}
+		})
+ 	
+ 	} );
+ 	function testepisode() {
+ 		if ($("#type").val() == "episode") {
+ 	  		$("#series_info").show();
+ 		} else {
+ 	  		$("#series_info").hide();
+    	} 	  
+ 	}
+ </script>
 
 </form>
 
