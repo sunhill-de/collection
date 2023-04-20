@@ -219,7 +219,11 @@ class Importer extends Loggable
         }, file($this->import_file));
         $csv[0] = $this->processCSVHeader($csv[0]);
         array_walk($csv, function(&$a) use ($csv) {
-            $a = array_combine($csv[0], $a);
+            if (count($a) == count($csv[0])) {
+               $a = array_combine($csv[0], $a);
+            } else {
+                
+            }
         });
         array_shift($csv); # remove column header
         return $csv;
