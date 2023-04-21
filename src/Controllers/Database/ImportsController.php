@@ -74,6 +74,13 @@ class ImportsController extends Controller
         return $response->response();        
     }
     
+    public function execImportMovie($id)
+    {
+        $response = new ExecImportMovieResponse();
+        $response->setID($id);
+        return $response->response();
+    }
+    
     public function editMovie($id)
     {
         $response = new EditMovieResponse();

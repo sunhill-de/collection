@@ -14,16 +14,12 @@ class ImportMovieResponse extends SunhillBladeResponse
     
     use HasID;
     
-    protected $template = 'collection::import.showmovie';
+    protected $template = 'collection::import.movies.import';
         
     public function prepareResponse()
     {
         parent::prepareResponse();
         
-        $result = DB::table('import_movies')->where('id',$this->id)->first();
-        foreach ($result as $key => $value) {
-            $this->params[$key] = $value;
-        }
         $this->params['id'] = $this->id;
     }
 }  
