@@ -39,10 +39,12 @@ class ImportsController extends Controller
     }
     
     // ***************************** Movies ****************************************
-    public function listMovies($page = 0)
+    public function listMovies($page = 0, $order = 'id', $filter = 'unimported')
     {
         $response = new ListMoviesImportResponse();
         $response->setOffset($page);
+        $response->setOrder($order);
+        $response->setFilter($filter);
         return $response->response();        
     }
     
@@ -86,7 +88,7 @@ class ImportsController extends Controller
         return $response->response();
     }
     
-    public function deleteMove($id)
+    public function deleteMovie($id)
     {
         $response = new DeleteMovieResponse();
         $response->setID($id);

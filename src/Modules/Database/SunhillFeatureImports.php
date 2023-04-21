@@ -27,7 +27,7 @@ class SunhillFeatureImports extends SunhillModuleBase
         $this->addAction('Movies/List')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ListMovies'])
             ->setVisible(true)
-            ->setRouteAddition('/{page?}')
+            ->setRouteAddition('/{page?}/{order?}/{filter?}')
             ->setAlias('imports.movies.list');
         $this->addAction('Series/Add')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'AddSeries'])
@@ -55,7 +55,7 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->setMethod('post')
             ->setAlias('imports.movies.execedit');
         $this->addAction('DeleteMovie')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'DeleteMovie'])
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'deleteMovie'])
             ->setVisible(false)
             ->setRouteAddition('/{id}')
             ->setAlias('imports.movies.delete');
