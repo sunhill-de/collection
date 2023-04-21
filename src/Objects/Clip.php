@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @file VisualWork.php
- * Provides informations about visual work 
+ * @file Movie.php
+ * Provides informations about a movie 
  * Lang en
  * Reviewstatus: 2022-08-29
  * Localization: complete
@@ -14,12 +14,12 @@
 namespace Sunhill\Collection\Objects;
 
 /**
- * The class for written works
+ * The class for movies
  *
  * @author lokal
  *        
  */
-class VisualWork extends CreativeWork
+class Clip extends VisualWork
 {
     
     protected static function setupProperties()
@@ -32,28 +32,30 @@ class VisualWork extends CreativeWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('imdb_id')
-            ->set_description('The IMDb id of this work')
+        self::object('relation')
+            ->set_description('Is this clip related to something')
+            ->setAllowedObject(['object'])
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true);
-        self::text('plot')
-            ->set_description('The plot of this movie')
+            ->set_displayable(true);        
+        self::enum('type')
+            ->setEnumValues(['music','private','other'])
+            ->setDefault('other')
+            ->searchable()
             ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true)
-            ->setDefault(null);
+            ->set_groupeditable(true)
+            ->set_displayable(true);
     }
     
   protected static function setupInfos()
 	{
-		static::addInfo('name','VisualWork');
-		static::addInfo('table','visualworks');
-        static::addInfo('name_s','visual work',true);
-        static::addInfo('name_p','visual works',true);
-        static::addInfo('description','Stores informations about visual works', true);
+		static::addInfo('name','Clip');
+		static::addInfo('table','clips');
+        static::addInfo('name_s','clip',true);
+        static::addInfo('name_p','clips',true);
+        static::addInfo('description','Stores informations about a clip', true);
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

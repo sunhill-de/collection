@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @file VisualWork.php
- * Provides informations about visual work 
+ * @file Movie.php
+ * Provides informations about a movie 
  * Lang en
  * Reviewstatus: 2022-08-29
  * Localization: complete
@@ -14,12 +14,12 @@
 namespace Sunhill\Collection\Objects;
 
 /**
- * The class for written works
+ * The class for movies
  *
  * @author lokal
  *        
  */
-class VisualWork extends CreativeWork
+class Movie extends VisualWork
 {
     
     protected static function setupProperties()
@@ -32,28 +32,29 @@ class VisualWork extends CreativeWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('imdb_id')
-            ->set_description('The IMDb id of this work')
+        self::object('series')
+            ->set_description('Does this movie belong to a series')
+            ->setAllowedObject('MovieSeries')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true);
-        self::text('plot')
-            ->set_description('The plot of this movie')
+            ->set_displayable(true);        
+        self::integer('number_in_series')
+            ->set_description('The number of this movie in the series')
+            ->setDefault(null)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true)
-            ->setDefault(null);
+            ->set_displayable(true);
     }
     
   protected static function setupInfos()
 	{
-		static::addInfo('name','VisualWork');
-		static::addInfo('table','visualworks');
-        static::addInfo('name_s','visual work',true);
-        static::addInfo('name_p','visual works',true);
-        static::addInfo('description','Stores informations about visual works', true);
+		static::addInfo('name','Movie');
+		static::addInfo('table','movies');
+        static::addInfo('name_s','movie',true);
+        static::addInfo('name_p','movies',true);
+        static::addInfo('description','Stores informations about a movie', true);
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
