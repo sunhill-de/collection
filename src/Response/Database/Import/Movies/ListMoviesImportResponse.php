@@ -33,8 +33,34 @@ class ListMoviesImportResponse extends SunhillListResponse
     protected function getQuery()
     {
         $query = DB::table('import_movies');
-                
+        switch ($this->filter) {
+            case 'unimported':
+                $query = $query->where('object_id',0); break;
+            case 'imported':    
+                $query = $query->where('object_id','>',0); break;
+            case 'deleted':
+                $query = $query->where('object_id','<',0); break;
+            case 'unimportedmovies':
+                $query = $query->where('object_id',0)->where('type','movie'); break;
+            case 'unimportedseries':
+                $query = $query->where('object_id',0)->where('type','series'); break;
+            case 'unimportedepisodes':
+                $query = $query->where('object_id',0)->where('type','episode'); break;
+        }
         return $query;
+    }
+    
+    protected function getFilters()
+    {
+        return [
+            'unimported'=>'Unimported',
+            'imported'=>'Imported',
+            'deleted'=>'Deleted',
+            'all'=>'All',
+            'unimportedmovies'=>'Unimported movies',
+            'unimportedseries'=>'Unimported series',
+            'unimportedepisodes'=>'Unimported episodes',            
+        ];
     }
     
     /**
@@ -49,7 +75,7 @@ class ListMoviesImportResponse extends SunhillListResponse
     
     protected function getData()
     {
-        $query = $this->getQuery();
+        $query = $this->getQuery()->orderBy($this->order, $this->order_dir);
         $query = $query->offset($this->offset*self::ENTRIES_PER_PAGE)->limit(self::ENTRIES_PER_PAGE);
         return $query->get();
     }
