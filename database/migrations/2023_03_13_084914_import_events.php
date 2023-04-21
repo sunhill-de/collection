@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('refering_table',100);
             $table->integer('refering_id')->default(0);
             $table->string('event_type',100);
-            $table->date('date');
+            $table->datetime('date');
             $table->integer('event_id')->default(0);
             $table->string('user')->default('');
         });
