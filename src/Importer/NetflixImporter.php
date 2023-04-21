@@ -23,7 +23,7 @@ namespace Sunhill\Collection\Importer;
  * @author klaus
  *
  */
-class NetflixImporter extends Importer
+class NetflixImporter extends CSVImporter
 {
     
     use MovieUtils, EventUtils;
@@ -31,8 +31,6 @@ class NetflixImporter extends Importer
     const DURATION_CUTOFF = 120;
     
     protected $expected_seperator = ",";
-    
-    protected $import_type = self::IMPORT_CSV;
     
     protected $indicators = [
         'de'=>['season'=>'Staffel','miniseries'=>'Miniserie','release'=>'Ausgabe']
@@ -57,21 +55,30 @@ class NetflixImporter extends Importer
         $title = trim($result[4]);
         
         $series_id = $this->searchOrInsertSeries($series);
-        $episode_id = $this->searchOrInsertEpisode($title, $series_id, $season, $episode, 'netflix', $row['Start Time']);
+        return $this->searchOrInsertEpisode($title, $series_id, $season, $episode, 'netflix', $row['Start Time']);
         
-        
+    }
+
+    protected function processMovie($row)
+    {
+        return $this->searchOrInsertInImports($row['Title'], 'netflix', $row['Start Time']);        
     }
     
     /**
      * Processes one row in the data sheet. Explaination of the data see above
      * @param unknown $row
      */
-    protected function processRow($row)
+    protected function processLine($row)
     {
-        if (preg_match($this->getRegEx(),$row['Title'])) {
-            return $this->processSeries($row);
+        if ($this->calculateDuration($row['Duration']) < self::DURATION_CUTOFF) {
+            return; // Ignore too short videos
         }
-        $movie = $this->searchOrInsertInImports($row['Title'], 'netflix', $row['Start Time']);
+        if (preg_match($this->getRegEx(),$row['Title'])) {
+            $movie_id = $this->processSeries($row);
+        } else {
+            $movie_id = $this->processMovie($row);
+        }
+        $event_id = $this->searchOrInsertEvent('import_movies', $movie_id, 'watched', $row['Start Time'], $row['Profile Name']);
     }
     
     protected function calculateDuration($time): int
@@ -81,16 +88,6 @@ class NetflixImporter extends Importer
         sscanf($str_time, "%d:%d:%d", $hours, $minutes, $seconds);
         
         return $hours * 3600 + $minutes * 60 + $seconds;
-    }
-    
-    protected function processData($data)
-    {
-        foreach ($data as $row) {
-            if ($this->calculateDuration($row['Duration']) > self::DURATION_CUTOFF) {
-                $this->processRow($row);
-            }
-        }
-        return true;
     }
     
     public static function autodetect(string $content): bool

@@ -45,9 +45,9 @@ trait MovieUtils
      *
      * Test: tests/Unit/Importer/MovieUtilsTest->testInsertInImports()
      */
-    protected function insertInImports(string $name, string $source, string $key)
+    protected function insertInImports(string $name, string $source, string $key, string $imdb)
     {
-        DB::table('import_movies')->insert(['title'=>$name,'source'=>$source,'source_id'=>$key]);
+        DB::table('import_movies')->insert(['title'=>$name,'source'=>$source,'source_id'=>$key,'imdb_id'=>$imdb]);
         return DB::getPdo()->lastInsertId();        
     }
     
@@ -62,12 +62,12 @@ trait MovieUtils
      * 
      * Test: tests/Unit/Importer/MovieUtilsTest->testSearchOrInsertInImports()
      */
-    protected function searchOrInsertInImports(string $name, string $source, string $key)
+    protected function searchOrInsertInImports(string $name, string $source, string $key, string $imdb = '')
     {
         if ($id = $this->searchMovieInImports($name, $source, $key)) {
             return $id;
         }
-        return $this->insertInImports($name, $source, $key);
+        return $this->insertInImports($name, $source, $key, $imdb);
     }
     
     /**
@@ -106,9 +106,10 @@ trait MovieUtils
         return $this->insertSeries($title);
     }
     
-    protected function searchEpisode($series_id, $season, $episode, $source, $source_id)
+    protected function searchEpisode($title,$series_id, $season, $episode, $source, $source_id)
     {
         if ($query = DB::table('import_movies')
+            ->where('title',$title)
             ->where('type','episode')
             ->where('series',$series_id)
             ->where('season',$season)

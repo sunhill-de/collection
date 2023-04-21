@@ -34,12 +34,10 @@ namespace Sunhill\Collection\Importer;
  * @author klaus
  *
  */
-class VideoBusterImporter extends Importer
+class VideoBusterImporter extends CSVImporter
 {
     
     use MovieUtils, EventUtils;
-    
-    protected $import_type = self::IMPORT_CSV;
     
     public function processMovie(string $name, string $date)
     {
@@ -51,18 +49,10 @@ class VideoBusterImporter extends Importer
      * Processes one row in the data sheet. Explaination of the data see above
      * @param unknown $row
      */
-    protected function processRow($row)
+    protected function processLine($row)
     {
         $this->processMovie($row['Film1'],$row['Ausgang']);
         $this->processMovie($row['Film2'],$row['Ausgang']);
-    }
-    
-    protected function processData($data)
-    {
-        foreach ($data as $row) {
-            $this->processRow($row);
-        }
-        return true;
     }
     
     public static function autodetect(string $content): bool
