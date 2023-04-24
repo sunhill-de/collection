@@ -16,7 +16,8 @@ class ExecLookupMovieResponse extends SunhillRedirectResponse
         parent::prepareResponse();
         
         $imdb = request()->input('imdb');
-        DB::table('import_movies')->where('id',$this->id)->update(['imdb_id'=>$imdb]);
+        $tmdb = request()->input('tmdb');
+        DB::table('import_movies')->where('id',$this->id)->update(['imdb_id'=>$imdb,'tmdb_id'=>$tmdb]);
     
         $this->target = route('imports.movies.list');
     }

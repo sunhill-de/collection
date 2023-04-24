@@ -19,10 +19,15 @@ class ListMoviesImportResponse extends SunhillListResponse
     {
         $descriptor->column('id')->title('id')->searchable();
         $descriptor->column('type')->title('type');
-        $descriptor->column('season')->title('season')->nullable();
-        $descriptor->column('episode')->title('episode')->nullable();
-        $descriptor->column('title')->title('Movie name')->searchable();
+        $descriptor->column('title')->title('Movie name')->searchable()->displayCallback(function($data) {
+            if ($data->type == 'episode') {
+                return $data->title.'(S'.$data->season.' E'.$data->episode.')';                
+            } else {
+                return $data->title;
+            }
+        });
         $descriptor->column('imdb_id')->title('IMDB-ID')->nullable();
+        $descriptor->column('tmdb_id')->title('TMDB-ID')->nullable();
         $descriptor->column('object_id')->title('imported');
         $descriptor->column('lookup')->link('imports.movies.lookup',['id'=>'id','return_to'=>$this->offset]);
         $descriptor->column('import')->link('imports.movies.import',['id'=>'id','return_to'=>$this->offset]);
