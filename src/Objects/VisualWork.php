@@ -39,6 +39,13 @@ class VisualWork extends CreativeWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
+        self::integer('tmdb_id')
+            ->set_description('The TMDb id of this work')
+            ->setDefault(null)
+            ->searchable()
+            ->set_editable(true)
+            ->set_groupeditable(false)
+            ->set_displayable(true);
         self::text('plot')
             ->set_description('The plot of this movie')
             ->set_editable(true)
