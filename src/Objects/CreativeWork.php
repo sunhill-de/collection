@@ -33,6 +33,18 @@ class CreativeWork extends ORMObject
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
+        self::varchar('original_name')
+            ->set_description('The original name of the creative work')
+            ->searchable()
+            ->set_displayable(true)
+            ->set_editable(true)
+            ->set_groupeditable(false);
+        self::varchar('sort_name')
+            ->set_description('The search name of the creative work')
+            ->searchable()
+            ->set_displayable(true)
+            ->set_editable(true)
+            ->set_groupeditable(false);
         self::date('release_date')
             ->set_description('When was this work released')
             ->searchable()
@@ -48,6 +60,7 @@ class CreativeWork extends ORMObject
             ->set_displayable(true);
         self::object('country')
             ->set_description('The origin country of this work')
+            ->setAllowedObject('Country')
             ->setDefault(0)
             ->searchable()
             ->set_editable(true)
