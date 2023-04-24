@@ -3,6 +3,7 @@
 namespace Sunhill\Collection;
 
 use Sunhill\Collection\Managers\ImportManager;
+use Sunhill\Collection\Managers\TMDBManager;
 use Illuminate\Support\ServiceProvider;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Objects;
@@ -29,6 +30,7 @@ use Sunhill\Collection\Objects\FamilyMember;
 use Sunhill\Collection\Objects\Floor;
 use Sunhill\Collection\Objects\Friend;
 use Sunhill\Collection\Objects\Genre;
+use Sunhill\Collection\Objects\Language;
 use Sunhill\Collection\Objects\ListeningEvent;
 use Sunhill\Collection\Objects\Location;
 use Sunhill\Collection\Objects\Manufacturer;
@@ -69,6 +71,8 @@ class CollectionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ImportManager::class, function () { return new ImportManager(); } );
         $this->app->alias(ImportManager::class,'importmanager');
+        $this->app->singleton(TMDBManager::class, function () { return new TMDBManager(); } );
+        $this->app->alias(TMDBManager::class,'tmdbmanager');
         $this->mergeConfigFrom(__DIR__.'/../config/collection.php', 'collection');
     }
     
@@ -90,12 +94,11 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(Date::class);
         Classes::registerClass(ElectronicDevice::class);
         Classes::registerClass(Episode::class);
-        Classes::registerClass(Event::class);
         Classes::registerClass(FamilyMember::class);
         Classes::registerClass(Floor::class);
         Classes::registerClass(Friend::class);
         Classes::registerClass(Genre::class);
-        Classes::registerClass(ListeningEvent::class);
+        Classes::registerClass(Language::class);
         Classes::registerClass(Location::class);
         Classes::registerClass(Manufacturer::class);
         Classes::registerClass(MediaDevice::class);
@@ -111,7 +114,6 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(PersonsRelation::class);
         Classes::registerClass(ProductGroup::class);
         Classes::registerClass(Property::class);
-        Classes::registerClass(ReadingEvent::class);
         Classes::registerClass(Room::class);
         Classes::registerClass(Server::class);
         Classes::registerClass(Shop::class);
@@ -123,7 +125,6 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(VideoDevice::class);
         Classes::registerClass(VisualMedium::class);
         Classes::registerClass(VisualWork::class);
-        Classes::registerClass(WatchingEvent::class);
         Classes::registerClass(WrittenMedium::class);
         Classes::registerClass(WrittenWork::class);
     }
@@ -142,12 +143,12 @@ class CollectionServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Date::class,['begin_date','name']);
         Dialogs::addObjectKeyfield(Date::class,':name');
 
-        Dialogs::addObjectListFields(Event::class,['start_stamp','work'=>'work=>name']);
-        Dialogs::addObjectKeyfield(Event::class,':start_stamp');
-
         Dialogs::addObjectListFields(Genre::class,['name','parent'=>'parent=>name']);
         Dialogs::addObjectKeyfield(Genre::class,':name');
 
+        Dialogs::addObjectListFields(Language::class,['name','iso']);
+        Dialogs::addObjectKeyfield(Language::class,':name');
+        
         Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectKeyfield(Location::class,':name');
 
@@ -187,7 +188,8 @@ class CollectionServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         
         Blade::component('collection-input', Input::class);
-        
+        Blade::component('collection-lookup', Lookup::class);
+
         $this->registerClasses();
         $this->defineDialogs();
     }
