@@ -21,7 +21,7 @@ class ImportManager
     
     protected function autodetectFile(string $name)
     {
-        $content = file_get_content($name);
+        $content = \file_get_contents($name);
         foreach ($this->filters as $name => $filter) {
             if ($filter::autodetect($content)) {
                 return $filter;
