@@ -106,6 +106,20 @@ class AjaxController extends Controller
       return $this->getOutput($newresult);      
   }
   
+  public function searchObject(string $class, Request $request)
+  {
+      $search = $request->input('search');
+      $result = Dialogs::searchKeyfield($class,$search,ANYWHERE,LIMIT);
+      $newresult = [];
+      foreach ($result as $entry) {
+          $newentry = new \StdClass();
+          $newentry->label = $entry['keyfield'];
+          $newentry->id = $entry['id'];
+          $newresult[] = $newentry;
+      }
+      return $this->getOutput($newresult);
+  }
+  
   public function getClass(string $parent="", Request $request, Response $response)
   {
       

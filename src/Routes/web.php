@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/ajax/searchTags/{class?}', 'Sunhill\Collection\Controllers\AjaxController@searchTags');
 Route::get('/ajax/searchTags/{class?}/{field?}', 'Sunhill\Collection\Controllers\AjaxController@searchTags');
 Route::get('/ajax/searchObjects/{class}/{field}', 'Sunhill\Collection\Controllers\AjaxController@searchObjects');
+Route::get('/ajax/searchObject/{class}', 'Sunhill\Collection\Controllers\AjaxController@searchObject');
 Route::get('/ajax/searchArrayOfString/{class}/{field}', 'Sunhill\Collection\Controllers\AjaxController@getArrayOfStringSuggestion');
 Route::get('/ajax/searchClass/{class?}', 'Sunhill\Collection\Controllers\AjaxController@searchClass');
 Route::get('/ajax/getClass/{class}', 'Sunhill\Collection\Controllers\AjaxController@getClass');

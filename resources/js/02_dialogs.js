@@ -2,6 +2,34 @@
     $( document ).tooltip();
   } );
   
+function lookupObject( value_id, lookup_id, target ) {
+		$("#"+lookup_id).autocomplete({
+			source: function( request, response) {
+				$.ajax({
+					url:"{{ asset("/ajax/searchObject") }}"+"/"+target,
+					type:"get",
+					dataType:"json",
+					data: { 
+						search: request.term 
+					},
+					success: function( data ) {
+						response( data );
+				}	
+				});
+			},
+			select: function( event, ui ) {
+				$("#"+lookup_id).val(ui.item.label);
+				$("#"+value_id).val(ui.item.id);
+				return false;
+			},
+			focus: function( event, ui ) {
+				$("#"+lookup_id).val(ui.item.label);
+				$("#"+value_id).val(ui.item.id);
+				return false;
+			}
+		})	
+}  
+
 function lookupField( id, classid, ajaxmethod ) {
 		$("#input_"+id).autocomplete({
 			source: function( request, response) {
