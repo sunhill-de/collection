@@ -9,6 +9,7 @@ use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\Visual\Facades\Dialogs;
 use Sunhill\Collection\Components\Input;
+use Sunhill\Collection\Components\Lookup;
 
 
 use Sunhill\Collection\Objects\Address;
