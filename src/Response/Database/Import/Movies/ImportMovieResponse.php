@@ -4,6 +4,7 @@ namespace Sunhill\Collection\Response\Database\Import\Movies;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\Collection\Facades\TMDB;
+use Sunhill\Collection\Objects\Language;
 use Sunhill\Collection\Traits\SearchName;
 use Sunhill\Collection\Utils\HasID;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,17 @@ class ImportMovieResponse extends SunhillBladeResponse
     use HasID, SearchName;
     
     protected $template = 'collection::import.movies.import';
-        
+       
+    protected function lookupLanguage(string $iso, \StdClass $movie)
+    {
+        if ($language = Language::search()->where('iso',$iso)->loadIfExists()) {
+            $movie->language_id = $language->getID();
+            $movie->language_name = $language->name;
+            return $language;
+        }
+        throw new SunhillUserException(__("Language ':lan' not found",['lan'=>$iso]));
+    }
+    
     public function prepareResponse()
     {
         parent::prepareResponse();
@@ -35,6 +46,8 @@ class ImportMovieResponse extends SunhillBladeResponse
             $movie->tmdb_id = $result->tmdb_id;
             $movie->imdb_id = $search->imdb_id; 
         }
+        $this->lookupLanguage($search->original_language, $movie);
+        
         $movie->title   = $search->title;
         $movie->original_title = $search->original_title;
         $movie->search_name = $this->suggestSearchName($search->title);
