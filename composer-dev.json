@@ -27,6 +27,12 @@
                         "options" : {
                                 "symlink" : true
                         }
+                },{
+                        "type" : "path",
+                        "url" : "../TMDB4PHP",
+                        "options" : {
+                                "symlink" : true
+                        }
                 }
                 
                 ],
@@ -34,7 +40,8 @@
 		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
 		"sunhill/infomarket":"*",
-		"sunhill/visual":"*"
+		"sunhill/visual":"*",
+		"breuls/tmdb-library":"*"
 	},
         "require-dev" : {
                 "phpunit/phpunit" : "^9.5.10",

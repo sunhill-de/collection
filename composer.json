@@ -13,7 +13,8 @@
 		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
 		"sunhill/infomarket":"*",
-		"sunhill/visual":"*"	
+		"sunhill/visual":"*",
+		"breuls/tmdb-library":"*"
 		},
 	"autoload" : {
 		"psr-4" : {
