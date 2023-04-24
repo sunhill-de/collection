@@ -21,12 +21,17 @@ class Lookup extends Component
     
     public $value_field;
     
+    public $value_id;
+    
+    public $value_name;
+    
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $id, string $name, string $type, string $target = "", string $value_field = 'name')
+    public function __construct(string $id, string $name, string $type, string $target = "", 
+        string $valueid = "", string $valuename = "")
     {
         $this->id = $id;
         $this->name  = $name;
@@ -35,9 +40,28 @@ class Lookup extends Component
         }
         $this->type = $type;
         $this->target = $target;
-        $this->value_field = $value_field;
+        $this->value_id = $valueid;
+        $this->value_name = $valuename;
     }
 
+    protected function getGeneralParams()
+    {
+        return [
+            'field_name'=>$this->name,
+            'field_lookup'=>'lookup_'.$this->name,
+        ];
+    }
+
+    protected function getObjectParams()
+    {
+        $result = $this->getGeneralParams();
+        $result['field_value'] = $this->value_id;
+        $result['field_lookup_value'] = $this->value_name;
+        $result['lookup_method'] = 'lookupObject';
+        $result['target'] = $this->target;
+        return $result;
+    }
+    
     /**
      * Get the view / contents that represent the component.
      *
@@ -45,11 +69,17 @@ class Lookup extends Component
      */
     public function render()
     {
-        return view(
-            'collection::components.varchar',
-            [
-                'name'=>$this->name,
-                'value'=>(is_null($this->object))?null:$this->object->$name
-            ]);
-    }
+        switch ($this->type) {
+            case 'object':
+                $params = $this->getObjectParams(); 
+                break;
+            case 'table':
+                break;
+            case 'tag':
+                break;
+            case 'attribute':
+                break;
+        }
+        return view('collection::components.lookup', $params);
+     }
 }
