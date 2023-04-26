@@ -83,6 +83,7 @@ class SunhillFeatureImports extends SunhillModuleBase
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ImportsController::class, 'ExecImportmovie'])
             ->setVisible(false)
             ->setRouteAddition('/{id}')
+            ->setMethod('post')
             ->setAlias('imports.movies.execimport');
     }
     
