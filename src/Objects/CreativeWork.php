@@ -45,27 +45,6 @@ class CreativeWork extends ORMObject
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::date('release_date')
-            ->set_description('When was this work released')
-            ->searchable()
-            ->set_displayable(true)
-            ->set_editable(true)
-            ->set_groupeditable(true);
-        self::ArrayOfObjects('staff')
-            ->setDescription('What persons worked on this work.')
-            ->setAllowedObject('Staff')
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true);
-        self::object('country')
-            ->set_description('The origin country of this work')
-            ->setAllowedObject('Country')
-            ->setDefault(0)
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(true)
-            ->set_displayable(true);
     }
     
     protected static function setupInfos()

@@ -19,19 +19,12 @@ namespace Sunhill\Collection\Objects;
  * @author lokal
  *        
  */
-class MovieSeries extends VisualWork
+class MovieSeries extends VisualCollection
 {
     
     protected static function setupProperties()
     {
         parent::setupProperties();
-        self::integer('movie_count')
-            ->set_description('How many movies belong to this series')
-            ->setDefault(0)
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true);
     }
     
   protected static function setupInfos()

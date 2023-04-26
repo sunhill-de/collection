@@ -19,7 +19,7 @@ namespace Sunhill\Collection\Objects;
  * @author lokal
  *        
  */
-class TVSeries extends VisualWork
+class TVSeries extends VisualCollection
 {
     
     protected static function setupProperties()

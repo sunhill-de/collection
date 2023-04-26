@@ -27,7 +27,7 @@ class VisualWork extends CreativeWork
         parent::setupProperties();
         self::integer('length')
             ->set_description('The length of this work in seconds')
-            ->setDefault(0)
+            ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)

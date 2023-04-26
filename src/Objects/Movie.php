@@ -25,13 +25,6 @@ class Movie extends VisualWork
     protected static function setupProperties()
     {
         parent::setupProperties();
-        self::integer('length')
-            ->set_description('The length of this work in seconds')
-            ->setDefault(0)
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true);
         self::object('series')
             ->set_description('Does this movie belong to a series')
             ->setAllowedObject('MovieSeries')
