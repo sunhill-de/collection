@@ -25,7 +25,9 @@ class ListObjectsResponse extends SunhillListResponse
     protected function defineList(ListDescriptor &$descriptor)
     {
         $descriptor->column('id')->title('id')->searchable();
-        $descriptor->column('class')->title('class')->link('objects.list',['key'=>'class'])->searchable();
+        $descriptor->column('class')->title('class')->link('objects.list',['key'=>'class'])->searchable()->displayCallback(function($data) {
+            return $data::getInfo('name'); 
+        });;
         
         $columns = Dialogs::getObjectListFields($this->key);
         foreach ($columns as $index => $column) {
