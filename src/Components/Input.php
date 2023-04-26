@@ -75,6 +75,13 @@ class Input extends Component
                         'name'=>$this->name,
                         'value'=>(is_null($this->object))?null:$this->object->$name
                     ]);
+            case 'Text':
+                return view(
+                'collection::components.text',
+                [
+                'name'=>$this->name,
+                'value'=>(is_null($this->object))?null:$this->object->$name
+                ]);
             case 'Integer':
                 return view('collection::components.integer', 
                 [
