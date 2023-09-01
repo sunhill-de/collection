@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for movies
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class MovieSeries extends VisualCollection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
     }
     
   protected static function setupInfos()

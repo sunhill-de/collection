@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for organisation
@@ -24,9 +25,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class Organisation extends ORMObject
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('name')
             ->setMaxLen(50)
             ->set_description('The name of this organisation')

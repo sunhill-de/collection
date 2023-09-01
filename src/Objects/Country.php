@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for countries
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Country extends Location
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('iso_code')
             ->setMaxLen(2)
             ->set_description('The iso code of this country')

@@ -14,6 +14,8 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\Collection;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for 
@@ -21,33 +23,33 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class Anniversary extends ORMObject
+class Anniversary extends Collection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-          parent::setupProperties();
-          self::varchar('name')
+          $list->varchar('name')
             ->setMaxLen(100)
             ->set_description('Name of the anniversary')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::date('first')
+        $list->date('first')
             ->set_description('When was the first event')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::enum('type')        
+        $list->enum('type')        
             ->set_description('What type of anniversary is this')
             ->setEnumValues(['birthday','deathday','weddingday','other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfObjects('persons')
+        $list->array('persons')
+            ->setElementType(ORMObject::class)
             ->setAllowedObjects('Friend')
             ->set_description('What persons are part of this anniversary')
             ->searchable()

@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for 
@@ -24,9 +24,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class AnniversaryCelebration extends Celebration
 {
 
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-          parent::setupProperties();
           self::object('anniversary')
           ->set_description('What anniversary is celebrated')
           ->setAllowedObjects('Anniversary')

@@ -13,7 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\Collection;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for audio medium
@@ -21,13 +22,12 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class AudioMedium extends ORMObject
+class AudioMedium extends Collection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
-        self::object('audio_work')
+         self::object('audio_work')
             ->set_description('What release is on this medium')
             ->setAllowedObjects('MusicalRelease')
             ->searchable()

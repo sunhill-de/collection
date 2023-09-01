@@ -13,7 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\Collection;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for network
@@ -21,12 +22,11 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class Network extends ORMObject
+class Network extends Collection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the network')
@@ -48,7 +48,7 @@ class Network extends ORMObject
             ->set_groupeditable(false)
             ->set_displayable(true);
         self::object('part_of')
-            ->setAllowedObjects(['Network'])
+            ->setAllowedCollection('Network')
             ->set_description('If this network is part of a larger network')
             ->set_displayable(true)
             ->set_editable(false)

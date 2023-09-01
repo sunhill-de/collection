@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for adresses
  *
@@ -25,9 +27,8 @@ class Address extends Location
     /**
      * Sets up the properties. In this case only the house number. 
      */
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('zip')
             ->setMaxLen(10)
             ->set_description('The zip of this city')

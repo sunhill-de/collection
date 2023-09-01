@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for movies
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Movie extends VisualWork
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::object('series')
             ->set_description('Does this movie belong to a series')
             ->setAllowedObject('MovieSeries')

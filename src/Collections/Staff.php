@@ -13,7 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\Collection;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for movies
@@ -21,12 +22,11 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class Staff extends ORMObject
+class Staff extends Collection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::object('person')
             ->set_description('Link to the person')
             ->searchable()

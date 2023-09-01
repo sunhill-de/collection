@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for computers
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Computer extends NetworkDevice
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::enum('computer_type')
             ->set_description('What kind of computer is this')
             ->setEnumValues(['server','laptop','tablet','standalone'])

@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for persons
@@ -24,9 +25,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class Person extends ORMObject
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('firstname')
             ->setMaxLen(100)
             ->set_description('The first name of the person')

@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for 
@@ -24,9 +24,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class Celebration extends Date
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-          parent::setupProperties();
           self::object('location')
           ->set_description('Where does this celebration take place')
           ->setAllowedObjects('Location')

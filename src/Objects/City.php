@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for cities
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class City extends Location
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('area_code')
             ->setMaxLen(10)
             ->set_description('The area code of this city')

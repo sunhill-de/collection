@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\Crawler\Facades\FileManager;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for Video cameras. 
@@ -23,11 +23,9 @@ use Sunhill\Crawler\Facades\FileManager;
  */
 class VideoDevice extends NetworkDevice {
 
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
-        
-        self::enum('primary_stream_type')
+       self::enum('primary_stream_type')
             ->set_description('What kind of stream is the primary')
             ->setEnumValues(['rtst','mpeg','image'])
             ->searchable()

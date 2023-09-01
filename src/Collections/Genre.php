@@ -13,7 +13,9 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\Collection;
+use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for mediums
@@ -21,12 +23,11 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class Genre extends ORMObject
+class Genre extends Collection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('name')
             ->set_description('The name of this genre')
             ->setMaxLen(70)
@@ -34,7 +35,8 @@ class Genre extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfStrings('media_type')
+        self::array('media_type')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('For what kind of medias is this genre')
             ->searchable()
             ->set_editable(true)

@@ -13,7 +13,10 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\Collection;
+use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for transactions
@@ -21,12 +24,11 @@ use Sunhill\ORM\Objects\ORMObject;
  * @author lokal
  *        
  */
-class Transaction extends ORMObject
+class Transaction extends Collection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('order_id')
             ->setMaxLen(100)
             ->set_description('The order id from the shop')
@@ -59,14 +61,16 @@ class Transaction extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfObjects('articles')
+        self::array('articles')
+            ->setElementType(PropertyObject::class)
             ->setAllowedObject('Property')
             ->set_description('Articles of this order that are properties')
             ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true); 
-        self::arrayOfStrings('other_articles')
+        self::array('other_articles')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('Articles that are not properties')
             ->set_editable(true)
             ->set_groupeditable(true);            

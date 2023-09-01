@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\Crawler\Facades\FileManager;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for mobile phones. 
@@ -25,9 +25,8 @@ class MobileDevice extends NetworkDevice
 {
 
 
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('operating_system')
             ->setMaxLen(40)
             ->searchable()

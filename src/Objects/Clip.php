@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for movies
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Clip extends VisualWork
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::integer('length')
             ->set_description('The length of this work in seconds')
             ->setDefault(0)

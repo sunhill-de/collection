@@ -13,6 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Objects\ORMObject;
 
 /**
@@ -24,9 +25,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class CreativeWork extends ORMObject
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('name')
             ->set_description('The name of the creative work')
             ->searchable()

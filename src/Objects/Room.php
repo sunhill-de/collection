@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for rooms
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Room extends Location
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::integer('inside')            
             ->set_description('Is this room inside')
             ->setDefault(1)

@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for creative works
@@ -24,9 +24,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class CreativeStandaloneWork extends CreativeWork
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::date('release_date')
             ->set_description('When was this work released')
             ->setDefault(null)

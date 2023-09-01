@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for 
@@ -24,9 +24,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class WrittenMedium extends Medium
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::enum('media_type')        
             ->set_description('What kind of media is this')
             ->setEnumValues(['soft-cover', 'hard-cover', 'magazine', 'other'])

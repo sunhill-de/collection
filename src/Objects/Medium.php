@@ -14,6 +14,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for mediums
  *
@@ -23,9 +25,8 @@ namespace Sunhill\Collection\Objects;
 class Medium extends Property
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('ean')
             ->set_description('What is the EAN of this medium')
             ->setMaxLen(20)

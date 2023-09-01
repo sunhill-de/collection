@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for a musical artist
@@ -24,10 +25,9 @@ use Sunhill\ORM\Objects\ORMObject;
 class MusicalArtist extends ORMObject
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
-        self::varchar('name')
+         self::varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the artist')
             ->set_displayable(true)

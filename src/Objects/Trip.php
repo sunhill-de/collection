@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for 
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Trip extends Date
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-          parent::setupProperties();
           self::arrayOfObjects('destinations')
           ->set_description('Where did the trip go to')
           ->setAllowedObjects('Location')

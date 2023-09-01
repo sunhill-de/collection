@@ -13,7 +13,7 @@
  */
 namespace Sunhill\Collection\Objects;
 
-use Sunhill\Crawler\Facades\FileManager;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for network devices. 
@@ -24,9 +24,8 @@ use Sunhill\Crawler\Facades\FileManager;
 class NetworkDevice extends ElectronicDevice 
 {
 
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::object('network')
             ->setAllowedObjects(['Network'])
             ->setDefault(null)

@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for friends
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Friend extends Person
 {
 
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::date('date_of_birth')
             ->set_description('The birthday of this person')
             ->setDefault(null)

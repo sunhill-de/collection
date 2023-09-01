@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for manufacturers
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Manufacturer extends Organisation
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::arrayOfObjects('product_groups')
             ->setAllowedObjects('ProductGroup')
             ->set_description('What product groups does this manufacturer make')

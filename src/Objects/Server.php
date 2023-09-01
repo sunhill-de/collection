@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for Servers
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Server extends NetworkDevice
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('description')
             ->set_description('What is the purpose of this server')
             ->setMaxLen(100)

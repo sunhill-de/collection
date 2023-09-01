@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for properties
@@ -24,9 +25,8 @@ use Sunhill\ORM\Objects\ORMObject;
 class Property extends ORMObject
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the property')

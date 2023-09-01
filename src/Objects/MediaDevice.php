@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for media devices
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class MediaDevice extends NetworkDevice
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::enum('media_type')
             ->set_description('What kind of device is this')
             ->setEnumValues(['tv','console','echo','other'])

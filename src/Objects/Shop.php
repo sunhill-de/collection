@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for shop
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Shop extends Organisation
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::enum('kind')
             ->setEnumValues(['online','local','global','mixed'])
             ->set_description('The kind of shop')

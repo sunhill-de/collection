@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for streets
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Street extends Location
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::integer('number_of_houses')
             ->set_description('How many houses are on this street')
             ->set_displayable(true)

@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for movies
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class TVSeries extends VisualCollection
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::integer('number_of_seasons')
             ->set_description('The total number of seasons')
             ->setDefault(0)

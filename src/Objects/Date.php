@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Objects\PropertyList;
 
 /**
  * The class for properties
@@ -24,7 +25,7 @@ use Sunhill\ORM\Objects\ORMObject;
 class Date extends ORMObject
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
         self::varchar('name')
             ->setMaxLen(100)

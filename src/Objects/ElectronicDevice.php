@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for properties
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class ElectronicDevice extends Property
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::enum('power_supply')
             ->set_description('How this device is powered')
             ->setEnumValues(['plug','AA','AAA','Baby','Mono','Akku','9V','other','none'])

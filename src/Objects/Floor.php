@@ -13,6 +13,8 @@
  */
 namespace Sunhill\Collection\Objects;
 
+use Sunhill\ORM\Objects\PropertyList;
+
 /**
  * The class for floors
  *
@@ -22,9 +24,8 @@ namespace Sunhill\Collection\Objects;
 class Floor extends Location
 {
     
-    protected static function setupProperties()
+    protected static function setupProperties(PropertyList $list)
     {
-        parent::setupProperties();
         self::integer('level')            
             ->set_description('On what level is this floor')
             ->setDefault(1)
