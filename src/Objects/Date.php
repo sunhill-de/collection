@@ -15,6 +15,7 @@ namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for properties
@@ -27,39 +28,40 @@ class Date extends ORMObject
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the date')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::date('begin_date')
+        $list->date('begin_date')
             ->searchable()
             ->set_description('The start date of the date')
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::time('begin_time')
+        $list->time('begin_time')
             ->setDefault(null)
             ->set_description('The start time of the date')
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::date('end_date')
+        $list->date('end_date')
             ->setDefault(null)
             ->set_description('The end date of the date')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::time('end_time')
+        $list->time('end_time')
             ->set_editable(true)
             ->set_description('The end time of the date')
             ->set_groupeditable(true)
             ->set_displayable(true)
             ->setDefault(null);
-        self::arrayOfObjects('persons')
+        $list->array('persons')
+            ->setElementType(PropertyObject::class)
             ->setAllowedObjects('Friend')
             ->set_description('The involved persons')
             ->set_editable(true)

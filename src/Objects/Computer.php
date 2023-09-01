@@ -26,14 +26,14 @@ class Computer extends NetworkDevice
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::enum('computer_type')
+        $list->enum('computer_type')
             ->set_description('What kind of computer is this')
             ->setEnumValues(['server','laptop','tablet','standalone'])
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->searchable();
-        self::varchar('operating_system')
+        $list->varchar('operating_system')
             ->set_description('What OS runs it')
             ->setMaxLen(100)
             ->setDefault(null)

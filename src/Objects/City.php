@@ -26,7 +26,7 @@ class City extends Location
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('area_code')
+        $list->varchar('area_code')
             ->setMaxLen(10)
             ->set_description('The area code of this city')
             ->set_editable(true)

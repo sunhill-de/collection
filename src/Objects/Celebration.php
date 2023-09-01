@@ -26,7 +26,7 @@ class Celebration extends Date
     
     protected static function setupProperties(PropertyList $list)
     {
-          self::object('location')
+          $list->object('location')
           ->set_description('Where does this celebration take place')
           ->setAllowedObjects('Location')
           ->searchable()

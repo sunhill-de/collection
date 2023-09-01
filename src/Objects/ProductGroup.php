@@ -27,14 +27,14 @@ class ProductGroup extends ORMObject
      
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->setMaxLen(100)
             ->set_description('')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::object('part_of')
+        $list->object('part_of')
             ->set_description('This group is part of more general group')
             ->setAllowedObjects('ProductGroup')
             ->searchable()

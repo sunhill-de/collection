@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for 
@@ -26,7 +27,8 @@ class Trip extends Date
     
     protected static function setupProperties(PropertyList $list)
     {
-          self::arrayOfObjects('destinations')
+          $list->array('destinations')
+          ->setElementType(PropertyObject::class)
           ->set_description('Where did the trip go to')
           ->setAllowedObjects('Location')
           ->searchable()

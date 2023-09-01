@@ -26,14 +26,14 @@ class Clip extends VisualWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('length')
+        $list->integer('length')
             ->set_description('The length of this work in seconds')
             ->setDefault(0)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::object('relation')
+        $list->object('relation')
             ->set_description('Is this clip related to something')
             ->setAllowedObject(['object'])
             ->setDefault(null)
@@ -41,7 +41,7 @@ class Clip extends VisualWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);        
-        self::enum('type')
+        $list->enum('type')
             ->setEnumValues(['music','private','other'])
             ->setDefault('other')
             ->searchable()

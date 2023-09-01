@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for properties
@@ -26,14 +27,14 @@ class ElectronicDevice extends Property
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::enum('power_supply')
+        $list->enum('power_supply')
             ->set_description('How this device is powered')
             ->setEnumValues(['plug','AA','AAA','Baby','Mono','Akku','9V','other','none'])
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->searchable();
-        self::object('manufacturer')
+        $list->object('manufacturer')
             ->setAllowedObject(['Manufacturer'])
             ->set_description('Which company made this device')
             ->setMaxLen(100)
@@ -42,7 +43,7 @@ class ElectronicDevice extends Property
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::varchar('model_name')
+        $list->varchar('model_name')
             ->set_description('Whats the model name of this device')
             ->setMaxLen(100)
             ->setDefault(null)
@@ -50,7 +51,8 @@ class ElectronicDevice extends Property
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfStrings('device_groups')
+        $list->array('device_groups')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('Which device groups does this device belong to')
             ->searchable()
             ->set_editable(true)

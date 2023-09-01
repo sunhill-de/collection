@@ -27,14 +27,14 @@ class AudioMedium extends Collection
     
     protected static function setupProperties(PropertyList $list)
     {
-         self::object('audio_work')
+         $list->object('audio_work')
             ->set_description('What release is on this medium')
             ->setAllowedObjects('MusicalRelease')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::enum('media_type')        
+        $list->enum('media_type')        
             ->set_description('What kind of media is this')
             ->setEnumValues(['CD','Vinyl','other'])
             ->searchable()

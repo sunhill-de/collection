@@ -26,7 +26,7 @@ class Movie extends VisualWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::object('series')
+        $list->object('series')
             ->set_description('Does this movie belong to a series')
             ->setAllowedObject('MovieSeries')
             ->setDefault(null)
@@ -34,7 +34,7 @@ class Movie extends VisualWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);        
-        self::integer('number_in_series')
+        $list->integer('number_in_series')
             ->set_description('The number of this movie in the series')
             ->setDefault(null)
             ->set_editable(true)

@@ -15,6 +15,7 @@ namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for persons
@@ -27,44 +28,46 @@ class Person extends ORMObject
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('firstname')
+        $list->varchar('firstname')
             ->setMaxLen(100)
             ->set_description('The first name of the person')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::varchar('middlename')
+        $list->varchar('middlename')
             ->setMaxLen(100)
             ->setDefault('')
             ->set_description('The middle name of the person')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::varchar('lastname')
+        $list->varchar('lastname')
             ->setMaxLen(100)
             ->set_description('The last name of the person')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->searchable();
-        self::varchar('title')
+        $list->varchar('title')
             ->setMaxLen(50)
             ->setDefault('')
             ->set_description('The title of the person')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::enum('sex')
+        $list->enum('sex')
             ->setEnumValues(['male','female','divers'])
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_description('Sex of this person');
-        self::arrayOfStrings('groups')
+        $list->array('groups')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('What user groups is this person member of')
             ->set_editable(true)
             ->set_groupeditable(true);            
-        self::arrayOfStrings('aliases')
+        $list->array('aliases')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('Other names for this person')
             ->set_editable(true)
             ->set_groupeditable(true);            

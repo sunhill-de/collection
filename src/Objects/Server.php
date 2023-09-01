@@ -26,7 +26,7 @@ class Server extends NetworkDevice
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('description')
+        $list->varchar('description')
             ->set_description('What is the purpose of this server')
             ->setMaxLen(100)
             ->setDefault(null)

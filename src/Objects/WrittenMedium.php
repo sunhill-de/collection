@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for 
@@ -26,26 +27,27 @@ class WrittenMedium extends Medium
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::enum('media_type')        
+        $list->enum('media_type')        
             ->set_description('What kind of media is this')
             ->setEnumValues(['soft-cover', 'hard-cover', 'magazine', 'other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::integer('pages')
+        $list->integer('pages')
             ->set_description('The number of pages')
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfObjects('written_works')
+        $list->array('written_works')
+            ->setElementType(PropertyObject::class)
             ->setAllowedObject('WrittenWork')
             ->set_description('What written works are in this medium')
             ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true); 
-        self::calculated('ISBN')
+        $list->calculated('ISBN')
             ->searchable();
     }
     

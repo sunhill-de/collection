@@ -85,10 +85,10 @@ class CollectionServiceProvider extends ServiceProvider
         Objects::flushCache();
         Classes::flushClasses();
         Classes::registerClass(Address::class);
-        Classes::registerClass(Anniversary::class);
+     //   Classes::registerClass(Anniversary::class);
         Classes::registerClass(AnniversaryCelebration::class);
         Classes::registerClass(Appointment::class);
-        Classes::registerClass(AudioMedium::class);
+    //   Classes::registerClass(AudioMedium::class);
         Classes::registerClass(Celebration::class);
         Classes::registerClass(City::class);
         Classes::registerClass(Clip::class);
@@ -103,8 +103,8 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(FamilyMember::class);
         Classes::registerClass(Floor::class);
         Classes::registerClass(Friend::class);
-        Classes::registerClass(Genre::class);
-        Classes::registerClass(Language::class);
+     //   Classes::registerClass(Genre::class);
+    //    Classes::registerClass(Language::class);
         Classes::registerClass(Location::class);
         Classes::registerClass(Manufacturer::class);
         Classes::registerClass(MediaDevice::class);
@@ -113,19 +113,19 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(Movie::class);
         Classes::registerClass(MovieSeries::class);
         Classes::registerClass(MusicalArtist::class);
-        Classes::registerClass(Network::class);
+    //    Classes::registerClass(Network::class);
         Classes::registerClass(NetworkDevice::class);
         Classes::registerClass(Organisation::class);
         Classes::registerClass(Person::class);
-        Classes::registerClass(PersonsRelation::class);
+  //      Classes::registerClass(PersonsRelation::class);
         Classes::registerClass(ProductGroup::class);
         Classes::registerClass(Property::class);
         Classes::registerClass(Room::class);
         Classes::registerClass(Server::class);
         Classes::registerClass(Shop::class);
-        Classes::registerClass(Staff::class);
+  //      Classes::registerClass(Staff::class);
         Classes::registerClass(Street::class);
-        Classes::registerClass(Transaction::class);
+  //      Classes::registerClass(Transaction::class);
         Classes::registerClass(Trip::class);
         Classes::registerClass(TVSeries::class);
         Classes::registerClass(VideoDevice::class);
@@ -138,8 +138,8 @@ class CollectionServiceProvider extends ServiceProvider
     
     protected function defineDialogs()
     {
-        Dialogs::addObjectListFields(Anniversary::class,['name','type']);
-        Dialogs::addObjectKeyfield(Anniversary::class,':name');
+ //       Dialogs::addObjectListFields(Anniversary::class,['name','type']);
+ //       Dialogs::addObjectKeyfield(Anniversary::class,':name');
 
         Dialogs::addObjectListFields(Country::class,['name','iso_code']);
         Dialogs::addObjectKeyfield(Country::class,':name');
@@ -150,11 +150,11 @@ class CollectionServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Date::class,['begin_date','name']);
         Dialogs::addObjectKeyfield(Date::class,':name');
 
-        Dialogs::addObjectListFields(Genre::class,['name','parent'=>'parent=>name']);
-        Dialogs::addObjectKeyfield(Genre::class,':name');
+   //     Dialogs::addObjectListFields(Genre::class,['name','parent'=>'parent=>name']);
+   //     Dialogs::addObjectKeyfield(Genre::class,':name');
 
-        Dialogs::addObjectListFields(Language::class,['name','iso']);
-        Dialogs::addObjectKeyfield(Language::class,':name');
+   //     Dialogs::addObjectListFields(Language::class,['name','iso']);
+   //     Dialogs::addObjectKeyfield(Language::class,':name');
         
         Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
         Dialogs::addObjectKeyfield(Location::class,':name');
@@ -162,8 +162,8 @@ class CollectionServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(MusicalArtist::class,['name','sort_name']);
         Dialogs::addObjectKeyfield(MusicalArtist::class,':name');        
         
-        Dialogs::addObjectListFields(Network::class,['name','prefix','description','part_of'=>'part_of=>name']);
-        Dialogs::addObjectKeyfield(Network::class,':name');
+    //    Dialogs::addObjectListFields(Network::class,['name','prefix','description','part_of'=>'part_of=>name']);
+    //    Dialogs::addObjectKeyfield(Network::class,':name');
 
         Dialogs::addObjectListFields(Organisation::class,['name']);
         Dialogs::addObjectKeyfield(Organisation::class,':name');
@@ -177,7 +177,7 @@ class CollectionServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Property::class,['name','type']);
         Dialogs::addObjectKeyfield(Property::class,':name');
 
-        Dialogs::addObjectListFields(Transaction::class,['order_id','shop'=>'shop=>name']);
+ //       Dialogs::addObjectListFields(Transaction::class,['order_id','shop'=>'shop=>name']);
         
         Dialogs::addCSSResource(__DIR__.'/../resources/css');
         Dialogs::addJSResource(__DIR__.'/../resources/js');

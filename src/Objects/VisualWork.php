@@ -26,28 +26,28 @@ class VisualWork extends CreativeWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('length')
+        $list->integer('length')
             ->set_description('The length of this work in seconds')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('imdb_id')
+        $list->varchar('imdb_id')
             ->set_description('The IMDb id of this work')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::integer('tmdb_id')
+        $list->integer('tmdb_id')
             ->set_description('The TMDb id of this work')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::text('plot')
+        $list->text('plot')
             ->set_description('The plot of this movie')
             ->set_editable(true)
             ->set_groupeditable(false)

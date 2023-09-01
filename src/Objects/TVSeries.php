@@ -26,14 +26,14 @@ class TVSeries extends VisualCollection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('number_of_seasons')
+        $list->integer('number_of_seasons')
             ->set_description('The total number of seasons')
             ->setDefault(0)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::integer('number_of_episodes')
+        $list->integer('number_of_episodes')
             ->set_description('The total number of episodes')
             ->setDefault(0)
             ->searchable()

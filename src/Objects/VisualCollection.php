@@ -26,14 +26,14 @@ class VisualCollection extends CreativeCollection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('imdb_id')
+        $list->varchar('imdb_id')
         ->set_description('The IMDb id of this work')
         ->setDefault(null)
         ->searchable()
         ->set_editable(true)
         ->set_groupeditable(false)
         ->set_displayable(true);
-        self::integer('tmdb_id')
+        $list->integer('tmdb_id')
         ->set_description('The TMDb id of this work')
         ->setDefault(null)
         ->searchable()

@@ -14,6 +14,9 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyCollection;
+use Sunhill\ORM\Properties\PropertyObject;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for creative works
@@ -26,35 +29,38 @@ class CreativeStandaloneWork extends CreativeWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::date('release_date')
+        $list->date('release_date')
             ->set_description('When was this work released')
             ->setDefault(null)
             ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true);
-        self::ArrayOfObjects('staff')
+        $list->Array('staff')
+            ->setElementType(PropertyCollection::class)
             ->setDescription('What persons worked on this work.')
-            ->setAllowedObject('Staff')
+            ->setAllowedCollection('Staff')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::ArrayOfObjects('countries')
+        $list->Array('countries')
+            ->setElementType(PropertyObject::class)
             ->set_description('The origin countries of this work')
             ->setAllowedObject('Country')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-       self::object('language')
+       $list->object('language')
             ->set_description('What is the original language of this work')
             ->setAllowedObject('Language')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-       self::ArrayOfStrings('keywords')
+       $list->Array('keywords')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('What are the keywords to this work')
             ->searchable()
             ->set_editable(true)

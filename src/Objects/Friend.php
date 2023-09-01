@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for friends
@@ -26,21 +27,21 @@ class Friend extends Person
 
     protected static function setupProperties(PropertyList $list)
     {
-        self::date('date_of_birth')
+        $list->date('date_of_birth')
             ->set_description('The birthday of this person')
             ->setDefault(null)
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::date('date_of_death')
+        $list->date('date_of_death')
             ->set_description('The deathday of this person')
             ->setDefault(null)
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::varchar('birth_name')
+        $list->varchar('birth_name')
             ->setMaxLen(100)
             ->setDefault(null)
             ->set_description('The birth name of the person')
@@ -48,7 +49,7 @@ class Friend extends Person
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::object('address')
+        $list->object('address')
             ->setAllowedObjects('Address')
             ->setDefault(null)
             ->set_description('The address of this person')
@@ -56,7 +57,8 @@ class Friend extends Person
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::arrayOfStrings('friendgroups')
+        $list->array('friendgroups')
+            ->setElementType(PropertyVarchar::class)
             ->set_description('What friend groups is this person member of');
     }
 

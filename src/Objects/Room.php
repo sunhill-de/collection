@@ -26,20 +26,20 @@ class Room extends Location
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('inside')            
+        $list->integer('inside')            
             ->set_description('Is this room inside')
             ->setDefault(1)
             ->set_boolean(true)
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::enum('type')        
+        $list->enum('type')        
             ->setEnumValues(['sleep', 'bath', 'living', 'kitchen', 'dining', 'office', 'fun', 'garden', 'other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::object('owner')
+        $list->object('owner')
             ->setAllowedObjects('FamilyMember')
             ->searchable()
             ->set_editable(true)

@@ -27,14 +27,14 @@ class Language extends Collection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the language')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::varchar('iso')
+        $list->varchar('iso')
             ->setMaxLen(5)
             ->set_description('the iso code of the language')
             ->searchable()

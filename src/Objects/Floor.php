@@ -26,7 +26,7 @@ class Floor extends Location
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('level')            
+        $list->integer('level')            
             ->set_description('On what level is this floor')
             ->setDefault(1)
             ->set_boolean(true)

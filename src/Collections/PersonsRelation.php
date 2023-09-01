@@ -27,25 +27,25 @@ class PersonsRelation extends Collection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::object('person1')
+        $list->object('person1')
             ->setAllowedObjects('Person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::object('person2')
+        $list->object('person2')
             ->setAllowedObjects('Person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::enum('relation')
+        $list->enum('relation')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
             ->setEnumValues(['marriage','relation','divorce']);
-        self::date('relation_date')
+        $list->date('relation_date')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

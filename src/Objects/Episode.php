@@ -26,27 +26,27 @@ class Episode extends VisualWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('length')
+        $list->integer('length')
             ->set_description('The length of this work in seconds')
             ->setDefault(0)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::object('series')
+        $list->object('series')
             ->set_description('The TV series this episode belongs to')
             ->setAllowedObject('TVSeries')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::integer('season')
+        $list->integer('season')
             ->set_description('Number of season')
             ->setDefault(0)
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::integer('episode')
+        $list->integer('episode')
             ->set_description('Number of season')
             ->setDefault(0)
             ->set_editable(true)

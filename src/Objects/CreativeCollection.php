@@ -26,7 +26,7 @@ class CreativeCollection extends CreativeWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('item_count')
+        $list->integer('item_count')
         ->set_description('How many items belong to this collection')
         ->setDefault(null)
         ->searchable()

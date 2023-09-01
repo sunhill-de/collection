@@ -26,7 +26,7 @@ class Shop extends Organisation
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::enum('kind')
+        $list->enum('kind')
             ->setEnumValues(['online','local','global','mixed'])
             ->set_description('The kind of shop')
             ->set_displayable(true)

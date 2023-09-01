@@ -26,9 +26,9 @@ class AnniversaryCelebration extends Celebration
 
     protected static function setupProperties(PropertyList $list)
     {
-          self::object('anniversary')
+          $list->collection('anniversary')
           ->set_description('What anniversary is celebrated')
-          ->setAllowedObjects('Anniversary')
+          ->setAllowedCollection('Anniversary')
           ->searchable()
           ->set_editable(true)
           ->set_groupeditable(true)

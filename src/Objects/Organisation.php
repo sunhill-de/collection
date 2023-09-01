@@ -27,7 +27,7 @@ class Organisation extends ORMObject
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->setMaxLen(50)
             ->set_description('The name of this organisation')
             ->set_displayable(true)

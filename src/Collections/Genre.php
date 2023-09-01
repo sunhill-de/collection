@@ -28,21 +28,21 @@ class Genre extends Collection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->set_description('The name of this genre')
             ->setMaxLen(70)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::array('media_type')
+        $list->array('media_type')
             ->setElementType(PropertyVarchar::class)
             ->set_description('For what kind of medias is this genre')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);            
-        self::object('parent')
+        $list->object('parent')
             ->set_description('What genre does this genre belong to')
             ->setAllowedObjects(['Genre'])
             ->searchable()

@@ -27,14 +27,14 @@ class Location extends ORMObject
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the location')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::object('part_of')
+        $list->object('part_of')
             ->setAllowedObjects('Location')
             ->set_description('The location is part of')
             ->searchable()

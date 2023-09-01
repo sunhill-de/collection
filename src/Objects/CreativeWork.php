@@ -27,19 +27,19 @@ class CreativeWork extends ORMObject
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->set_description('The name of the creative work')
             ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::varchar('original_name')
+        $list->varchar('original_name')
             ->set_description('The original name of the creative work')
             ->searchable()
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::varchar('sort_name')
+        $list->varchar('sort_name')
             ->set_description('The search name of the creative work')
             ->searchable()
             ->set_displayable(true)

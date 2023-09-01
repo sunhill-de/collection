@@ -26,27 +26,27 @@ class FamilyMember extends Friend
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::time('time_of_birth')
+        $list->time('time_of_birth')
             ->setDefault(null)
             ->set_description('When was this person born')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-         self::object('place_of_birth')
+         $list->object('place_of_birth')
             ->setDefault(null)
             ->setAllowedObjects('Location')
             ->set_description('Where was this person born')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true);
-       self::object('mother')
+       $list->object('mother')
             ->setDefault(null)
             ->set_description('Who is the mother')
             ->setAllowedObjects('FamilyMember')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true);
-        self::object('father')
+        $list->object('father')
             ->setDefault(null)
             ->set_description('Who is the father')
             ->setAllowedObjects('FamilyMember')

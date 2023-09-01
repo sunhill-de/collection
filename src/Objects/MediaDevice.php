@@ -26,7 +26,7 @@ class MediaDevice extends NetworkDevice
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::enum('media_type')
+        $list->enum('media_type')
             ->set_description('What kind of device is this')
             ->setEnumValues(['tv','console','echo','other'])
             ->set_displayable(true)

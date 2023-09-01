@@ -27,7 +27,7 @@ class Medium extends Property
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('ean')
+        $list->varchar('ean')
             ->set_description('What is the EAN of this medium')
             ->setMaxLen(20)
             ->setDefault(null)
@@ -35,14 +35,14 @@ class Medium extends Property
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::object('genre')
+        $list->object('genre')
             ->set_description('What genre does this medium belong to')
             ->setAllowedObjects(['Genre'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::date('released')
+        $list->date('released')
             ->set_description('When was this medium released')
             ->searchable()
             ->set_editable(true)

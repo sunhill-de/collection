@@ -27,19 +27,19 @@ class Staff extends Collection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::object('person')
+        $list->object('person')
             ->set_description('Link to the person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('job')
+        $list->varchar('job')
             ->set_description('What was the job of the person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('additional')
+        $list->varchar('additional')
             ->set_description('Additional informations (like name of the role of actors)')
             ->setDefault(null)
             ->searchable()

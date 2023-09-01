@@ -27,14 +27,14 @@ class MobileDevice extends NetworkDevice
 
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('operating_system')
+        $list->varchar('operating_system')
             ->setMaxLen(40)
             ->searchable()
             ->set_description('What OS is running.')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false);
-        self::varchar('phone_number')
+        $list->varchar('phone_number')
             ->setMaxLen(40)
             ->searchable()
             ->set_description('The phone number')

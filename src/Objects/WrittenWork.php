@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for written works
@@ -26,14 +27,15 @@ class WrittenWork extends CreativeWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::enum('type')        
+        $list->enum('type')        
             ->set_description('What type of work is this')
             ->setEnumValues(['nonfiction','novel','shortstory','graphicnovel','other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfObjects('authors')
+        $list->array('authors')
+            ->setElementType(PropertyObject::class)
             ->setAllowedObjects('Person')
             ->set_description('Who is/are the author(s)')
             ->searchable()

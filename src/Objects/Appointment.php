@@ -26,7 +26,7 @@ class Appointment extends Date
     
     protected static function setupProperties(PropertyList $list)
     {
-          self::enum('type')        
+          $list->enum('type')        
             ->set_description('What type of Appointment is this')
             ->setEnumValues(['doctor','school'])
             ->searchable()

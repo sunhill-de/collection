@@ -29,7 +29,7 @@ class Address extends Location
      */
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('zip')
+        $list->varchar('zip')
             ->setMaxLen(10)
             ->set_description('The zip of this city')
             ->set_displayable(true)
@@ -37,7 +37,7 @@ class Address extends Location
             ->set_groupeditable(false)
             ->searchable()
             ->setDefault(null);
-        self::integer('house_number')
+        $list->integer('house_number')
             ->set_description('What is the house number')
             ->searchable()
             ->set_displayable(true)

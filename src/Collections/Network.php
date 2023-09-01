@@ -27,27 +27,27 @@ class Network extends Collection
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('name')
+        $list->varchar('name')
             ->setMaxLen(100)
             ->set_description('The name of the network')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::varchar('prefix')
+        $list->varchar('prefix')
             ->setMaxLen(20)
             ->set_description('The network prefix (e.g. 192.168.3)')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('description')
+        $list->varchar('description')
             ->set_description('A more verbose description of the network')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::object('part_of')
+        $list->object('part_of')
             ->setAllowedCollection('Network')
             ->set_description('If this network is part of a larger network')
             ->set_displayable(true)

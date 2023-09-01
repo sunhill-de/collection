@@ -26,7 +26,7 @@ class Street extends Location
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::integer('number_of_houses')
+        $list->integer('number_of_houses')
             ->set_description('How many houses are on this street')
             ->set_displayable(true)
             ->set_editable(true)

@@ -14,6 +14,7 @@
 namespace Sunhill\Collection\Objects;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for 
@@ -26,14 +27,15 @@ class VisualMedium extends Medium
     
     protected static function setupProperties(PropertyList $list)
     {
-       self::enum('media_type')        
+       $list->enum('media_type')        
             ->set_description('What kind of media is this')
             ->setEnumValues(['DVD','Blu-ray','UHD','Digital','Other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        self::arrayOfObjects('visual_works')
+        $list->array('visual_works')
+            ->setElementType(PropertyObject::class)
             ->setAllowedObject('VisualWork')
             ->set_description('What visual works are on that medium.')
             ->searchable()

@@ -26,20 +26,20 @@ class Country extends Location
     
     protected static function setupProperties(PropertyList $list)
     {
-        self::varchar('iso_code')
+        $list->varchar('iso_code')
             ->setMaxLen(2)
             ->set_description('The iso code of this country')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        self::object('capital')
+        $list->object('capital')
             ->setAllowedObjects('City')
             ->set_description('The capital of this country')
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        self::varchar('country_code')        
+        $list->varchar('country_code')        
             ->setMaxLen(5)
             ->set_description('The phone prefix')
             ->set_editable(true)
