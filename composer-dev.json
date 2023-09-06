@@ -39,13 +39,12 @@
 	"require": {
 		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
-		"sunhill/infomarket":"*",
 		"sunhill/visual":"*",
 		"breuls/tmdb-library":"*"
 	},
         "require-dev" : {
-                "phpunit/phpunit" : "^9.5.10",
-                "orchestra/testbench" : "7.x-dev",
+                "phpunit/phpunit" : "^10.0",
+                "orchestra/testbench" : "^8.5",
                 "doctrine/dbal": "3.7.x"
         },
 	"autoload" : {
