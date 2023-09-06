@@ -12,9 +12,9 @@
 	"require": {
 		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
-		"sunhill/infomarket":"*",
 		"sunhill/visual":"*",
-		"breuls/tmdb-library":"*"
+		"breuls/tmdb-library":"*",
+		"orchestra/testbench" : "^8.5"
 		},
 	"autoload" : {
 		"psr-4" : {
