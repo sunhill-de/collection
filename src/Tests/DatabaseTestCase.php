@@ -11,6 +11,8 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureObjects;
 use Sunhill\Collection\Modules\Database\SunhillFeatureTags;
 use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
+use Sunhill\Collection\Objects\FamilyMember;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -20,7 +22,7 @@ class DatabaseTestCase extends CollectionTestCase
     {
         parent::setUp();
         $this->migrateSunhill();
-        $this->seed(DatabaseSeeder::class);
+        $this->seedDatabase();
     }
     
     protected function defineDatabaseMigrations()
@@ -37,7 +39,6 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function getEnvironmentSetUp($app)
     {
-        
         SunhillSiteManager::setName('Testsite');
         SunhillSiteManager::setDisplayName('Testsite');
         SunhillSiteManager::setDescription('Mainpage');
@@ -54,5 +55,15 @@ class DatabaseTestCase extends CollectionTestCase
             SunhillSiteManager::installRoutes();
     }
     
-   
+    protected function seedDatabase()
+    {
+        $list = DB::getSchemaBuilder()->getColumnListing('objects');
+        
+        $homer = FamilyMember::seed([['firstname'=>'Homer','middlename'=>'Jay','lastname'=>'Simpson','sex'=>'male','date_of_birth'=>"1956-05-12"]]);
+        $marge = FamilyMember::seed([['firstname'=>'Marge','lastname'=>'Simpson','sex'=>'female',"birth_name"=>"Bouvier"]]);
+        $bart = FamilyMember::seed([['firstname'=>"Bart","lastname"=>"Simpson","sex"=>"male","date_of_birth"=>"1980-02-23",'father'=>$homer,'mother'=>$marge]]);
+        $lisa = FamilyMember::seed([['firstname'=>"Lisa","lastname"=>"Simpson","sex"=>"female","date_of_birth"=>"1981-05-09",'father'=>$homer,'mother'=>$marge]]);
+        $maggie = FamilyMember::seed([['firstname'=>"Maggie","lastname"=>"Simpson","sex"=>"female",'father'=>$homer,'mother'=>$marge]]);
+    }
+    
 }
