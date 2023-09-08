@@ -13,10 +13,8 @@ use Sunhill\Collection\Components\Lookup;
 
 
 use Sunhill\Collection\Objects\Address;
-use Sunhill\Collection\Objects\Anniversary;
 use Sunhill\Collection\Objects\AnniversaryCelebration;
 use Sunhill\Collection\Objects\Appointment;
-use Sunhill\Collection\Objects\AudioMedium;
 use Sunhill\Collection\Objects\Celebration;
 use Sunhill\Collection\Objects\City;
 use Sunhill\Collection\Objects\Clip;
@@ -32,8 +30,6 @@ use Sunhill\Collection\Objects\Event;
 use Sunhill\Collection\Objects\FamilyMember;
 use Sunhill\Collection\Objects\Floor;
 use Sunhill\Collection\Objects\Friend;
-use Sunhill\Collection\Objects\Genre;
-use Sunhill\Collection\Objects\Language;
 use Sunhill\Collection\Objects\ListeningEvent;
 use Sunhill\Collection\Objects\Location;
 use Sunhill\Collection\Objects\Manufacturer;
@@ -43,21 +39,17 @@ use Sunhill\Collection\Objects\MobileDevice;
 use Sunhill\Collection\Objects\Movie;
 use Sunhill\Collection\Objects\MovieSeries;
 use Sunhill\Collection\Objects\MusicalArtist;
-use Sunhill\Collection\Objects\Network;
 use Sunhill\Collection\Objects\NetworkDevice;
 use Sunhill\Collection\Objects\Organisation;
 use Sunhill\Collection\Objects\Person;
-use Sunhill\Collection\Objects\PersonsRelation;
 use Sunhill\Collection\Objects\ProductGroup;
 use Sunhill\Collection\Objects\Property;
 use Sunhill\Collection\Objects\ReadingEvent;
 use Sunhill\Collection\Objects\Room;
 use Sunhill\Collection\Objects\Server;
 use Sunhill\Collection\Objects\Shop;
-use Sunhill\Collection\Objects\Staff;
 use Sunhill\Collection\Objects\Street;
 use Sunhill\Collection\Objects\TVSeries;
-use Sunhill\Collection\Objects\Transaction;
 use Sunhill\Collection\Objects\Trip;
 use Sunhill\Collection\Objects\VideoDevice;
 use Sunhill\Collection\Objects\VisualCollection;
@@ -67,6 +59,15 @@ use Sunhill\Collection\Objects\WatchingEvent;
 use Sunhill\Collection\Objects\WrittenMedium;
 use Sunhill\Collection\Objects\WrittenWork;
 use Illuminate\Support\Facades\Blade;
+use Sunhill\ORM\Facades\Collections;
+use Sunhill\Collection\Collections\Anniversary;
+use Sunhill\Collection\Collections\AudioMedium;
+use Sunhill\Collection\Collections\Genre;
+use Sunhill\Collection\Collections\Language;
+use Sunhill\Collection\Collections\Network;
+use Sunhill\Collection\Collections\PersonsRelation;
+use Sunhill\Collection\Collections\Staff;
+use Sunhill\Collection\Collections\Transaction;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -80,15 +81,25 @@ class CollectionServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/collection.php', 'collection');
     }
     
+    protected function registerCollections()
+    {
+        Collections::registerCollection(Anniversary::class);
+        Collections::registerCollection(AudioMedium::class);
+        Collections::registerCollection(Genre::class);
+        Collections::registerCollection(Language::class);
+        Collections::registerCollection(Network::class);
+        Collections::registerCollection(PersonsRelation::class);
+        Collections::registerCollection(Staff::class);
+        Collections::registerCollection(Transaction::class);        
+    }
+    
     protected function registerClasses()
     {
         Objects::flushCache();
         Classes::flushClasses();
         Classes::registerClass(Address::class);
-     //   Classes::registerClass(Anniversary::class);
         Classes::registerClass(AnniversaryCelebration::class);
         Classes::registerClass(Appointment::class);
-    //   Classes::registerClass(AudioMedium::class);
         Classes::registerClass(Celebration::class);
         Classes::registerClass(City::class);
         Classes::registerClass(Clip::class);
@@ -103,8 +114,6 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(FamilyMember::class);
         Classes::registerClass(Floor::class);
         Classes::registerClass(Friend::class);
-     //   Classes::registerClass(Genre::class);
-    //    Classes::registerClass(Language::class);
         Classes::registerClass(Location::class);
         Classes::registerClass(Manufacturer::class);
         Classes::registerClass(MediaDevice::class);
@@ -113,19 +122,15 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(Movie::class);
         Classes::registerClass(MovieSeries::class);
         Classes::registerClass(MusicalArtist::class);
-    //    Classes::registerClass(Network::class);
         Classes::registerClass(NetworkDevice::class);
         Classes::registerClass(Organisation::class);
         Classes::registerClass(Person::class);
-  //      Classes::registerClass(PersonsRelation::class);
         Classes::registerClass(ProductGroup::class);
         Classes::registerClass(Property::class);
         Classes::registerClass(Room::class);
         Classes::registerClass(Server::class);
         Classes::registerClass(Shop::class);
-  //      Classes::registerClass(Staff::class);
         Classes::registerClass(Street::class);
-  //      Classes::registerClass(Transaction::class);
         Classes::registerClass(Trip::class);
         Classes::registerClass(TVSeries::class);
         Classes::registerClass(VideoDevice::class);
@@ -198,6 +203,7 @@ class CollectionServiceProvider extends ServiceProvider
         Blade::component('collection-lookup', Lookup::class);
 
         $this->registerClasses();
+        $this->registerCollections();
         $this->defineDialogs();
     }
 }
