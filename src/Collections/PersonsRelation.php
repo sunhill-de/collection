@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Collections;
 
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;

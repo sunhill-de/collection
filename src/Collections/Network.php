@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Collections;
 
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;
@@ -47,7 +47,7 @@ class Network extends Collection
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        $list->object('part_of')
+        $list->collection('part_of')
             ->setAllowedCollection('Network')
             ->set_description('If this network is part of a larger network')
             ->set_displayable(true)

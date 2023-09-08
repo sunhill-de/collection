@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Collections;
 
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;
@@ -28,6 +28,7 @@ class Staff extends Collection
     protected static function setupProperties(PropertyList $list)
     {
         $list->object('person')
+            ->setAllowedObjects('person')
             ->set_description('Link to the person')
             ->searchable()
             ->set_editable(true)

@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Collections;
 
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;
@@ -42,9 +42,9 @@ class Genre extends Collection
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);            
-        $list->object('parent')
+        $list->collection('parent')
             ->set_description('What genre does this genre belong to')
-            ->setAllowedObjects(['Genre'])
+            ->setAllowedCollection('Genre')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
