@@ -36,7 +36,7 @@ class ProductGroup extends ORMObject
             ->searchable();
         $list->object('part_of')
             ->set_description('This group is part of more general group')
-            ->setAllowedObjects('ProductGroup')
+            ->setAllowedClasses('ProductGroup')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

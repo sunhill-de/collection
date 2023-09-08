@@ -36,7 +36,7 @@ class WrittenWork extends CreativeWork
             ->set_displayable(true);
         $list->array('authors')
             ->setElementType(PropertyObject::class)
-            ->setAllowedObjects('Person')
+            ->setAllowedClasses('Person')
             ->set_description('Who is/are the author(s)')
             ->searchable()
             ->set_displayable(true)

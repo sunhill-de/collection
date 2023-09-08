@@ -30,7 +30,7 @@ class Trip extends Date
           $list->array('destinations')
           ->setElementType(PropertyObject::class)
           ->set_description('Where did the trip go to')
-          ->setAllowedObjects('Location')
+          ->setAllowedClasses('Location')
           ->searchable()
           ->set_editable(true)
           ->set_groupeditable(true)

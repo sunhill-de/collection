@@ -35,9 +35,8 @@ class ElectronicDevice extends Property
             ->set_groupeditable(true)
             ->searchable();
         $list->object('manufacturer')
-            ->setAllowedObject(['Manufacturer'])
+            ->setAllowedClass(['Manufacturer'])
             ->set_description('Which company made this device')
-            ->setMaxLen(100)
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)

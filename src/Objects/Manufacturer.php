@@ -29,7 +29,7 @@ class Manufacturer extends Organisation
     {
         $list->array('product_groups')
             ->setElementType(PropertyObject::class)
-            ->setAllowedObjects('ProductGroup')
+            ->setAllowedClasses('ProductGroup')
             ->set_description('What product groups does this manufacturer make')
             ->set_displayable(true)
             ->set_editable(true)

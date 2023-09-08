@@ -62,7 +62,7 @@ class Date extends ORMObject
             ->setDefault(null);
         $list->array('persons')
             ->setElementType(PropertyObject::class)
-            ->setAllowedObjects('Friend')
+            ->setAllowedClasses('Friend')
             ->set_description('The involved persons')
             ->set_editable(true)
             ->set_groupeditable(true)

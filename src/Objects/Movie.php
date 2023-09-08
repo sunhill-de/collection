@@ -28,7 +28,7 @@ class Movie extends VisualWork
     {
         $list->object('series')
             ->set_description('Does this movie belong to a series')
-            ->setAllowedObject('MovieSeries')
+            ->setAllowedClass('MovieSeries')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)

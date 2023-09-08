@@ -36,7 +36,7 @@ class VisualMedium extends Medium
             ->set_displayable(true);
         $list->array('visual_works')
             ->setElementType(PropertyObject::class)
-            ->setAllowedObject('VisualWork')
+            ->setAllowedClasses('VisualWork')
             ->set_description('What visual works are on that medium.')
             ->searchable()
             ->set_displayable(true)

@@ -35,7 +35,7 @@ class Episode extends VisualWork
             ->set_displayable(true);
         $list->object('series')
             ->set_description('The TV series this episode belongs to')
-            ->setAllowedObject('TVSeries')
+            ->setAllowedClass('TVSeries')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)

@@ -35,7 +35,7 @@ class Clip extends VisualWork
             ->set_displayable(true);
         $list->object('relation')
             ->set_description('Is this clip related to something')
-            ->setAllowedObject(['object'])
+            ->setAllowedClasses('object')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)

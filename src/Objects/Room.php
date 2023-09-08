@@ -40,7 +40,7 @@ class Room extends Location
             ->set_groupeditable(true)
             ->set_displayable(true);
         $list->object('owner')
-            ->setAllowedObjects('FamilyMember')
+            ->setAllowedClasses('FamilyMember')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

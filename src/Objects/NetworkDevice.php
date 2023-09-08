@@ -27,7 +27,7 @@ class NetworkDevice extends ElectronicDevice
     protected static function setupProperties(PropertyList $list)
     {
         $list->object('network')
-            ->setAllowedObjects(['Network'])
+            ->setAllowedClasses(['Network'])
             ->setDefault(null)
             ->set_description('What network does this device belong to')
             ->set_displayable(true)

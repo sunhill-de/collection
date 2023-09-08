@@ -41,7 +41,7 @@ class WrittenMedium extends Medium
             ->set_displayable(true);
         $list->array('written_works')
             ->setElementType(PropertyObject::class)
-            ->setAllowedObject('WrittenWork')
+            ->setAllowedClasses('WrittenWork')
             ->set_description('What written works are in this medium')
             ->searchable()
             ->set_displayable(true)

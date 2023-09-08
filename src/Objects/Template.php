@@ -36,7 +36,7 @@ class  extends ORMObject
             ->searchable();
         $list->object('')
             ->set_description('')
-            ->setAllowedObjects('')
+            ->setAllowedClasses('')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
@@ -61,7 +61,7 @@ class  extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
         $list->arrayOfObjects('')
-            ->setAllowedObject('')
+            ->setAllowedClass('')
             ->set_description('')
             ->searchable()
             ->set_displayable(true)

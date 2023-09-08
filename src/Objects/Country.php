@@ -34,7 +34,7 @@ class Country extends Location
             ->set_groupeditable(false)
             ->searchable();
         $list->object('capital')
-            ->setAllowedObjects('City')
+            ->setAllowedClasses('City')
             ->set_description('The capital of this country')
             ->set_editable(true)
             ->set_groupeditable(false)

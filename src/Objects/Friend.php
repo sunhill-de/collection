@@ -50,7 +50,7 @@ class Friend extends Person
             ->set_groupeditable(false)
             ->searchable();
         $list->object('address')
-            ->setAllowedObjects('Address')
+            ->setAllowedClasses('Address')
             ->setDefault(null)
             ->set_description('The address of this person')
             ->set_displayable(true)

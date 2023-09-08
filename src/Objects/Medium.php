@@ -37,7 +37,7 @@ class Medium extends Property
             ->set_displayable(true);
         $list->object('genre')
             ->set_description('What genre does this medium belong to')
-            ->setAllowedObjects(['Genre'])
+            ->setAllowedClasses(['Genre'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

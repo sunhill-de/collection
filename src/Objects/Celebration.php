@@ -28,7 +28,7 @@ class Celebration extends Date
     {
           $list->object('location')
           ->set_description('Where does this celebration take place')
-          ->setAllowedObjects('Location')
+          ->setAllowedClass('Location')
           ->searchable()
           ->set_editable(true)
           ->set_groupeditable(true)

@@ -35,7 +35,7 @@ class Property extends ORMObject
             ->set_groupeditable(false)
             ->searchable();
         $list->object('owner')
-            ->setAllowedObjects('FamilyMember')
+            ->setAllowedClasses('FamilyMember')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
@@ -60,7 +60,7 @@ class Property extends ORMObject
             ->set_groupeditable(true)
             ->set_displayable(true);
         $list->object('ingress_source')
-            ->setAllowedObjects(['Shop','Person'])
+            ->setAllowedClasses(['Shop','Person'])
             ->searchable()
             ->setDefault(null)
             ->set_editable(true)
@@ -71,7 +71,7 @@ class Property extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
-            ->setAllowedObjects('Location');
+            ->setAllowedClasses('Location');
         $list->enum('egress_kind')
             ->searchable()
             ->setDefault(null)

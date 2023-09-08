@@ -34,7 +34,7 @@ class FamilyMember extends Friend
             ->set_groupeditable(false);
          $list->object('place_of_birth')
             ->setDefault(null)
-            ->setAllowedObjects('Location')
+            ->setAllowedClasses('Location')
             ->set_description('Where was this person born')
             ->set_displayable(true)
             ->set_editable(true)
@@ -42,14 +42,14 @@ class FamilyMember extends Friend
        $list->object('mother')
             ->setDefault(null)
             ->set_description('Who is the mother')
-            ->setAllowedObjects('FamilyMember')
+            ->setAllowedClasses('FamilyMember')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true);
         $list->object('father')
             ->setDefault(null)
             ->set_description('Who is the father')
-            ->setAllowedObjects('FamilyMember')
+            ->setAllowedClasses('FamilyMember')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true);
