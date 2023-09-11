@@ -15,6 +15,9 @@ use Sunhill\Collection\Objects\FamilyMember;
 use Illuminate\Support\Facades\DB;
 use Sunhill\Collection\Collections\Language;
 use Sunhill\ORM\Facades\Collections;
+use Sunhill\Collection\Collections\Genre;
+use Sunhill\Collection\Collections\EventTypes;
+use Sunhill\Collection\Collections\EventType;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -60,6 +63,56 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
+        $watch  = EventType::seed([['name'=>'watch','translations'=>['en'=>'watch','de'=>'sehen']]]);
+        $change = EventType::seed([['name'=>'change','translations'=>['en'=>'change','de'=>'ändern']]]);
+        $switch = EventType::seed([['name'=>'switch','translations'=>['en'=>'switch','de'=>'umschalten']]]);
+        
+        $fiction = Genre::seed([
+            [
+                'name'=>'fiction',
+                'media_type'=>['VisualWork','WrittenWork'],
+                'translations'=>['en'=>'fiction','de'=>'Fiktion']
+            ]
+        ]);
+        $nonfiction = Genre::seed([
+            [
+                'name'=>'nonfiction',
+                'media_type'=>['VisualWork','WrittenWork'],
+                'translations'=>['en'=>'nonfiction','de'=>'Nichtfiktion']
+            ]
+        ]);
+        Genre::seed([
+            [
+                'name'=>'science fiction',
+                'media_type'=>['VisualWork','WrittenWork'],
+                'translations'=>['en'=>'science fiction','de'=>'Science fiction'],
+                'parent'=>$fiction
+            ],
+            [
+                'name'=>'drama',
+                'media_type'=>['VisualWork','WrittenWork'],
+                'translations'=>['en'=>'drama','de'=>'Drama'],
+                'parent'=>$fiction
+            ],            
+            [
+                'name'=>'horror',
+                'media_type'=>['VisualWork','WrittenWork'],
+                'translations'=>['en'=>'horror','de'=>'Horror'],
+                'parent'=>$fiction
+            ],
+            [
+                'name'=>'computer',
+                'media_type'=>['WrittenWork'],
+                'translations'=>['en'=>'computer','de'=>'Computer'],
+                'parent'=>$nonfiction
+            ],
+            [
+                'name'=>'programming',
+                'media_type'=>['VisualWork','WrittenWork'],
+                'translations'=>['en'=>'programming','de'=>'Programmierung'],
+                'parent'=>$nonfiction
+            ],
+        ]);
         Language::seed([
             ['name'=>'english','iso'=>'en','translations'=>['en'=>'english','de'=>'englisch']],
             ['name'=>'german','iso'=>'de','translations'=>['en'=>'german','de'=>'deutsch']],
