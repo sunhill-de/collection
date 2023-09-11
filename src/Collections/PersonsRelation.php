@@ -28,13 +28,13 @@ class PersonsRelation extends Collection
     protected static function setupProperties(PropertyList $list)
     {
         $list->object('person1')
-            ->setAllowedObjects('Person')
+            ->setAllowedClass('Person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
         $list->object('person2')
-            ->setAllowedObjects('Person')
+            ->setAllowedClass('Person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

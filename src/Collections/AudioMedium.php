@@ -29,7 +29,7 @@ class AudioMedium extends Collection
     {
          $list->object('audio_work')
             ->set_description('What release is on this medium')
-            ->setAllowedObjects('MusicalRelease')
+            ->setAllowedClass('MusicalRelease')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

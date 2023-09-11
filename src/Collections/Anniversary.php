@@ -16,6 +16,7 @@ namespace Sunhill\Collection\Collections;
 use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for 
@@ -49,8 +50,8 @@ class Anniversary extends Collection
             ->set_groupeditable(true)
             ->set_displayable(true);
         $list->array('persons')
-            ->setElementType(ORMObject::class)
-            ->setAllowedObjects('Friend')
+            ->setElementType(PropertyObject::class)
+            ->setAllowedClasses('Friend')
             ->set_description('What persons are part of this anniversary')
             ->searchable()
             ->set_displayable(true)

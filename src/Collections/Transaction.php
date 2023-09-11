@@ -38,7 +38,7 @@ class Transaction extends Collection
             ->searchable();
         $list->object('shop')
             ->set_description('Where did the transaction take place')
-            ->setAllowedObjects('Shop')
+            ->setAllowedClass('Shop')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
@@ -63,7 +63,7 @@ class Transaction extends Collection
             ->set_displayable(true);
         $list->array('articles')
             ->setElementType(PropertyObject::class)
-            ->setAllowedObject('Property')
+            ->setAllowedClasses('Property')
             ->set_description('Articles of this order that are properties')
             ->searchable()
             ->set_displayable(true)

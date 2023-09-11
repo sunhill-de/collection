@@ -15,6 +15,7 @@ namespace Sunhill\Collection\Collections;
 
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyVarchar;
 
 /**
  * The class for languages
@@ -40,6 +41,12 @@ class Language extends Collection
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
+            ->set_displayable(true);
+        $list->map('translations')
+            ->setElementType(PropertyVarchar::class)
+            ->set_description('Tranlations for this language')
+            ->searchable()
+            ->set_editable(true)
             ->set_displayable(true);
     }
     
