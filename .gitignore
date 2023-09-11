@@ -33,3 +33,5 @@ Homestead.json
 /.settings
 /.buildpath
 DEADJOE
+.phpunit.cache/
+*.bak
