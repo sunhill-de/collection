@@ -16,6 +16,7 @@ namespace Sunhill\Collection\Collections;
 use Sunhill\ORM\Objects\Collection;
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyVarchar;
+use Sunhill\ORM\Properties\PropertyObject;
 
 /**
  * The class for mediums
@@ -48,6 +49,12 @@ class Genre extends Collection
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
+            ->set_displayable(true);
+        $list->map('translations')
+            ->setElementType(PropertyVarchar::class)
+            ->searchable()
+            ->set_editable(true)
+            ->set_groupeditable(false)
             ->set_displayable(true);
     }
     
