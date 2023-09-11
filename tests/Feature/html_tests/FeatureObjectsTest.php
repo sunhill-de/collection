@@ -16,7 +16,7 @@ class FeatureObjectsTest extends HtmlTestBase
 {
     
  
-    public function HTMLProvider()
+    public static function HTMLProvider()
     {
         return [
             ['/Database/Objects/List',200],

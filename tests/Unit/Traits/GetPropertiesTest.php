@@ -28,7 +28,7 @@ class GetPropertiesTest extends DatabaseTestCase
         $this->assertEquals($expect, $this->callProtectedMethod($dummy, 'testForInt', [$test]));
     }
     
-    public function ForIntProvider()
+    public static function ForIntProvider()
     {
         return [
             [1,Person::class],
@@ -51,7 +51,7 @@ class GetPropertiesTest extends DatabaseTestCase
         $this->assertEquals($expect, $this->callProtectedMethod($dummy, 'testForString', [$test]));
     }
     
-    public function ForStringProvider()
+    public static function ForStringProvider()
     {
         return [
             [1,false],
@@ -74,7 +74,7 @@ class GetPropertiesTest extends DatabaseTestCase
         $this->assertEquals($expect, $this->callProtectedMethod($dummy, 'testForObject', [$test]));
     }
     
-    public function ForObjectProvider()
+    public static function ForObjectProvider()
     {
         return [
             [1,false],
@@ -98,7 +98,7 @@ class GetPropertiesTest extends DatabaseTestCase
         $this->assertEquals($expect, $this->callProtectedMethod($dummy, 'getNamespace', [$test]));
     }
     
-    public function GetNamespaceProvider()
+    public static function GetNamespaceProvider()
     {
         return [
             [1,Person::class],

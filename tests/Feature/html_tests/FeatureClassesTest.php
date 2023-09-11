@@ -5,7 +5,7 @@ namespace Sunhill\Collection\Tests\Feature\html_tests;
 class FeatureClassesTest extends HtmlTestBase
 {
     
-    public function HTMLProvider()
+    public static function HTMLProvider()
     {
         return [
             ['/Database/Classes/List',200,'get','Address'],          // Default list classes

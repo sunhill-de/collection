@@ -16,7 +16,7 @@ class FeatureTagsTest extends HtmlTestBase
 {
     
  
-    public function HTMLProvider()
+    public static function HTMLProvider()
     {
         return [
             ['/Database/Tags/List',200],
