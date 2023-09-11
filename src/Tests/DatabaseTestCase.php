@@ -13,6 +13,8 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
 use Sunhill\Collection\Objects\FamilyMember;
 use Illuminate\Support\Facades\DB;
+use Sunhill\Collection\Collections\Language;
+use Sunhill\ORM\Facades\Collections;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -35,6 +37,7 @@ class DatabaseTestCase extends CollectionTestCase
     protected function migrateSunhill()
     {
         Classes::migrateClasses();
+        Collections::migrateCollections();
     }
     
     protected function getEnvironmentSetUp($app)
@@ -57,7 +60,12 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
-        $list = DB::getSchemaBuilder()->getColumnListing('objects');
+        Language::seed([
+            ['name'=>'english','iso'=>'en','translations'=>['en'=>'english','de'=>'englisch']],
+            ['name'=>'german','iso'=>'de','translations'=>['en'=>'german','de'=>'deutsch']],
+            ['name'=>'french','iso'=>'fr','translations'=>['en'=>'french','de'=>'französich']],
+            ['name'=>'spanish','iso'=>'es','translations'=>['en'=>'spanish','de'=>'spanisch']],
+        ]);
         
         $homer = FamilyMember::seed([['firstname'=>'Homer','middlename'=>'Jay','lastname'=>'Simpson','sex'=>'male','date_of_birth'=>"1956-05-12"]]);
         $marge = FamilyMember::seed([['firstname'=>'Marge','lastname'=>'Simpson','sex'=>'female',"birth_name"=>"Bouvier"]]);
