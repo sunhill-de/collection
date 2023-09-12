@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @file Movie.php
- * Provides informations about a movie 
+ * @file Clip.php
+ * Provides informations about a short piece of visual media (like a video clip) 
  * Lang en
- * Reviewstatus: 2022-08-29
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Creative;
 
 use Sunhill\ORM\Objects\PropertyList;
 
@@ -21,7 +21,7 @@ use Sunhill\ORM\Objects\PropertyList;
  * @author lokal
  *        
  */
-class Episode extends VisualWork
+class Clip extends VisualStandaloneWork
 {
     
     protected static function setupProperties(PropertyList $list)
@@ -33,22 +33,18 @@ class Episode extends VisualWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        $list->object('series')
-            ->set_description('The TV series this episode belongs to')
-            ->setAllowedClass('TVSeries')
+        $list->object('relation')
+            ->set_description('Is this clip related to something')
+            ->setAllowedClasses('object')
+            ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true);
-        $list->integer('season')
-            ->set_description('Number of season')
-            ->setDefault(0)
-            ->set_editable(true)
-            ->set_groupeditable(true)
-            ->set_displayable(true);
-        $list->integer('episode')
-            ->set_description('Number of season')
-            ->setDefault(0)
+            ->set_displayable(true);        
+        $list->enum('type')
+            ->setEnumValues(['music','private','other'])
+            ->setDefault('other')
+            ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
@@ -56,11 +52,11 @@ class Episode extends VisualWork
     
   protected static function setupInfos()
 	{
-		static::addInfo('name','Episode');
-		static::addInfo('table','episodes');
-        static::addInfo('name_s','episode',true);
-        static::addInfo('name_p','episodes',true);
-        static::addInfo('description','Stores informations about an episode', true);
+		static::addInfo('name','Clip');
+		static::addInfo('table','clips');
+        static::addInfo('name_s','clip',true);
+        static::addInfo('name_p','clips',true);
+        static::addInfo('description','Stores informations about a clip', true);
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

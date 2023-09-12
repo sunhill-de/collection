@@ -1,38 +1,33 @@
 <?php
 
 /**
- * @file VisualWork.php
- * Provides informations about visual work 
+ * @file VisualCollection.php
+ * Provides informations about a visual collection. That is a abstract collection of either movies
+ * or episodes 
  * Lang en
- * Reviewstatus: 2022-08-29
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Creative;
 
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Properties\PropertyCollection;
 
 /**
- * The class for written works
+ * The class for movies
  *
  * @author lokal
  *        
  */
-class VisualWork extends CreativeWork
+class VisualCollection extends CreativeCollection
 {
     
     protected static function setupProperties(PropertyList $list)
     {
-        $list->integer('length')
-            ->set_description('The length of this work in seconds')
-            ->setDefault(null)
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true);
         $list->varchar('imdb_id')
             ->set_description('The IMDb id of this work')
             ->setDefault(null)
@@ -40,28 +35,31 @@ class VisualWork extends CreativeWork
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        $list->integer('tmdb_id')
+        $list->varchar('tmdb_id')
             ->set_description('The TMDb id of this work')
             ->setDefault(null)
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        $list->text('plot')
-            ->set_description('The plot of this movie')
+        $list->array('genres')
+            ->setElementType(PropertyCollection::class)
+            ->setAllowedClass('Genre')
+            ->set_description('What genres is this series associated')
+            ->setDefault(null)
+            ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true)
-            ->setDefault(null);
+            ->set_displayable(true);
     }
     
   protected static function setupInfos()
 	{
-		static::addInfo('name','VisualWork');
-		static::addInfo('table','visualworks');
-        static::addInfo('name_s','visual work',true);
-        static::addInfo('name_p','visual works',true);
-        static::addInfo('description','Stores informations about visual works', true);
+		static::addInfo('name','VisualCollection');
+		static::addInfo('table','visualcollections');
+        static::addInfo('name_s','Visual collection',true);
+        static::addInfo('name_p','Visual collections',true);
+        static::addInfo('description','Stores informations about collection of movies or a tv-series', true);
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

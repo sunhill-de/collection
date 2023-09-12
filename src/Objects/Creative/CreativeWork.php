@@ -2,16 +2,17 @@
 
 /**
  * @file CreativeWork.php
- * Provides informations about a creative Work
+ * Provides informations about a creative Work in the most abstract way. This could be a series, a movie
+ * a book, etc.  
  * Lang en
- * Reviewstatus: 2022-08-29
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Creative;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Objects\ORMObject;
@@ -56,6 +57,6 @@ class CreativeWork extends ORMObject
        	static::addInfo('description','Informations about a creative work', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
-		static::addInfo('instantiable',true);
+		static::addInfo('instantiable',false);
 	}
 }

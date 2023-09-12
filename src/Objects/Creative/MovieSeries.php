@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @file Movie.php
- * Provides informations about a movie 
+ * @file MovieSeries.php
+ * Provides informations about a movie series 
  * Lang en
- * Reviewstatus: 2022-08-29
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Creative;
 
 use Sunhill\ORM\Objects\PropertyList;
 

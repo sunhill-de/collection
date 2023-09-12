@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @file CreativeWork.php
- * Provides informations about a creative Work
+ * @file CreativeStandaloneWork.php
+ * Provides informations about a standaonle creative work. This could be a book, album, song, movie, episode 
  * Lang en
  * Reviewstatus: 2022-08-29
  * Localization: complete
@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Creative;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyCollection;

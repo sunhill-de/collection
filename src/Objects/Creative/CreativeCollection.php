@@ -1,17 +1,19 @@
 <?php
 
 /**
- * @file CreativeWork.php
- * Provides informations about a creative Work
+ * @file CreativeCollection.php
+ * Provides informations about a creative collection. A collection is not a standalone work like a 
+ * book or movie but a concept of collecting these standalone works (like a cd-series, a book series, 
+ * a movie series or a TV_series)
  * Lang en
- * Reviewstatus: 2022-08-29
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Creative;
 
 use Sunhill\ORM\Objects\PropertyList;
 
