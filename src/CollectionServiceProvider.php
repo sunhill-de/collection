@@ -32,29 +32,34 @@ use Sunhill\Collection\Objects\Locations\Location;
 use Sunhill\Collection\Objects\Locations\Room;
 use Sunhill\Collection\Objects\Locations\Street;
 
-use Sunhill\Collection\Objects\AnniversaryCelebration;
-use Sunhill\Collection\Objects\Appointment;
-use Sunhill\Collection\Objects\Celebration;
-use Sunhill\Collection\Objects\Computer;
-use Sunhill\Collection\Objects\Date;
-use Sunhill\Collection\Objects\ElectronicDevice;
-use Sunhill\Collection\Objects\FamilyMember;
-use Sunhill\Collection\Objects\Friend;
-use Sunhill\Collection\Objects\Manufacturer;
-use Sunhill\Collection\Objects\MediaDevice;
-use Sunhill\Collection\Objects\Medium;
-use Sunhill\Collection\Objects\MobileDevice;
-use Sunhill\Collection\Objects\NetworkDevice;
-use Sunhill\Collection\Objects\Organisation;
-use Sunhill\Collection\Objects\Person;
-use Sunhill\Collection\Objects\ProductGroup;
-use Sunhill\Collection\Objects\Property;
-use Sunhill\Collection\Objects\Server;
-use Sunhill\Collection\Objects\Shop;
-use Sunhill\Collection\Objects\Trip;
-use Sunhill\Collection\Objects\VideoDevice;
-use Sunhill\Collection\Objects\VisualMedium;
-use Sunhill\Collection\Objects\WrittenMedium;
+use Sunhill\Collection\Objects\Dates\AnniversaryCelebration;
+use Sunhill\Collection\Objects\Dates\Appointment;
+use Sunhill\Collection\Objects\Dates\Celebration;
+use Sunhill\Collection\Objects\Dates\Date;
+use Sunhill\Collection\Objects\Dates\Trip;
+
+use Sunhill\Collection\Objects\Properties\Computer;
+use Sunhill\Collection\Objects\Properties\ElectronicDevice;
+use Sunhill\Collection\Objects\Properties\MediaDevice;
+use Sunhill\Collection\Objects\Properties\Medium;
+use Sunhill\Collection\Objects\Properties\MobileDevice;
+use Sunhill\Collection\Objects\Properties\NetworkDevice;
+use Sunhill\Collection\Objects\Properties\Property;
+use Sunhill\Collection\Objects\Properties\Server;
+use Sunhill\Collection\Objects\Properties\VideoDevice;
+use Sunhill\Collection\Objects\Properties\VisualMedium;
+use Sunhill\Collection\Objects\Properties\WrittenMedium;
+
+use Sunhill\Collection\Objects\Persons\Person;
+use Sunhill\Collection\Objects\Persons\FamilyMember;
+use Sunhill\Collection\Objects\Persons\Friend;
+
+use Sunhill\Collection\Objects\Organisations\Manufacturer;
+use Sunhill\Collection\Objects\Organisations\Shop;
+use Sunhill\Collection\Objects\Organisations\Organisation;
+
+use Sunhill\Collection\Collections\ProductGroup;
+
 use Illuminate\Support\Facades\Blade;
 use Sunhill\ORM\Facades\Collections;
 
@@ -93,6 +98,7 @@ class CollectionServiceProvider extends ServiceProvider
         Collections::registerCollection(PersonsRelation::class);
         Collections::registerCollection(Staff::class);
         Collections::registerCollection(Transaction::class);        
+        Collections::registerCollection(ProductGroup::class);
     }
     
     protected function registerClasses()
@@ -122,31 +128,39 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(Room::class);
         Classes::registerClass(Street::class);
         
+// Persons
+        Classes::registerClass(FamilyMember::class);
+        Classes::registerClass(Friend::class);
+        Classes::registerClass(Person::class);
         
+// Dates
         Classes::registerClass(AnniversaryCelebration::class);
         Classes::registerClass(Appointment::class);
         Classes::registerClass(Celebration::class);
-        Classes::registerClass(Computer::class);
         Classes::registerClass(Date::class);
+        Classes::registerClass(Trip::class);
+        
+// Properties
+        Classes::registerClass(Computer::class);
         Classes::registerClass(ElectronicDevice::class);
-        Classes::registerClass(FamilyMember::class);
-        Classes::registerClass(Friend::class);
-        Classes::registerClass(Manufacturer::class);
         Classes::registerClass(MediaDevice::class);
         Classes::registerClass(Medium::class);
         Classes::registerClass(MobileDevice::class);
         Classes::registerClass(NetworkDevice::class);
-        Classes::registerClass(Organisation::class);
-        Classes::registerClass(Person::class);
-        Classes::registerClass(ProductGroup::class);
-        Classes::registerClass(Property::class);
-        Classes::registerClass(Server::class);
-        Classes::registerClass(Shop::class);
-        Classes::registerClass(Trip::class);
         Classes::registerClass(VideoDevice::class);
         Classes::registerClass(VisualMedium::class);
         Classes::registerClass(WrittenMedium::class);
+        Classes::registerClass(Property::class);
+        Classes::registerClass(Server::class);
+        
+// Organisations
+        Classes::registerClass(Manufacturer::class);
+        Classes::registerClass(Organisation::class);
+        Classes::registerClass(Shop::class);
+
+        
     }
+    
     
     protected function defineDialogs()
     {
@@ -183,9 +197,6 @@ class CollectionServiceProvider extends ServiceProvider
         Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
         Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
         
-        Dialogs::addObjectListFields(ProductGroup::class,['name','part_of'=>'part_of=>name']);
-        Dialogs::addObjectKeyfield(ProductGroup::class,':name');
-
         Dialogs::addObjectListFields(Property::class,['name','type']);
         Dialogs::addObjectKeyfield(Property::class,':name');
 
