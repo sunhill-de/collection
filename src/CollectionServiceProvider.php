@@ -11,49 +11,50 @@ use Sunhill\Visual\Facades\Dialogs;
 use Sunhill\Collection\Components\Input;
 use Sunhill\Collection\Components\Lookup;
 
+use Sunhill\Collection\Objects\Creative\Clip;
+use Sunhill\Collection\Objects\Creative\CreativeCollection;
+use Sunhill\Collection\Objects\Creative\CreativeStandaloneWork;
+use Sunhill\Collection\Objects\Creative\CreativeWork;
+use Sunhill\Collection\Objects\Creative\Episode;
+use Sunhill\Collection\Objects\Creative\Movie;
+use Sunhill\Collection\Objects\Creative\MovieSeries;
+use Sunhill\Collection\Objects\Creative\MusicalArtist;
+use Sunhill\Collection\Objects\Creative\TVSeries;
+use Sunhill\Collection\Objects\Creative\VisualCollection;
+use Sunhill\Collection\Objects\Creative\VisualStandaloneWork;
+use Sunhill\Collection\Objects\Creative\WrittenWork;
 
-use Sunhill\Collection\Objects\Address;
+use Sunhill\Collection\Objects\Locations\Address;
+use Sunhill\Collection\Objects\Locations\City;
+use Sunhill\Collection\Objects\Locations\Country;
+use Sunhill\Collection\Objects\Locations\Floor;
+use Sunhill\Collection\Objects\Locations\Location;
+use Sunhill\Collection\Objects\Locations\Room;
+use Sunhill\Collection\Objects\Locations\Street;
+
 use Sunhill\Collection\Objects\AnniversaryCelebration;
 use Sunhill\Collection\Objects\Appointment;
 use Sunhill\Collection\Objects\Celebration;
-use Sunhill\Collection\Objects\City;
-use Sunhill\Collection\Objects\Clip;
 use Sunhill\Collection\Objects\Computer;
-use Sunhill\Collection\Objects\Country;
-use Sunhill\Collection\Objects\CreativeCollection;
-use Sunhill\Collection\Objects\CreativeStandaloneWork;
-use Sunhill\Collection\Objects\CreativeWork;
 use Sunhill\Collection\Objects\Date;
 use Sunhill\Collection\Objects\ElectronicDevice;
-use Sunhill\Collection\Objects\Episode;
 use Sunhill\Collection\Objects\FamilyMember;
-use Sunhill\Collection\Objects\Floor;
 use Sunhill\Collection\Objects\Friend;
-use Sunhill\Collection\Objects\Location;
 use Sunhill\Collection\Objects\Manufacturer;
 use Sunhill\Collection\Objects\MediaDevice;
 use Sunhill\Collection\Objects\Medium;
 use Sunhill\Collection\Objects\MobileDevice;
-use Sunhill\Collection\Objects\Movie;
-use Sunhill\Collection\Objects\MovieSeries;
-use Sunhill\Collection\Objects\MusicalArtist;
 use Sunhill\Collection\Objects\NetworkDevice;
 use Sunhill\Collection\Objects\Organisation;
 use Sunhill\Collection\Objects\Person;
 use Sunhill\Collection\Objects\ProductGroup;
 use Sunhill\Collection\Objects\Property;
-use Sunhill\Collection\Objects\Room;
 use Sunhill\Collection\Objects\Server;
 use Sunhill\Collection\Objects\Shop;
-use Sunhill\Collection\Objects\Street;
-use Sunhill\Collection\Objects\TVSeries;
 use Sunhill\Collection\Objects\Trip;
 use Sunhill\Collection\Objects\VideoDevice;
-use Sunhill\Collection\Objects\VisualCollection;
 use Sunhill\Collection\Objects\VisualMedium;
-use Sunhill\Collection\Objects\VisualWork;
 use Sunhill\Collection\Objects\WrittenMedium;
-use Sunhill\Collection\Objects\WrittenWork;
 use Illuminate\Support\Facades\Blade;
 use Sunhill\ORM\Facades\Collections;
 
@@ -98,48 +99,53 @@ class CollectionServiceProvider extends ServiceProvider
     {
         Objects::flushCache();
         Classes::flushClasses();
+// Creative
+        Classes::registerClass(Clip::class);
+        Classes::registerClass(CreativeCollection::class);
+        Classes::registerClass(CreativeStandaloneWork::class);
+        Classes::registerClass(CreativeWork::class);
+        Classes::registerClass(Episode::class);
+        Classes::registerClass(Movie::class);
+        Classes::registerClass(MovieSeries::class);
+        Classes::registerClass(MusicalArtist::class);
+        Classes::registerClass(TVSeries::class);
+        Classes::registerClass(VisualCollection::class);
+        Classes::registerClass(VisualStandaloneWork::class);
+        Classes::registerClass(WrittenWork::class);
+ 
+// Locations        
         Classes::registerClass(Address::class);
+        Classes::registerClass(City::class);
+        Classes::registerClass(Country::class);
+        Classes::registerClass(Floor::class);
+        Classes::registerClass(Location::class);
+        Classes::registerClass(Room::class);
+        Classes::registerClass(Street::class);
+        
+        
         Classes::registerClass(AnniversaryCelebration::class);
         Classes::registerClass(Appointment::class);
         Classes::registerClass(Celebration::class);
-        Classes::registerClass(City::class);
-        Classes::registerClass(Clip::class);
         Classes::registerClass(Computer::class);
-        Classes::registerClass(Country::class);
-        Classes::registerClass(CreativeCollection::class);
-        Classes::registerClass(CreativeStandaloneWork::class);        
-        Classes::registerClass(CreativeWork::class);
         Classes::registerClass(Date::class);
         Classes::registerClass(ElectronicDevice::class);
-        Classes::registerClass(Episode::class);
         Classes::registerClass(FamilyMember::class);
-        Classes::registerClass(Floor::class);
         Classes::registerClass(Friend::class);
-        Classes::registerClass(Location::class);
         Classes::registerClass(Manufacturer::class);
         Classes::registerClass(MediaDevice::class);
         Classes::registerClass(Medium::class);
         Classes::registerClass(MobileDevice::class);
-        Classes::registerClass(Movie::class);
-        Classes::registerClass(MovieSeries::class);
-        Classes::registerClass(MusicalArtist::class);
         Classes::registerClass(NetworkDevice::class);
         Classes::registerClass(Organisation::class);
         Classes::registerClass(Person::class);
         Classes::registerClass(ProductGroup::class);
         Classes::registerClass(Property::class);
-        Classes::registerClass(Room::class);
         Classes::registerClass(Server::class);
         Classes::registerClass(Shop::class);
-        Classes::registerClass(Street::class);
         Classes::registerClass(Trip::class);
-        Classes::registerClass(TVSeries::class);
         Classes::registerClass(VideoDevice::class);
-        Classes::registerClass(VisualCollection::class);
         Classes::registerClass(VisualMedium::class);
-        Classes::registerClass(VisualWork::class);
         Classes::registerClass(WrittenMedium::class);
-        Classes::registerClass(WrittenWork::class);
     }
     
     protected function defineDialogs()
