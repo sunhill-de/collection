@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: Organisation
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Organisations;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyObject;

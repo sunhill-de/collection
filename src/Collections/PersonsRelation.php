@@ -28,13 +28,13 @@ class PersonsRelation extends Collection
     protected static function setupProperties(PropertyList $list)
     {
         $list->object('person1')
-            ->setAllowedClass('Person')
+            ->setAllowedClasses('Person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
         $list->object('person2')
-            ->setAllowedClass('Person')
+            ->setAllowedClasses('Person')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
@@ -45,11 +45,6 @@ class PersonsRelation extends Collection
             ->set_groupeditable(true)
             ->set_displayable(true)
             ->setEnumValues(['marriage','relation','divorce']);
-        $list->date('relation_date')
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(true)
-            ->set_displayable(true);
     }
     
     protected static function setupInfos()

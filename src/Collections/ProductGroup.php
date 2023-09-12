@@ -11,10 +11,10 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Collections;
 
-use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Objects\PropertyList;
+use Sunhill\ORM\Objects\Collection;
 
 /**
  * The class for ProductGroups
@@ -22,7 +22,7 @@ use Sunhill\ORM\Objects\PropertyList;
  * @author lokal
  *        
  */
-class ProductGroup extends ORMObject
+class ProductGroup extends Collection
 {
      
     protected static function setupProperties(PropertyList $list)
@@ -34,9 +34,9 @@ class ProductGroup extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(false)
             ->searchable();
-        $list->object('part_of')
+        $list->collection('part_of')
             ->set_description('This group is part of more general group')
-            ->setAllowedClasses('ProductGroup')
+            ->setAllowedCollection('ProductGroup')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)

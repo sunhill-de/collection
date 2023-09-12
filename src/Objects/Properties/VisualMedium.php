@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: Medium
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Properties;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyObject;

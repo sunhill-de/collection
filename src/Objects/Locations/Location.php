@@ -35,7 +35,7 @@ class Location extends ORMObject
             ->set_groupeditable(false)
             ->searchable();
         $list->object('part_of')
-            ->setAllowedClass('Location')
+            ->setAllowedClasses('Location')
             ->set_description('The location is part of')
             ->searchable()
             ->set_editable(true)
