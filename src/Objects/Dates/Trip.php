@@ -4,14 +4,14 @@
  * @file Trip.php
  * Provides informations about an Trip
  * Lang en
- * Reviewstatus: 2022-09-1
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Dates;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyObject;

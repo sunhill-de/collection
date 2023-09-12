@@ -4,14 +4,14 @@
  * @file Date.php
  * Provides informations about a date
  * Lang en
- * Reviewstatus: 2022-03-17
+ * Reviewstatus: 2023-09-12
  * Localization: unknown
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Dates;
 
 use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Objects\PropertyList;
