@@ -4,14 +4,14 @@
  * @file Friend.php
  * Provides informations about a friend (a person that we want to know more informations about)
  * Lang en
- * Reviewstatus: 2022-02-28
+ * Reviewstatus: 2023-09-12
  * Localization: unknown
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: Person
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Persons;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyVarchar;

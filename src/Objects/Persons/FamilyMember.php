@@ -4,14 +4,14 @@
  * @file FamilyMember.php
  * Provides the FamilyMember object
  * Lang en
- * Reviewstatus: 2022-28-02
+ * Reviewstatus: 2023-09-12
  * Localization: unknown
  * Documentation: unknown
  * Tests: unknown
  * Coverage: unknown
  * Dependencies: fileobject
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Persons;
 
 use Sunhill\ORM\Objects\PropertyList;
 
