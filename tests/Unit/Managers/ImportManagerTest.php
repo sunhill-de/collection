@@ -8,4 +8,7 @@ use Sunhill\Collection\Tests\DatabaseTestCase;
 class ImportManagerTest extends DatabaseTestCase
 {
 
+    public function testMovieImports()
+    {
+    }
 }
