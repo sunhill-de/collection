@@ -11,7 +11,7 @@
  * Coverage: unknown
  * Dependencies: Location
  */
-namespace Sunhill\Collection\Objects;
+namespace Sunhill\Collection\Objects\Locations;
 
 use Sunhill\ORM\Objects\PropertyList;
 
