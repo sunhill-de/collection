@@ -4,20 +4,26 @@ namespace Sunhill\Collection\Tests;
 
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\SunhillSiteManager;
-use Sunhill\Collection\Tests\Database\Seeders\DatabaseSeeder;
 
 use Sunhill\Collection\Modules\Database\SunhillFeatureClasses;
 use Sunhill\Collection\Modules\Database\SunhillFeatureObjects;
 use Sunhill\Collection\Modules\Database\SunhillFeatureTags;
 use Sunhill\Collection\Modules\Database\SunhillFeatureAttributes;
 use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
+
 use Sunhill\Collection\Objects\FamilyMember;
-use Illuminate\Support\Facades\DB;
 use Sunhill\Collection\Collections\Language;
 use Sunhill\ORM\Facades\Collections;
+
 use Sunhill\Collection\Collections\Genre;
-use Sunhill\Collection\Collections\EventTypes;
 use Sunhill\Collection\Collections\EventType;
+
+use Sunhill\Collection\Objects\Creative\Movie;
+use Sunhill\Collection\Objects\Locations\Country;
+use Sunhill\Collection\Objects\Creative\TVSeries;
+use Sunhill\Collection\Objects\Locations\City;
+use Sunhill\Collection\Objects\Locations\Street;
+use Sunhill\Collection\Objects\Locations\Address;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -63,9 +69,68 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
-        $watch  = EventType::seed([['name'=>'watch','translations'=>['en'=>'watch','de'=>'sehen']]]);
-        $change = EventType::seed([['name'=>'change','translations'=>['en'=>'change','de'=>'ändern']]]);
-        $switch = EventType::seed([['name'=>'switch','translations'=>['en'=>'switch','de'=>'umschalten']]]);
+        $germany = Country::seed([['name'=>'germany','iso_code'=>'D']]);
+        $france  = Country::seed([['name'=>'france','iso_code'=>'F']]);
+        $spain = Country::seed([['name'=>'spain','iso_code'=>'E']]);
+        $usa = Country::seed([['name'=>'U.S.A.','iso_code'=>'USA']]);
+        $gb = Country::seed([['name'=>'Great Britain','iso_code'=>'GB']]);
+        
+        $springfield = City::seed([['name'=>'Springfield','part_of'=>$usa]]);
+        $berlin = City::seed([['name'=>'Berlin','part_of'=>$germany]]);
+        $madrid = City::seed([['name'=>'Madrid','pard_of'=>$spain]]);
+        
+        $evergreen = Street::seed([['name'=>'Evergreen Terrace','part_of'=>$springfield]]);
+        $kudamm = Street::seed([['name'=>'Kufürstendamm', 'part_of'=>$berlin]]);
+        
+        $simpsons = Address::seed([['house_number'=>'742']]);
+        
+        $english = Language::seed([['name'=>'english','iso'=>'en','translations'=>['en'=>'english','de'=>'englisch']]]);
+        $german  = Language::seed([['name'=>'german','iso'=>'de','translations'=>['en'=>'german','de'=>'deutsch']]]);
+        $french  = Language::seed([['name'=>'french','iso'=>'fr','translations'=>['en'=>'french','de'=>'französich']]]);
+        $spanish = Language::seed([['name'=>'spanish','iso'=>'es','translations'=>['en'=>'spanish','de'=>'spanisch']]]);
+        
+        $lost = TVSeries::seed(
+            [
+                'name'=>'Lost',
+                'original_name'=>'Lost',
+                'sort_name'=>'LOST',
+                'item_count'=>121,
+                'imdb_id'=>'tt411008',
+                'tmdb_id'=>'/tv/4609-lost',
+                'number_of_episodes'=>121,
+                'number_of_seasons'=>6
+            ]);
+        Movie::seed(
+            [
+                [
+                    'name'=>'Fight Club',
+                    'original_name'=>'Fight Club',
+                    'sort_name'=>'FIGHTCLUB',
+                    'release_date'=>'1999-11-11',
+                    'language'=>$english,
+                    'countries'=>[$usa],
+                    'length'=>139,
+                    'imdb_id'=>'tt0137523',
+                    'tmdb_id'=>'/movie/550-fight-club',
+                    'keywords'=>['fight','anarchy']
+                ],    
+                [
+                    'name'=>'Die Stadt der verlorenen Kinder',
+                    'original_name'=>'La Cité des Enfants Perdus',
+                    'sort_name'=>'STADTDERVERLORENENKINDER, DIE',
+                    'release_date'=>'1995-08-17',
+                    'language'=>$french,
+                    'countries'=>[$france],    
+                    'length'=>112,
+                    'imdb_id'=>'tt0112682',
+                    'tmdb_id'=>'/movie/902-la-cite-des-enfants-perdus',
+                    'keywords'=>['dystopia', 'steampunk']
+                ],
+            ]);
+        
+        $watch_event  = EventType::seed([['name'=>'watch','translations'=>['en'=>'watch','de'=>'sehen']]]);
+        $change_event = EventType::seed([['name'=>'change','translations'=>['en'=>'change','de'=>'ändern']]]);
+        $switch_event = EventType::seed([['name'=>'switch','translations'=>['en'=>'switch','de'=>'umschalten']]]);
         
         $fiction = Genre::seed([
             [
@@ -113,18 +178,12 @@ class DatabaseTestCase extends CollectionTestCase
                 'parent'=>$nonfiction
             ],
         ]);
-        Language::seed([
-            ['name'=>'english','iso'=>'en','translations'=>['en'=>'english','de'=>'englisch']],
-            ['name'=>'german','iso'=>'de','translations'=>['en'=>'german','de'=>'deutsch']],
-            ['name'=>'french','iso'=>'fr','translations'=>['en'=>'french','de'=>'französich']],
-            ['name'=>'spanish','iso'=>'es','translations'=>['en'=>'spanish','de'=>'spanisch']],
-        ]);
         
-        $homer = FamilyMember::seed([['firstname'=>'Homer','middlename'=>'Jay','lastname'=>'Simpson','sex'=>'male','date_of_birth'=>"1956-05-12"]]);
-        $marge = FamilyMember::seed([['firstname'=>'Marge','lastname'=>'Simpson','sex'=>'female',"birth_name"=>"Bouvier"]]);
-        $bart = FamilyMember::seed([['firstname'=>"Bart","lastname"=>"Simpson","sex"=>"male","date_of_birth"=>"1980-02-23",'father'=>$homer,'mother'=>$marge]]);
-        $lisa = FamilyMember::seed([['firstname'=>"Lisa","lastname"=>"Simpson","sex"=>"female","date_of_birth"=>"1981-05-09",'father'=>$homer,'mother'=>$marge]]);
-        $maggie = FamilyMember::seed([['firstname'=>"Maggie","lastname"=>"Simpson","sex"=>"female",'father'=>$homer,'mother'=>$marge]]);
+        $homer = FamilyMember::seed([['firstname'=>'Homer','middlename'=>'Jay','lastname'=>'Simpson','sex'=>'male','date_of_birth'=>"1956-05-12",'address'=>$simpsons]]);
+        $marge = FamilyMember::seed([['firstname'=>'Marge','lastname'=>'Simpson','sex'=>'female',"birth_name"=>"Bouvier",'address'=>$simpsons]]);
+        $bart = FamilyMember::seed([['firstname'=>"Bart","lastname"=>"Simpson","sex"=>"male","date_of_birth"=>"1980-02-23",'father'=>$homer,'mother'=>$marge,'address'=>$simpsons]]);
+        $lisa = FamilyMember::seed([['firstname'=>"Lisa","lastname"=>"Simpson","sex"=>"female","date_of_birth"=>"1981-05-09",'father'=>$homer,'mother'=>$marge,'address'=>$simpsons]]);
+        $maggie = FamilyMember::seed([['firstname'=>"Maggie","lastname"=>"Simpson","sex"=>"female",'father'=>$homer,'mother'=>$marge,'address'=>$simpsons]]);
     }
     
 }
