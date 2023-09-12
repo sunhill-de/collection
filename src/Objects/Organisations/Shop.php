@@ -4,7 +4,7 @@
  * @file Shop.php
  * Provides informations about a shop
  * Lang en
- * Reviewstatus: 2022-08-28
+ * Reviewstatus: 2023-09-12
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
