@@ -28,7 +28,7 @@ class Staff extends Collection
     protected static function setupProperties(PropertyList $list)
     {
         $list->object('person')
-            ->setAllowedClass('person')
+            ->setAllowedClasses('Person')
             ->set_description('Link to the person')
             ->searchable()
             ->set_editable(true)
