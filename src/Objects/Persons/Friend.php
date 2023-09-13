@@ -72,5 +72,7 @@ class Friend extends Person
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['firstname','lastname','sex']);
+		static::addInfo('keyfield',':firstname :lastname');
+    }
 }
