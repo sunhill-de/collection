@@ -10,6 +10,11 @@ use Sunhill\Collection\Collections\Genre;
 use Sunhill\Collection\Collections\Event;
 use Sunhill\Collection\Collections\Language;
 use Sunhill\Collection\Collections\Network;
+use Sunhill\Collection\Collections\PersonsRelation;
+use Sunhill\Collection\Objects\Persons\Person;
+use Sunhill\Collection\Collections\Staff;
+use Sunhill\Collection\Collections\ProductGroup;
+use Sunhill\Collection\Collections\StaffJob;
 
 class SunhillManagerTest extends DatabaseTestCase
 {
@@ -62,7 +67,11 @@ class SunhillManagerTest extends DatabaseTestCase
     public function testGetKeyfield($collection, $id, $expect)
     {
         $object = new $collection();
-        $object->load($id);
+        if (is_numeric($id)) {
+            $object->load($id);
+        } else {
+            $object->load($object::getSeedID($id));            
+        }
         
         $this->assertEquals($expect, SunhillManager::getKeyfield($object));
     }
@@ -75,7 +84,14 @@ class SunhillManagerTest extends DatabaseTestCase
             [EventType::class, 1, 'watch'],
             [Genre::class, 1, 'fiction'],
             [Language::class, 1, 'english'],
-            [Network::class, 1, 'home']
+            [Network::class, 1, 'home'],
+            [PersonsRelation::class, 1, 'marriage Homer Simpson & Marge Simpson'],
+            [ProductGroup::class, 1, 'food'],
+            [Staff::class, 1, 'Edward Norton (Narrator)'],
+            [Staff::class, 4, 'David Fincher '],
+            [StaffJob::class, 1, 'actor'],
+            
+            [Person::class, 'homer', 'Homer Simpson'],
         ];    
     }
     
