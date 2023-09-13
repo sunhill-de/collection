@@ -58,6 +58,7 @@ class PersonsRelation extends Collection
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
 		static::addInfo('table_columns',['person1'=>'person1->keyfield','person2'=>'person2->keyfield','relation']);
-	}
+		static::addInfo('keyfield',':relation :person1->keyfield & :person2->keyfield');
+    }
 
 }
