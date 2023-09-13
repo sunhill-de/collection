@@ -50,12 +50,6 @@ class Genre extends Collection
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true);
-        $list->map('translations')
-            ->setElementType(PropertyVarchar::class)
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true);
     }
     
    protected static function setupInfos()

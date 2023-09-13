@@ -35,12 +35,6 @@ class EventType extends Collection
              ->set_groupeditable(true)
              ->set_displayable(true)
              ->set_description('The name of the event type');
-        $list->map('translations')
-             ->setElementType(PropertyVarchar::class)
-             ->set_editable(true)
-             ->set_groupeditable(true)
-             ->set_displayable(true)
-             ->set_description('Translations of this entry.');
     }
     
    protected static function setupInfos()

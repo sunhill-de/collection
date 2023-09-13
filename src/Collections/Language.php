@@ -42,12 +42,6 @@ class Language extends Collection
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        $list->map('translations')
-            ->setElementType(PropertyVarchar::class)
-            ->set_description('Tranlations for this language')
-            ->searchable()
-            ->set_editable(true)
-            ->set_displayable(true);
     }
     
     protected static function setupInfos()
