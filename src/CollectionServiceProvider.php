@@ -73,6 +73,8 @@ use Sunhill\Collection\Collections\Network;
 use Sunhill\Collection\Collections\PersonsRelation;
 use Sunhill\Collection\Collections\Staff;
 use Sunhill\Collection\Collections\Transaction;
+use Sunhill\Collection\Collections\StaffJob;
+use Sunhill\Collection\Facades\SunhillManager;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -83,6 +85,8 @@ class CollectionServiceProvider extends ServiceProvider
         $this->app->alias(ImportManager::class,'importmanager');
         $this->app->singleton(TMDBManager::class, function () { return new TMDBManager(); } );
         $this->app->alias(TMDBManager::class,'tmdbmanager');
+        $this->app->singleton(SunhillManager::class, function () { return new \Sunhill\Collection\Managers\SunhillManager(); } );
+        $this->app->alias(SunhillManager::class,'sunhillmanager');
         $this->mergeConfigFrom(__DIR__.'/../config/collection.php', 'collection');
     }
     
@@ -97,6 +101,7 @@ class CollectionServiceProvider extends ServiceProvider
         Collections::registerCollection(Network::class);
         Collections::registerCollection(PersonsRelation::class);
         Collections::registerCollection(Staff::class);
+        Collections::registerCollection(StaffJob::class);
         Collections::registerCollection(Transaction::class);        
         Collections::registerCollection(ProductGroup::class);
     }
