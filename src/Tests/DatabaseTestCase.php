@@ -129,10 +129,10 @@ class DatabaseTestCase extends CollectionTestCase
     protected function seedLanguages()
     {
         Language::seed([
-            'english'=>['name'=>'english','iso'=>'en','translations'=>['en'=>'english','de'=>'englisch']],
-            'german'=>['name'=>'german','iso'=>'de','translations'=>['en'=>'german','de'=>'deutsch']],
-            'french'=>['name'=>'french','iso'=>'fr','translations'=>['en'=>'french','de'=>'französich']],
-            'spanish'=>['name'=>'spanish','iso'=>'es','translations'=>['en'=>'spanish','de'=>'spanisch']],
+            'english'=>['name'=>'english','iso'=>'en'],
+            'german'=>['name'=>'german','iso'=>'de'],
+            'french'=>['name'=>'french','iso'=>'fr'],
+            'spanish'=>['name'=>'spanish','iso'=>'es'],
         ]);        
     }
     
@@ -225,9 +225,9 @@ class DatabaseTestCase extends CollectionTestCase
     protected function seedEventTypes()
     {
         EventType::seed([
-            'watch'=>['name'=>'watch','translations'=>['en'=>'watch','de'=>'sehen']],
-            'change'=>['name'=>'change','translations'=>['en'=>'change','de'=>'ändern']],
-            'switch'=>['name'=>'switch','translations'=>['en'=>'switch','de'=>'umschalten']]            
+            'watch'=>['name'=>'watch'],
+            'change'=>['name'=>'change'],
+            'switch'=>['name'=>'switch']            
         ]);        
     }
     
@@ -237,12 +237,10 @@ class DatabaseTestCase extends CollectionTestCase
             'fiction'=>[
                 'name'=>'fiction',
                 'media_type'=>['VisualWork','WrittenWork'],
-                'translations'=>['en'=>'fiction','de'=>'Fiktion']
             ],
             'nonfiction'=>[
                 'name'=>'nonfiction',
                 'media_type'=>['VisualWork','WrittenWork'],
-                'translations'=>['en'=>'nonfiction','de'=>'Nichtfiktion']
             ]
         ]);
 
@@ -250,31 +248,26 @@ class DatabaseTestCase extends CollectionTestCase
             [
                 'name'=>'science fiction',
                 'media_type'=>['VisualWork','WrittenWork'],
-                'translations'=>['en'=>'science fiction','de'=>'Science fiction'],
                 'parent'=>Movie::getSeedID('fiction')
             ],
             [
                 'name'=>'drama',
                 'media_type'=>['VisualWork','WrittenWork'],
-                'translations'=>['en'=>'drama','de'=>'Drama'],
                 'parent'=>Movie::getSeedID('fiction')
             ],
             [
                 'name'=>'horror',
                 'media_type'=>['VisualWork','WrittenWork'],
-                'translations'=>['en'=>'horror','de'=>'Horror'],
                 'parent'=>Movie::getSeedID('fiction')
             ],
             [
                 'name'=>'computer',
                 'media_type'=>['WrittenWork'],
-                'translations'=>['en'=>'computer','de'=>'Computer'],
                 'parent'=>Movie::getSeedID('nonfiction')
             ],
             [
                 'name'=>'programming',
                 'media_type'=>['VisualWork','WrittenWork'],
-                'translations'=>['en'=>'programming','de'=>'Programmierung'],
                 'parent'=>Movie::getSeedID('nonfiction')
             ],
         ]);
