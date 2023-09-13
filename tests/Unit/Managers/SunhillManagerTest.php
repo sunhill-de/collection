@@ -7,6 +7,9 @@ use Sunhill\Collection\Facades\SunhillManager;
 use Sunhill\Collection\Collections\EventType;
 use Sunhill\Collection\Collections\Anniversary;
 use Sunhill\Collection\Collections\Genre;
+use Sunhill\Collection\Collections\Event;
+use Sunhill\Collection\Collections\Language;
+use Sunhill\Collection\Collections\Network;
 
 class SunhillManagerTest extends DatabaseTestCase
 {
@@ -54,6 +57,7 @@ class SunhillManagerTest extends DatabaseTestCase
     /**
      * @dataProvider GetKeyfieldProvider
      * @group keyfield
+     * @group listutils
      */
     public function testGetKeyfield($collection, $id, $expect)
     {
@@ -67,14 +71,18 @@ class SunhillManagerTest extends DatabaseTestCase
     {
         return [
             [Anniversary::class, 1, "Homer's birthday"],
+            [Event::class, 1, "2023-09-13 11:39:00"],
             [EventType::class, 1, 'watch'],
-            [Genre::class, 1, 'fiction']
+            [Genre::class, 1, 'fiction'],
+            [Language::class, 1, 'english'],
+            [Network::class, 1, 'home']
         ];    
     }
     
     /**
      * @dataProvider GetCollectionListProvider
      * @group list
+     * @group listutils
      */
     public function testGetCollectionList($collection, $conditions, $order, $order_dir, $offset, $limit, $expect)
     {
@@ -88,16 +96,30 @@ class SunhillManagerTest extends DatabaseTestCase
             ['EventType', [], 'id', 'desc', 0, 10, [['name'=>'switch'], ['name'=>'change'], ['name'=>'watch']]],
             ['EventType', [], 'id', 'desc', 1, 1, [['name'=>'change']]],
             ['EventType', [], 'name', 'asc', 0, 10, [['name'=>'change'], ['name'=>'switch'], ['name'=>'watch']]],
+            ['EventType', [['key'=>'name','relation'=>'=','value'=>'change']], 'name', 'asc', 0, 10, [['name'=>'change']]],
             
             ['Anniversary', [], 'id', 'asc', 0, 3, [
                 ['name'=>"Homer's birthday", 'type'=>'birthday'],
                 ['name'=>"Bart's birthday", 'type'=>'birthday'],
                 ['name'=>"Lisa's birthday", 'type'=>'birthday'],                
             ]],
+            ['Event', [], 'id', 'asc', 0, 1, [
+                [
+                    'who'=>'Homer Simpson', 
+                    'when'=>"2023-09-13 11:39:00",
+                    'what'=>'watch',
+                    'to_whom'=>'Fight Club',
+                ]
+            ]],
             ['Genre', [], 'id', 'asc', 0, 3, [
                 ['name'=>'fiction','parent'=>''],
                 ['name'=>'nonfiction','parent'=>''],
                 ['name'=>'science fiction','parent'=>'fiction'],
+            ]],
+            ['Network', [], 'id', 'asc', 0, 3, [
+                ['name'=>'home','prefix'=>'192.168','part_of'=>''],
+                ['name'=>'dmz','prefix'=>'192.168.1','part_of'=>'home'],
+                ['name'=>'int','prefix'=>'192.168.2','part_of'=>'home'],
             ]],
         ];
     }
