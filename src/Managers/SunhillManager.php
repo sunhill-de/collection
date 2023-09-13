@@ -118,15 +118,22 @@ class SunhillManager
     protected function getTableColumn(PropertiesCollection $collection, string $column)
     {
         if (strpos($column,'->') === false) {
-            $result = $collection->$column;
+            if ($column == 'keyfield') {
+                $result = $this->getKeyfield($collection);
+            } else {
+                $result = $collection->$column;
+            }
             return $result;
         } else {
             list($field,$subfield) = explode('->',$column);
             $field = $collection->$field;
-            if (!empty($field)) {
-                return $field->$subfield;
+            if (empty($field)) {
+                return '';
             }
-            return '';
+            if ($subfield == 'keyfield') {
+                return $this->getKeyfield($field);    
+            }
+            return $field->$subfield;
         }
     }
     
