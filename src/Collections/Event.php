@@ -53,12 +53,13 @@ class Event extends Collection
              ->set_displayable(true)
              ->set_description('What kind of events was triggered');        
         $list->object('to_whom')
-             ->setAllowedClasses(['Person','Medium','Property'])
+             ->setAllowedClasses(['Person','CreativeWork','Property'])
              ->set_editable(true)
              ->set_groupeditable(true)
              ->set_displayable(true)
              ->set_description('Who or what was the target of the event');
         $list->varchar('payload')
+             ->setDefault('')
              ->set_editable(true)
              ->set_groupeditable(true)
              ->set_displayable(true)
@@ -75,6 +76,10 @@ class Event extends Collection
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
+		
+		static::addInfo('table_columns',['who'=>'who->keyfield','when','what'=>'what->name','to_whom'=>'to_whom->keyfield','payload']);
+		static::addInfo('keyfield',':when');
+		
 	}
 
 }

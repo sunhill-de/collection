@@ -4,7 +4,7 @@
  * @file Anniversary.php
  * Provides informations about an anniversary
  * Lang en
- * Reviewstatus: 2022-09-1
+ * Reviewstatus: 2023-09-13
  * Localization: complete
  * Documentation: unknown
  * Tests: unknown
@@ -69,5 +69,7 @@ class Anniversary extends Collection
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name','type']);
+		static::addInfo('keyfield',':name');
+    }
 }

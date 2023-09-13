@@ -47,6 +47,8 @@ class EventType extends Collection
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name']);
+		static::addInfo('keyfield',':name');
+   }
 
 }
