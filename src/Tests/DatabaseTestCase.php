@@ -31,6 +31,8 @@ use Sunhill\Collection\Objects\Persons\FamilyMember;
 use Sunhill\Collection\Collections\PersonsRelation;
 use Sunhill\Collection\Collections\Staff;
 use Sunhill\Collection\Collections\StaffJob;
+use Sunhill\Collection\Collections\Anniversary;
+use Sunhill\Collection\Collections\Event;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -193,7 +195,7 @@ class DatabaseTestCase extends CollectionTestCase
     {
         Movie::seed(
             [
-                [
+                'fightclub'=>[
                     'name'=>'Fight Club',
                     'original_name'=>'Fight Club',
                     'sort_name'=>'FIGHTCLUB',
@@ -277,11 +279,24 @@ class DatabaseTestCase extends CollectionTestCase
     protected function seedFamilyMembers()
     {
         $homer = FamilyMember::seed([
-            'homer'=>['firstname'=>'Homer','middlename'=>'Jay','lastname'=>'Simpson','sex'=>'male','date_of_birth'=>"1956-05-12",'address'=>FamilyMember::getSeedID('simpsons')],            
-            'marge'=>['firstname'=>'Marge','lastname'=>'Simpson','sex'=>'female',"birth_name"=>"Bouvier",'address'=>FamilyMember::getSeedID('simpsons')]            
+            'homer'=>[
+                'firstname'=>'Homer',
+                'middlename'=>'Jay',
+                'lastname'=>'Simpson',
+                'sex'=>'male',
+                'date_of_birth'=>"1956-05-12",
+                'address'=>FamilyMember::getSeedID('simpsons')                
+            ],            
+            'marge'=>[
+                'firstname'=>'Marge',
+                'lastname'=>'Simpson',
+                'sex'=>'female',
+                "birth_name"=>"Bouvier",
+                'address'=>FamilyMember::getSeedID('simpsons')                
+            ]            
         ]);
         FamilyMember::seed([
-            [
+            'bart'=>[
                 'firstname'=>"Bart",
                 "lastname"=>"Simpson",
                 "sex"=>"male",
@@ -290,7 +305,7 @@ class DatabaseTestCase extends CollectionTestCase
                 'mother'=>FamilyMember::getSeedID('marge'),
                 'address'=>FamilyMember::getSeedID('simpsons')                
             ],
-            [
+            'lisa'=>[
                 'firstname'=>"Lisa",
                 "lastname"=>"Simpson",
                 "sex"=>"female",
@@ -299,7 +314,7 @@ class DatabaseTestCase extends CollectionTestCase
                 'mother'=>FamilyMember::getSeedID('marge'),
                 'address'=>FamilyMember::getSeedID('simpsons')                
             ],
-            [
+            'maggie'=>[
                 'firstname'=>"Maggie",
                 "lastname"=>"Simpson",
                 "sex"=>"female",
@@ -322,6 +337,27 @@ class DatabaseTestCase extends CollectionTestCase
         ]);        
     }
     
+    protected function seedAnniversaries()
+    {
+        Anniversary::seed([
+            ['name'=>"Homer's birthday", 'first'=>'1956-05-12', 'type'=>'birthday', 'persons'=>[Anniversary::getSeedID('homer')]],
+            ['name'=>"Bart's birthday", 'first'=>'1980-02-03', 'type'=>'birthday', 'persons'=>[Anniversary::getSeedID('bart')]],
+            ['name'=>"Lisa's birthday", 'first'=>'1981-05-09', 'type'=>'birthday', 'persons'=>[Anniversary::getSeedID('lisa')]],
+        ]);    
+    }
+    
+    protected function seedEvents()
+    {
+        Event::seed([
+            [
+                'who'=>Event::getSeedID('homer'),
+                'when'=>'2023-09-13 11:39:00',
+                'what'=>Event::getSeedID('watch'),
+                'to_whom'=>Event::getSeedID('fightclub')
+            ],
+        ]);    
+    }
+    
     protected function seedDatabase()
     {
         $this->seedProductGroups();
@@ -339,6 +375,8 @@ class DatabaseTestCase extends CollectionTestCase
         $this->seedGenres();
         $this->seedFamilyMembers();
         $this->seedPersonsRelations();
+        $this->seedAnniversaries();
+        $this->seedEvents();
     }
     
 }
