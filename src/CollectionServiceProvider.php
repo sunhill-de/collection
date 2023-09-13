@@ -93,7 +93,6 @@ class CollectionServiceProvider extends ServiceProvider
     protected function registerCollections()
     {
         Collections::registerCollection(Anniversary::class);
-        Collections::registerCollection(AudioMedium::class);
         Collections::registerCollection(Event::class);
         Collections::registerCollection(EventType::class);
         Collections::registerCollection(Genre::class);
