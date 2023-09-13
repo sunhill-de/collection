@@ -34,7 +34,8 @@ class Staff extends Collection
             ->set_editable(true)
             ->set_groupeditable(false)
             ->set_displayable(true);
-        $list->varchar('job')
+        $list->collection('job')
+            ->setAllowedCollection('StaffJob')
             ->set_description('What was the job of the person')
             ->searchable()
             ->set_editable(true)
@@ -59,5 +60,8 @@ class Staff extends Collection
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+	
+		static::addInfo('table_columns',['person'=>'person->keyfield','job'=>'job->name','additional']);
+		static::addInfo('keyfield',':person->keyfield additional?(:additional)');
+  }
 }
