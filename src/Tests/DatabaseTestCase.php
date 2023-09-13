@@ -172,22 +172,22 @@ class DatabaseTestCase extends CollectionTestCase
         Staff::seed([
             'narrator'=>[
                 'person'=>Staff::getSeedID('norton'),
-                'job'=>'actor',
+                'job'=>Staff::getSeedID('actor'),
                 'additional'=>'Narrator'
             ],
             'durden'=>[
                 'person'=>Staff::getSeedID('pitt'),
-                'job'=>'actor',
+                'job'=>Staff::getSeedID('actor'),
                 'additional'=>'Tyler Durden'
             ],
             'singer'=>[
                 'person'=>Staff::getSeedID('carter'),
-                'job'=>'actor',
+                'job'=>Staff::getSeedID('actor'),
                 'additional'=>'Marla Singer'
             ],
             'dir_fincher'=>[
-                'person'=>Staff::getSeedID('fincher'),
-                'job'=>'director',
+                'person'=>Staff::getSeedID('fincher'),                
+                'job'=>Staff::getSeedID('director'),
             ],            
         ]);        
     }
