@@ -33,6 +33,7 @@ use Sunhill\Collection\Collections\Staff;
 use Sunhill\Collection\Collections\StaffJob;
 use Sunhill\Collection\Collections\Anniversary;
 use Sunhill\Collection\Collections\Event;
+use Sunhill\Collection\Collections\Network;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -358,6 +359,31 @@ class DatabaseTestCase extends CollectionTestCase
         ]);    
     }
     
+    protected function seedNetworks()
+    {
+        Network::seed([
+            'homenet'=>[
+                'name'=>'home',
+                'prefix'=>'192.168',
+                'description'=>'The home network'
+            ]
+        ]);    
+        Network::seed([
+            'dmz'=>[
+                'name'=>'dmz',
+                'prefix'=>'192.168.1',
+                'description'=>'The demilitarized zone',
+                'part_of'=>Network::getSeedID('homenet')
+            ],
+            'int'=>[
+                'name'=>'int',
+                'prefix'=>'192.168.2',
+                'description'=>'The internal network',
+                'part_of'=>Network::getSeedID('homenet')
+            ],            
+        ]);
+    }
+    
     protected function seedDatabase()
     {
         $this->seedProductGroups();
@@ -377,6 +403,7 @@ class DatabaseTestCase extends CollectionTestCase
         $this->seedPersonsRelations();
         $this->seedAnniversaries();
         $this->seedEvents();
+        $this->seedNetworks();
     }
     
 }
