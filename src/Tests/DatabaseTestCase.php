@@ -29,6 +29,8 @@ use Sunhill\Collection\Objects\Persons\Person;
 use Sunhill\Collection\Objects\Persons\FamilyMember;
 
 use Sunhill\Collection\Collections\PersonsRelation;
+use Sunhill\Collection\Collections\Staff;
+use Sunhill\Collection\Collections\StaffJob;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -72,7 +74,7 @@ class DatabaseTestCase extends CollectionTestCase
             SunhillSiteManager::installRoutes();
     }
 
-    protected function seedProductionGroups()
+    protected function seedProductGroups()
     {
         ProductGroup::seed(['food'=>['name'=>'food']]);
         ProductGroup::seed(['nonfood'=>['name'=>'nonfood']]);
@@ -151,6 +153,42 @@ class DatabaseTestCase extends CollectionTestCase
         
     }
     
+    protected function seedStaffJobs()
+    {
+        StaffJob::seed([
+            'actor'=>['name'=>'actor'],
+            'director'=>['name'=>'director'],
+            'guitar'=>['name'=>'lead guitar'],
+            'bass'=>['name'=>'bass guitar'],
+            'drums'=>['name'=>'drums']
+        ]);
+    }
+    
+    protected function seedStaff()
+    {
+        Staff::seed([
+            'narrator'=>[
+                'person'=>Staff::getSeedID('norton'),
+                'job'=>'actor',
+                'additional'=>'Narrator'
+            ],
+            'durden'=>[
+                'person'=>Staff::getSeedID('pitt'),
+                'job'=>'actor',
+                'additional'=>'Tyler Durden'
+            ],
+            'singer'=>[
+                'person'=>Staff::getSeedID('carter'),
+                'job'=>'actor',
+                'additional'=>'Marla Singer'
+            ],
+            'dir_fincher'=>[
+                'person'=>Staff::getSeedID('fincher'),
+                'job'=>'director',
+            ],            
+        ]);        
+    }
+    
     protected function seedMovies()
     {
         Movie::seed(
@@ -165,7 +203,8 @@ class DatabaseTestCase extends CollectionTestCase
                     'length'=>139,
                     'imdb_id'=>'tt0137523',
                     'tmdb_id'=>'/movie/550-fight-club',
-                    'keywords'=>['fight','anarchy']
+                    'keywords'=>['fight','anarchy'],
+                    'staff'=>[Movie::getSeedID('narrator'),Movie::getSeedID('durden'),Movie::getSeedID('singer'),Movie::getSeedID('dir_fincher')]
                 ],
                 [
                     'name'=>'Die Stadt der verlorenen Kinder',
@@ -284,7 +323,7 @@ class DatabaseTestCase extends CollectionTestCase
         PersonsRelation::seed([
             [
                 'person1'=>FamilyMember::getSeedID('homer'),
-                'person2'=>FamilyMember::getSeedID('homer'),
+                'person2'=>FamilyMember::getSeedID('marge'),
                 'relation'=>'marriage'                
             ]
         ]);        
@@ -292,7 +331,7 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
-        $this->seedProductionGroups();
+        $this->seedProductGroups();
         $this->seedPersons();
         $this->seedCountries();
         $this->seedCities();
@@ -300,6 +339,8 @@ class DatabaseTestCase extends CollectionTestCase
         $this->seedAddresses();        
         $this->seedLanguages();
         $this->seedTVSeries();
+        $this->seedStaffJobs();
+        $this->seedStaff();
         $this->seedMovies();
         $this->seedEventTypes();
         $this->seedGenres();
