@@ -138,6 +138,37 @@ class SunhillManager
     }
     
     /**
+     * Replaces all occurances of :XXXX with $collection->XXXX
+     * @param PropertiesCollection $collection
+     * @param string $input
+     * @return string
+     */
+    protected function replaceVariables(PropertiesCollection $collection, string $input): string
+    {
+        preg_match_all('/\:([A-Za-z_0-9\->]+)/s',$input,$matches);
+        foreach ($matches[1] as $match) {
+            $input = str_replace(':'.$match,$this->getTableColumn($collection,$match),$input);
+        }
+        return $input;
+    }
+
+    protected function replaceConditionalFields(PropertiesCollection $collection, string $input): string
+    {
+        preg_match_all('/(\S+)\?(\S+)/s', $input, $matches);
+        for ($i=0;$i<count($matches[0]);$i++) {
+            $result = $this->getTableColumn($collection, $matches[1][$i]);
+            if (empty($result)) {
+                $input = str_replace($matches[0][$i],'', $input);
+            } else {
+                $input = str_replace($matches[0][$i], 
+                                     $this->replaceVariables($collection, $matches[2][$i]),
+                                     $input);
+            }
+        }        
+        return $input;
+    }
+    
+    /**
      * Returns the defines keyfield or just uuid if no keyfield was set
      * @param PropertiesCollection $collection
      * @return unknown
@@ -145,11 +176,9 @@ class SunhillManager
     public function getKeyfield(PropertiesCollection $collection)
     {
         $keyfield = $collection::getInfo('keyfield', ':_uuid');
-        
-        $vars = preg_match_all('/\:(\S+)/s',$keyfield,$matches);
-        foreach ($matches[1] as $match) {
-            $keyfield = str_replace(':'.$match,$this->getTableColumn($collection,$match),$keyfield);
-        }
+
+        $keyfield = $this->replaceConditionalFields($collection, $keyfield);
+        $keyfield = $this->replaceVariables($collection, $keyfield);        
         return $keyfield;        
     }
     
