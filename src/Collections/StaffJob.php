@@ -38,7 +38,7 @@ class StaffJob extends Collection
   protected static function setupInfos()
 	{
 		static::addInfo('name','StaffJob');
-		static::addInfo('table','staffjobss');
+		static::addInfo('table','staffjobs');
         static::addInfo('name_s','staff job',true);
         static::addInfo('name_p','staff jobs',true);
         static::addInfo('description','Stores informations about staff jobs', true);
