@@ -23,6 +23,7 @@ use Sunhill\Collection\Objects\Locations\City;
 use Sunhill\Collection\Objects\Locations\Street;
 use Sunhill\Collection\Objects\Locations\Floor;
 use Sunhill\Collection\Objects\Locations\Room;
+use Sunhill\Collection\Collections\MusicalArtist;
 
 class SunhillManagerTest extends DatabaseTestCase
 {
@@ -90,11 +91,13 @@ class SunhillManagerTest extends DatabaseTestCase
     public static function getKeyfieldProvider()
     {
         return [
+            // Test collections
             [Anniversary::class, 1, "Homer's birthday"],
             [Event::class, 1, "2023-09-13 11:39:00"],
             [EventType::class, 1, 'watch'],
             [Genre::class, 1, 'fiction'],
             [Language::class, 1, 'english'],
+            [MusicalArtist::class, 1, 'Muse'],
             [Network::class, 1, 'home'],
             [PersonsRelation::class, 1, 'marriage Homer Simpson & Marge Simpson'],
             [ProductGroup::class, 1, 'food'],
@@ -102,17 +105,18 @@ class SunhillManagerTest extends DatabaseTestCase
             [Staff::class, 4, 'David Fincher '],
             [StaffJob::class, 1, 'actor'],
             
+            // Test person related objects
             [Person::class, 'norton', 'Edward Norton'],
             [Friend::class, 'carl', 'Carl Carlson'],
             [FamilyMember::class, 'homer', 'Homer Simpson'],            
 
+            // Test location related objects
             [Country::class, 'usa', 'U.S.A.'],
             [City::class, 'springfield', 'Springfield'],
             [Street::class, 'evergreen', 'Evergreen Terrace'],
             [Address::class, 'simpsons', '742 Evergreen Terrace'],
             [Floor::class, 'ground', 'Ground floor'],
             [Room::class, 'living', 'Living room'],
-            
             
         ];    
     }
@@ -154,10 +158,38 @@ class SunhillManagerTest extends DatabaseTestCase
                 ['name'=>'nonfiction','parent'=>''],
                 ['name'=>'science fiction','parent'=>'fiction'],
             ]],
+            ['Language', [], 'id', 'asc', 0, 3, [
+                ['name'=>'english','iso'=>'en'],
+                ['name'=>'german','iso'=>'de'],
+                ['name'=>'french','iso'=>'fr'],
+            ]],
+            ['MusicalArtist', [], 'id', 'asc', 0, 3, [
+                ['name'=>'Muse','type'=>'group'],
+                ['name'=>'Iron Maiden','type'=>'group'],
+                ['name'=>'french','type'=>'group'],
+            ]],
             ['Network', [], 'id', 'asc', 0, 3, [
                 ['name'=>'home','prefix'=>'192.168','part_of'=>''],
                 ['name'=>'dmz','prefix'=>'192.168.1','part_of'=>'home'],
                 ['name'=>'int','prefix'=>'192.168.2','part_of'=>'home'],
+            ]],
+            ['PersonsRelation', [], 'id', 'asc', 0, 3, [
+                ['person1'=>'Homer Simpson','person2'=>'Marge Simpson','relation'=>'marriage'],
+            ]],
+            ['ProductGroup', [], 'id', 'asc', 0, 3, [
+                ['name'=>'food','part_of'=>''],
+                ['name'=>'nonfood','part_of'=>''],
+                ['name'=>'electronics','part_of'=>'nonfood'],
+            ]],
+            ['Staff', [], 'id', 'asc', 0, 3, [
+                ['person'=>'Edward Norton','job'=>'actor','additional'=>'Narrator'],
+                ['person'=>'Brad Pitt','job'=>'actor','additional'=>'Tyler Durden'],
+                ['person'=>'Helena Bonham Carter','job'=>'actor','additional'=>'Marla Singer'],
+            ]],
+            ['StaffJob', [], 'id', 'asc', 0, 3, [
+                ['name'=>'actor'],
+                ['name'=>'director'],
+                ['name'=>'guitar'],
             ]],
         ];
     }
