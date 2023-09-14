@@ -209,6 +209,7 @@ class SunhillManager
             $query->where($condition['key'],$condition['relation'],$condition['value']);
         }
         $query->orderBy($order, $order_direction);
+        return $query;
     }
 
     protected function getCollectionListEntries($namespace, $query_base, int $offset = 0, int $limit = 10)
