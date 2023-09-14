@@ -49,7 +49,7 @@ class PersonsRelation extends Collection
     
     protected static function setupInfos()
 	{
-		static::addInfo('name','PersonrRlation');
+		static::addInfo('name','PersonsRelation');
 		static::addInfo('table','personrelations');
       	static::addInfo('name_s','person relation',true);
        	static::addInfo('name_p','person relations',true);
