@@ -18,6 +18,8 @@ use Sunhill\ORM\Facades\Collections;
 use Sunhill\Collection\Collections\Language;
 use Sunhill\Collection\Collections\EventType;
 use Sunhill\ORM\Objects\PropertiesCollection;
+use Sunhill\ORM\Facades\Classes;
+use Sunhill\ORM\Facades\Objects;
 
 class SunhillManager
 {
@@ -114,7 +116,7 @@ class SunhillManager
         return $result;
     }
     
-// ******************************** List helpers **********************************************
+// ************************** List and dialog helpers **********************************************
     protected function getTableColumn(PropertiesCollection $collection, string $column)
     {
         if (strpos($column,'->') === false) {
@@ -184,7 +186,10 @@ class SunhillManager
     
     protected function getTableRow(PropertiesCollection $collection)
     {
-        $result = [];
+        $result = [
+            'id'=>$collection->getID(),
+            'class'=>$collection::getInfo('name')
+        ];
         
         foreach ($collection::getInfo('table_columns',['uuid'=>'_uuid']) as $name => $column) {
             if (is_numeric($name)) {
@@ -197,6 +202,58 @@ class SunhillManager
         return $result;
     }
 
+    protected function buildCollectionQuery(string $collection_namespace, array $conditions = [], string $order = 'id', string $order_direction = 'asc')
+    {
+        $query = $collection_namespace::search();
+        foreach ($conditions as $condition) {
+            $query->where($condition['key'],$condition['relation'],$condition['value']);
+        }
+        $query->orderBy($order, $order_direction);
+    }
+
+    protected function getCollectionListEntries($namespace, $query_base, int $offset = 0, int $limit = 10)
+    {
+        if ($offset) {
+            $query_base->offset($offset);
+        }
+        $query_base->limit($limit);
+        $entries = $query_base->get();
+        $result = [];
+        foreach ($entries as $entry) {
+            $collection = Collections::loadCollection($namespace, $entry->id);
+            $result[] = $this->getTableRow($collection);
+        }
+        return $result;
+    }
+    
+    protected function getObjectListEntries($namespace, $query_base, int $offset = 0, int $limit = 10)
+    {
+        if ($offset) {
+            $query_base->offset($offset);
+        }
+        $query_base->limit($limit);
+        $entries = $query_base->get();
+        $result = [];
+        foreach ($entries as $entry) {
+            $collection = Objects::load($entry->id);
+            $row = $this->getTableRow($collection);
+            
+            $result[] = $row;
+        }
+        return $result;
+    }
+    
+    protected function getGroupEditable(string $namesapce)
+    {
+        $list = $namespace::getAllPropertyDefinitions();
+        foreach ($list as $entry) {
+            if ($entry->group_editable) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * Returns the entries of a list of the given collection with the given conditions, orderings and limitations
      * @param string $collection_name
@@ -210,23 +267,34 @@ class SunhillManager
     public function getCollectionList(string $collection_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
     {
         $namespace = Collections::searchCollection($collection_name);
-        $query = $namespace::search();
-        foreach ($conditions as $condition) {
-            $query->where($condition['key'],$condition['relation'],$condition['value']);
-        }
-        $query->orderBy($order, $order_direction);
-        if ($offset) {
-            $query->offset($offset);
-        }
-        $query->limit($limit);
-        
-        $entries = $query->get();
-        
-        $result = [];
-        foreach ($entries as $entry) {
-            $collection = Collections::loadCollection($namespace, $entry->id);
-            $result[] = $this->getTableRow($collection);
-        }
-        return $result;
+        $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);        
+        return $this->getCollectionListEntries($namespace, $query, $offset, $limit);
+    }
+    
+    public function getCollectionListParameters(string $collection_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
+    {
+        $namespace = Collections::searchCollection($collection_name);
+        $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);
+        return [
+            'name'=>$namespace::getInfo('name'),
+            'description'=>$namespace::getInfo('description'),
+            'editable'=>$namespace::getInfo('editable'),
+            'groupeditable'=>$this->getGroupEditable($namespace),
+            'instantiable'=>$namespace::getInfo('instantiable'),
+            'total_count'=>$query->count(),
+            'entries'=>$this->getCollectionListEntries($namespace, $query, $offset, $limit),
+            'filter'=>$conditions,
+            'order'=>$order,
+            'order_direction'=>$order_direction,
+            'offset'=>$offset,
+            'limit'=>$limit
+            ];
+    }
+    
+    public function getObjectList(string $object_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
+    {
+        $namespace = Classes::getNamespaceOfClass($object_name);
+        $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);
+        return $this->getObjectListEntries($namespace, $query, $offset, $limit);        
     }
 }
