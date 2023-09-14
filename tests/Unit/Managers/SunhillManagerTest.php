@@ -15,9 +15,18 @@ use Sunhill\Collection\Objects\Persons\Person;
 use Sunhill\Collection\Collections\Staff;
 use Sunhill\Collection\Collections\ProductGroup;
 use Sunhill\Collection\Collections\StaffJob;
+use Sunhill\Collection\Objects\Persons\Friend;
+use Sunhill\Collection\Objects\Persons\FamilyMember;
+use Sunhill\Collection\Objects\Locations\Country;
+use Sunhill\Collection\Objects\Locations\Address;
+use Sunhill\Collection\Objects\Locations\City;
+use Sunhill\Collection\Objects\Locations\Street;
+use Sunhill\Collection\Objects\Locations\Floor;
+use Sunhill\Collection\Objects\Locations\Room;
 
 class SunhillManagerTest extends DatabaseTestCase
 {
+// ************************ Search and insert helpers ************************    
     public function testSearchEventType()
     {
         $this->assertEquals('watch',SunhillManager::searchEventType('watch')->name);
@@ -58,7 +67,9 @@ class SunhillManagerTest extends DatabaseTestCase
         $this->assertEquals('producer',SunhillManager::searchOrInsertStaffJob('producer')->name);
         $this->assertDatabaseHas('staffjobs',['name'=>'producer']);
     }
-   
+
+// ************************** List and dialogs helpers *************************
+    
     /**
      * @dataProvider GetKeyfieldProvider
      * @group keyfield
@@ -75,7 +86,7 @@ class SunhillManagerTest extends DatabaseTestCase
         
         $this->assertEquals($expect, SunhillManager::getKeyfield($object));
     }
-    
+
     public static function getKeyfieldProvider()
     {
         return [
@@ -91,7 +102,18 @@ class SunhillManagerTest extends DatabaseTestCase
             [Staff::class, 4, 'David Fincher '],
             [StaffJob::class, 1, 'actor'],
             
-            [Person::class, 'homer', 'Homer Simpson'],
+            [Person::class, 'norton', 'Edward Norton'],
+            [Friend::class, 'carl', 'Carl Carlson'],
+            [FamilyMember::class, 'homer', 'Homer Simpson'],            
+
+            [Country::class, 'usa', 'U.S.A.'],
+            [City::class, 'springfield', 'Springfield'],
+            [Street::class, 'evergreen', 'Evergreen Terrace'],
+            [Address::class, 'simpsons', '742 Evergreen Terrace'],
+            [Floor::class, 'ground', 'Ground floor'],
+            [Room::class, 'living', 'Living room'],
+            
+            
         ];    
     }
     
@@ -102,7 +124,7 @@ class SunhillManagerTest extends DatabaseTestCase
      */
     public function testGetCollectionList($collection, $conditions, $order, $order_dir, $offset, $limit, $expect)
     {
-        $this->assertEquals($expect, SunhillManager::getCollectionList($collection, $conditions, $order, $order_dir, $offset, $limit));                
+        $this->assertTrue($this->checkArrays($expect, SunhillManager::getCollectionList($collection, $conditions, $order, $order_dir, $offset, $limit)));                
     }
     
     public static function GetCollectionListProvider()
