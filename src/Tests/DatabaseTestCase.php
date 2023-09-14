@@ -37,6 +37,7 @@ use Sunhill\Collection\Collections\Network;
 use Sunhill\Collection\Objects\Persons\Friend;
 use Sunhill\Collection\Objects\Locations\Floor;
 use Sunhill\Collection\Objects\Locations\Room;
+use Sunhill\Collection\Collections\MusicalArtist;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -87,6 +88,17 @@ class DatabaseTestCase extends CollectionTestCase
         ProductGroup::seed(['electronics'=>['name'=>'electronics','part_of'=>ProductGroup::getSeedID('nonfood')]]);
         ProductGroup::seed(['computer'=>['name'=>'computer', 'part_of'=>ProductGroup::getSeedID('electronics')]]);
         ProductGroup::seed(['beer'=>['name'=>'beer','part_of'=>ProductGroup::getSeedID('food')]]);        
+    }
+    
+    protected function seedMusicalArtists()
+    {
+        MusicalArtist::seed([
+            'muse'=>['name'=>'Muse','sort_name'=>'MUSE','type'=>'group','gender'=>'none'],
+            'maiden'=>['name'=>'Iron Maiden','sort_name'=>'Iron Maiden','type'=>'group','gender'=>'none'],
+            ['name'=>'The Vaccines','sort_name'=>'VACCINES, THE','type'=>'group','gender'=>'none'],
+            ['name'=>'Bruce Springsteen','sort_name'=>'SPRINGESTEEN, BRUCE','type'=>'person','gender'=>'male'],
+            ['name'=>'Muzzle','sort_name'=>'MUZZLE','type'=>'group','gender'=>'none'],
+        ]);    
     }
     
     protected function seedPersons()
@@ -431,6 +443,7 @@ class DatabaseTestCase extends CollectionTestCase
         $this->seedEventTypes();
         $this->seedGenres();
         $this->seedStaffJobs();
+        $this->seedMusicalArtists();
         
         // Seed locations
         $this->seedCountries();

@@ -18,7 +18,6 @@ use Sunhill\Collection\Objects\Creative\CreativeWork;
 use Sunhill\Collection\Objects\Creative\Episode;
 use Sunhill\Collection\Objects\Creative\Movie;
 use Sunhill\Collection\Objects\Creative\MovieSeries;
-use Sunhill\Collection\Objects\Creative\MusicalArtist;
 use Sunhill\Collection\Objects\Creative\TVSeries;
 use Sunhill\Collection\Objects\Creative\VisualCollection;
 use Sunhill\Collection\Objects\Creative\VisualStandaloneWork;
@@ -64,7 +63,6 @@ use Illuminate\Support\Facades\Blade;
 use Sunhill\ORM\Facades\Collections;
 
 use Sunhill\Collection\Collections\Anniversary;
-use Sunhill\Collection\Collections\AudioMedium;
 use Sunhill\Collection\Collections\Event;
 use Sunhill\Collection\Collections\EventType;
 use Sunhill\Collection\Collections\Genre;
@@ -75,6 +73,7 @@ use Sunhill\Collection\Collections\Staff;
 use Sunhill\Collection\Collections\Transaction;
 use Sunhill\Collection\Collections\StaffJob;
 use Sunhill\Collection\Facades\SunhillManager;
+use Sunhill\Collection\Collections\MusicalArtist;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -103,6 +102,7 @@ class CollectionServiceProvider extends ServiceProvider
         Collections::registerCollection(StaffJob::class);
         Collections::registerCollection(Transaction::class);        
         Collections::registerCollection(ProductGroup::class);
+        Collections::registerCollection(MusicalArtist::class);
     }
     
     protected function registerClasses()
@@ -117,7 +117,6 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(Episode::class);
         Classes::registerClass(Movie::class);
         Classes::registerClass(MovieSeries::class);
-        Classes::registerClass(MusicalArtist::class);
         Classes::registerClass(TVSeries::class);
         Classes::registerClass(VisualCollection::class);
         Classes::registerClass(VisualStandaloneWork::class);
@@ -167,45 +166,7 @@ class CollectionServiceProvider extends ServiceProvider
     
     
     protected function defineDialogs()
-    {
- //       Dialogs::addObjectListFields(Anniversary::class,['name','type']);
- //       Dialogs::addObjectKeyfield(Anniversary::class,':name');
-
-        Dialogs::addObjectListFields(Country::class,['name','iso_code']);
-        Dialogs::addObjectKeyfield(Country::class,':name');
-
-        Dialogs::addObjectListFields(CreativeWork::class,['name']);
-        Dialogs::addObjectKeyfield(CreativeWork::class,':name');
-        
-        Dialogs::addObjectListFields(Date::class,['begin_date','name']);
-        Dialogs::addObjectKeyfield(Date::class,':name');
-
-   //     Dialogs::addObjectListFields(Genre::class,['name','parent'=>'parent=>name']);
-   //     Dialogs::addObjectKeyfield(Genre::class,':name');
-
-   //     Dialogs::addObjectListFields(Language::class,['name','iso']);
-   //     Dialogs::addObjectKeyfield(Language::class,':name');
-        
-        Dialogs::addObjectListFields(Location::class,['name','part_of'=>'part_of=>name']);
-        Dialogs::addObjectKeyfield(Location::class,':name');
-
-        Dialogs::addObjectListFields(MusicalArtist::class,['name','sort_name']);
-        Dialogs::addObjectKeyfield(MusicalArtist::class,':name');        
-        
-    //    Dialogs::addObjectListFields(Network::class,['name','prefix','description','part_of'=>'part_of=>name']);
-    //    Dialogs::addObjectKeyfield(Network::class,':name');
-
-        Dialogs::addObjectListFields(Organisation::class,['name']);
-        Dialogs::addObjectKeyfield(Organisation::class,':name');
-
-        Dialogs::addObjectListFields(Person::class,['firstname','lastname']);
-        Dialogs::addObjectKeyfield(Person::class,':firstname :lastname');
-        
-        Dialogs::addObjectListFields(Property::class,['name','type']);
-        Dialogs::addObjectKeyfield(Property::class,':name');
-
- //       Dialogs::addObjectListFields(Transaction::class,['order_id','shop'=>'shop=>name']);
-        
+    {       
         Dialogs::addCSSResource(__DIR__.'/../resources/css');
         Dialogs::addJSResource(__DIR__.'/../resources/js');
     }

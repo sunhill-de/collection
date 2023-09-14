@@ -11,11 +11,11 @@
  * Coverage: unknown
  * Dependencies: ORMObject
  */
-namespace Sunhill\Collection\Objects\Creative;
+namespace Sunhill\Collection\Collections;
 
-use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyVarchar;
+use Sunhill\ORM\Objects\Collection;
 
 /**
  * The class for a musical artist
@@ -23,7 +23,7 @@ use Sunhill\ORM\Properties\PropertyVarchar;
  * @author lokal
  *        
  */
-class MusicalArtist extends ORMObject
+class MusicalArtist extends Collection
 {
     
     protected static function setupProperties(PropertyList $list)
@@ -89,5 +89,7 @@ class MusicalArtist extends ORMObject
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name','type']);
+		static::addInfo('keyfield',':name');
+    }
 }
