@@ -65,7 +65,8 @@ class FamilyMember extends Friend
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-		static::addInfo('table_columns',['firstname','lastname','sex']);
+		
+		static::addInfo('table_columns',['firstname','lastname','sex','date_of_birth']);
 		static::addInfo('keyfield',':firstname :lastname');
     }
 }

@@ -57,5 +57,7 @@ class Room extends Location
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name','part_of'=>'part_of->name','inside','type','owner'=>'owner->keyfield']);
+		static::addInfo('keyfield',':name');
+    }
 }

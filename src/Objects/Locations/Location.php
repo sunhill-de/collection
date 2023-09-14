@@ -52,7 +52,9 @@ class Location extends ORMObject
         static::addInfo('description','A class for locations', true);
         static::addInfo('options',0);
         static::addInfo('editable',true);
-        static::addInfo('instantiable',true);
+        static::addInfo('instantiable',false);
+        static::addInfo('table_columns',['name','part_of'=>'part_of->name']);
+        static::addInfo('keyfield',':name');
     }
     
     

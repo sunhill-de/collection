@@ -58,5 +58,7 @@ class CreativeWork extends ORMObject
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',false);
-	}
+		static::addInfo('table_columns',['nam','original_name']);
+		static::addInfo('keyfield',':name');
+    }
 }
