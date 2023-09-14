@@ -34,6 +34,9 @@ use Sunhill\Collection\Collections\StaffJob;
 use Sunhill\Collection\Collections\Anniversary;
 use Sunhill\Collection\Collections\Event;
 use Sunhill\Collection\Collections\Network;
+use Sunhill\Collection\Objects\Persons\Friend;
+use Sunhill\Collection\Objects\Locations\Floor;
+use Sunhill\Collection\Objects\Locations\Room;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -96,6 +99,17 @@ class DatabaseTestCase extends CollectionTestCase
         ]);            
     }
     
+    protected function seedFriends()
+    {
+        Friend::seed([
+            'carl'=>['firstname'=>'Carl','lastname'=>'Carlson','sex'=>'male','groups'=>['plant','bar'],'date_of_birth'=>'1960-12-12'],
+            ['firstname'=>'Lenny','lastname'=>'Leonard','sex'=>'male','groups'=>['plant','bar'],'date_of_birth'=>'1962-08-12'],
+            ['firstname'=>'Barney','lastname'=>'Gumble','sex'=>'male','groups'=>['bar'],'date_of_birth'=>'1962-01-08'],
+            ['firstname'=>'Moe', 'lastname'=>'Szyslak','sex'=>'male','groups'=>['bar']],
+            ['firstname'=>'Edna', 'lastname'=>'Krabappel','sex'=>'female','groups'=>['school']],            
+        ]);    
+    }
+    
     protected function seedCountries()
     {
         Country::seed([
@@ -129,6 +143,30 @@ class DatabaseTestCase extends CollectionTestCase
         Address::seed(['simpsons'=>['name'=>'742 Evergreen Terrace','house_number'=>'742','part_of'=>Street::getSeedID('evergreen')]]);        
     }
 
+    protected function seedFloors()
+    {
+        Floor::seed([
+            'cellar'=>['name'=>'Cellar', 'level'=>-1, 'part_of'=>Floor::getSeedID('simpsons')],
+            'ground'=>['name'=>'Ground floor', 'level'=>0, 'part_of'=>Floor::getSeedID('simpsons')],
+            'upstairs'=>['name'=>'Upstairs', 'level'=>1, 'part_of'=>Floor::getSeedID('simpsons')],
+            'attic'=>['name'=>'Attic', 'level'=>2, 'part_of'=>Floor::getSeedID('simpsons')],
+        ]);
+    }
+    
+    protected function seedRooms()
+    {
+        Room::seed([
+            'kitchen'=>['name'=>'Kitchen','inside'=>1,'type'=>'kitchen','part_of'=>Room::getSeedID('ground')],
+            'living'=>['name'=>'Living room','inside'=>1,'type'=>'living','part_of'=>Room::getSeedID('ground')],
+            'dining'=>['name'=>'Dining room','inside'=>1,'type'=>'dining','part_of'=>Room::getSeedID('ground')],
+
+            'barts'=>['name'=>"Bart's room",'inside'=>1,'type'=>'sleep','part_of'=>Room::getSeedID('upstairs')],
+            'lisas'=>['name'=>"Lisa's room",'inside'=>1,'type'=>'sleep','part_of'=>Room::getSeedID('upstairs')],
+            'maggies'=>['name'=>"Maggie's room",'inside'=>1,'type'=>'sleep','part_of'=>Room::getSeedID('upstairs')],
+            'bedroom'=>['name'=>"Bedroom",'inside'=>1,'type'=>'sleep','part_of'=>Room::getSeedID('upstairs')],
+        ]);
+    }
+    
     protected function seedLanguages()
     {
         Language::seed([
@@ -386,24 +424,33 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
+        // Seed non dependent tables
         $this->seedProductGroups();
-        $this->seedPersons();
+        $this->seedLanguages();
+        $this->seedNetworks();
+        $this->seedEventTypes();
+        $this->seedGenres();
+        $this->seedStaffJobs();
+        
+        // Seed locations
         $this->seedCountries();
         $this->seedCities();
         $this->seedStreets();
-        $this->seedAddresses();        
-        $this->seedLanguages();
-        $this->seedTVSeries();
-        $this->seedStaffJobs();
+        $this->seedAddresses();
+        $this->seedFloors();
+        $this->seedRooms();
+        
+        $this->seedPersons();
+        $this->seedFriends();
         $this->seedStaff();
+        
+        $this->seedTVSeries();
         $this->seedMovies();
-        $this->seedEventTypes();
-        $this->seedGenres();
         $this->seedFamilyMembers();
         $this->seedPersonsRelations();
         $this->seedAnniversaries();
+        
         $this->seedEvents();
-        $this->seedNetworks();
     }
     
 }
