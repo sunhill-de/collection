@@ -46,6 +46,6 @@ class CreativeCollection extends CreativeWork
        	static::addInfo('description','Informations about a collection of creative works', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
-		static::addInfo('instantiable',true);
+		static::addInfo('instantiable',false);
 	}
 }
