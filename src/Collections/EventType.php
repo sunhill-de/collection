@@ -32,7 +32,7 @@ class EventType extends Collection
         $list->varchar('name')
              ->searchable(true)
              ->set_editable(true)
-             ->set_groupeditable(true)
+             ->set_groupeditable(false)
              ->set_displayable(true)
              ->set_description('The name of the event type');
     }
