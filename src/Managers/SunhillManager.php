@@ -244,11 +244,11 @@ class SunhillManager
         return $result;
     }
     
-    protected function getGroupEditable(string $namesapce)
+    protected function getGroupEditable(string $namespace)
     {
         $list = $namespace::getAllPropertyDefinitions();
         foreach ($list as $entry) {
-            if ($entry->group_editable) {
+            if ($entry->get_groupeditable()) {
                 return true;
             }
         }
