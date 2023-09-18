@@ -58,7 +58,7 @@ class Country extends Location
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-		static::addInfo('table_columns',['name','iso_code','capital'=>'captial->name']);
+		static::addInfo('table_columns',['name','iso_code','capital'=>'capital->name']);
 		static::addInfo('keyfield',':name');
     }
 }
