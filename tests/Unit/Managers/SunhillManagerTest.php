@@ -168,9 +168,9 @@ class SunhillManagerTest extends DatabaseTestCase
             ['EventType', [['key'=>'name','relation'=>'=','value'=>'change']], 'name', 'asc', 0, 10, [['name'=>'change']]],
             
             ['Anniversary', [], 'id', 'asc', 0, 3, [
-                ['name'=>"Homer's birthday", 'type'=>'birthday'],
-                ['name'=>"Bart's birthday", 'type'=>'birthday'],
-                ['name'=>"Lisa's birthday", 'type'=>'birthday'],                
+                ['id'=>1,'name'=>"Homer's birthday", 'type'=>'birthday'],
+                ['id'=>2,'name'=>"Bart's birthday", 'type'=>'birthday'],
+                ['id'=>3,'name'=>"Lisa's birthday", 'type'=>'birthday'],                
             ]],
             ['Event', [], 'id', 'asc', 0, 1, [
                 [
@@ -248,6 +248,17 @@ class SunhillManagerTest extends DatabaseTestCase
     public static function GetObjectListProvider()
     {
         return [
+            ['Clip',[['name'=>"Bart's first steps",'type'=>'private']]],
+            ['CreativeCollection',[['name'=>'Alien']]],
+            ['CreativeStandaloneWork',[['name'=>'Fight Club']]],
+            ['CreativeWork',[['name'=>'Fight Club']]],
+            ['Episode',[['name'=>'Die Konstante','series'=>'Lost','season'=>4,'episode'=>5]]],
+            ['Movie',[['name'=>'Fight Club','original_name'=>'Fight Club','release_date'=>'1999-11-11']]],           
+            ['MovieSeries',[['name'=>'Alien']]],
+            ['TVSeries',[['name'=>'Lost']]],
+            ['VisualCollection',[['name'=>'Alien']]],
+            ['VisualStandaloneWork',[['name'=>'Fight Club']]],
+            
             ['Location', [['class'=>'Country','name'=>'germany'],['name'=>'france'],['name'=>'spain']]],
             ['Country', [['name'=>'germany','capital'=>''],['name'=>'france','capital'=>''],['name'=>'spain','capital'=>'']]],
             ['City', [['name'=>'Springfield','part_of'=>'U.S.A'],['name'=>'Berlin','part_of'=>'Germany'],['name'=>'Madrid','part_of'=>'Spain']]],
@@ -256,7 +267,6 @@ class SunhillManagerTest extends DatabaseTestCase
             ['Floor',[['name'=>'Cellar','part_of'=>'742 Evergreen Terrace']]],
             ['Room',[['name'=>'Kitchen','part_of'=>'Ground floor']]],
             
-            ['CreativeWork',[['name'=>'Bla','original_name'=>'Blub']]],
         ];
     }
 }
