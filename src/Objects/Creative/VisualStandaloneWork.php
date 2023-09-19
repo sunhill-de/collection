@@ -67,11 +67,11 @@ class VisualStandaloneWork extends CreativeStandaloneWork
     
   protected static function setupInfos()
 	{
-		static::addInfo('name','VisualWork');
-		static::addInfo('table','visualworks');
-        static::addInfo('name_s','visual work',true);
-        static::addInfo('name_p','visual works',true);
-        static::addInfo('description','Stores informations about visual works', true);
+		static::addInfo('name','VisualStandaloneWork');
+		static::addInfo('table','visualstandaloneworks');
+        static::addInfo('name_s','visual standalone work',true);
+        static::addInfo('name_p','visual standalone works',true);
+        static::addInfo('description','Stores informations about visual works that are a single part', true);
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
