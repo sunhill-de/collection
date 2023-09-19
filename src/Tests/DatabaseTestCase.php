@@ -41,6 +41,8 @@ use Sunhill\Collection\Collections\MusicalArtist;
 use Sunhill\Collection\Objects\Creative\MovieSeries;
 use Sunhill\Collection\Objects\Creative\Episode;
 use Sunhill\Collection\Objects\Creative\Clip;
+use Sunhill\Collection\Objects\Organisations\Shop;
+use Sunhill\Collection\Objects\Organisations\Manufacturer;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -549,6 +551,22 @@ class DatabaseTestCase extends CollectionTestCase
             ],            
         ]);
     }
+
+    protected function seedManufacturers()
+    {
+        Manufacturer::seed([
+            'sorny'=>['name'=>'Sorny','product_groups'=>[Manufacturer::getSeedID('electronics')]],
+            'mapple'=>['name'=>'Mapple','product_groups'=>[Manufacturer::getSeedID('electronics')]],
+        ]);        
+    }
+    
+    protected function seedShops()
+    {
+        Shop::seed([
+            'quick'=>['name'=>'Quick-E-Mart', 'kind'=>'local'],
+            'amazon'=>['name'=>'Amazon','kind'=>'online'],
+        ]);
+    }
     
     protected function seedDatabase()
     {
@@ -583,6 +601,9 @@ class DatabaseTestCase extends CollectionTestCase
         
         $this->seedPersonsRelations();
         $this->seedAnniversaries();
+        
+        $this->seedManufacturers();
+        $this->seedShops();
         
         $this->seedEvents();
     }
