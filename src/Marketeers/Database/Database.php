@@ -14,7 +14,7 @@
 
 namespace Sunhill\Collection\Marketeers\Database;
 
-use Sunhill\InfoMarket\Market\Marketeer;
+use Sunhill\ORM\InfoMarket\Marketeer;
 
 class Database extends Marketeer
 {
