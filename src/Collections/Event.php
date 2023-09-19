@@ -63,7 +63,7 @@ class Event extends Collection
              ->set_editable(true)
              ->set_groupeditable(true)
              ->set_displayable(true)
-             ->set_description('Additional infos to this event (see example above)');
+             ->set_description('Additional infos to this event');
     }
     
    protected static function setupInfos()
