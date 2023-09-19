@@ -35,6 +35,7 @@ class Clip extends VisualStandaloneWork
             ->set_groupeditable(false)
             ->set_displayable(true);        
         $list->enum('type')
+            ->set_description('Type of clip')
             ->setEnumValues(['music','private','other'])
             ->setDefault('other')
             ->searchable()
