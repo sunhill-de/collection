@@ -75,5 +75,7 @@ class VisualStandaloneWork extends CreativeStandaloneWork
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name','length']);
+		static::addInfo('keyfield',':name');
+  }
 }

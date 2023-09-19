@@ -26,13 +26,6 @@ class Clip extends VisualStandaloneWork
     
     protected static function setupProperties(PropertyList $list)
     {
-        $list->integer('length')
-            ->set_description('The length of this work in seconds')
-            ->setDefault(0)
-            ->searchable()
-            ->set_editable(true)
-            ->set_groupeditable(false)
-            ->set_displayable(true);
         $list->object('relation')
             ->set_description('Is this clip related to something')
             ->setAllowedClasses('object')
@@ -60,5 +53,7 @@ class Clip extends VisualStandaloneWork
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name','length','type']);
+		static::addInfo('keyfield',':name');
+  } 
 }

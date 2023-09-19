@@ -47,5 +47,7 @@ class CreativeCollection extends CreativeWork
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',false);
-	}
+		static::addInfo('table_columns',['name','original_name']);
+		static::addInfo('keyfield',':name');
+    }
 }

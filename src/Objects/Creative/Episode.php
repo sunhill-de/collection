@@ -28,7 +28,7 @@ class Episode extends VisualStandaloneWork
     {
         $list->object('series')
             ->set_description('The TV series this episode belongs to')
-            ->setAllowedClass('TVSeries')
+            ->setAllowedClasses('TVSeries')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
@@ -57,5 +57,7 @@ class Episode extends VisualStandaloneWork
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name','series'=>'series->name','season','episode','release_date']);
+		static::addInfo('keyfield',':name (S:season E:episode)');
+  }
 }

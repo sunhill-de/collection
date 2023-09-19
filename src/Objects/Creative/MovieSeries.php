@@ -38,5 +38,8 @@ class MovieSeries extends VisualCollection
         static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		
+		static::addInfo('table_columns',['name','original_name']);
+		static::addInfo('keyfield',':name');
+  }
 }
