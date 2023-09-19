@@ -15,6 +15,7 @@ namespace Sunhill\Collection\Objects\Organisations;
 
 use Sunhill\ORM\Objects\PropertyList;
 use Sunhill\ORM\Properties\PropertyObject;
+use Sunhill\ORM\Properties\PropertyCollection;
 
 /**
  * The class for manufacturers
@@ -28,8 +29,8 @@ class Manufacturer extends Organisation
     protected static function setupProperties(PropertyList $list)
     {
         $list->array('product_groups')
-            ->setElementType(PropertyObject::class)
-            ->setAllowedClasses('ProductGroup')
+            ->setElementType(PropertyCollection::class)
+            ->setAllowedClass('ProductGroup')
             ->set_description('What product groups does this manufacturer make')
             ->set_displayable(true)
             ->set_editable(true)
@@ -47,5 +48,7 @@ class Manufacturer extends Organisation
         static::addInfo('options',0); 
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+		static::addInfo('table_columns',['name']);
+		static::addInfo('keyfield',':name');
+  }
 }
