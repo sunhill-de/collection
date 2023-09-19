@@ -38,6 +38,9 @@ use Sunhill\Collection\Objects\Persons\Friend;
 use Sunhill\Collection\Objects\Locations\Floor;
 use Sunhill\Collection\Objects\Locations\Room;
 use Sunhill\Collection\Collections\MusicalArtist;
+use Sunhill\Collection\Objects\Creative\MovieSeries;
+use Sunhill\Collection\Objects\Creative\Episode;
+use Sunhill\Collection\Objects\Creative\Clip;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -206,7 +209,8 @@ class DatabaseTestCase extends CollectionTestCase
     protected function seedTVSeries()
     {
         TVSeries::seed(
-          ['lost'=>[
+          [
+              'lost'=>[
                 'name'=>'Lost',
                 'original_name'=>'Lost',
                 'sort_name'=>'LOST',
@@ -215,7 +219,25 @@ class DatabaseTestCase extends CollectionTestCase
                 'tmdb_id'=>'/tv/4609-lost',
                 'number_of_episodes'=>121,
                 'number_of_seasons'=>6
-           ],               
+           ],
+              'sons'=>[
+                  'name'=>'Sons of Anarchy',
+                  'original_name'=>'Sons of Anarchy',
+                  'sort_name'=>'SONSOFANARCHY',
+                  'item_count'=>92,
+                  'imdb_id'=>'tt1124373',
+                  'tmdb_id'=>'/tv/1409-sons-of-anarchy',
+                  'number_of_episodes'=>92,
+                  'number_of_seasons'=>7
+               ],
+              'from'=>[
+                  'name'=>'From',
+                  'original_name'=>'From',
+                  'sort_name'=>'From',
+                  'item_count'=>20,
+                  'number_of_episodes'=>20,
+                  'number_of_seasons'=>2
+              ]
           ]);
         
     }
@@ -289,6 +311,66 @@ class DatabaseTestCase extends CollectionTestCase
         
     }
     
+    protected function seedMovieSeries()
+    {
+        MovieSeries::seed([
+            'diehard'=>[
+                'name'=>'Stirb langsam',
+                'original_name'=>'Die hard',
+                'sort_name'=>'STIRBLANGSAM',
+                'item_count'=>5,
+            ], 
+            'rambo'=>[
+                'name'=>'Rambo',
+                'original_name'=>'Rambo',
+                'sort_name'=>'RAMBO',
+                'item_count'=>5,
+            ],
+            'alien'=>[
+                'name'=>'Alien',
+                'original_name'=>'Alien',
+                'sort_name'=>'ALIEN',
+                'item_count'=>6,                
+            ]
+        ]);    
+    }
+    
+    protected function seedEpisodes()
+    {
+        Episode::seed([
+            'constant'=>[
+                'name'=>'Die Konstante',
+                'original_name'=>'The constant',
+                'sort_name'=>'KONSTANTE, DIE',
+                'series'=>Episode::getSeedID('lost'),
+                'season'=>4,
+                'episode'=>5,
+                'length'=>44,
+                'release_date'=>'2008-02-27'
+            ],
+            [
+                'name'=>'Hüttenzauber',
+                'original_name'=>'Cabin Fever',
+                'sort_name'=>'HUTTENZAUBER',
+                'series'=>Episode::getSeedID('lost'),
+                'season'=>4,
+                'episode'=>11,
+                'length'=>44,
+                'release_date'=>'2008-05-08'
+            ],
+            [
+                'name'=>'Alle Guten Dinge',
+                'original_name'=>'All Good Things',
+                'sort_name'=>'ALLEGUTENDINGE',
+                'series'=>Episode::getSeedID('from'),
+                'season'=>1,
+                'episode'=>7,
+                'length'=>60,
+                'release_date'=>'2022-03-20'
+            ],
+        ]);    
+    }
+    
     protected function seedEventTypes()
     {
         EventType::seed([
@@ -343,7 +425,7 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedFamilyMembers()
     {
-        $homer = FamilyMember::seed([
+        FamilyMember::seed([
             'homer'=>[
                 'firstname'=>'Homer',
                 'middlename'=>'Jay',
@@ -389,6 +471,26 @@ class DatabaseTestCase extends CollectionTestCase
             ]            
         ]);
         
+    }
+    
+    protected function seedClips()
+    {
+        Clip::seed([
+            'bartsfirststeps'=>[
+                'name'=>"Bart's first steps",
+                'original_name'=>"Bart's first steps",
+                'sort_name'=>"BARTSFIRSTSTEPS",
+                'relation'=>Clip::getSeedID('bart'),
+                'type'=>'private'
+            ],
+            [
+                'name'=>"Lisa's first steps",
+                'original_name'=>"Lisa's first steps",
+                'sort_name'=>"LISASFIRSTSTEPS",
+                'relation'=>Clip::getSeedID('lisa'),
+                'type'=>'private'
+            ],
+        ]);
     }
     
     protected function seedPersonsRelations()
@@ -470,11 +572,15 @@ class DatabaseTestCase extends CollectionTestCase
         
         $this->seedPersons();
         $this->seedFriends();
+        $this->seedFamilyMembers();
         $this->seedStaff();
         
         $this->seedTVSeries();
         $this->seedMovies();
-        $this->seedFamilyMembers();
+        $this->seedMovieSeries();
+        $this->seedEpisodes();
+        $this->seedClips();
+        
         $this->seedPersonsRelations();
         $this->seedAnniversaries();
         
