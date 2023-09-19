@@ -193,4 +193,37 @@ class SunhillManagerTest extends DatabaseTestCase
             ]],
         ];
     }
+    
+    /**
+     * @group parameters
+     */
+    public function testGetCollectionListParameters()
+    {
+        $list = SunhillManager::getCollectionListParameters('EventType', [], 'id', 'asc', 0, 10);
+        $this->assertEquals(3, $list['total_count']);
+        $this->assertEquals('EventType', $list['name']);
+        $this->assertEquals('Stores information about an event type', $list['description']);
+        $this->assertFalse($list['groupeditable']);
+        $this->assertTrue($list['instantiable']);
+    }
+    
+    /**
+     * @dataProvider GetObjectListProvider
+     * @group objectlist
+     * @group listutils
+     */
+    public function testGetObjectList($collection, $expect)
+    {
+        $this->assertTrue($this->checkArrays($expect, SunhillManager::getObjectList($collection)));
+    }
+
+    public static function GetObjectListProvider()
+    {
+        return [
+            ['Location', [['name'=>'germany'],['name'=>'france'],['name'=>'spain']]],
+            ['Country', [['name'=>'germany','capital'=>''],['name'=>'france','capital'=>''],['name'=>'spain','capital'=>'']]],
+            ['City', [['name'=>'Springfield','part_of'=>'U.S.A'],['name'=>'Berlin','part_of'=>'Germany'],['name'=>'Madrid','part_of'=>'Spain']]],
+            
+        ];
+    }
 }
