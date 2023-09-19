@@ -1,4 +1,10 @@
 {
+  "*** Common":"Common ***",
+  "part_of":"part of",
+
+  "**** Event":"Event ****",
+  "to_whom":"to whom",
+
   "**** Adresss":"Adress ****",
   "house_number":"house number",
 
