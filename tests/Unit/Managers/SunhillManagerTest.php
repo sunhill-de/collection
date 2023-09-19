@@ -24,6 +24,11 @@ use Sunhill\Collection\Objects\Locations\Street;
 use Sunhill\Collection\Objects\Locations\Floor;
 use Sunhill\Collection\Objects\Locations\Room;
 use Sunhill\Collection\Collections\MusicalArtist;
+use Sunhill\Collection\Objects\Creative\Clip;
+use Sunhill\Collection\Objects\Creative\Episode;
+use Sunhill\Collection\Objects\Creative\MovieSeries;
+use Sunhill\Collection\Objects\Creative\TVSeries;
+use Sunhill\Collection\Objects\Creative\Movie;
 
 class SunhillManagerTest extends DatabaseTestCase
 {
@@ -117,6 +122,13 @@ class SunhillManagerTest extends DatabaseTestCase
             [Address::class, 'simpsons', '742 Evergreen Terrace'],
             [Floor::class, 'ground', 'Ground floor'],
             [Room::class, 'living', 'Living room'],
+            
+            // Test creative related objects
+            [Clip::class, 'bartsfirststeps', "Bart's first steps"],
+            [Episode::class, 'constant', 'Die Konstante (S4 E5)'],
+            [Movie::class, 'fightclub', 'Fight Club'],
+            [MovieSeries::class, 'alien','Alien'],
+            [TVSeries::class, 'sons', 'Sons of Anarchy'],
             
         ];    
     }
@@ -223,7 +235,12 @@ class SunhillManagerTest extends DatabaseTestCase
             ['Location', [['name'=>'germany'],['name'=>'france'],['name'=>'spain']]],
             ['Country', [['name'=>'germany','capital'=>''],['name'=>'france','capital'=>''],['name'=>'spain','capital'=>'']]],
             ['City', [['name'=>'Springfield','part_of'=>'U.S.A'],['name'=>'Berlin','part_of'=>'Germany'],['name'=>'Madrid','part_of'=>'Spain']]],
+            ['Street', [['name'=>'Evergreen Terrace','part_of'=>'Springfield'],['name'=>'Kufürstendamm','part_of'=>'Berlin']]],
+            ['Address',['name'=>'742 Evergreen Terrace','part_of'=>'Evergreen Terrace']],
+            ['Floor',['name'=>'Cellar','part_of'=>'742 Evergreen Terrace']],
+            ['Room',['name'=>'Kitchen','part_of'=>'Ground floor']],
             
+            ['CreativeWork',[['name'=>'Bla','original_name'=>'Blub']]],
         ];
     }
 }
