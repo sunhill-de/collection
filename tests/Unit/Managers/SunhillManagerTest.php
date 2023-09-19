@@ -29,6 +29,13 @@ use Sunhill\Collection\Objects\Creative\Episode;
 use Sunhill\Collection\Objects\Creative\MovieSeries;
 use Sunhill\Collection\Objects\Creative\TVSeries;
 use Sunhill\Collection\Objects\Creative\Movie;
+use Sunhill\Collection\Objects\Creative\VisualCollection;
+use Sunhill\Collection\Objects\Creative\VisualStandaloneWork;
+use Sunhill\Collection\Objects\Creative\CreativeWork;
+use Sunhill\Collection\Objects\Organisations\Manufacturer;
+use Sunhill\Collection\Objects\Organisations\Shop;
+use Sunhill\Collection\Objects\Organisations\Organisation;
+use Sunhill\Collection\Objects\Locations\Location;
 
 class SunhillManagerTest extends DatabaseTestCase
 {
@@ -110,10 +117,15 @@ class SunhillManagerTest extends DatabaseTestCase
             [Staff::class, 4, 'David Fincher '],
             [StaffJob::class, 1, 'actor'],
             
-            // Test person related objects
-            [Person::class, 'norton', 'Edward Norton'],
-            [Friend::class, 'carl', 'Carl Carlson'],
-            [FamilyMember::class, 'homer', 'Homer Simpson'],            
+            // Test creative related objects
+            [Clip::class, 'bartsfirststeps', "Bart's first steps"],
+            [Episode::class, 'constant', 'Die Konstante (S4 E5)'],
+            [Movie::class, 'fightclub', 'Fight Club'],
+            [MovieSeries::class, 'alien','Alien'],
+            [TVSeries::class, 'sons', 'Sons of Anarchy'],
+            [VisualCollection::class, 'alien', 'Alien'],
+            [VisualStandaloneWork::class, 'fightclub', 'Fight Club'],
+            [CreativeWork::class, 'fightclub', 'Fight Club'],
 
             // Test location related objects
             [Country::class, 'usa', 'U.S.A.'],
@@ -122,13 +134,16 @@ class SunhillManagerTest extends DatabaseTestCase
             [Address::class, 'simpsons', '742 Evergreen Terrace'],
             [Floor::class, 'ground', 'Ground floor'],
             [Room::class, 'living', 'Living room'],
+
+            // Organisations
+            [Organisation::class, 'quick', 'Quick-E-Mart'],
+            [Shop::class, 'quick', 'Quick-E-Mart'],
+            [Manufacturer::class, 'sorny','Sorny'],
             
-            // Test creative related objects
-            [Clip::class, 'bartsfirststeps', "Bart's first steps"],
-            [Episode::class, 'constant', 'Die Konstante (S4 E5)'],
-            [Movie::class, 'fightclub', 'Fight Club'],
-            [MovieSeries::class, 'alien','Alien'],
-            [TVSeries::class, 'sons', 'Sons of Anarchy'],
+            // Test person related objects
+            [Person::class, 'norton', 'Edward Norton'],
+            [Friend::class, 'carl', 'Carl Carlson'],
+            [FamilyMember::class, 'homer', 'Homer Simpson'],
             
         ];    
     }
@@ -226,19 +241,20 @@ class SunhillManagerTest extends DatabaseTestCase
      */
     public function testGetObjectList($collection, $expect)
     {
-        $this->assertTrue($this->checkArrays($expect, SunhillManager::getObjectList($collection)));
+        $list = SunhillManager::getObjectList($collection);
+        $this->assertTrue($this->checkArrays($expect, $list));
     }
 
     public static function GetObjectListProvider()
     {
         return [
-            ['Location', [['name'=>'germany'],['name'=>'france'],['name'=>'spain']]],
+            ['Location', [['class'=>'Country','name'=>'germany'],['name'=>'france'],['name'=>'spain']]],
             ['Country', [['name'=>'germany','capital'=>''],['name'=>'france','capital'=>''],['name'=>'spain','capital'=>'']]],
             ['City', [['name'=>'Springfield','part_of'=>'U.S.A'],['name'=>'Berlin','part_of'=>'Germany'],['name'=>'Madrid','part_of'=>'Spain']]],
             ['Street', [['name'=>'Evergreen Terrace','part_of'=>'Springfield'],['name'=>'Kufürstendamm','part_of'=>'Berlin']]],
-            ['Address',['name'=>'742 Evergreen Terrace','part_of'=>'Evergreen Terrace']],
-            ['Floor',['name'=>'Cellar','part_of'=>'742 Evergreen Terrace']],
-            ['Room',['name'=>'Kitchen','part_of'=>'Ground floor']],
+            ['Address',[['name'=>'742 Evergreen Terrace','part_of'=>'Evergreen Terrace']]],
+            ['Floor',[['name'=>'Cellar','part_of'=>'742 Evergreen Terrace']]],
+            ['Room',[['name'=>'Kitchen','part_of'=>'Ground floor']]],
             
             ['CreativeWork',[['name'=>'Bla','original_name'=>'Blub']]],
         ];
