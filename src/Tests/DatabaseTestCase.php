@@ -139,7 +139,21 @@ class DatabaseTestCase extends CollectionTestCase
             'springfield'=>['name'=>'Springfield','part_of'=>City::getSeedID('usa')],
             'berlin'=>['name'=>'Berlin','part_of'=>City::getSeedID('germany')],
             'madrid'=>['name'=>'Madrid','part_of'=>City::getSeedID('spain')],
+            'paris'=>['name'=>'Paris','part_of'=>City::getSeedID('france')],
+            'washington'=>['name'=>'Washington D.C.','part_of'=>City::getSeedID('usa')],
+            'london'=>['name'=>'London','part_of'=>City::getSeedID('gb')],
         ]);    
+    }
+    
+    protected function postSeedCountries()
+    {
+        Country::postSeed([
+            Country::getSeedID('germany')=>['capital'=>Country::getSeedID('berlin')],
+            Country::getSeedID('france')=>['capital'=>Country::getSeedID('paris')],
+            Country::getSeedID('usa')=>['capital'=>Country::getSeedID('washington')],
+            Country::getSeedID('spain')=>['capital'=>Country::getSeedID('madrid')],
+            Country::getSeedID('gb')=>['capital'=>Country::getSeedID('london')],            
+        ]);
     }
     
     protected function seedStreets()
@@ -448,6 +462,7 @@ class DatabaseTestCase extends CollectionTestCase
         // Seed locations
         $this->seedCountries();
         $this->seedCities();
+        $this->postSeedCountries();
         $this->seedStreets();
         $this->seedAddresses();
         $this->seedFloors();
