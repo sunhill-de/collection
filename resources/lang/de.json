@@ -583,7 +583,17 @@
   "Show class ':classname'":"Klasse ':classname' anzeigen",
   "Show class":"Klasse anzeigen",
   "Table name":"Name der Tabelle",
-  
+  "Show propeties of class ':classname'":"Properties der Klasse ':classname'",
+  "Nullable":"Null erlaubt",
+  "Group editable":"Gruppenbearbeiten erlaubt",
+  "Unit":"Einheit",
+  "Semantic":"Semantik",
+  "Additional":"Zusätzlich",
+  "Default":"Vorgabe",
+  "Allowed class: ":"Erlaube Klasse(n): ",
+  "Maximum length: :maxlen":"Maximale Länge: :maxlen",
+  "Element type: :element":"Elementtyp: :element",
+  	  
   "movie":"Film",
   "series":"Serie",
   "episode":"Serienepisode",
