@@ -87,6 +87,7 @@ class CollectionServiceProvider extends ServiceProvider
         $this->app->singleton(SunhillManager::class, function () { return new \Sunhill\Collection\Managers\SunhillManager(); } );
         $this->app->alias(SunhillManager::class,'sunhillmanager');
         $this->mergeConfigFrom(__DIR__.'/../config/collection.php', 'collection');
+        require_once __DIR__.'/Helpers/display_variable.php';
     }
     
     protected function registerCollections()

@@ -29,7 +29,11 @@
 				"tests/objects"
 			],
 			"Sunhill\\Collection\\" : "src"
-		}
+		},
+                "files" : [
+                   "src/Helpers/display_variable.php"
+                ]
+
 	},
 	"extra" : {
 		"laravel" : {
