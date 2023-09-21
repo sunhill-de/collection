@@ -77,7 +77,7 @@ trait SunhillManager_classes
     {
         $properties = $namespace::staticPropertyQuery()->get();
         foreach ($properties as $property) {
-            $property->class = isset($property_owner)?$property->owner::getInfo('name'):'';
+            $property->class = isset($property->owner)?$property->owner::getInfo('name'):'';
             if (!isset($property->description)) {
                 $property->description = '';
             }
