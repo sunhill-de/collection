@@ -43,6 +43,7 @@ use Sunhill\Collection\Objects\Creative\Episode;
 use Sunhill\Collection\Objects\Creative\Clip;
 use Sunhill\Collection\Objects\Organisations\Shop;
 use Sunhill\Collection\Objects\Organisations\Manufacturer;
+use Sunhill\Collection\Modules\Database\SunhillFeatureCollections;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -78,6 +79,7 @@ class DatabaseTestCase extends CollectionTestCase
         
         SunhillSiteManager::addDefaultSubmodule('Database','Database','Database',function($owner) {
             $owner->addSubmodule(new SunhillFeatureClasses());
+            $owner->addSubmodule(new SunhillFeatureCollections());
             $owner->addSubmodule(new SunhillFeatureObjects());
             $owner->addSubmodule(new SunhillFeatureTags());
             $owner->addSubmodule(new SunhillFeatureAttributes());
