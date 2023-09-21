@@ -10,7 +10,8 @@
   "parent":"Übergeordnet",
   "relation":"Beziehung",
   "private":"Privat",
-
+  "Namespace":"Namensraum",
+  
   "********************** Collections":"Collections ************************",
   "**** Anniversary":"Anniversary ****",
   "Name of the anniversary":"Name des Jahrestages",
@@ -578,6 +579,10 @@
   "File":"Datei",
   "Filter":"Importfilter",
   "Auto detect":"Automatische Erkennung",
+  "Object count":"Anzahl der Objekte",
+  "Show class ':classname'":"Klasse ':classname' anzeigen",
+  "Show class":"Klasse anzeigen",
+  "Table name":"Name der Tabelle",
   
   "movie":"Film",
   "series":"Serie",
