@@ -5,6 +5,7 @@ namespace Sunhill\Collection\Controllers\Database;
 use Illuminate\Routing\Controller;
 use Sunhill\Collection\Response\Database\Collections\ListCollectionsResponse;
 use Sunhill\Collection\Response\Database\Collections\ShowCollectionResponse;
+use Sunhill\Collection\Response\Database\Collections\ListCollectionResponse;
 
 class CollectionsController extends Controller
 {
@@ -30,43 +31,10 @@ class CollectionsController extends Controller
         return $response->response();
     }
     
-    public function add($class=null)
+    public function listCollection(string $collection, $page = 0, $order = 'id')
     {
-        if (is_null($class)) {
-            $response = new ChooseClassResponse();
-            $response->setAction(route('objects.add'));
-        } else {
-            $response = new AddObjectResponse();
-            $response->setClass($class);
-        }
+        $response = new ListCollectionResponse();
+        $response->setCollection($collection)->setOffset($page)->setOrder($order);
         return $response->response();
     }
-    
-    public function execAdd()
-    {
-        $response = new ExecAddObjectResponse();
-        return $response->response();
-    }
-    
-    public function edit($id)
-    {
-        $response = new EditObjectResponse();
-        $response->setID($id);
-        return $response->response();
-    }
-    
-    public function execEdit($id)
-    {
-        $response = new ExecEditObjectResponse();
-        $response->setID($id);
-        return $response->response();
-    }
-    
-    public function delete($id)
-    {
-        $response = new DeleteObjectResponse();
-        $response->setID($id);
-        return $response->response();
-    }
-    
 }
