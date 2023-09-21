@@ -16,7 +16,7 @@ class SunhillFeatureCollections extends SunhillModuleBase
         $this->addAction('List')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'list'])
             ->setVisible(true)
-            ->setRouteAddition('/{key?}/{page?}/{order?}')
+            ->setRouteAddition('/{page?}/{order?}')
             ->setAlias('collections.list');
         $this->addAction('Show')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'show'])

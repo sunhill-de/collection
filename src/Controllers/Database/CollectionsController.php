@@ -15,11 +15,10 @@ class CollectionsController extends Controller
         return $response->response();
     }
     
-    public function list($key='object',$page=0,$order='id')
+    public function list($page=0,$order='id')
     {
         $response = new ListCollectionsResponse();
         $response->setOffset($page);
-        $response->setKey($key);
         $response->setOrder($order);
         return $response->response();
     }

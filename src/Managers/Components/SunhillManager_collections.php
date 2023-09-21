@@ -51,7 +51,9 @@ trait SunhillManager_collections
     {
         $result = Collections::getRegisteredCollections();
         $return = [];
-        
+        if ($offset >= count($result)) {
+            throw new \Exception("Offset out of range.");
+        }
         foreach ($result as $key => $value) {
             $return[] = $this->getCollectionListEntry($key, $value);
         }
