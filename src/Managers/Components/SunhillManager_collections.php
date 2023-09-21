@@ -17,113 +17,23 @@ use Sunhill\Collection\Collections\StaffJob;
 use Sunhill\ORM\Facades\Collections;
 use Sunhill\Collection\Collections\Language;
 use Sunhill\Collection\Collections\EventType;
+use Sunhill\ORM\Managers\CollectionManager;
 
 trait SunhillManager_collections
 {
-    // ****************************** Collection helpers *************************************
-    /**
-     * Searches for a staff job with the given name. If none found return null
-     * @param string $job
-     * @return null|EventType
-     * Test: SunhillManagerTest::testSearchEventType
-     */
-    public function searchEventType(string $name)
+    
+    public function getCollectionsCount()
     {
-        if ($result =  EventType::search()->where('name',$name)->first()) {
-            return Collections::loadCollection('EventType', $result->id);
-        }
+        return count(Collections::getRegisteredCollections());    
     }
     
-    /**
-     * Searches for a event type with the given name. if none found create one and return it
-     * @param string $job
-     * @return EventType
-     * Test: SunhillManagerTest::testSearchOrInsertEventType
-     */
-    public function searchOrInsertEventType(string $name): EventType
+    protected function getCollectionListEntry(string $name, string $namespace)
     {
-        if ($result = $this->searchEventType($name)) {
-            return $result;
-        }
-        $result = new EventType();
+        $result = new \StdClass();
+        
         $result->name = $name;
-        $result->commit();
-        return $result;
-    }
-    
-    /**
-     * Searches for a language with the given name. If none found return null
-     * @param string $language
-     * @return null|Language
-     * Test: SunhillManagerTest::testSearchLanguage
-     */
-    public function searchLanguage(string $language)
-    {
-        if ($result =  Language::search()->where('name',$language)->first()) {
-            return Collections::loadCollection('Language', $result->id);
-        }
-    }
-    
-    /**
-     * Searches for a language with the given name. if none found create one and return it
-     * @param string $job
-     * @return StaffJob
-     * Test: SunhillManagerTest::testSearchOrInsertLanguage
-     */
-    public function searchOrInsertLanguage(string $language, string $iso=''): Language
-    {
-        if ($result = $this->searchLanguage($language)) {
-            return $result;
-        }
-        $result = new Language();
-        $result->name = $language;
-        $result->iso = $iso;
-        $result->commit();
-        return $result;
-    }
-    
-    /**
-     * Searches for a staff job with the given name. If none found return null
-     * @param string $job
-     * @return null|StaffJob
-     * Test: SunhillManagerTest::testSearchStaffJob
-     */
-    public function searchStaffJob(string $job)
-    {
-        if ($result =  StaffJob::search()->where('name',$job)->first()) {
-            return Collections::loadCollection('StaffJob', $result->id);
-        }
-    }
-    
-    /**
-     * Searches for a staff job with the given name. if none found create one and return it
-     * @param string $job
-     * @return StaffJob
-     * Test: SunhillManagerTest::testSearchOrInsertStaffJob
-     */
-    public function searchOrInsertStaffJob(string $job): StaffJob
-    {
-        if ($result = $this->searchStaffJob($job)) {
-            return $result;
-        }
-        $result = new StaffJob();
-        $result->name = $job;
-        $result->commit();
-        return $result;
-    }
-    
-    protected function getCollectionListEntries($namespace, $query_base, int $offset = 0, int $limit = 10)
-    {
-        if ($offset) {
-            $query_base->offset($offset);
-        }
-        $query_base->limit($limit);
-        $entries = $query_base->get();
-        $result = [];
-        foreach ($entries as $entry) {
-            $collection = Collections::loadCollection($namespace, $entry->id);
-            $result[] = $this->getTableRow($collection);
-        }
+        $result->namespace = $namespace;
+        $result->description = $namespace::getInfo('description');
         return $result;
     }
     
@@ -137,31 +47,35 @@ trait SunhillManager_collections
      * @param int $limit
      * @return array of array of string
      */
-    public function getCollectionList(string $collection_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
+    public function getCollectionsList(array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
     {
-        $namespace = Collections::searchCollection($collection_name);
-        $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);
-        return $this->getCollectionListEntries($namespace, $query, $offset, $limit);
+        $result = Collections::getRegisteredCollections();
+        $return = [];
+        
+        foreach ($result as $key => $value) {
+            $return[] = $this->getCollectionListEntry($key, $value);
+        }
+            
+        return $return;
     }
     
-    public function getCollectionListParameters(string $collection_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
+    protected function getCollectionCount(string $namespace)
     {
-        $namespace = Collections::searchCollection($collection_name);
-        $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);
+        return $namespace::search()->count();
+    }
+    
+    public function getCollectionsInformations(string $classname)
+    {
+        $namespace = Collections::searchCollection($classname);
         return [
-            'name'=>$namespace::getInfo('name'),
+            'namespace'=>$namespace,
             'description'=>$namespace::getInfo('description'),
+            'collectionname'=>$classname,
+            'tablename'=>$namespace::getInfo('table'),
             'editable'=>$namespace::getInfo('editable'),
-            'groupeditable'=>$this->getGroupEditable($namespace),
             'instantiable'=>$namespace::getInfo('instantiable'),
-            'total_count'=>$query->count(),
-            'entries'=>$this->getCollectionListEntries($namespace, $query, $offset, $limit),
-            'filter'=>$conditions,
-            'order'=>$order,
-            'order_direction'=>$order_direction,
-            'offset'=>$offset,
-            'limit'=>$limit
+            'object_count'=>make_link(route('collection.list',$classname),$this->getCollectionCount($namespace)),
+            'properties'=>$this->getClassProperties($namespace),
         ];
     }
-        
 }
