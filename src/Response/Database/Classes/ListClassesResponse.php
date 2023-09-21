@@ -5,6 +5,7 @@ namespace Sunhill\Collection\Response\Database\Classes;
 use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Response\ListDescriptor;
+use Sunhill\Collection\Facades\SunhillManager;
 
 class ListClassesResponse extends SunhillListResponse
 {
@@ -32,21 +33,12 @@ class ListClassesResponse extends SunhillListResponse
      */
     protected function getEntryCount(): int
     {
-        return Classes::getClassCount();        
+        return SunhillManager::getClassCount([]);
     }
     
     protected function getData()
     {
-        $data = Classes::getAllClasses();
-        usort($data, function($a,$b) {
-            if ($a[$this->order] == $b[$this->order]) {
-                return 0;
-            }
-            return ($a[$this->order] < $b[$this->order]) ? -1 : 1;
-        });
-        $data = $this->sliceData($data);
-        
-        return $data;
+        return SunhillManager::getClassList([],$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
     }
     
 }  
