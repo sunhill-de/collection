@@ -2,7 +2,6 @@
 
 namespace Sunhill\Collection\Modules\Database;
 
-use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
 use Sunhill\Visual\Modules\SunhillModuleBase;
 
 class SunhillFeatureCollections extends SunhillModuleBase
@@ -18,38 +17,22 @@ class SunhillFeatureCollections extends SunhillModuleBase
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'list'])
             ->setVisible(true)
             ->setRouteAddition('/{key?}/{page?}/{order?}')
-            ->setAlias('objects.list');
+            ->setAlias('collections.list');
         $this->addAction('Show')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'show'])
             ->setVisible(false)
-            ->setRouteAddition('/{id}')
-            ->setAlias('objects.show');
+            ->setRouteAddition('/{collection}')
+            ->setAlias('collections.show');
         $this->addAction('Add')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'add'])
-            ->setVisible(true)
-            ->setRouteAddition('/{class?}')
-            ->setAlias('objects.add');
-        $this->addAction('ExecAdd')
-            ->setMethod('post')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'execadd'])
             ->setVisible(false)
-            ->setAlias('objects.execadd');
-        $this->addAction('Edit')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'edit'])
+            ->setRouteAddition('/{collection}')
+            ->setAlias('collection.add');
+        $this->addAction('ListCollection')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'listcollection'])
             ->setVisible(false)
-            ->setRouteAddition('/{id}')
-            ->setAlias('objects.edit');
-        $this->addAction('ExecEdit')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'execedit'])
-            ->setVisible(false)
-            ->setMethod('post')
-            ->setRouteAddition('/{id}')
-            ->setAlias('objects.execedit');
-        $this->addAction('Delete')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'delete'])
-            ->setVisible(false)
-            ->setRouteAddition('/{id}')
-            ->setAlias('objects.delete');
+            ->setRouteAddition('/{collection}/{page?}/{order?}')
+            ->setAlias('collection.list');
     }
     
     

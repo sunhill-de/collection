@@ -3,15 +3,8 @@
 namespace Sunhill\Collection\Controllers\Database;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Collection\Response\SunhillTileViewResponse;
 use Sunhill\Collection\Response\Database\Collections\ListCollectionsResponse;
-use Sunhill\Collection\Response\Database\Collections\ShowObjectResponse;
-use Sunhill\Collection\Response\Database\Collections\AddObjectResponse;
-use Sunhill\Collection\Response\Database\Collections\EditObjectResponse;
-use Sunhill\Collection\Response\Database\Classes\ChooseClassResponse;
-use Sunhill\Collection\Response\Database\Collections\ExecAddObjectResponse;
-use Sunhill\Collection\Response\Database\Collections\ExecEditObjectResponse;
-use Sunhill\Collection\Response\Database\Collections\DeleteObjectResponse;
+use Sunhill\Collection\Response\Database\Collections\ShowCollectionResponse;
 
 class CollectionsController extends Controller
 {
@@ -31,10 +24,10 @@ class CollectionsController extends Controller
         return $response->response();
     }
     
-    public function show($id)
+    public function show($collection)
     {
-        $response = new ShowObjectResponse();
-        $response->setID($id);
+        $response = new ShowCollectionResponse();
+        $response->setCollection($collection);
         return $response->response();
     }
     

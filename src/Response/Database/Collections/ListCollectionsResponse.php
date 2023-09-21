@@ -1,19 +1,20 @@
 <?php
 
-namespace Sunhill\Collection\Response\Database\Objects;
+namespace Sunhill\Collection\Response\Database\Collections;
 
 use Sunhill\Visual\Response\ListDescriptor;
 use Sunhill\Visual\Response\SunhillListResponse;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\Dialogs;
+use Sunhill\Collection\Facades\SunhillManager;
 
-class ListObjectsResponse extends SunhillListResponse
+class ListCollectionsResponse extends SunhillListResponse
 {
     
-    protected $template = 'collection::objects.list';
+    protected $template = 'collection::collections.list';
     
-    protected $route = 'objects.list';
+    protected $route = 'collections.list';
     
     /*
      public function setOffset(int $offset): SunhillListResponse
@@ -24,23 +25,11 @@ class ListObjectsResponse extends SunhillListResponse
      */
     protected function defineList(ListDescriptor &$descriptor)
     {
-        $descriptor->column('id')->title('id')->searchable();
-        $descriptor->column('class')->title('class')->link('objects.list',['key'=>'class'])->searchable()->displayCallback(function($data) {
-            return $data::getInfo('name'); 
-        });;
-        
-        $columns = Dialogs::getObjectListFields($this->key);
-        foreach ($columns as $index => $column) {
-            $column_obj = $descriptor->column($column);
-            if (is_int($index)) {
-                $column_obj = $column_obj->title($column);
-            } else {
-                $column_obj = $column_obj->title($index);
-            }
-        }
-        
-        $descriptor->column('edit')->link('objects.edit',['id'=>'id']);
-        $descriptor->column('delete')->link('objects.add',['id'=>'id']);
+        $descriptor->column('name')->title('Name')->searchable();
+        $descriptor->column('description')->title('Description');
+        $descriptor->column('list')->link('collection.list',['collection'=>'name']);
+        $descriptor->column('add')->link('collection.add',['collection'=>'name']);
+        $descriptor->column('show')->link('collections.show',['collection'=>'name']);
     }
     
     /**
@@ -49,37 +38,12 @@ class ListObjectsResponse extends SunhillListResponse
      */
     protected function getEntryCount(): int
     {
-        $class_namespace = Classes::getNamespaceOfClass(isset($this->params['key'])?$this->params['key']:'object');
-        return $class_namespace::search()->count();
+        return SunhillManager::getCollectionsCount();
     }
     
     protected function getData()
     {
-        if (empty($this->key)) {
-            $this->key = 'ORMObject';
-        }
-        $this->params['namespace'] = Classes::getNamespaceOfClass($this->key);
-        return Objects::getPartialObjectList($this->key,$this->order,$this->offset*self::ENTRIES_PER_PAGE,self::ENTRIES_PER_PAGE);
-    }
-
-    protected function prepareResponse()
-    {
-        parent::prepareResponse();
-        $this->processAdditional();
-    }
-    
-    protected function getFixedInheritance(string $class)
-    {
-        if ($class == 'object') {
-            return ['object'];
-        } else {
-            return Classes::getInheritanceOfClass($class,true);
-        }
-    }
-    
-    protected function processAdditional()
-    {
-        $this->params['inheritance'] = array_reverse($this->getFixedInheritance($this->params['key']));
+        return SunhillManager::getCollectionsList([],$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
     }
 
 }  
