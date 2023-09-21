@@ -89,6 +89,8 @@
 @endforeach
  </tbody> 
 </table>
-
+<button>   
+<a href="{{ route('objects.add',['class'=> $classname]) }}">{{ __('add') }}</a>
+</button>
 @endsection
   
