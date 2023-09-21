@@ -18,11 +18,13 @@ use Sunhill\Collection\Managers\Components\SunhillManager_utils;
 use Sunhill\Collection\Managers\Components\SunhillManager_keyfields;
 use Sunhill\Collection\Managers\Components\SunhillManager_classes;
 use Sunhill\Collection\Managers\Components\SunhillManager_objects;
+use Sunhill\Collection\Managers\Components\SunhillManager_collection;
 
 class SunhillManager
 {
    
     use SunhillManager_utils;
+    use SunhillManager_collection;
     use SunhillManager_collections;
     use SunhillManager_objects;
     use SunhillManager_keyfields;
