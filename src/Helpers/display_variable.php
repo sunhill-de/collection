@@ -4,9 +4,9 @@ function display_variable($variable)
 {
     if (is_bool($variable)) {
         if ($variable) {
-            return '<div class="icon-text"><span class="icon has-text-success"><i class="fas fa-check-square">+</i></span></div>';
+            return '<div class="icon-text"><span class="icon has-text-success"><i class="fas fa-check-square"></i></span></div>';
         } else {
-            return '<span class="icon-text"><span class="icon has-text-danger"><i class="fas fa-check-square">-</i></span></span>';
+            return '<span class="icon-text"><span class="icon has-text-danger"><i class="fas fa-check-square"></i></span></span>';
         }
     } else if (is_scalar($variable)) {
         return e($variable);
