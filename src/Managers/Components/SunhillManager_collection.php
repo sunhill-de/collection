@@ -112,6 +112,16 @@ trait SunhillManager_collection
         return $result;
     }
     
+    protected function calculateCollectionCount(string $namespace, array $filter = [])
+    {
+        return $namespace::search()->count();
+    }
+    
+    public function getCollectionCount(string $collection_name, array $filter = [])
+    {
+        return $this->calculateCollectionCount(Collections::searchCollection($collection_name));    
+    }
+    
     protected function getCollectionListEntries($namespace, $query_base, int $offset = 0, int $limit = 10)
     {
         if ($offset) {
@@ -149,13 +159,12 @@ trait SunhillManager_collection
         $namespace = Collections::searchCollection($collection_name);
         $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);
         return [
-            'name'=>$namespace::getInfo('name'),
+            'collectionname'=>$namespace::getInfo('name'),            
             'description'=>$namespace::getInfo('description'),
             'editable'=>$namespace::getInfo('editable'),
             'groupeditable'=>$this->getGroupEditable($namespace),
             'instantiable'=>$namespace::getInfo('instantiable'),
             'total_count'=>$query->count(),
-            'entries'=>$this->getCollectionListEntries($namespace, $query, $offset, $limit),
             'filter'=>$conditions,
             'order'=>$order,
             'order_direction'=>$order_direction,
