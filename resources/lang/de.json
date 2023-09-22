@@ -14,6 +14,7 @@
   
   "********************** Collections":"Collections ************************",
   "**** Anniversary":"Anniversary ****",
+  "Stores anniversaries of different types of anniversaries":"Speichert Informationen über die verschiedenen Jahrestage",
   "Name of the anniversary":"Name des Jahrestages",
   "day":"Tag",
   "What day is the the anniversary":"An welchem Tag ist der Jahrestag",
@@ -29,6 +30,7 @@
   "anniversaries":"Jahrestage",
   
   "**** Event":"Event ****",
+  "Stores information about an event":"Speichert Informationen über ein Ereignis",
   "who":"Wer",
   "What person or item triggered the event":"Welche Person oder welcher Gegenstand hat das Ereignis ausgelöst",
   "when":"Wann",
@@ -45,6 +47,18 @@
   "event type":"Ereignistyp",
   "event types":"Ereignistypen",
   "Stores information about an event type":"Speichert Informationen über einen Ereignistypen",
+  
+  "***** Language":"Language *****",
+  "A class for languages":"Speichert Sprachen",
+  
+  "******* Staff":"Staff **********",
+  "Stores informations about staff":"Speichert Informationen über die Besetzung",
+  
+  "******* StaffJob":"StaffJob *********", 
+  "Stores informations about staff jobs":"Speichert Informationen über die Jobs bei Besetzungen",
+
+  "******* ProductGroup":"ProductGroup *********", 
+  "Stores informations about product groups":"Speichert Informationen über Produktgruppen",
   
   "********************** Creative":"Creative ************************",
   "**** Clip":"Clip *****",
@@ -570,6 +584,7 @@
   "Allowed classes":"Erlaubte Klassen",
   "List attributes":"Attribute auflisten",
   "Property":"Eigenschaft",
+  "List collections":"Collections auflisten",
   	
   "Total number of waiting imports":"Gesamtzahl wartender Importe",
   "Number of waiting movie imports":"Wartende Filmimporte",
