@@ -24,23 +24,20 @@ class ListObjectsResponse extends SunhillListResponse
      */
     protected function defineList(ListDescriptor &$descriptor)
     {
-        $descriptor->column('id')->title('id')->searchable();
-        $descriptor->column('class')->title('class')->link('objects.list',['key'=>'class'])->searchable()->displayCallback(function($data) {
-            return $data::getInfo('name'); 
-        });;
-        
-        $columns = Dialogs::getObjectListFields($this->key);
+        $descriptor->column('id')->title('ID')->searchable();
+        $descriptor->column('classname')->title('Class')->searchable();
+        $namespace = Classes::getNamespaceOfClass($this->key);
+        $columns = $namespace::getInfo('table_columns',['_uuid']);
         foreach ($columns as $index => $column) {
-            $column_obj = $descriptor->column($column);
             if (is_int($index)) {
-                $column_obj = $column_obj->title($column);
+                $column_desc = $descriptor->column($column)->title($column);
             } else {
-                $column_obj = $column_obj->title($index);
+                $column_desc = $descriptor->column($index)->title($index);
             }
         }
-        
-        $descriptor->column('edit')->link('objects.edit',['id'=>'id']);
-        $descriptor->column('delete')->link('objects.add',['id'=>'id']);
+        $descriptor->column('edit')->link('collection.edit',['collection'=>'class','id'=>'id']);
+        $descriptor->column('delete')->link('collection.delete',['collection'=>'class','id'=>'id']);
+        $descriptor->column('show')->link('collection.show',['collection'=>'class','id'=>'id']);
     }
     
     /**

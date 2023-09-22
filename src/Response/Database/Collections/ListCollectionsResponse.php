@@ -27,9 +27,9 @@ class ListCollectionsResponse extends SunhillListResponse
     {
         $descriptor->column('name')->title('Name')->searchable();
         $descriptor->column('description')->title('Description');
-        $descriptor->column('list')->link('collection.list',['collection'=>'name']);
-        $descriptor->column('add')->link('collection.add',['collection'=>'name']);
-        $descriptor->column('show')->link('collections.show',['collection'=>'name']);
+        $descriptor->column('list')->link('collection.list',['collection'=>'name'])->setLinkTitle('list');
+        $descriptor->column('add')->link('collection.add',['collection'=>'name'])->setLinkTitle('add');
+        $descriptor->column('show')->link('collections.show',['collection'=>'name'])->setLinkTitle('show');
     }
     
     /**

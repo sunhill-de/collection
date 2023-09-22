@@ -22,9 +22,9 @@ class ListClassesResponse extends SunhillListResponse
          $descriptor->column('name')->title('Name')->searchable();
          $descriptor->column('description')->title('Description');
          $descriptor->column('parent')->title('Parent');
-         $descriptor->column('list')->link('objects.list',['key'=>'name']);
-         $descriptor->column('add')->link('objects.add',['class'=>'name']);
-         $descriptor->column('show')->link('classes.show',['class'=>'name']);
+         $descriptor->column('list')->link('objects.list',['key'=>'name'])->setLinkTitle('list');
+         $descriptor->column('add')->link('objects.add',['class'=>'name'])->setLinkTitle('add');
+         $descriptor->column('show')->link('classes.show',['class'=>'name'])->setLinkTitle('show');
     }
     
     /**

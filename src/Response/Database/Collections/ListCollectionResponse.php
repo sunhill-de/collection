@@ -50,10 +50,9 @@ class ListCollectionResponse extends SunhillListResponse
                 $column_desc = $descriptor->column($index)->title($index);
             }
         }
-        $descriptor->column('edit')->link('collection.edit',['collection'=>'class','id'=>'id']);
-        $descriptor->column('delete')->link('collection.delete',['collection'=>'class','id'=>'id']);
-        $descriptor->column('show')->link('collection.show',['collection'=>'class','id'=>'id']); 
-        
+        $descriptor->column('edit')->link('collection.edit',['collection'=>'class','id'=>'id'])->setLinkTitle('edit');
+        $descriptor->column('delete')->link('collection.delete',['collection'=>'class','id'=>'id'])->setLinkTitle('delete');
+        $descriptor->column('show')->link('collection.show',['collection'=>'class','id'=>'id'])->setLinkTitle('show');         
     }
     
     protected function handleConditions($query, $conditions)
