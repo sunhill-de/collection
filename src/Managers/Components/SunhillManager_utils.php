@@ -26,7 +26,7 @@ trait SunhillManager_utils
             } else {
                 $result = $collection->$column;
             }
-            return $result;
+            return empty($result)?'':$result;
         } else {
             list($field,$subfield) = explode('->',$column);
             $field = $collection->$field;
