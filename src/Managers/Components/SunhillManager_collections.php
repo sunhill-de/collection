@@ -61,11 +61,6 @@ trait SunhillManager_collections
         return $return;
     }
     
-    protected function getCollectionCount(string $namespace)
-    {
-        return $namespace::search()->count();
-    }
-    
     public function getCollectionsInformations(string $classname)
     {
         $namespace = Collections::searchCollection($classname);
@@ -76,7 +71,7 @@ trait SunhillManager_collections
             'tablename'=>$namespace::getInfo('table'),
             'editable'=>$namespace::getInfo('editable'),
             'instantiable'=>$namespace::getInfo('instantiable'),
-            'object_count'=>make_link(route('collection.list',$classname),$this->getCollectionCount($namespace)),
+            'object_count'=>make_link(route('collection.list',$classname),$this->calculateCollectionCount($namespace)),
             'properties'=>$this->getClassProperties($namespace),
         ];
     }
