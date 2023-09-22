@@ -33,6 +33,21 @@ class SunhillFeatureCollections extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{collection}/{page?}/{order?}')
             ->setAlias('collection.list');
+        $this->addAction('ShowCollection')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'showcollection'])
+            ->setVisible(false)
+            ->setRouteAddition('/{collection}/{id}')
+            ->setAlias('collection.show');
+        $this->addAction('EditCollection')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'editcollection'])
+            ->setVisible(false)
+            ->setRouteAddition('/{collection}/{id}')
+            ->setAlias('collection.edit');
+        $this->addAction('DeleteCollection')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'deletecollection'])
+            ->setVisible(false)
+            ->setRouteAddition('/{collection}/{id}')
+            ->setAlias('collection.delete');
     }
     
     
