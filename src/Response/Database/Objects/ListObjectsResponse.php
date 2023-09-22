@@ -24,7 +24,8 @@ class ListObjectsResponse extends SunhillListResponse
      */
     protected function defineList(ListDescriptor &$descriptor)
     {
-        $descriptor->column('id')->title('ID')->searchable();
+        $descriptor->groupselect();
+        $descriptor->column('id')->title('ID')->searchable()->setClass('is-narrow');
         $descriptor->column('classname')->title('Class')->searchable();
         $namespace = Classes::getNamespaceOfClass($this->key);
         $columns = $namespace::getInfo('table_columns',['_uuid']);
@@ -35,9 +36,9 @@ class ListObjectsResponse extends SunhillListResponse
                 $column_desc = $descriptor->column($index)->title($index);
             }
         }
-        $descriptor->column('edit')->link('objects.edit',['id'=>'id'])->setLinkTitle('edit');
-        $descriptor->column('delete')->link('objects.delete',['id'=>'id'])->setLinkTitle('delete');
-        $descriptor->column('show')->link('objects.show',['id'=>'id'])->setLinkTitle('show');
+        $descriptor->column('edit')->link('objects.edit',['id'=>'id'])->setLinkTitle('edit')->setClass('is-narrow');
+        $descriptor->column('delete')->link('objects.delete',['id'=>'id'])->setLinkTitle('delete')->setClass('is-narrow');
+        $descriptor->column('show')->link('objects.show',['id'=>'id'])->setLinkTitle('show')->setClass('is-narrow');
     }
     
     /**
