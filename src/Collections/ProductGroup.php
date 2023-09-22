@@ -49,7 +49,7 @@ class ProductGroup extends Collection
 		static::addInfo('table','productgroups');
       	static::addInfo('name_s','product group',true);
        	static::addInfo('name_p','product groups',true);
-       	static::addInfo('description','Stores Informations about a product group', true);
+       	static::addInfo('description','Stores informations about product groups', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);

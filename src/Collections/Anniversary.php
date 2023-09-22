@@ -65,7 +65,7 @@ class Anniversary extends Collection
 		static::addInfo('table','anniversaries');
       	static::addInfo('name_s','anniversary',true);
        	static::addInfo('name_p','anniversaries',true);
-       	static::addInfo('description','Stores anniversaries of different types', true);
+       	static::addInfo('description','Stores anniversaries of different types of anniversaries', true);
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
