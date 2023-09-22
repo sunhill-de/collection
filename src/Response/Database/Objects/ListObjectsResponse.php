@@ -26,7 +26,7 @@ class ListObjectsResponse extends SunhillListResponse
     {
         $descriptor->groupselect();
         $descriptor->column('id')->title('ID')->searchable()->setClass('is-narrow');
-        $descriptor->column('classname')->title('Class')->searchable();
+        $descriptor->column('classname')->title('Class')->searchable()->link('objects.list',['key'=>'classname']);
         $namespace = Classes::getNamespaceOfClass($this->key);
         $columns = $namespace::getInfo('table_columns',['_uuid']);
         foreach ($columns as $index => $column) {
@@ -49,6 +49,13 @@ class ListObjectsResponse extends SunhillListResponse
     {
         $class_namespace = Classes::getNamespaceOfClass(isset($this->params['key'])?$this->params['key']:'object');
         return $class_namespace::search()->count();
+    }
+    
+    protected function getRouteParameters()
+    {
+        $result = parent::getRouteParameters();
+        $result['key'] = $this->key;
+        return $result;
     }
     
     protected function getData()
