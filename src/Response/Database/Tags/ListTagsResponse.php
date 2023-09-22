@@ -20,7 +20,14 @@ class ListTagsResponse extends SunhillListResponse
     {
         $descriptor->column('id')->title('id')->searchable();
         $descriptor->column('name')->title('Name')->searchable();
-        $descriptor->column('parent')->title('Parent');
+        $descriptor->column('parent')->title('Parent')->setCallback(function($data, $key) {
+            if ($data->parent_id) {
+                $tag = Tags::loadTag($data->parent_id);
+                return $tag->name;
+            } else {
+                return "";
+            }
+        });
         $descriptor->column('fullpath')->title('Full path');
         $descriptor->column('edit')->link('tags.add',['id'=>'id'])->setLinkTitle('edit');
         $descriptor->column('show')->link('tags.show',['id'=>'id'])->setLinkTitle('show');
