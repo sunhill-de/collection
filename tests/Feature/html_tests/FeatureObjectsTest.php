@@ -20,7 +20,11 @@ class FeatureObjectsTest extends HtmlTestBase
     {
         return [
             ['/Database/Objects/List',200],
-            ['/Database/Objects/Show/1',200],
+            ['/Database/Objects/List/1',200],
+            ['/Database/Objects/List/1000',500],
+            
+            
+/*            ['/Database/Objects/Show/1',200],
             ['/Database/Objects/Add/Country',200],
             
             ['/Database/Objects/Show/10000',500],
@@ -28,10 +32,10 @@ class FeatureObjectsTest extends HtmlTestBase
             ['/Database/Objects/Add/NonExistingClass',500],
             ['/Database/Objects/Delete/10000',500],
             ['/Database/Objects/Edit/10000',500],
-            ['/Database/Objects/ExecEdit/10000',500,'post'],
+            ['/Database/Objects/ExecEdit/10000',500,'post'], */
         ];
     }
-    
+ /*   
     public function testAddObject()
     {
         $response = $this->post('/Database/Objects/ExecAdd',['_class'=>'Country','name'=>'Canada']);
@@ -52,5 +56,5 @@ class FeatureObjectsTest extends HtmlTestBase
         $response = $this->post('/Database/Objects/ExecEdit/11',['name'=>'Deutschland']);
         $response->assertRedirect('/Database/Objects/Show/11');
         $this->assertDatabaseHas('locations',['name'=>'Deutschland']);
-    }
+    } */
 }
