@@ -2,9 +2,9 @@
 
 namespace Sunhill\Collection\Response\Database\Classes;
 
-use Sunhill\Visual\Response\SunhillListResponse;
+use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\Visual\Response\ListDescriptor;
+use Sunhill\Visual\Response\Lists\ListDescriptor;
 use Sunhill\Collection\Facades\SunhillManager;
 
 class ListClassesResponse extends SunhillListResponse
