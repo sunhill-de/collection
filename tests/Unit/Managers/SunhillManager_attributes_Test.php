@@ -36,8 +36,21 @@ use Sunhill\Collection\Objects\Organisations\Manufacturer;
 use Sunhill\Collection\Objects\Organisations\Shop;
 use Sunhill\Collection\Objects\Organisations\Organisation;
 use Sunhill\Collection\Objects\Locations\Location;
+use Sunhill\Collection\Exceptions\InvalidIDException;
 
 class SunhillManager_attributes_Test extends DatabaseTestCase
 {
+    public function testGetAttribute()
+    {
+        $attribute = SunhillManager::getAttribute(1);
+        $this->assertEquals('wikipedia',$attribute->name);
+        $this->assertEquals('string', $attribute->type);
+        $this->assertEquals(['CreativeWork','Person','Organisation'], $attribute->allowed_classes);
+    }
     
+    public function testGetInvalidAttribute()
+    {
+        $this->expectException(InvalidIDException::class);
+        $attribute = SunhillManager::getAttribute(1000);
+    }
 }
