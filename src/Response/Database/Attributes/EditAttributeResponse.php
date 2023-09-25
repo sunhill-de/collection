@@ -17,22 +17,17 @@ class EditAttributeResponse extends SunhillBladeResponse
     protected function prepareResponse()
     {
         parent::prepareResponse();
-        $attribute = Attributes::getAttribute($this->id);
+/*        $attribute = Attributes::getAttribute($this->id);
         
         if (empty($attribute)) {
             throw new \Exception("ID '".$this->id."' not found.");
-        }
+        } */
         $this->params['title'] = __('Edit Attribute');
         $this->params['action'] = route('attributes.execedit',['id'=>$this->id]);
                 
-        $this->params['name'] = $attribute->name;
-        $this->params['type'] = $attribute->type;
-        $this->params['property'] = $attribute->property;
-        $objects = explode(',',$attribute->allowedobjects);
+        $this->params['name'] = 'AAA';
+        $this->params['type'] = 'integer';
         $this->params['classes'] = [];
-        foreach ($objects as $object) {
-            $this->params['classes'][] = $object;
-        }
     }
     
 }    
