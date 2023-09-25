@@ -18,6 +18,7 @@ use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Properties\Utils\DefaultNull;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Facades\Attributes;
+use Sunhill\Collection\Exceptions\InvalidIDException;
 
 trait SunhillManager_attributes
 {
@@ -49,6 +50,27 @@ trait SunhillManager_attributes
         }
         $query->orderBy($order, $order_dir);
         return $query->get();
+    }
+    
+    public function getAttribute(int $id)
+    {
+        if (empty($attribute = Attributes::query()->where('id','=',$id)->first())) {
+            throw new InvalidIDException("The given 'id' is invalid.");
+        }
+        $hilf = explode('|',$attribute->allowed_classes);
+        $hilf = array_slice($hilf,1,-1);
+        $attribute->allowed_classes = $hilf; 
+        return $attribute;
+    }
+    
+    public function addAttribute(string $name, string $type, array $allowed_classes)
+    {
+        
+    }
+    
+    public function updateAttribute(int $id, string $name, string $type, array $allowed_classes)
+    {
+        
     }
     
 }
