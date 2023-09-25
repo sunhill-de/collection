@@ -2,11 +2,8 @@
 
 namespace Sunhill\Collection\Response\Database\Collections;
 
-use Sunhill\Visual\Response\ListDescriptor;
-use Sunhill\Visual\Response\SunhillListResponse;
-use Sunhill\ORM\Facades\Objects;
-use Sunhill\ORM\Facades\Classes;
-use Sunhill\Visual\Facades\Dialogs;
+use Sunhill\Visual\Response\Lists\ListDescriptor;
+use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\Collection\Facades\SunhillManager;
 use Sunhill\ORM\Facades\Collections;
 

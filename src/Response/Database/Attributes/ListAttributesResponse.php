@@ -4,7 +4,7 @@ namespace Sunhill\Collection\Response\Database\Attributes;
 
 use Sunhill\ORM\Facades\Attributes;
 use Sunhill\Visual\Response\Lists\ListDescriptor;
-use Sunhill\Visual\Response\SunhillListResponse;
+use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\Collection\Facades\SunhillManager;
 
 class ListAttributesResponse extends SunhillListResponse

@@ -3,8 +3,8 @@
 namespace Sunhill\Collection\Response\Database\Tags;
 
 use Sunhill\ORM\Facades\Tags;
-use Sunhill\Visual\Response\ListDescriptor;
-use Sunhill\Visual\Response\SunhillListResponse;
+use Sunhill\Visual\Response\Lists\ListDescriptor;
+use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\Collection\Facades\SunhillManager;
 
 class ListTagsResponse extends SunhillListResponse
