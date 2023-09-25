@@ -22,12 +22,12 @@ class AjaxController extends Controller
   public function searchTags(string $class = "", string $field = "")
   {
        $search = request()->input('search');
-       $query = DB::table('tagcache')->select('tag_id')->where('name','like','%'.$search.'%')->groupBy('tag_id')->get();
+       $query = DB::table('tagcache')->select('tag_id')->where('path_name','like','%'.$search.'%')->groupBy('tag_id')->get();
        $newresult = [];
        foreach ($query as $entry) {
            $newentry = new \StdClass();
            
-           $tag = Tags::findTag($entry->tag_id);
+           $tag = Tags::getTag($entry->tag_id);
            $newentry->label = $tag->fullpath;
            $newentry->id = $entry->tag_id;
            $newresult[] = $newentry;
