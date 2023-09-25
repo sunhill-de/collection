@@ -2,22 +2,24 @@
 
 namespace Sunhill\Collection\Response\Database\Attributes;
 
-use Sunhill\Visual\Response\SunhillBladeResponse;
+use Sunhill\Visual\Response\Dialog\SunhillDialogResponse;
+use Sunhill\Visual\Response\Dialog\DialogDescriptor;
 
-class AddAttributeResponse extends SunhillBladeResponse
+class AddAttributeResponse extends SunhillDialogResponse
 {
 
-    protected $template = 'collection::attributes.edit';
-        
-    protected function prepareResponse()
+    protected $route = 'attributes.execadd';
+    
+    protected function defineDialog(DialogDescriptor $descriptor)
     {
-        parent::prepareResponse();
-        $this->params['title'] = __('Add attribute');
-        $this->params['action'] = route('attributes.execadd');
-        $this->params['name'] = '';
-        $this->params['parent_name'] = '';
-        $this->params['parent_id'] = '';
-        $this->params['leafable'] = true;
+        $descriptor->string()->label('Name of the attribute')->name('name')->required()->class('input is-small');
+        $descriptor->select()->label('Type of the attribute')->name('type')->entries([
+            'Integer'=>'integer',
+            'Char'=>'string',
+            'Float'=>'float',
+            'Text'=>'text'
+        ])->class('input is-small');
+        $descriptor->list()->label('Allowed classed')->name('allowed_classes')->element('string')->lookup('classes');
     }
     
 }  
