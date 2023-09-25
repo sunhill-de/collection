@@ -44,6 +44,8 @@ use Sunhill\Collection\Objects\Creative\Clip;
 use Sunhill\Collection\Objects\Organisations\Shop;
 use Sunhill\Collection\Objects\Organisations\Manufacturer;
 use Sunhill\Collection\Modules\Database\SunhillFeatureCollections;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -88,6 +90,50 @@ class DatabaseTestCase extends CollectionTestCase
             SunhillSiteManager::installRoutes();
     }
 
+    protected function seedTags()
+    {
+        DB::table('tags')->truncate();
+        DB::table('tags')->insert([
+            ['id'=>1,'name'=>'Family','options'=>0,'parent_id'=>null],
+            ['id'=>2,'name'=>'Homer','options'=>0,'parent_id'=>1],
+            ['id'=>3,'name'=>'Marge','options'=>0,'parent_id'=>1],
+            ['id'=>4,'name'=>'Bart','options'=>0,'parent_id'=>1],
+            ['id'=>5,'name'=>'Lisa','options'=>0,'parent_id'=>1],
+            ['id'=>6,'name'=>'Maggie','options'=>0,'parent_id'=>1],
+        ]);
+        DB::table('tagcache')->truncate();
+        DB::table('tagcache')->insert([
+            ['path_name'=>'Family','tag_id'=>1,'is_fullpath'=>1],
+            ['path_name'=>'Family.Homer','tag_id'=>2,'is_fullpath'=>1],
+            ['path_name'=>'Homer','tag_id'=>2,'is_fullpath'=>0],
+            ['path_name'=>'Family.Marge','tag_id'=>3,'is_fullpath'=>1],
+            ['path_name'=>'Marge','tag_id'=>3,'is_fullpath'=>0],
+            ['path_name'=>'Family.Bart','tag_id'=>4,'is_fullpath'=>1],
+            ['path_name'=>'Bart','tag_id'=>4,'is_fullpath'=>0],
+            ['path_name'=>'Family.Lisa','tag_id'=>5,'is_fullpath'=>1],
+            ['path_name'=>'Lisa','tag_id'=>5,'is_fullpath'=>0],
+            ['path_name'=>'Family.Maggie','tag_id'=>6,'is_fullpath'=>1],
+            ['path_name'=>'Maggie','tag_id'=>6,'is_fullpath'=>0],
+        ]);
+    }
+    
+    protected function seedAttributes()
+    {
+        DB::table('attributes')->truncate();
+        DB::table('attributes')->insert([
+            ['id'=>1,'name'=>'wikipedia','type'=>'string','allowed_classes'=>'|CreativeWork|Person|Organisation|'],
+            ['id'=>2,'name'=>'rating','type'=>'integer','allowed_classes'=>'|CreativeWork|'],
+        ]);
+        Schema::create('attrwikipedia', function($table) {
+            $table->integer('object_id')->primary();
+            $table->string('value');
+        });
+            Schema::create('attrrating', function($table) {
+                $table->integer('object_id')->primary();
+                $table->integer('value');
+            });
+    }
+    
     protected function seedProductGroups()
     {
         ProductGroup::seed(['food'=>['name'=>'food']]);
@@ -572,7 +618,10 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
-        // Seed non dependent tables
+        $this->seedTags();
+        $this->seedAttributes();
+        
+            // Seed non dependent tables
         $this->seedProductGroups();
         $this->seedLanguages();
         $this->seedNetworks();
