@@ -147,11 +147,26 @@ class DatabaseTestCase extends CollectionTestCase
     {
         MusicalArtist::seed([
             'muse'=>['name'=>'Muse','sort_name'=>'MUSE','type'=>'group','gender'=>'none'],
-            'maiden'=>['name'=>'Iron Maiden','sort_name'=>'Iron Maiden','type'=>'group','gender'=>'none'],
+            'maiden'=>['name'=>'Iron Maiden','sort_name'=>'IRON MAIDEN','type'=>'group','gender'=>'none'],
             ['name'=>'The Vaccines','sort_name'=>'VACCINES, THE','type'=>'group','gender'=>'none'],
             ['name'=>'Bruce Springsteen','sort_name'=>'SPRINGESTEEN, BRUCE','type'=>'person','gender'=>'male'],
             ['name'=>'Muzzle','sort_name'=>'MUZZLE','type'=>'group','gender'=>'none'],
-        ]);    
+            ['name'=>'Led Zeppling','sort_name'=>'LEDZEPPLIN','type'=>'group','gender'=>'none'],
+            ['name'=>'Die Ärzte','sort_name'=>'ARZTE, DIE','type'=>'group','gender'=>'none'],
+            ['name'=>'Devin Townsend','sort_name'=>'TOWNSEND, DEVIN','type'=>'person','gender'=>'male'],
+            ['name'=>'Doves','sort_name'=>'DOVES','type'=>'group','gender'=>'none'],
+            ['name'=>'The Beach Boys','sort_name'=>'BEACHBOYS, THE','type'=>'group','gender'=>'none'],
+            ['name'=>'Blondie','sort_name'=>'BLONDIE','type'=>'group','gender'=>'none'],
+            ['name'=>'The Who','sort_name'=>'WHO, THE','type'=>'group','gender'=>'none'],
+            ['name'=>'Rush','sort_name'=>'RUSH','type'=>'group','gender'=>'none'],
+            ['name'=>'U2','sort_name'=>'U2','type'=>'group','gender'=>'none'],
+            ['name'=>'Lou Reed','sort_name'=>'Reed, Lou','type'=>'person','gender'=>'male'],
+            ['name'=>'Angels & Airwaves','sort_name'=>'ANGELSAIRWAVES','type'=>'group','gender'=>'none'],
+            ['name'=>'Drugstore','sort_name'=>'Drugstore','type'=>'group','gender'=>'none'],
+            ['name'=>"Guns N' Roses",'sort_name'=>'GUNSROSES','type'=>'group','gender'=>'none'],
+            ['name'=>'Ash','sort_name'=>'Ash','type'=>'group','gender'=>'none'],
+            ['name'=>'R.E.M.','sort_name'=>'REM','type'=>'group','gender'=>'none'],
+        ]);
     }
     
     protected function seedPersons()
