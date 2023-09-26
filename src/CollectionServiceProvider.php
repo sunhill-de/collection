@@ -7,7 +7,6 @@ use Sunhill\Collection\Managers\TMDBManager;
 use Illuminate\Support\ServiceProvider;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Facades\Objects;
-use Sunhill\Visual\Facades\Dialogs;
 use Sunhill\Collection\Components\Input;
 use Sunhill\Collection\Components\Lookup;
 
@@ -74,6 +73,7 @@ use Sunhill\Collection\Collections\Transaction;
 use Sunhill\Collection\Collections\StaffJob;
 use Sunhill\Collection\Facades\SunhillManager;
 use Sunhill\Collection\Collections\MusicalArtist;
+use Sunhill\Visual\Facades\SunhillSiteManager;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -168,8 +168,8 @@ class CollectionServiceProvider extends ServiceProvider
     
     protected function defineDialogs()
     {       
-        Dialogs::addCSSResource(__DIR__.'/../resources/css');
-        Dialogs::addJSResource(__DIR__.'/../resources/js');
+        SunhillSiteManager::addCSSResource(__DIR__.'/../resources/css');
+        SunhillSiteManager::addJSResource(__DIR__.'/../resources/js');
     }
     
     protected function registerMarketeers()
