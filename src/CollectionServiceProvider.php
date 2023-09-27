@@ -74,6 +74,11 @@ use Sunhill\Collection\Collections\StaffJob;
 use Sunhill\Collection\Facades\SunhillManager;
 use Sunhill\Collection\Collections\MusicalArtist;
 use Sunhill\Visual\Facades\SunhillSiteManager;
+use Sunhill\Collection\Response\Ajax\AjaxTags;
+use Sunhill\Collection\Response\Ajax\AjaxClasses;
+use Sunhill\Collection\Response\Ajax\AjaxStrings;
+use Sunhill\Collection\Response\Ajax\AjaxObjects;
+use Sunhill\Collection\Response\Ajax\AjaxAttributes;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -176,6 +181,15 @@ class CollectionServiceProvider extends ServiceProvider
     {
     }
     
+    protected function registerAjax()
+    {
+        SunhillSiteManager::addAjaxModule('tags', AjaxTags::class);
+        SunhillSiteManager::addAjaxModule('classes', AjaxClasses::class);
+        SunhillSiteManager::addAjaxModule('attributes', AjaxAttributes::class);
+        SunhillSiteManager::addAjaxModule('objects', AjaxObjects::class);
+        SunhillSiteManager::addAjaxModule('strings', AjaxStrings::class);
+    }
+    
     public function boot()
     {
         $this->loadJSONTranslationsFrom(__DIR__.'/../resources/lang');
@@ -188,6 +202,7 @@ class CollectionServiceProvider extends ServiceProvider
 
         $this->registerClasses();
         $this->registerCollections();
+        $this->registerAjax();
         $this->defineDialogs();
     }
 }
