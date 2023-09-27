@@ -19,23 +19,6 @@ define('LIMIT', 10);
 class AjaxController extends Controller
 {
 
-  public function searchTags(string $class = "", string $field = "")
-  {
-       $search = request()->input('search');
-       $query = DB::table('tagcache')->select('tag_id')->where('path_name','like','%'.$search.'%')->groupBy('tag_id')->get();
-       $newresult = [];
-       foreach ($query as $entry) {
-           $newentry = new \StdClass();
-           
-           $tag = Tags::getTag($entry->tag_id);
-           $newentry->label = $tag->fullpath;
-           $newentry->id = $entry->tag_id;
-           $newresult[] = $newentry;
-       }
-       return $this->getOutput($newresult);
-       
-  }
-  
   public function searchImportSeries()
   {
      $search = request()->input('search');
@@ -52,15 +35,6 @@ class AjaxController extends Controller
   
   public function searchClass()
   {
-      $result = [];  
-      $search = request()->input('search');
-      $classes = Classes::getAllClasses();
-      foreach ($classes as $class => $info) {
-          if (strpos($class,$search) !== false) {
-              $result[] = $class;
-          }
-      }
-      return $this->getOutput($result);
   }
   
   protected function mergeResult($result1,$result2)
