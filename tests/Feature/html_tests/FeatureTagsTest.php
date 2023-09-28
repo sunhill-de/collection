@@ -22,7 +22,13 @@ class FeatureTagsTest extends HtmlTestBase
             ['/Database/Tags/List',200],
             ['/Database/Tags/List/0',200],
             ['/Database/Tags/List/1000',500],
-     /*       
+            
+            ['/Database/Tags/Add',200],
+            ['/Database/Tags/Edit/2',200,'get'],
+            ['/Database/Tags/Edit/2000',500],
+            /*
+      * 
+      *        
             ['/Database/Tags/Show/1',200],
             ['/Database/Tags/Show/1000',500],
             
@@ -34,7 +40,7 @@ class FeatureTagsTest extends HtmlTestBase
             ['/Database/Tags/Delete/100',500], */            
         ];
     }
-    /*
+    
     public function testAddTag()
     {
         $response = $this->post('/Database/Tags/ExecAdd',['name'=>'Futurama']);
@@ -44,16 +50,16 @@ class FeatureTagsTest extends HtmlTestBase
     
     public function testDeleteTag()
     {
-        $this->assertDatabaseHas('tags',['name'=>'Simpsons']);
-        $response = $this->get('/Database/Tags/Delete/1');
-        $this->assertDatabaseMissing('tags',['name'=>'Simpsons']);
+        $this->assertDatabaseHas('tags',['name'=>'Homer']);
+        $response = $this->get('/Database/Tags/Delete/2');
+        $this->assertDatabaseMissing('tags',['name'=>'Homer']);
     }
     
     public function testEditTag()
     {
-        $this->assertDatabaseHas('tags',['name'=>'Simpsons']);
-        $response = $this->post('/Database/Tags/ExecEdit/1',['name'=>'Sompsons']);
+        $this->assertDatabaseHas('tags',['name'=>'Family']);
+        $response = $this->post('/Database/Tags/ExecEdit/1',['name'=>'Simpsons']);
         $response->assertRedirect('/Database/Tags/List');
-        $this->assertDatabaseHas('tags',['name'=>'Sompsons']);
-    }*/
+        $this->assertDatabaseHas('tags',['name'=>'Simpsons']);
+    }
 }
