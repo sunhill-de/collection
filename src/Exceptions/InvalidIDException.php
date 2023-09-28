@@ -2,6 +2,6 @@
 
 namespace Sunhill\Collection\Exceptions;
 
-use Sunhill\Basic\SunhillException;
+use Sunhill\Visual\Response\SunhillUserException;
 
-class InvalidIDException extends SunhillException {}
+class InvalidIDException extends SunhillUserException {}
