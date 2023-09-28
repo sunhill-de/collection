@@ -14,6 +14,7 @@ use Sunhill\Collection\Response\Database\Tags\ListTagsResponse;
 use Sunhill\Collection\Response\Database\Tags\ShowTagResponse;
 use Sunhill\Collection\Response\Database\Tags\ListChildrenResponse;
 use Sunhill\Collection\Response\Database\Tags\ListAssociatedObjectsResponse;
+use Sunhill\Collection\Response\Database\Tags\TagDialogResponse;
 
 class TagsController extends Controller
 {
@@ -41,26 +42,30 @@ class TagsController extends Controller
     
     public function add()
     {
-        $response = new AddTagResponse();
-        return $response->response();        
+        $response = new TagDialogResponse();
+        $response->setMode('add');
+        return $response->response();
     }
 
     public function execAdd()
     {
-        $response = new ExecAddTagResponse();
+        $response = new TagDialogResponse();
+        $response->setMode('execadd');
         return $response->response();
     }
        
     public function edit($id)
     {
-        $response = new EditTagResponse();
+        $response = new TagDialogResponse();
+        $response->setMode('edit');
         $response->setID($id);
         return $response->response();
     }
     
     public function execEdit($id)
     {
-        $response = new ExecEditTagResponse();
+        $response = new TagDialogResponse();
+        $response->setMode('execedit');
         $response->setID($id);
         return $response->response();
     }
