@@ -29,7 +29,7 @@ class ListTagsResponse extends SunhillListResponse
             }
         });
         $descriptor->column('fullpath')->title('Full path');
-        $descriptor->column('edit')->link('tags.add',['id'=>'id'])->setLinkTitle('edit');
+        $descriptor->column('edit')->link('tags.edit',['id'=>'id'])->setLinkTitle('edit');
         $descriptor->column('show')->link('tags.show',['id'=>'id'])->setLinkTitle('show');
         $descriptor->column('delete')->link('tags.delete',['id'=>'id'])->setLinkTitle('delete');
     }
