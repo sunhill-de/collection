@@ -18,9 +18,19 @@ class ShowTagResponse extends SunhillBladeResponse
         $this->id = $id;
     }
     
-    protected function getChildTags()
+    protected function getChildTagCount()
     {
-        return Tags::getChildTagsOf($this->id);
+        return Tags::query()->where('parent', '=', $this->params['fullpath'])->count();    
+    }
+    
+    protected function getChildTags(int $short)
+    {
+        return Tags::query()->where('parent', '=', $this->params['fullpath'])->orderBy('id')->limit($short)->get();
+    }
+    
+    protected function getChildObjectCount()
+    {
+        return 0;    
     }
     
     protected function getChildObjects()
@@ -38,9 +48,9 @@ class ShowTagResponse extends SunhillBladeResponse
         $this->params['parent'] = ($tag->parent)?$tag->parent->name:'';
         $this->params['fullpath'] = $tag->getFullpath();
         $this->params['leafable'] = ($tag->options & Tag::TO_LEAFABLE)?__('yes'):__('no');
-        $this->params['childtagcount'] = Tags::getChildTagCount($this->id);
-        $this->params['tags'] = Tags::getChildTagsOf($this->id,0,$short);
-        $this->params['objectcount'] = Tags::getAssociatedObjectsCount($this->id);
+        $this->params['childtagcount'] = $this->getChildTagCount(); 
+        $this->params['tags'] = $this->getChildTags($short);
+        $this->params['objectcount'] = $this->getChildObjectCount();
         $this->params['objects'] = $this->getChildObjects($this->id,0,$short);
     }
     

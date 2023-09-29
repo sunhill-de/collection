@@ -38,7 +38,7 @@
 </table>
 
 <table class="table">
- <caption>{{ __('Associated tags') }}</caption>
+ <caption>{{$childtagcount}} {{ __('Associated tags') }}</caption>
  <thead>
   <tr>
    <th>{{ __('ID') }}</th>
@@ -69,7 +69,7 @@
  
 </table> 
 <table class="table">
- <caption>{{ __('Associated objects') }}</caption>
+ <caption>{{$objectcount}} {{ __('Associated objects') }}</caption>
  <thead>
  <tr>
   <th>{{ __('ID') }}</th>
