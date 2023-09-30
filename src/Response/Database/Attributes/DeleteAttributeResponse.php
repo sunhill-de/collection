@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 use Sunhill\Visual\Response\SunhillRedirectResponse;
 use Sunhill\ORM\Facades\Attributes;
+use Sunhill\Collection\Utils\HasID;
 
-class DeleteAttributeResponse extends AttributeResponseBase
+class DeleteAttributeResponse extends SunhillRedirectResponse
 {
+    
+    use HasID;
     
     protected function prepareResponse()
     {

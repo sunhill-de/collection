@@ -14,6 +14,7 @@ use Sunhill\Collection\Response\Database\Attributes\ListAttributesResponse;
 use Sunhill\Collection\Response\Database\Attributes\ShowAttributeResponse;
 use Sunhill\Collection\Response\Database\Attributes\ListChildrenResponse;
 use Sunhill\Collection\Response\Database\Attributes\ListAssociatedObjectsResponse;
+use Sunhill\Collection\Response\Database\Attributes\AttributeDialogResponse;
 
 class AttributesController extends Controller
 {
@@ -40,27 +41,31 @@ class AttributesController extends Controller
     
     public function add()
     {
-        $response = new AddAttributeResponse();
+        $response = new AttributeDialogResponse();
+        $response->setMode('add');
         return $response->response();
     }
     
     public function execAdd()
     {
-        $response = new ExecAddAttributeResponse();
+        $response = new AttributeDialogResponse();
+        $response->setMode('execadd');
         return $response->response();
     }
     
     public function edit($id)
     {
-        $response = new EditAttributeResponse();
+        $response = new AttributeDialogResponse();
         $response->setID($id);
+        $response->setMode('edit');
         return $response->response();
     }
     
     public function execEdit($id)
     {
-        $response = new ExecEditAttributeResponse();
+        $response = new AttributeDialogResponse();
         $response->setID($id);
+        $response->setMode('execedit');
         return $response->response();
     }
     
