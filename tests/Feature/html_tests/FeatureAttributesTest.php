@@ -16,5 +16,27 @@ class FeatureAttributesTest extends HtmlTestBase
             ['/Database/Attributes/Edit/1000',500],  // Edit a nonexistant attribute
         ];    
     }
+   
+    public function testAddAttribute()
+    {
+        $response = $this->post('/Database/Attributes/ExecAdd',['name'=>'Futurama','type'=>'integer','allowed_classes'=>['CreativeWork']]);        
+        $this->assertDatabaseHas('attributes',['name'=>'Futurama']);
+        $response->assertRedirect('/Database/Attributes/List');
+    }
+    
+    public function testDeleteAttribute()
+    {
+        $this->assertDatabaseHas('attributes',['name'=>'wikipedia']);
+        $response = $this->get('/Database/Attributes/Delete/1');
+        $this->assertDatabaseMissing('attributes',['name'=>'wikipedia']);
+    }
+    
+    public function testEditAttribute()
+    {
+        $this->assertDatabaseHas('attributes',['name'=>'wikipedia']);
+        $response = $this->post('/Database/Attributes/ExecEdit/1',['name'=>'en_wikipedia']);
+        $response->assertRedirect('/Database/Attributes/List');
+        $this->assertDatabaseHas('attributes',['name'=>'en_wikipedia']);
+    }
     
 }
