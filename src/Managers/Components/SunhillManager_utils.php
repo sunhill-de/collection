@@ -21,10 +21,16 @@ trait SunhillManager_utils
     protected function getTableColumn(PropertiesCollection $collection, string $column)
     {
         if (strpos($column,'->') === false) {
-            if ($column == 'keyfield') {
-                $result = $this->getKeyfield($collection);
-            } else {
-                $result = $collection->$column;
+            switch ($column) {
+                case 'keyfield':
+                    $result = $this->keyKeyfield($collection);
+                    break;
+                case 'classname':
+                    $result = $collection::getInfo('name','');
+                    break;
+                default:    
+                    $result = $collection->$column;
+                    break;
             }
             return empty($result)?'':$result;
         } else {
