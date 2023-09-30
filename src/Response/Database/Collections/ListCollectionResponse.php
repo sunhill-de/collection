@@ -37,6 +37,7 @@ class ListCollectionResponse extends SunhillListResponse
      */
     protected function defineList(ListDescriptor &$descriptor)
     {
+        $descriptor->groupselect();
         $descriptor->column('id')->title('ID')->searchable();
         $namespace = Collections::searchCollection($this->collection);
         $columns = $namespace::getInfo('table_columns',[]);
