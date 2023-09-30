@@ -7,6 +7,7 @@ use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\Visual\Facades\Dialogs;
+use Sunhill\Collection\Facades\SunhillManager;
 
 class ListObjectsResponse extends SunhillListResponse
 {
@@ -25,15 +26,30 @@ class ListObjectsResponse extends SunhillListResponse
     protected function defineList(ListDescriptor &$descriptor)
     {
         $descriptor->groupselect();
+        $descriptor->setDataCallback(function($entry, $data_set) {
+            $rule = empty($entry->getBuildRule())?$entry->getFieldName():$entry->getBuildRule();
+            if (property_exists($data_set, $rule)) {
+                return $data_set->$rule;
+            }
+            if (strpos($rule,'->') !== false) {
+                [$field,$subfield] = explode('->',$rule);
+                $object = Objects::load($data_set->$field);
+                if ($subfield == 'keyfield') {
+                    return SunhillManager::getKeyfield($object);
+                } else {
+                    return $object->$subfield;
+                }
+            }
+        });
         $descriptor->column('id')->title('ID')->searchable()->setClass('is-narrow');
         $descriptor->column('classname')->title('Class')->searchable()->link('objects.list',['key'=>'classname']);
         $namespace = Classes::getNamespaceOfClass($this->key);
-        $columns = $namespace::getInfo('table_columns',['_uuid']);
+        $columns = $namespace::getInfo('table_columns',['_uuid','keyfield']);
         foreach ($columns as $index => $column) {
             if (is_int($index)) {
                 $column_desc = $descriptor->column($column)->title($column);
             } else {
-                $column_desc = $descriptor->column($index)->title($index);
+                $column_desc = $descriptor->column($index)->title($index)->buildRule($column);
             }
         }
         $descriptor->column('edit')->link('objects.edit',['id'=>'id'])->setLinkTitle('edit')->setClass('is-narrow');
@@ -47,8 +63,7 @@ class ListObjectsResponse extends SunhillListResponse
      */
     protected function getEntryCount(): int
     {
-        $class_namespace = Classes::getNamespaceOfClass(isset($this->params['key'])?$this->params['key']:'object');
-        return $class_namespace::search()->count();
+        return SunhillManager::getObjectsCount(isset($this->params['key'])?$this->params['key']:'object',[]);
     }
     
     protected function getRouteParameters()
@@ -64,7 +79,24 @@ class ListObjectsResponse extends SunhillListResponse
             $this->key = 'ORMObject';
         }
         $this->params['namespace'] = Classes::getNamespaceOfClass($this->key);
-        return Objects::getPartialObjectList($this->key,$this->order,$this->offset*self::ENTRIES_PER_PAGE,self::ENTRIES_PER_PAGE);
+        $result = SunhillManager::getObjectsList($this->key, [], $this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE,self::ENTRIES_PER_PAGE);
+        $descriptor = new ListDescriptor();
+        $this->defineList($descriptor);
+        foreach ($descriptor as $column) {
+            if (strpos($column->getFieldName(),'->') !== false) {
+                [$column_name,$field_name] = explode('->',$column->getFieldName());
+                foreach ($result as $entry) {
+                    $subobject = Objects::load($entry->$column_name);
+                    if ($field_name == 'keyfield') {
+                        $this->getKeyfield($subobject);
+                    } else {
+                        $entry->$column_name = $subobject->$field_name;
+                    }
+                }
+            }
+        }
+            
+        return $result;
     }
 
     protected function prepareResponse()
