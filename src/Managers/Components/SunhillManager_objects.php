@@ -18,6 +18,20 @@ use Sunhill\ORM\Facades\Classes;
 
 trait SunhillManager_objects
 {
+    protected function handleObjectConditions($query, array $conditions)
+    {
+        foreach ($conditions as $condition) {
+            
+        }
+        return $query;
+    }
+    
+    public function getObjectsCount(string $class_name, array $conditions)
+    {
+        $class_namespace = Classes::getNamespaceOfClass($class_name);
+        return $this->handleObjectConditions($class_namespace::search(), $conditions)->count();        
+    }
+    
     protected function getObjectListEntries($namespace, $query_base, int $offset = 0, int $limit = 10)
     {
         if ($offset) {
@@ -27,15 +41,14 @@ trait SunhillManager_objects
         $entries = $query_base->get();
         $result = [];
         foreach ($entries as $entry) {
-            $collection = Objects::load($entry->id);
-            $row = $this->getTableRow($collection);
-            
-            $result[] = $row;
+            $object = Objects::load($entry->id);
+            $entry->keyfield = $this->getKeyfield($object);
+            $result[] = $entry;
         }
         return $result;
     }
     
-    public function getObjectList(string $object_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
+    public function getObjectsList(string $object_name, array $conditions = [], string $order = 'id', string $order_direction = 'asc', int $offset = 0, int $limit = 10)
     {
         $namespace = Classes::getNamespaceOfClass($object_name);
         $query = $this->buildCollectionQuery($namespace, $conditions, $order, $order_direction);
