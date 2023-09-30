@@ -5,6 +5,8 @@ namespace Sunhill\Collection\Response\Database\Tags;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Objects\Tag;
 use Sunhill\Visual\Response\SunhillBladeResponse;
+use Sunhill\ORM\Objects\ORMObject;
+use Sunhill\ORM\Facades\Objects;
 
 class ShowTagResponse extends SunhillBladeResponse
 {
@@ -30,12 +32,23 @@ class ShowTagResponse extends SunhillBladeResponse
     
     protected function getChildObjectCount()
     {
-        return 0;    
+        return ORMObject::search()->where('tags','has',$this->params['fullpath'])->count();
     }
     
-    protected function getChildObjects()
+    protected function getChildObjects(int $short)
     {
-        return [];    
+        $return = [];
+        $result = ORMObject::search()->where('tags','has',$this->params['fullpath'])->limit($short)->get();
+        foreach ($result as $entry) {
+            $item = new \StdClass();
+            $item->id = $entry->id;
+            $object = Objects::load($entry->id);
+            $item->class = Objects::getClassnameOf($entry->id);
+            $item->class_name = Objects::getClassnameOf($entry->id);
+            $item->keyfield = '';
+            $return[] = $item;
+        }
+        return $return;    
     }
     
     protected function prepareResponse()
@@ -51,7 +64,7 @@ class ShowTagResponse extends SunhillBladeResponse
         $this->params['childtagcount'] = $this->getChildTagCount(); 
         $this->params['tags'] = $this->getChildTags($short);
         $this->params['objectcount'] = $this->getChildObjectCount();
-        $this->params['objects'] = $this->getChildObjects($this->id,0,$short);
+        $this->params['objects'] = $this->getChildObjects($short);
     }
     
 }  
