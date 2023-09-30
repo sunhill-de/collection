@@ -46,6 +46,7 @@ use Sunhill\Collection\Objects\Organisations\Manufacturer;
 use Sunhill\Collection\Modules\Database\SunhillFeatureCollections;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Sunhill\ORM\Objects\ORMObject;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -115,6 +116,14 @@ class DatabaseTestCase extends CollectionTestCase
             ['path_name'=>'Family.Maggie','tag_id'=>6,'is_fullpath'=>1],
             ['path_name'=>'Maggie','tag_id'=>6,'is_fullpath'=>0],
         ]);
+        DB::table('tagobjectassigns')->truncate();
+        DB::table('tagobjectassigns')->insert([
+            ['container_id'=>ORMObject::getSeedID('homer'),'tag_id'=>2],
+            ['container_id'=>ORMObject::getSeedID('marge'),'tag_id'=>3],
+            ['container_id'=>ORMObject::getSeedID('bart'),'tag_id'=>4],
+            ['container_id'=>ORMObject::getSeedID('lisa'),'tag_id'=>5],
+            ['container_id'=>ORMObject::getSeedID('maggie'),'tag_id'=>6],
+        ]);
     }
     
     protected function seedAttributes()
@@ -124,14 +133,20 @@ class DatabaseTestCase extends CollectionTestCase
             ['id'=>1,'name'=>'wikipedia','type'=>'string','allowed_classes'=>'|CreativeWork|Person|Organisation|'],
             ['id'=>2,'name'=>'rating','type'=>'integer','allowed_classes'=>'|CreativeWork|'],
         ]);
-        Schema::create('attrwikipedia', function($table) {
+        Schema::create('attr_wikipedia', function($table) {
             $table->integer('object_id')->primary();
             $table->string('value');
         });
-            Schema::create('attrrating', function($table) {
-                $table->integer('object_id')->primary();
-                $table->integer('value');
-            });
+        Schema::create('attr_rating', function($table) {
+            $table->integer('object_id')->primary();
+            $table->integer('value');
+        });
+        DB::table('attr_wikipedia')->insert([
+            ['object_id'=>ORMObject::getSeedID('homer'),
+             'value'=>'http://de.wikipedia.org/wiki/Homer_Simpson'],
+            ['object_id'=>ORMObject::getSeedID('marge'),
+             'value'=>'http://de.wikipedia.org/wiki/Marge_Simpson'],
+        ]);
     }
     
     protected function seedProductGroups()
@@ -633,8 +648,6 @@ class DatabaseTestCase extends CollectionTestCase
     
     protected function seedDatabase()
     {
-        $this->seedTags();
-        $this->seedAttributes();
         
             // Seed non dependent tables
         $this->seedProductGroups();
@@ -672,6 +685,10 @@ class DatabaseTestCase extends CollectionTestCase
         $this->seedShops();
         
         $this->seedEvents();
+        
+        $this->seedTags();
+        $this->seedAttributes();
+        
     }
     
 }
