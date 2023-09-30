@@ -7,19 +7,15 @@ use Sunhill\ORM\Objects\Tag;
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Facades\Objects;
+use Sunhill\Collection\Utils\HasID;
 
 class ShowTagResponse extends SunhillBladeResponse
 {
 
+    use CheckTag, HasID;
+    
     protected $template = 'collection::tags.show';
-        
-    protected $id;
-    
-    public function setID(int $id)
-    {
-        $this->id = $id;
-    }
-    
+            
     protected function getChildTagCount()
     {
         return Tags::query()->where('parent', '=', $this->params['fullpath'])->count();    
@@ -54,7 +50,8 @@ class ShowTagResponse extends SunhillBladeResponse
     protected function prepareResponse()
     {
         parent::prepareResponse();
-        $tag = Tags::loadTag($this->id);
+        $tag = $this->checkTag();
+
         $short = config('collection.entries_per_short_table',5);
         $this->params['id'] = $this->id;
         $this->params['name'] = $tag->name;

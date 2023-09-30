@@ -14,9 +14,10 @@ trait CheckTag
     
     protected function checkTag()
     {
-        if (!Tags::getTag($this->id)) {
+        if (!$result = Tags::getTag($this->id)) {
             throw new SunhillUserException(__("The tag with the id ':id' does not exists.",['id'=>$this->id]));
         }
+        return $result;
     }
     
 }  
