@@ -66,6 +66,7 @@ class CollectionDialogResponse extends SunhillDialogResponse
                     $element = $descriptor->checkbox();
                     break;
                 case PropertyCollection::class:
+                    $element = $descriptor->inputLookup()->lookup('collections')->lookup_additional($property->getAllowedCollection());
                     break;
                 case PropertyDate::class:
                     $element = $descriptor->date();
