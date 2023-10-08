@@ -10,6 +10,19 @@ use Sunhill\Collection\Exceptions\InvalidIDException;
 use Sunhill\Visual\Response\Dialog\DialogDescriptor;
 use Sunhill\ORM\Facades\Collections;
 use Sunhill\ORM\Properties\PropertyVarchar;
+use Sunhill\ORM\Properties\PropertyArray;
+use Sunhill\ORM\Properties\PropertyBoolean;
+use Sunhill\ORM\Properties\PropertyCollection;
+use Sunhill\ORM\Properties\PropertyDate;
+use Sunhill\ORM\Properties\PropertyDatetime;
+use Sunhill\ORM\Properties\PropertyEnum;
+use Sunhill\ORM\Properties\PropertyFloat;
+use Sunhill\ORM\Properties\PropertyInformation;
+use Sunhill\ORM\Properties\PropertyInteger;
+use Sunhill\ORM\Properties\PropertyMap;
+use Sunhill\ORM\Properties\PropertyObject;
+use Sunhill\ORM\Properties\PropertyText;
+use Sunhill\ORM\Properties\PropertyTime;
 
 class CollectionDialogResponse extends SunhillDialogResponse
 {
@@ -47,12 +60,52 @@ class CollectionDialogResponse extends SunhillDialogResponse
         $properties = $namespace::getAllPropertyDefinitions();
         foreach ($properties as $property) {
             switch ($property::class) {
+                case PropertyArray::class:
+                    break;
+                case PropertyBoolean::class:
+                    $element = $descriptor->checkbox();
+                    break;
+                case PropertyCollection::class:
+                    break;
+                case PropertyDate::class:
+                    $element = $descriptor->date();
+                    break;
+                case PropertyDatetime::class:
+                    $element = $descriptor->datetime();
+                    break;
+                case PropertyEnum::class:
+                    $element = $descriptor->select();
+                    $values = [];
+                    foreach ($property->getEnumValues() as $value) {
+                        $values[$value] = $value;
+                    }
+                    $element->entries($values);
+                    break;
+                case PropertyFloat::class:
+                    $element = $descriptor->string();
+                    break;
+                case PropertyInformation::class:
+                    $element = $descriptor->string();
+                    break;
+                case PropertyInteger::class:
+                    $element = $descriptor->number();
+                    break;
+                case PropertyMap::class:
+                    break;
+                case PropertyObject::class:
+                    break;
+                case PropertyText::class:
+                    $element = $descriptor->text();
+                    break;
+                case PropertyTime::class:
+                    $element = $descriptor->time();
+                    break;
                 case PropertyVarchar::class:
                     $element = $descriptor->string();
                     break;
             }
-            $element->label($property->get_description())->name($property->getName())->required()->class('input is-small');
-            
+            $element->label($property->get_description())->name($property->getName())->class('input is-small');
+            $element->required();
         }
     }
     
