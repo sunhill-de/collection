@@ -28,6 +28,12 @@ class SunhillFeatureCollections extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{collection}')
             ->setAlias('collection.add');
+        $this->addAction('ExecAdd')
+            ->setMethod('post')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'execadd'])
+            ->setVisible(false)
+            ->setRouteAddition('/{collection}')
+            ->setAlias('collection.execadd');
         $this->addAction('ListCollection')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'listcollection'])
             ->setVisible(false)
@@ -43,6 +49,12 @@ class SunhillFeatureCollections extends SunhillModuleBase
             ->setVisible(false)
             ->setRouteAddition('/{collection}/{id}')
             ->setAlias('collection.edit');
+        $this->addAction('ExecEdit')
+            ->setMethod('post')
+            ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'execedit<'])
+            ->setVisible(false)
+            ->setRouteAddition('/{collection}')
+            ->setAlias('collection.execedit');
         $this->addAction('DeleteCollection')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\CollectionsController::class, 'deletecollection'])
             ->setVisible(false)

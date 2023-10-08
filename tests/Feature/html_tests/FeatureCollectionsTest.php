@@ -22,6 +22,9 @@ class FeatureCollectionsTest extends HtmlTestBase
             ['/Database/Collections/ListCollection/Staff',200],
             ['/Database/Collections/ListCollection/StaffJob',200],
             
+            ['/Database/Collections/Add/Language',200],
+            
+            
             ['/Database/Collections/Show/NonExistingClass',500],  // Show non existing class
             ['/Database/Collections/List/1000',500],              // List classes with non existing page
             ['/Database/Collections/ListCollection/StaffJob',200],
