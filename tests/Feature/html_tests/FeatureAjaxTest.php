@@ -31,5 +31,24 @@ class FeatureAjaxTest extends HtmlTestBase
             ['label'=>'CreativeWork','id'=>'CreativeWork'],            
         ]);
     }
+
+    /**
+     * @dataProvider AjaxCollectionsProvider
+     */
+    public function testAjaxCollections($collection, $search, $json)
+    {
+        $response = $this->getJson('/ajax/collections/'.$collection.'?search='.$search);
+        $response->assertStatus(200)
+                 ->assertJson($json);
+    }
     
+    public static function AjaxCollectionsProvider()
+    {
+        return [
+            ['Anniversary','Li',[['label'=>"Lisa's birthday",'id'=>3]]],
+            ['EventType','ch',[['label'=>'change','id'=>2]]],
+            ['Genre','ho',[['label'=>'horror','id'=>5]]],
+            ['Network','Ho',[['label'=>'Home','id'=>1]]],
+        ];
+    }
 }
