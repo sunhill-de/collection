@@ -79,6 +79,7 @@ use Sunhill\Collection\Response\Ajax\AjaxClasses;
 use Sunhill\Collection\Response\Ajax\AjaxStrings;
 use Sunhill\Collection\Response\Ajax\AjaxObjects;
 use Sunhill\Collection\Response\Ajax\AjaxAttributes;
+use Sunhill\Collection\Response\Ajax\AjaxCollections;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -187,6 +188,7 @@ class CollectionServiceProvider extends ServiceProvider
         SunhillSiteManager::addAjaxModule('classes', AjaxClasses::class);
         SunhillSiteManager::addAjaxModule('attributes', AjaxAttributes::class);
         SunhillSiteManager::addAjaxModule('objects', AjaxObjects::class);
+        SunhillSiteManager::addAjaxModule('collections', AjaxCollections::class);
         SunhillSiteManager::addAjaxModule('strings', AjaxStrings::class);
     }
     
