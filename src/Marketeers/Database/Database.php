@@ -15,17 +15,20 @@
 namespace Sunhill\Collection\Marketeers\Database;
 
 use Sunhill\ORM\InfoMarket\Marketeer;
+use Sunhill\Basic\Base;
 
 class Database extends Marketeer
 {
     
-    protected function getOffering(): array
+    public function __construct()
     {
-        return [
-            'database.classes'=>DatabaseClassesItem::class,
-            'database.objects'=>DatabaseObjectsItem::class,
-            'database.tags'=>DatabaseTagsItem::class,
-        ];
+        parent::__construct();
+        $this->setName('database');
+        $this->addEntry('classes', ClassesItem::class);
+        $this->addEntry('collections', CollectionsItem::class);        
+        $this->addEntry('objects', ObjectsItem::class);
+        $this->addEntry('tags', TagsItem::class);
+        $this->addEntry('attributes', AttributesItem::class);
     }
     
     
