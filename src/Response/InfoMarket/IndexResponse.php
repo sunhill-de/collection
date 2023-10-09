@@ -3,7 +3,7 @@
 namespace Sunhill\Collection\Response\InfoMarket;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
-use Sunhill\InfoMarket\Facades\InfoMarket;
+use Sunhill\ORM\Facades\InfoMarket;
 
 class IndexResponse extends SunhillBladeResponse
 {
