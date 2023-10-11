@@ -61,12 +61,20 @@ class CollectionDialogResponse extends SunhillDialogResponse
         foreach ($properties as $property) {
             switch ($property::class) {
                 case PropertyArray::class:
+                    $element = $descriptor
+                                ->list()
+                                ->element($property->getElementType()::getType())
+                                ->lookup('collectionfield')
+                                ->lookup_additional($this->collection,$property->getName());
                     break;
                 case PropertyBoolean::class:
                     $element = $descriptor->checkbox();
                     break;
                 case PropertyCollection::class:
-                    $element = $descriptor->inputLookup()->lookup('collections')->lookup_additional($property->getAllowedCollection());
+                    $element = $descriptor
+                                ->inputLookup()
+                                ->lookup('collectionfield')
+                                ->lookup_additional($this->collection,$property->getName());
                     break;
                 case PropertyDate::class:
                     $element = $descriptor->date();
@@ -92,8 +100,10 @@ class CollectionDialogResponse extends SunhillDialogResponse
                     $element = $descriptor->number();
                     break;
                 case PropertyMap::class:
+                    $element = $descriptor->inputLookup()->lookup('collectionfield')->lookup_additional($this->collection,$property->getName());
                     break;
                 case PropertyObject::class:
+                    $element = $descriptor->inputLookup()->lookup('collectionfield')->lookup_additional($this->collection,$property->getName());
                     break;
                 case PropertyText::class:
                     $element = $descriptor->text();
