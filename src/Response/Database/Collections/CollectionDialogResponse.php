@@ -116,7 +116,9 @@ class CollectionDialogResponse extends SunhillDialogResponse
                     break;
             }
             $element->label($property->get_description())->name($property->getName())->class('input is-small');
-            $element->required();
+            if (!empty($property->getDefault())) {
+                $element->required();
+            }
         }
     }
     
