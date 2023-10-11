@@ -1,5 +1,4 @@
 <?php
-
 namespace Sunhill\Collection;
 
 use Sunhill\Collection\Managers\ImportManager;
@@ -80,6 +79,10 @@ use Sunhill\Collection\Response\Ajax\AjaxStrings;
 use Sunhill\Collection\Response\Ajax\AjaxObjects;
 use Sunhill\Collection\Response\Ajax\AjaxAttributes;
 use Sunhill\Collection\Response\Ajax\AjaxCollections;
+use Sunhill\Collection\Response\Ajax\AjaxInfomarket;
+use Sunhill\Collection\Response\Ajax\AjaxInfomarketNodes;
+use Sunhill\Collection\Response\Ajax\AjaxCollectionField;
+use Sunhill\Collection\Response\Ajax\AjaxObjectField;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -190,6 +193,10 @@ class CollectionServiceProvider extends ServiceProvider
         SunhillSiteManager::addAjaxModule('objects', AjaxObjects::class);
         SunhillSiteManager::addAjaxModule('collections', AjaxCollections::class);
         SunhillSiteManager::addAjaxModule('strings', AjaxStrings::class);
+        SunhillSiteManager::addAjaxModule('infomarket', AjaxInfomarket::class);
+        SunhillSiteManager::addAjaxModule('infomarketnodes', AjaxInfomarketNodes::class);
+        SunhillSiteManager::addAjaxModule('collectionfield', AjaxCollectionField::class);
+        SunhillSiteManager::addAjaxModule('objectfield', AjaxObjectField::class);
     }
     
     public function boot()
