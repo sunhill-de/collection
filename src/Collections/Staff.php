@@ -43,7 +43,7 @@ class Staff extends Collection
             ->set_displayable(true);
         $list->varchar('additional')
             ->set_description('Additional informations (like name of the role of actors)')
-            ->setDefault(null)
+            ->setDefault('')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
