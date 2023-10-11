@@ -23,7 +23,7 @@ trait SunhillManager_utils
         if (strpos($column,'->') === false) {
             switch ($column) {
                 case 'keyfield':
-                    $result = $this->keyKeyfield($collection);
+                    $result = $this->getKeyfield($collection);
                     break;
                 case 'classname':
                     $result = $collection::getInfo('name','');
