@@ -33,6 +33,9 @@ class ListObjectsResponse extends SunhillListResponse
             }
             if (strpos($rule,'->') !== false) {
                 [$field,$subfield] = explode('->',$rule);
+                if (is_null($data_set->$field)) {
+                    return '';
+                }
                 $object = Objects::load($data_set->$field);
                 if ($subfield == 'keyfield') {
                     return SunhillManager::getKeyfield($object);
