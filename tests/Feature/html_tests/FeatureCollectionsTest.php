@@ -22,6 +22,18 @@ class FeatureCollectionsTest extends HtmlTestBase
             ['/Database/Collections/ListCollection/Staff',200],
             ['/Database/Collections/ListCollection/StaffJob',200],
             
+            ['/Database/Collections/Add/Anniversary',200],
+            ['/Database/Collections/Add/Event',200],
+            ['/Database/Collections/Add/EventType',200],
+            ['/Database/Collections/Add/Genre',200],
+            ['/Database/Collections/Add/Language',200],
+            ['/Database/Collections/Add/MusicalArtist',200],
+            ['/Database/Collections/Add/Network',200],
+            ['/Database/Collections/Add/PersonsRelation',200],
+            ['/Database/Collections/Add/ProductGroup',200],
+            ['/Database/Collections/Add/Staff',200],
+            ['/Database/Collections/Add/StaffJob',200],
+            
             ['/Database/Collections/Add/Language',200],
             
             
