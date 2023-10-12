@@ -16,13 +16,19 @@ class ObjectsDialogResponse extends PropertiesCollectionDialogResponse
         return Classes::getNamespaceOfClass($this->collection);
     }
     
+    protected function handleRouteParameter(string $collection)
+    {
+        $this->route_parameters['class'] = $collection;        
+    }
+    
     protected function getLookup(): string
     {
         return 'objectfield';
     }
     
-    protected function execAdd($parameters)
+    protected function returnAfterExec()
     {
+        $this->redirect('objects.list',['key'=>$this->collection]);
     }
     
     protected function getEditValues()

@@ -43,6 +43,16 @@ class CollectionDialogResponse extends PropertiesCollectionDialogResponse
         return 'collectionfield';
     }
     
+    protected function returnAfterExec()
+    {
+        $this->redirect('collection.list',['collection'=>$this->collection]);        
+    }
+    
+    protected function handleRouteParameter(string $collection)
+    {
+        $this->route_parameters['collection'] = $collection;
+    }
+    
     protected function execAdd($parameters)
     {
         $namespace = Collections::searchCollection($this->collection);

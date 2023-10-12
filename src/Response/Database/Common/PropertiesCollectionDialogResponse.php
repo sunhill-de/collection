@@ -47,12 +47,14 @@ abstract class PropertiesCollectionDialogResponse extends SunhillDialogResponse
     public function setCollection(string $collection)
     {
         $this->collection = $collection;
-        $this->route_parameters['collection'] = $collection;
+        $this->handleRouteParameter($collection);
         return $this;
     }
     
     abstract protected function getNamespaceOfCollection(): string;
     abstract protected function getLookup(): string;
+    abstract protected function returnAfterExec();
+    abstract protected function handleRouteParameter(string $collection);
     
     protected function defineDialog(DialogDescriptor $descriptor)
     {
@@ -125,5 +127,27 @@ abstract class PropertiesCollectionDialogResponse extends SunhillDialogResponse
             }
         }
     }
+    
+    protected function addAdditionalParameters($parameters)
+    {
         
+    }
+    
+    protected function execAdd($parameters)
+    {
+        $namespace = $this->getNamespaceOfCollection();
+        $collection = new $namespace();
+        $properties = $namespace::getAllPropertyDefinitions();
+        foreach ($properties as $property) {
+            $name = $property->getName();
+            if (isset($parameters[$name])) {
+                $collection->$name = $parameters[$name];
+            }
+        }
+        $this->addAdditionalParameters($parameters);
+        $collection->commit();
+        $this->returnAfterExec();
+    }
+    
+    
 }  
