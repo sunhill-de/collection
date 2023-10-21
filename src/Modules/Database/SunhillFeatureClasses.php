@@ -3,36 +3,31 @@
 namespace Sunhill\Collection\Modules\Database;
 
 use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-use Sunhill\Visual\Modules\SunhillModuleBase;
+use Sunhill\Visual\Modules\SunhillSemiCrudModule;
 
-class SunhillFeatureClasses extends SunhillModuleBase
+class SunhillFeatureClasses extends SunhillSemiCrudModule
 {
     
-    protected function setupModule()
+    protected static $route_base = 'classes';
+    
+    protected static $controller = \Sunhill\Collection\Controllers\Database\ClassesController::class;
+    
+    protected function setupBasics()
     {
         $this->setName('Classes');
         $this->setDisplayName('Classes');        
         $this->setDescription('Classes');
-        $this->addIndex(\Sunhill\Collection\Controllers\Database\ClassesController::class);
-        $this->addAction('List')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'list'])
-            ->setVisible(true)
-            ->setRouteAddition('/{page?}/{order?}')
-            ->setAlias('classes.list');
-        $this->addAction('Show')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'show'])
-            ->setVisible(false)
-            ->setRouteAddition('/{class}')
-            ->setAlias('classes.show');
+    }
+        
+    protected function setupAdditional()
+    {
         $this->addAction('Choose')
             ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'choose'])
             ->setVisible(false)
-            ->setAlias('classes.choose');
+            ->setAlias(static::$route_base.'.choose');        
         $this->addAction('Select')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'select'])
+            ->addControllerAction([static::$controller, 'select'])
             ->setVisible(false)
-            ->setAlias('classes.select');
+            ->setAlias(static::$route_base.'.select');
     }
-    
-    
 }

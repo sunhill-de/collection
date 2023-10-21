@@ -2,36 +2,16 @@
 
 namespace Sunhill\Collection\Controllers\Database;
 
-use Illuminate\Routing\Controller;
-use Sunhill\Collection\Response\SunhillTileViewResponse;
-use Sunhill\Collection\Response\Database\Classes\ListClassesResponse;
+use Sunhill\Visual\Controllers\CrudController;
 use Sunhill\Collection\Response\Database\Classes\ShowClassResponse;
 use Sunhill\Collection\Response\Database\Classes\ChooseClassResponse;
 use Sunhill\Collection\Response\Database\Classes\SelectClassesResponse;
+use Sunhill\Collection\Response\Database\Classes\ClassesCrudResponse;
 
-class ClassesController extends Controller
+class ClassesController extends CrudController
 {
     
-    public function index()
-    {
-        $response = new SunhillTileViewResponse();
-        return $response->response();
-    }
-    
-    public function list($page = 0, $order = 'name')
-    {
-        $response = new ListClassesResponse();
-        $response->setOffset($page);
-        $response->setOrder($order);
-        return $response->response();
-    }
-    
-    public function show($class)
-    {
-        $response = new ShowClassResponse();
-        $response->setClass($class);
-        return $response->response();
-    }
+    protected static $crud_response = ClassesCrudResponse::class;
     
     public function select()
     {
