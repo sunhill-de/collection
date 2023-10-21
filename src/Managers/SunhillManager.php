@@ -30,7 +30,7 @@ class SunhillManager
     use SunhillManager_collections;
     use SunhillManager_objects;
     use SunhillManager_keyfields;
-    use SunhillManager_classes;
+//    use SunhillManager_classes;
     use SunhillManager_tags;
     use SunhillManager_attributes;
         
