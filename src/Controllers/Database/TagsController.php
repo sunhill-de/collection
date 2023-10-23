@@ -2,80 +2,15 @@
 
 namespace Sunhill\Collection\Controllers\Database;
 
-use Illuminate\Routing\Controller;
-use Sunhill\Visual\Response\SunhillTileViewResponse;
-
-use Sunhill\Collection\Response\Database\Tags\AddTagResponse;
-use Sunhill\Collection\Response\Database\Tags\ExecAddTagResponse;
-use Sunhill\Collection\Response\Database\Tags\EditTagResponse;
-use Sunhill\Collection\Response\Database\Tags\ExecEditTagResponse;
-use Sunhill\Collection\Response\Database\Tags\DeleteTagResponse;
-use Sunhill\Collection\Response\Database\Tags\ListTagsResponse;
-use Sunhill\Collection\Response\Database\Tags\ShowTagResponse;
 use Sunhill\Collection\Response\Database\Tags\ListChildrenResponse;
 use Sunhill\Collection\Response\Database\Tags\ListAssociatedObjectsResponse;
-use Sunhill\Collection\Response\Database\Tags\TagDialogResponse;
+use Sunhill\Visual\Controllers\CrudController;
+use Sunhill\Collection\Response\Database\Tags\TagsCrudResponse;
 
-class TagsController extends Controller
+class TagsController extends CrudController
 {
     
-    public function index()
-    {
-        $response = new SunhillTileViewResponse();
-        return $response->response();
-    }
-    
-    public function list($page = 0, $order = 'id')
-    {
-        $response = new ListTagsResponse();
-        $response->setOffset($page);
-        $response->setOrder($order);
-        return $response->response();
-    }
-    
-    public function show($id)
-    {
-        $response = new ShowTagResponse();
-        $response->setID($id);
-        return $response->response();
-    }
-    
-    public function add()
-    {
-        $response = new TagDialogResponse();
-        $response->setMode('add');
-        return $response->response();
-    }
-
-    public function execAdd()
-    {
-        $response = new TagDialogResponse();
-        $response->setMode('execadd');
-        return $response->response();
-    }
-       
-    public function edit($id)
-    {
-        $response = new TagDialogResponse();
-        $response->setMode('edit');
-        $response->setID($id);
-        return $response->response();
-    }
-    
-    public function execEdit($id)
-    {
-        $response = new TagDialogResponse();
-        $response->setMode('execedit');
-        $response->setID($id);
-        return $response->response();
-    }
-    
-    public function delete($id)
-    {
-        $response = new DeleteTagResponse();
-        $response->setID($id);
-        return $response->response();        
-    }
+    protected static $crud_response = TagsCrudResponse::class;
     
     public function listChildren(int $id, $offset = 0)
     {

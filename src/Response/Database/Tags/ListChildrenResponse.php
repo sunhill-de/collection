@@ -3,7 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Tags;
 
 use Sunhill\ORM\Facades\Tags;
-use Sunhill\Visual\Response\Lists\ListDescriptor;
+use Sunhill\Visual\Response\Crud\ListDescriptor;
 use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\Collection\Utils\HasID;
 

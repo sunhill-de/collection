@@ -2,64 +2,34 @@
 
 namespace Sunhill\Collection\Modules\Database;
 
-use Sunhill\Visual\Response\Database\Classes\ListClassesResponse;
-use Sunhill\Visual\Modules\SunhillModuleBase;
+use Sunhill\Visual\Modules\SunhillCrudModule;
 
-class SunhillFeatureTags extends SunhillModuleBase
+class SunhillFeatureTags extends SunhillCrudModule
 {
     
-    protected function setupModule()
+    protected static $route_base = 'tags';
+    
+    protected static $controller = \Sunhill\Collection\Controllers\Database\TagsController::class;
+    
+    protected function setupBasics()
     {
         $this->setName('Tags');
-        $this->setDisplayName('Tags');        
+        $this->setDisplayName('Tags');
         $this->setDescription('Tags');
-        $this->addIndex(\Sunhill\Collection\Controllers\Database\TagsController::class);
-        $this->addAction('List')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'list'])
-            ->setVisible(true)
-            ->setRouteAddition('/{page?}/{order?}')
-            ->setAlias('tags.list');
-        $this->addAction('Add')
-             ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'add'])
-             ->setVisible(true)
-             ->setAlias('tags.add');
-        $this->addAction('ExecAdd')
-             ->setMethod('post')
-             ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'execadd'])
-             ->setVisible(false)
-             ->setAlias('tags.execadd');
-        $this->addAction('Edit')
-             ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'edit'])
-             ->setRouteAddition('/{id}')
-             ->setVisible(false)
-             ->setAlias('tags.edit');
-        $this->addAction('ExecEdit')
-             ->setMethod('post')
-             ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'execedit'])
-             ->setRouteAddition('/{id}')
-             ->setVisible(false)
-             ->setAlias('tags.execedit');
-        $this->addAction('Show')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'show'])
-            ->setVisible(false)
-            ->setRouteAddition('/{id}')
-            ->setAlias('tags.show');
-        $this->addAction('Delete')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'delete'])
-            ->setVisible(false)
-            ->setRouteAddition('/{id}')
-            ->setAlias('tags.delete');
-        $this->addAction('ListChildren')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'listChildren'])
-            ->setVisible(false)
-            ->setRouteAddition('/{id}/{page?}')
-            ->setAlias('tags.listchildren');
-        $this->addAction('ListObjects')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\TagsController::class, 'listAssociatedObjects'])
-            ->setVisible(false)
-            ->setRouteAddition('/{id}/{page?}')
-            ->setAlias('tags.listobjects');
     }
     
-    
+    protected function setupAdditional()
+    {
+        $this->addAction('ListChildren')
+             ->addControllerAction([static::$controller, 'listChildren'])
+             ->setVisible(false)
+             ->setRouteAddition('/{id}/{page?}')
+             ->setAlias('tags.listchildren');
+        $this->addAction('ListObjects')
+             ->addControllerAction([static::$controller, 'listAssociatedObjects'])
+             ->setVisible(false)
+             ->setRouteAddition('/{id}/{page?}')
+             ->setAlias('tags.listobjects');
+    }
+        
 }
