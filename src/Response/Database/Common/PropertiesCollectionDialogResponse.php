@@ -5,9 +5,9 @@ namespace Sunhill\Collection\Response\Database\Common;
 use Sunhill\Collection\Traits\GetProperties;
 use Sunhill\Visual\Response\SunhillUserException;
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\Visual\Response\Dialog\SunhillDialogResponse;
+use Sunhill\Visual\Response\Crud\SunhillDialogResponse;
 use Sunhill\Collection\Exceptions\InvalidIDException;
-use Sunhill\Visual\Response\Dialog\DialogDescriptor;
+use Sunhill\Visual\Response\Crud\DialogDescriptor;
 use Sunhill\ORM\Facades\Collections;
 use Sunhill\ORM\Properties\PropertyVarchar;
 use Sunhill\ORM\Properties\PropertyArray;
@@ -37,8 +37,8 @@ abstract class PropertiesCollectionDialogResponse extends SunhillDialogResponse
     {
         $this->id = $id;
         $this->route_parameters['id'] = $this->id;
-        $namespace = Collections::searchCollection($this->collection);
-        if (!$namespace::search()->where('id',$id)->count()) {
+        $namespace = $this->getNamespaceOfCollection();
+        if (!$namespace::IDExists()) {
             throw new InvalidIDException("The id '$id' is invalid.");
         }
         return $this;

@@ -2,7 +2,7 @@
 
 namespace Sunhill\Collection\Response\Database\Objects;
 
-use Sunhill\Visual\Response\Lists\ListDescriptor;
+use Sunhill\Visual\Response\Crud\ListDescriptor;
 use Sunhill\Visual\Response\Lists\SunhillListResponse;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Facades\Classes;
