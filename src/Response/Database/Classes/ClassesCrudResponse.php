@@ -3,7 +3,7 @@
 namespace Sunhill\Collection\Response\Database\Classes;
 
 use Sunhill\Visual\Response\Crud\SunhillSemiCrudResponse;
-use Sunhill\Visual\Response\Lists\ListDescriptor;
+use Sunhill\Visual\Response\Crud\ListDescriptor;
 use Sunhill\Collection\Facades\SunhillManager;
 use Sunhill\ORM\Facades\Classes;
 use Sunhill\ORM\Properties\Utils\DefaultNull;
@@ -37,13 +37,42 @@ class ClassesCrudResponse extends SunhillSemiCrudResponse
         $descriptor->column('show')->link('classes.show',['id'=>'name'])->setLinkTitle('show');
     }
     
+    public function getClassCount(array $conditions = [])
+    {
+        $query = Classes::query();
+        $query = $this->handleClassesConditions($query, $conditions);
+        return $query->count();
+    }
+    
     /**
      * Returns the count of entries for the given filter (if any)
      * @param string $filter
      */
     protected function getEntryCount(): int
     {
-        return SunhillManager::getClassCount([]);
+        return $this->getClassCount([]);
+    }
+    
+    protected function handleClassesConditions($query, array $conditions)
+    {
+        foreach ($conditions as $condition) {
+            
+        }
+        return $query;
+    }
+    
+    public function getClassList(array $conditions = [], string $order, string $order_dir = 'desc', int $offset = 0, int $limit = 10)
+    {
+        $query = Classes::query();
+        $query = $this->handleClassesConditions($query, $conditions);
+        if ($offset) {
+            $query->offset($offset);
+        }
+        if ($limit) {
+            $query->limit($limit);
+        }
+        $query->orderBy($order, $order_dir);
+        return $query->get();
     }
     
     /**
@@ -52,7 +81,7 @@ class ClassesCrudResponse extends SunhillSemiCrudResponse
      */
     protected function getData()
     {
-        return SunhillManager::getClassList([],$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
+        return $this->getClassList([],$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
     }
     
     /**

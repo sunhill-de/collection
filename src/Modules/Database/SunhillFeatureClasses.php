@@ -22,7 +22,7 @@ class SunhillFeatureClasses extends SunhillSemiCrudModule
     protected function setupAdditional()
     {
         $this->addAction('Choose')
-            ->addControllerAction([\Sunhill\Collection\Controllers\Database\ClassesController::class, 'choose'])
+            ->addControllerAction([static::$controller, 'choose'])
             ->setVisible(false)
             ->setAlias(static::$route_base.'.choose');        
         $this->addAction('Select')
