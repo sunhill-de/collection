@@ -7,8 +7,8 @@
  */
 namespace Sunhill\Collection\Response\Database\Attributes;
 
-use Sunhill\Visual\Response\Dialog\SunhillDialogResponse;
-use Sunhill\Visual\Response\Dialog\DialogDescriptor;
+use Sunhill\Visual\Response\Crud\SunhillDialogResponse;
+use Sunhill\Visual\Response\Crud\DialogDescriptor;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\Collection\Exceptions\InvalidIDException;
 use Sunhill\ORM\Facades\Attributes;

@@ -7,6 +7,7 @@ use Sunhill\ORM\Facades\Objects;
 use Sunhill\Visual\Response\SunhillRedirectResponse;
 use Sunhill\Visual\Response\SunhillUserException;
 use Sunhill\Collection\Utils\HasID;
+use Sunhill\ORM\Facades\Collections;
 
 class DeleteCollectionResponse extends SunhillRedirectResponse
 {
@@ -15,13 +16,22 @@ class DeleteCollectionResponse extends SunhillRedirectResponse
     
     protected $target = '/';
 
+    protected $colllection;
+    
+    public function setCollection(string $collection)
+    {
+        $this->collection = $collection;
+        return $this;
+    }
+    
     protected function prepareResponse()
     {
-        if (!$object = Objects::load($this->id)) {
-            throw new SunhillUserException(__("The object with the id ':id' does not exist.",['id'=>$this->id]));
+        $collection = Collections::searchCollection($this->collection);
+        if (!$collection::IDExists($this->id)) {
+            throw new SunhillUserException(__("The collection of type ':type' with the id ':id' does not exist.",['type'=>$this->collection,'id'=>$this->id]));
         }
-        $object->delete();
-        $this->setTarget(route('collection.list'));        
+        $collection::delete($this->id);
+        $this->setTarget(route('collection.list',['collection'=>$this->collection]));        
     }
     
 }  
