@@ -159,4 +159,33 @@ class FeatureAttributesTest extends DatabaseTestCase
         $response->assertStatus(500);
         $response->assertSee("The ID '1000' does not exist.");        
     }
+    
+    public function testGroupDelete()
+    {
+        $response = $this->post('/Database/Attributes/GroupDelete',['ids'=>[1,2]]);
+        $response->assertStatus(200);
+        $response->assertSee('wikipedia');
+    }
+    
+    public function testExecGroupDelete()
+    {
+        $response = $this->post('/Database/Attributes/ExecGroupDelete',['ids'=>[1,2]]);
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('attributes',['id'=>1]);
+        $this->assertDatabaseMissing('attributes',['id'=>2]);
+        $this->assertDatabaseHas('attributes',['id'=>3]);
+    }
+    
+    public function testGroupEdit()
+    {
+        $response = $this->post('/Database/Attributes/GroupEdit',['ids'=>[1,2]]);
+        $response->assertStatus(200);        
+    }
+    
+    public function testExecGroupEdit()
+    {
+        $response = $this->post('/Database/Attributes/ExecGroupEdit',['ids'=>[1,2]]);
+        $response->assertStatus(200);        
+    }
+    
 }
