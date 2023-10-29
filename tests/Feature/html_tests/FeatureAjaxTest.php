@@ -2,15 +2,10 @@
 
 namespace Sunhill\Collection\Tests\Feature\html_tests;
 
-class FeatureAjaxTest extends HtmlTestBase
+use Sunhill\Collection\Tests\DatabaseTestCase;
+
+class FeatureAjaxTest extends DatabaseTestCase
 {
-    
-    public static function HTMLProvider()
-    {
-        return [
-            ['/ajax/tags?search=Fa',200],       // Search Tags
-        ];    
-    }
     
     public function testAjaxTags()
     {
