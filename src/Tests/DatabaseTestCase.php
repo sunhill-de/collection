@@ -132,6 +132,19 @@ class DatabaseTestCase extends CollectionTestCase
         DB::table('attributes')->insert([
             ['id'=>1,'name'=>'wikipedia','type'=>'string','allowed_classes'=>'|CreativeWork|Person|Organisation|'],
             ['id'=>2,'name'=>'rating','type'=>'integer','allowed_classes'=>'|CreativeWork|'],
+            ['id'=>3,'name'=>'test','type'=>'integer','allowed_classes'=>'|Person|'],
+            ['id'=>4,'name'=>'height','type'=>'float','allowed_classes'=>'|Person|'],
+            ['id'=>5,'name'=>'weight','type'=>'float','allowed_classes'=>'|Person|'],
+            ['id'=>6,'name'=>'IQ','type'=>'integer','allowed_classes'=>'|Person|'],
+            ['id'=>7,'name'=>'consumed','type'=>'integer','allowed_classes'=>'|CreativeWork|'],
+            ['id'=>8,'name'=>'color','type'=>'string','allowed_classes'=>'|Property|'],
+            ['id'=>9,'name'=>'temperature','type'=>'float','allowed_classes'=>'|Property|'],
+            ['id'=>10,'name'=>'surface','type'=>'string','allowed_classes'=>'|Property|'],
+            ['id'=>11,'name'=>'smells','type'=>'integer','allowed_classes'=>'|Property|'],
+            ['id'=>12,'name'=>'completed','type'=>'integer','allowed_classes'=>'|CreativeWork|'],
+            ['id'=>13,'name'=>'something','type'=>'integer','allowed_classes'=>'|Organisation|'],
+            ['id'=>14,'name'=>'else','type'=>'integer','allowed_classes'=>'|Person|'],
+            ['id'=>15,'name'=>'hair','type'=>'integer','allowed_classes'=>'|Person|'],
         ]);
         Schema::create('attr_wikipedia', function($table) {
             $table->integer('object_id')->primary();
