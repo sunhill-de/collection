@@ -36,6 +36,7 @@ use Sunhill\Collection\Objects\Organisations\Manufacturer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Sunhill\ORM\Objects\ORMObject;
+use Illuminate\Support\Facades\Artisan;
 
 class BasicSeeder
 {
@@ -130,6 +131,71 @@ class BasicSeeder
                     ['object_id'=>ORMObject::getSeedID('marge'),
                         'value'=>'http://de.wikipedia.org/wiki/Marge_Simpson'],
                 ]);
+    }
+    
+    protected function seedFilters()
+    {
+        if (Schema::hasTable('listfilters')) {
+        DB::table('listfilters')->insert(
+            [[
+                'id'=>1,
+                'bestbefore'=>'2023-09-09 12:00:00',
+                'name'=>'',
+                'name_id'=>'8b1a9953c4',
+                'list'=>'tags',
+            ],
+            [
+                'id'=>2,
+                'bestbefore'=>null,
+                'name'=>'Test Tag Filter',
+                'name_id'=>'f8c47804d7',
+                'list'=>'tags'
+            ],
+            [
+                'id'=>3,
+                'bestbefore'=>'2923-09-09 12:00:00',
+                'name'=>'',
+                'name_id'=>'611296a827',
+                'list'=>'tags',
+            ]],
+            );
+        DB::table('listfilterconditions')->insert(
+            [
+                [
+                    'id'=>1,
+                    'listfilter_id'=>1,
+                    'connection'=>'',
+                    'field'=>'name',
+                    'relation'=>'<',
+                    'condition'=>'S'
+                ],
+                [
+                    'id'=>2,
+                    'listfilter_id'=>2,
+                    'connection'=>'',
+                    'field'=>'name',
+                    'relation'=>'>',
+                    'condition'=>'D'
+                ],
+                [
+                    'id'=>3,
+                    'listfilter_id'=>3,
+                    'connection'=>'',
+                    'field'=>'name',
+                    'relation'=>'<',
+                    'condition'=>'S'
+                ],
+                [
+                    'id'=>4,
+                    'listfilter_id'=>3,
+                    'connection'=>'',
+                    'field'=>'name',
+                    'relation'=>'>',
+                    'condition'=>'D'                    
+                ]
+            ]
+        );
+        }
     }
     
     protected function seedProductGroups()
@@ -671,6 +737,7 @@ class BasicSeeder
         
         $this->seedTags();
         $this->seedAttributes();
+        $this->seedFilters();
         
     }
     
