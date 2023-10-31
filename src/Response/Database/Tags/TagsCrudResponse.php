@@ -49,8 +49,8 @@ class TagsCrudResponse extends SunhillCrudResponse
      */
     protected function defineList(ListDescriptor &$descriptor)
     {
-        $descriptor->column('id')->title('id')->searchable('id');
-        $descriptor->column('name')->title('Name')->searchable('name');
+        $descriptor->column('id')->title('id')->setColumnSortable('id');
+        $descriptor->column('name')->title('Name')->setColumnSortable('name');
         $descriptor->column('parent')->title('Parent')->setCallback(function($data, $key) {
             if ($data->parent_id) {
                 $tag = Tags::loadTag($data->parent_id);
@@ -195,8 +195,12 @@ class TagsCrudResponse extends SunhillCrudResponse
     
     protected function doExecAdd($parameters)
     {
+        if ($tag = Tags::query()->where('name',$parameters['name'])->where('parent_id',$parameters['parent'])->count()) {
+            $this->inputError('name','This field is a duplicate.');
+            return false;
+        }
         Tags::query()->insert(['name'=>$parameters['name'],'parent_id'=>$parameters['parent']]);
-        return redirect(route('tags.list', $this->getRoutingParameters()));
+        return redirect(route('tags.list', $this->getRoutingParameters(['order'=>'id','page'=>-1])));
     }
     
     protected function getEditValues($id)
@@ -219,6 +223,10 @@ class TagsCrudResponse extends SunhillCrudResponse
     
     protected function doExecEdit($id, $parameters)
     {
+        if ($tag = Tags::query()->where('name',$parameters['name'])->where('parent_id',$parameters['parent'])->whereNot('id',$id)->count()) {
+            $this->inputError('name','This field is a duplicate.');
+            return false;
+        }
         Tags::query()->where('id',$id)->update(['name'=>$parameters['name'],'parent_id'=>$parameters['parent']]);
         return redirect(route('tags.list', $this->getRoutingParameters()));
     }
