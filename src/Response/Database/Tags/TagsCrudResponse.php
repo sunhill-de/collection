@@ -70,7 +70,12 @@ class TagsCrudResponse extends SunhillCrudResponse
     protected function handleTagsConditions($query, array $conditions)
     {
         foreach ($conditions as $condition) {
-            
+            if ($condition->connection == '') {
+                $connection = 'where';
+            } else {
+                $connection = $condition->connection.'Where';
+            }
+            $query = $query->$connection($condition->field,$condition->relation,$condition->condition);
         }
         return $query;
     }
@@ -101,7 +106,7 @@ class TagsCrudResponse extends SunhillCrudResponse
      */
     protected function getEntryCount(): int
     {
-        return $this->getTagCount([]);
+        return $this->getTagCount($this->getFilterConditions());
     }
     
     /**
@@ -110,7 +115,7 @@ class TagsCrudResponse extends SunhillCrudResponse
      */
     protected function getData()
     {
-        return $this->getTagList([],$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
+        return $this->getTagList($this->getFilterConditions(),$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
     }
     
     /**
