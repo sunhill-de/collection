@@ -6,6 +6,7 @@ use Sunhill\Collection\Response\Database\Tags\ListChildrenResponse;
 use Sunhill\Collection\Response\Database\Tags\ListAssociatedObjectsResponse;
 use Sunhill\Visual\Controllers\CrudController;
 use Sunhill\Collection\Response\Database\Tags\TagsCrudResponse;
+use Illuminate\Http\Request;
 
 class TagsController extends CrudController
 {
@@ -24,6 +25,12 @@ class TagsController extends CrudController
         $response = new ListAssociatedObjectsResponse();
         $response->setID($id);
         return $response->response();        
+    }
+    
+    public function untag(Request $request)
+    {
+        $response = new TagsCrudResponse();
+        return $response->untag($request->post('selected'));
     }
 }
     

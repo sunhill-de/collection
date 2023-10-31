@@ -30,6 +30,11 @@ class SunhillFeatureTags extends SunhillCrudModule
              ->setVisible(false)
              ->setRouteAddition('/{id}/{page?}')
              ->setAlias('tags.listobjects');
+        $this->addAction('Untag')
+             ->setMethod('post')
+             ->addControllerAction([static::$controller, 'untag'])
+             ->setVisible(false)
+             ->setAlias('tags.untag');
     }
         
 }

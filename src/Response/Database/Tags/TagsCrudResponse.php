@@ -11,13 +11,14 @@ use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\ORM\Objects\Tag;
+use Illuminate\Support\Facades\DB;
 
 class TagsCrudResponse extends SunhillCrudResponse
 {
     
     protected static $route_base = 'tags';
     
-    protected static $group_action = ['delete','edit'];
+    protected static $group_action = ['delete','edit','untag'];
     
     /**
      * Provides additional links (in this case a link for adding tags)
@@ -257,6 +258,12 @@ class TagsCrudResponse extends SunhillCrudResponse
     protected function doExecGroupEdit(array $ids, array $parameters)
     {
         Tags::query()->whereIn('id',$ids)->update($parameters);
+        return redirect(route('tags.list',$this->getRoutingParameters()));
+    }
+    
+    public function untag(array $ids)
+    {
+        DB::table('tagobjectassigns')->whereIn('tag_id',$ids)->delete();
         return redirect(route('tags.list',$this->getRoutingParameters()));
     }
 }
