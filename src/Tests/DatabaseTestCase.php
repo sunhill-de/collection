@@ -29,6 +29,7 @@ class DatabaseTestCase extends CollectionTestCase
     protected function defineDatabaseMigrations()
     {
         $this->loadMigrationsFrom(realpath(__DIR__.'/../../vendor/sunhill/orm/database/migrations'));
+        $this->loadMigrationsFrom(realpath(__DIR__.'/../../vendor/sunhill/visual/database/migrations'));
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../../tests/Database/migrations');
     }

@@ -135,7 +135,6 @@ class BasicSeeder
     
     protected function seedFilters()
     {
-        if (Schema::hasTable('listfilters')) {
         DB::table('listfilters')->insert(
             [[
                 'id'=>1,
@@ -195,7 +194,6 @@ class BasicSeeder
                 ]
             ]
         );
-        }
     }
     
     protected function seedProductGroups()
