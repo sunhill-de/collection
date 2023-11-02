@@ -20,6 +20,11 @@ class TagsCrudResponse extends SunhillCrudResponse
     
     protected static $group_action = ['delete','edit','untag'];
     
+    protected function getBasicQuery()
+    {
+        return Tags::query();    
+    }
+    
     /**
      * Provides additional links (in this case a link for adding tags)
      * @return StdClass[]
@@ -66,58 +71,7 @@ class TagsCrudResponse extends SunhillCrudResponse
         $descriptor->column('show')->link('tags.show',['id'=>'id'])->setLinkTitle('show');
         $descriptor->column('delete')->link('tags.delete',['id'=>'id'])->setLinkTitle('delete');
     }
-    
-    protected function handleTagsConditions($query, array $conditions)
-    {
-        foreach ($conditions as $condition) {
-            if ($condition->connection == '') {
-                $connection = 'where';
-            } else {
-                $connection = $condition->connection.'Where';
-            }
-            $query = $query->$connection($condition->field,$condition->relation,$condition->condition);
-        }
-        return $query;
-    }
-    
-    protected function getTagCount(array $conditions = [])
-    {
-        $query = Tags::query();
-        $query = $this->handleTagsConditions($query, $conditions);
-        return $query->count();
-    }
-    
-    protected function getTagList(array $conditions = [], string $order, string $order_dir = 'desc', int $offset = 0, int $limit = 10)
-    {
-        $query = Tags::query();
-        $query = $this->handleTagsConditions($query, $conditions);
-        if ($offset) {
-            $query->offset($offset);
-        }
-        if ($limit) {
-            $query->limit($limit);
-        }
-        $query->orderBy($order, $order_dir);
-        return $query->get();
-    }    
-    /**
-     * Returns the count of entries for the given filter (if any)
-     * @param string $filter
-     */
-    protected function getEntryCount(): int
-    {
-        return $this->getTagCount($this->getFilterConditions());
-    }
-    
-    /**
-     * Return the tags that fit to the current filter
-     * @return unknown
-     */
-    protected function getData()
-    {
-        return $this->getTagList($this->getFilterConditions(),$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
-    }
-    
+        
     /**
      * Checks if the given id (in this case classname) exists
      * @param unknown $id
