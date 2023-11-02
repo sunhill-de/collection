@@ -13,6 +13,11 @@ class ClassesCrudResponse extends SunhillSemiCrudResponse
     
     protected static $route_base = 'classes';
     
+    protected function getBasicQuery()
+    {
+        return Tags::query();
+    }
+    
     protected function getDefaultOrder(): string
     {
         return 'name';

@@ -15,6 +15,11 @@ class ObjectsCrudResponse extends SunhillCrudResponse
     
     protected static $group_action = ['delete','edit'];
     
+    protected function getBasicQuery()
+    {
+        return Tags::query();
+    }
+    
     /**
      * Provides additional links (in this case a link for adding tags)
      * @return StdClass[]
