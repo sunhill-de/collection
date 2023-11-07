@@ -118,7 +118,7 @@ class CollectionServiceProvider extends ServiceProvider
     protected function registerClasses()
     {
         Objects::flushCache();
-        Classes::flushClasses();
+        Classes::flush();
 // Creative
         Classes::registerClass(Clip::class);
         Classes::registerClass(CreativeCollection::class);
