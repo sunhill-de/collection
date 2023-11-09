@@ -114,7 +114,7 @@ trait SunhillManager_collection
     
     protected function calculateCollectionCount(string $namespace, array $filter = [])
     {
-        return $namespace::search()->count();
+        return $namespace::query()->count();
     }
     
     public function getCollectionCount(string $collection_name, array $filter = [])
