@@ -15,7 +15,7 @@ class ClassesCrudResponse extends SunhillSemiCrudResponse
     
     protected function getBasicQuery()
     {
-        return Tags::query();
+        return Classes::query();
     }
     
     protected function getDefaultOrder(): string
@@ -37,7 +37,7 @@ class ClassesCrudResponse extends SunhillSemiCrudResponse
         $descriptor->column('name')->title('Name')->searchable('name')->setColumnSortable('name');
         $descriptor->column('description')->title('Description');
         $descriptor->column('parent')->title('Parent');
-        $descriptor->column('list')->link('objects.list',['key'=>'name'])->setLinkTitle('list');
+        $descriptor->column('list')->link('objects.list',['class'=>'name'])->setLinkTitle('list');
         $descriptor->column('add')->link('objects.add',['class'=>'name'])->setLinkTitle('add');
         $descriptor->column('show')->link('classes.show',['id'=>'name'])->setLinkTitle('show');
     }
@@ -47,46 +47,6 @@ class ClassesCrudResponse extends SunhillSemiCrudResponse
         $query = Classes::query();
         $query = $this->handleClassesConditions($query, $conditions);
         return $query->count();
-    }
-    
-    /**
-     * Returns the count of entries for the given filter (if any)
-     * @param string $filter
-     */
-    protected function getEntryCount(): int
-    {
-        return $this->getClassCount([]);
-    }
-    
-    protected function handleClassesConditions($query, array $conditions)
-    {
-        foreach ($conditions as $condition) {
-            
-        }
-        return $query;
-    }
-    
-    public function getClassList(array $conditions = [], string $order, string $order_dir = 'desc', int $offset = 0, int $limit = 10)
-    {
-        $query = Classes::query();
-        $query = $this->handleClassesConditions($query, $conditions);
-        if ($offset) {
-            $query->offset($offset);
-        }
-        if ($limit) {
-            $query->limit($limit);
-        }
-        $query->orderBy($order, $order_dir);
-        return $query->get();
-    }
-    
-    /**
-     * Return the classes that fit to the current filter
-     * @return unknown
-     */
-    protected function getData()
-    {
-        return $this->getClassList([],$this->order, $this->order_dir, $this->offset*self::ENTRIES_PER_PAGE, self::ENTRIES_PER_PAGE);
     }
     
     /**
