@@ -13,6 +13,7 @@ use Sunhill\Collection\Modules\Database\SunhillFeatureImports;
 
 use Sunhill\ORM\Facades\Collections;
 use Sunhill\Collection\Modules\Database\SunhillFeatureCollections;
+use Sunhill\Collection\Modules\Database\SunhillFeatureCollection;
 
 class DatabaseTestCase extends CollectionTestCase
 {
@@ -51,6 +52,7 @@ class DatabaseTestCase extends CollectionTestCase
         SunhillSiteManager::addDefaultSubmodule('Database','Database','Database',function($owner) {
             $owner->addSubmodule(new SunhillFeatureClasses());
             $owner->addSubmodule(new SunhillFeatureCollections());
+            $owner->addSubmodule(new SunhillFeatureCollection());
             $owner->addSubmodule(new SunhillFeatureObjects());
             $owner->addSubmodule(new SunhillFeatureTags());
             $owner->addSubmodule(new SunhillFeatureAttributes());
