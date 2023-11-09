@@ -9,5 +9,10 @@ class ObjectsController extends CrudController
 {
     
     protected static $crud_response = ObjectsCrudResponse::class;
-    
+   
+    protected function addAdditionalParameters($response)
+    {
+        $response->setClass(request('class','object'));
+    }
+        
 }

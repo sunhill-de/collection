@@ -9,6 +9,8 @@ class SunhillFeatureObjects extends SunhillCrudModule
     
     protected static $route_base = 'objects';
     
+    protected static $prefix = '/{class?}';
+    
     protected static $controller = \Sunhill\Collection\Controllers\Database\ObjectsController::class;
     
     protected function setupBasics()

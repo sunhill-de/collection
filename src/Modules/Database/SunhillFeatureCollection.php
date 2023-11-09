@@ -7,6 +7,8 @@ use Sunhill\Visual\Modules\SunhillCrudModule;
 class SunhillFeatureCollection extends SunhillCrudModule
 {
     
+    protected static $prefix = '/{class}';
+    
     protected static $route_base = 'collection';
     
     protected static $controller = \Sunhill\Collection\Controllers\Database\CollectionController::class;

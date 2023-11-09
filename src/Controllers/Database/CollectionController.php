@@ -10,4 +10,10 @@ class CollectionController extends CrudController
    
     protected static $crud_response = CollectionCrudResponse::class;
     
+    protected function addAdditionalParameters($response)
+    {
+        $response->setClass(request('class'));    
+    }
+    
+    
 }
