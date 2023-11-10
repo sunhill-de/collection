@@ -8,6 +8,8 @@ use Sunhill\ORM\Properties\Utils\DefaultNull;
 use Sunhill\Visual\Response\Crud\SunhillCrudResponse;
 use Sunhill\Visual\Response\Crud\DialogDescriptor;
 use Sunhill\ORM\Facades\Collections;
+use Sunhill\ORM\Facades\Objects;
+use Sunhill\Collection\Facades\SunhillManager;
 
 abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
 {
@@ -78,7 +80,25 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
     protected function defineList(ListDescriptor &$descriptor)
     {
         $descriptor->column('id')->title('ID')->searchable('id')->setColumnSortable('id');
-        $columns = $this->getTableColumns();
+        $descriptor->setDataCallback(function($entry, $data_set) {
+            $rule = empty($entry->getBuildRule())?$entry->getFieldName():$entry->getBuildRule();
+            if (property_exists($data_set, $rule)) {
+                return $data_set->$rule;
+            }
+            if (strpos($rule,'->') !== false) {
+                [$field,$subfield] = explode('->',$rule);
+                if (is_null($data_set->$field)) {
+                    return '';
+                }
+                $object = Objects::load($data_set->$field);
+                if ($subfield == 'keyfield') {
+                    return SunhillManager::getKeyfield($object);
+                } else {
+                    return $object->$subfield;
+                }
+            }
+        });
+            $columns = $this->getTableColumns();
 
         foreach ($columns as $index => $column) {
             if (is_int($index)) {
@@ -89,7 +109,7 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
                 }
             } else {
                 $property = $this->getTableColumnProperties($index);
-                $column_desc = $descriptor->column($column)->title($index);
+                $column_desc = $descriptor->column($index)->title($index)->buildRule($column);
                 if ($property->get_sortable()) {
                     $column_desc->setColumnSortable($index);
                 }
