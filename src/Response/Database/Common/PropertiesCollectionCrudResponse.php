@@ -89,7 +89,7 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
                 }
             } else {
                 $property = $this->getTableColumnProperties($index);
-                $column_desc = $descriptor->column($index)->title($index);
+                $column_desc = $descriptor->column($column)->title($index);
                 if ($property->get_sortable()) {
                     $column_desc->setColumnSortable($index);
                 }
@@ -111,8 +111,6 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
         $entry = $this->getNamespace()::query()->where('id',$id)->first();
         return (!empty($entry));
     }
-    
-    protected static $entity = 'collection';
     
     protected function getDataSet($id)
     {

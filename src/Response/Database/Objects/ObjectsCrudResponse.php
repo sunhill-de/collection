@@ -14,6 +14,8 @@ class ObjectsCrudResponse extends PropertiesCollectionCrudResponse
     
     protected static $route_base = 'objects';
 
+    protected static $entity = 'objects';
+    
     protected function getNamespace(): string
     {
         return Classes::getNamespaceOfClass($this->collection);

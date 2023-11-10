@@ -10,6 +10,8 @@ class CollectionCrudResponse extends PropertiesCollectionCrudResponse
     
     protected static $route_base = 'collection';
     
+    protected static $entity = 'collection';
+    
     protected function getNamespace(): string
     {
         return Collections::searchCollection($this->collection)->class;
