@@ -7,6 +7,8 @@ use Sunhill\Collection\Tests\DatabaseTestCase;
 class FeatureCollectionsTest extends DatabaseTestCase
 {
     
+    use CollectionProvider;
+    
     public function testListDefaultPage0()
     {
         $response = $this->get('/Database/Collections/List');
@@ -63,13 +65,15 @@ class FeatureCollectionsTest extends DatabaseTestCase
         $response->assertStatus(200);
         $response->assertSee("Person");
     }
-*/    
-    public function testShow()
+*/  
+    /**
+     * @dataProvider CollectionProvider
+     */
+    public function testShow($collection)
     {
-        $response = $this->get('/Database/Collections/Show/Staff');
+        $response = $this->get('/Database/Collections/Show/'.$collection);
         $response->assertStatus(200);
-        $response->assertSee('Staff');
-        $response->assertSee('job');
+        $response->assertSee($collection);
     }
         
     public function testShowMissing()

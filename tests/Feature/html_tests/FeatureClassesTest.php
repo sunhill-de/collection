@@ -7,6 +7,8 @@ use Sunhill\Collection\Tests\DatabaseTestCase;
 class FeatureClassesTest extends DatabaseTestCase
 {
     
+    use ClassProvider;
+    
     public function testListDefaultPage0()
     {
         $response = $this->get('/Database/Classes/List/');
@@ -62,12 +64,15 @@ class FeatureClassesTest extends DatabaseTestCase
         $response->assertStatus(200);
         $response->assertSee("Person");
     }
-    
-    public function testShow()
+
+    /**
+     * @dataProvider ClassProvider
+     */
+    public function testShow($class)
     {
-        $response = $this->get('/Database/Classes/Show/Person');
+        $response = $this->get('/Database/Classes/Show/'.$class);
         $response->assertStatus(200);
-        $response->assertSee('Person');
+        $response->assertSee($class);
     }
         
     public function testShowMissing()
