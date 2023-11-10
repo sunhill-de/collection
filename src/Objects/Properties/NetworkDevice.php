@@ -71,7 +71,7 @@ class NetworkDevice extends ElectronicDevice
 
     protected static function setupInfos()
 	{
-		static::addInfo('name','NetworkDecive');
+		static::addInfo('name','NetworkDevice');
 		static::addInfo('table','networkdevices');
       	static::addInfo('name_s','network device',true);
        	static::addInfo('name_p','network devices',true);
