@@ -79,7 +79,7 @@ class AttributesCrudResponse extends SunhillCrudResponse
     
     protected function getAttributeInfo($id)
     {
-        $attribute = Attributes::load($id);
+        $attribute = Attributes::query()->where('id',$id)->first();
         
         return [
             'caption'=>__("Show attribute ':id'", ['id'=>$id]),
@@ -90,8 +90,8 @@ class AttributesCrudResponse extends SunhillCrudResponse
             'data'=>[
                 [__('id'),$id],
                 [__('name'),$attribute->name],
-                [__('type'),($attribute->parent)?$tag->parent->name:''],
-                [__('Allowed classes'),$attributes->allowed_classes],
+                [__('type'),$attribute->type],
+                [__('Allowed classes'),$attribute->allowed_classes],
             ],
             'links'=>[],
         ];
@@ -113,7 +113,7 @@ class AttributesCrudResponse extends SunhillCrudResponse
             'Float'=>'float',
             'Text'=>'text'
         ])->class('input is-small');
-        $descriptor->list()->label('Allowed classed')->name('allowed_classes')->element('string')->lookup('classes');        
+        $descriptor->list()->label('Allowed classed')->name('allowed_classes')->element('string')->lookup('classes')->groupeditable();        
     }
     
     protected function doExecAdd($parameters)
@@ -140,11 +140,11 @@ class AttributesCrudResponse extends SunhillCrudResponse
     
     protected function doExecEdit($id, $parameters)
     {
-        if ($tag = Tags::query()->where('name',$parameters['name'])->where('parent_id',$parameters['parent'])->whereNot('id',$id)->count()) {
+        if (Attributes::query()->where('name',$parameters['name'])->whereNot('id',$id)->count()) {
             $this->inputError('name','This field is a duplicate.');
             return false;
         }
-        Tags::query()->where('id',$id)->update(['name'=>$parameters['name'],'parent_id'=>$parameters['parent']]);
+        Attributes::query()->where('id',$id)->update(['name'=>$parameters['name'],'type'=>$parameters['type'],'allowed_classes'=>$parameters['allowed_classes']]);
         return redirect(route('attributes.list', $this->getRoutingParameters()));
     }
     
@@ -167,13 +167,13 @@ class AttributesCrudResponse extends SunhillCrudResponse
     
     protected function doExecGroupDelete(array $ids)
     {
-        Tags::query()->whereIn('id',$ids)->delete();
+        Attributes::query()->whereIn('id',$ids)->delete();
         return redirect(route('attributes.list',$this->getRoutingParameters()));
     }
     
     protected function doExecGroupEdit(array $ids, array $parameters)
     {
-        Tags::query()->whereIn('id',$ids)->update($parameters);
+        Attributes::query()->whereIn('id',$ids)->update($parameters);
         return redirect(route('attributes.list',$this->getRoutingParameters()));
     }
     
