@@ -34,7 +34,8 @@ class EventType extends Collection
              ->set_editable(true)
              ->set_groupeditable(false)
              ->set_displayable(true)
-             ->set_description('The name of the event type');
+             ->set_description('The name of the event type')
+             ->set_sortable(true);
     }
     
    protected static function setupInfos()

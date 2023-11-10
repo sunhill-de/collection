@@ -35,20 +35,23 @@ class Anniversary extends Collection
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->set_sortable(true);
         $list->date('first')
             ->set_description('When was the first event')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->set_sortable(true);
         $list->enum('type')        
             ->set_description('What type of anniversary is this')
             ->setEnumValues(['birthday','deathday','weddingday','other'])
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->set_sortable(true);
         $list->array('persons')
             ->setElementType(PropertyObject::class)
             ->setAllowedClasses('Friend')

@@ -45,7 +45,8 @@ class Event extends Collection
              ->set_editable(true)
              ->set_groupeditable(true)
              ->set_displayable(true)
-             ->set_description('When was the event triggered');
+             ->set_description('When was the event triggered')
+             ->set_sortable(true);
         $list->collection('what')
              ->setAllowedCollection('EventType')
              ->set_editable(true)

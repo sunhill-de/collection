@@ -33,7 +33,8 @@ class ProductGroup extends Collection
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->set_sortable(true);
         $list->collection('part_of')
             ->set_description('This group is part of more general group')
             ->setAllowedCollection('ProductGroup')

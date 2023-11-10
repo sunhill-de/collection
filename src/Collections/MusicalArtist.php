@@ -34,14 +34,16 @@ class MusicalArtist extends Collection
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->set_sortable(true);
         $list->varchar('sort_name')
             ->setMaxLen(100)
             ->set_description('The sorting name of the artist')
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->set_sortable(true);
         $list->enum('type')        
             ->set_description('The type of the artist')
             ->setEnumValues(['person', 'group', 'orchestra', 'choir', 'character', 'other'])
@@ -89,7 +91,7 @@ class MusicalArtist extends Collection
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-		static::addInfo('table_columns',['name','type']);
+		static::addInfo('table_columns',['name','sort_name','type','gender','begin_date']);
 		static::addInfo('keyfield',':name');
     }
 }

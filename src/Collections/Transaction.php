@@ -86,5 +86,9 @@ class Transaction extends Collection
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+
+		static::addInfo('table_columns',['order_id','shop'=>'shop->name']);
+		static::addInfo('keyfield',':name');
+		
+    }
 }

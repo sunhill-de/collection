@@ -33,14 +33,16 @@ class Network extends Collection
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->set_sortable(true);
         $list->varchar('prefix')
             ->setMaxLen(20)
             ->set_description('The network prefix (e.g. 192.168.3)')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->set_sortable(true);
         $list->varchar('description')
             ->set_description('A more verbose description of the network')
             ->searchable()
@@ -66,7 +68,7 @@ class Network extends Collection
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
 		
-		static::addInfo('table_columns',['name','prefix','part_of'=>'part_of->name']);
+		static::addInfo('table_columns',['name','prefix','part_of'=>'part_of->name','description']);
 		static::addInfo('keyfield',':name');
 		
 	}

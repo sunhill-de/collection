@@ -35,7 +35,8 @@ class Genre extends Collection
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(true)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->set_sortable(true);
         $list->array('media_type')
             ->setElementType(PropertyVarchar::class)
             ->set_description('For what kind of medias is this genre')

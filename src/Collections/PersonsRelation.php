@@ -47,7 +47,8 @@ class PersonsRelation extends Collection
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
-            ->setEnumValues(['marriage','relation','divorce']);
+            ->setEnumValues(['marriage','relation','divorce'])
+            ->set_sortable(true);
     }
     
     protected static function setupInfos()

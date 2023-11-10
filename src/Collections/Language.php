@@ -34,14 +34,16 @@ class Language extends Collection
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->searchable();
+            ->searchable()
+            ->set_sortable(true);
         $list->varchar('iso')
             ->setMaxLen(5)
             ->set_description('the iso code of the language')
             ->searchable()
             ->set_editable(true)
             ->set_groupeditable(false)
-            ->set_displayable(true);
+            ->set_displayable(true)
+            ->set_sortable(true);
     }
     
     protected static function setupInfos()
