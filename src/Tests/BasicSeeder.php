@@ -121,16 +121,16 @@ class BasicSeeder
             $table->integer('object_id')->primary();
             $table->string('value');
         });
-            Schema::create('attr_rating', function($table) {
-                $table->integer('object_id')->primary();
-                $table->integer('value');
-            });
-                DB::table('attr_wikipedia')->insert([
+        Schema::create('attr_rating', function($table) {
+            $table->integer('object_id')->primary();
+            $table->integer('value');
+        });
+        DB::table('attr_wikipedia')->insert([
                     ['object_id'=>ORMObject::getSeedID('homer'),
                         'value'=>'http://de.wikipedia.org/wiki/Homer_Simpson'],
                     ['object_id'=>ORMObject::getSeedID('marge'),
                         'value'=>'http://de.wikipedia.org/wiki/Marge_Simpson'],
-                ]);
+        ]);
     }
     
     protected function seedFilters()
