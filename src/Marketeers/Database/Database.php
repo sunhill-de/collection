@@ -25,10 +25,10 @@ class Database extends Marketeer
         parent::__construct();
         $this->setName('database');
         $this->addEntry('classes', ClassesItem::class);
-        $this->addEntry('collections', CollectionsItem::class);        
+/*        $this->addEntry('collections', CollectionsItem::class);        
         $this->addEntry('objects', ObjectsItem::class);
         $this->addEntry('tags', TagsItem::class);
-        $this->addEntry('attributes', AttributesItem::class);
+        $this->addEntry('attributes', AttributesItem::class); */
     }
     
     

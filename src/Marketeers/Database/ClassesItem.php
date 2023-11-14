@@ -8,6 +8,10 @@ use Sunhill\ORM\InfoMarket\Items\ArrayInfoMarketItem;
 class ClassesItem extends ArrayInfoMarketItem
 {
 
+    static protected $named_array = true;
+    
+    protected $classes = [];
+    
     /**
      * Setup this item with the name 'classes'
      */
@@ -26,10 +30,37 @@ class ClassesItem extends ArrayInfoMarketItem
         return Classes::getClassCount();
     }
 
+    protected function getNamedEntries()
+    {
+        $classes = Classes::getAllClasses();
+        
+        foreach ($classes as $classname => $classinfo) {
+            $this->classes[$classname] = new ClassEntryItem($classinfo);
+        }
+        
+        return $this->classes;
+    }
+    
     protected function getIndexedElement(int $index)
     {
-        return new DatabaseClassesEntryItem($index);
+        $classes = Classes::getAllClasses();
+        foreach ($classes as $class) {
+            if (!$index--) {
+                return $class;
+            }
+        }
     }
-       
+    
+    protected function getNamedElement(string $name)
+    {
+        $classes = Classes::getAllClasses();
+        return $this->getClassEntry($classes[$name]);
+    }
+    
+    protected function getClassEntry($class)
+    {
+        $entry = new ClassEntryItem($class);
+        return $entry;
+    }
 }
 

@@ -2,7 +2,8 @@
 
 namespace Sunhill\Collection\Marketeers\Network;
 
-use Sunhill\InfoMarket\Market\Marketeer;
+
+use Sunhill\ORM\InfoMarket\Marketeer;
 
 class NetworkMarketeer extends Marketeer
 {
