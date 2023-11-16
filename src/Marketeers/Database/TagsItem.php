@@ -3,36 +3,23 @@
 namespace Sunhill\Collection\Marketeers\Database;
 
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\ORM\InfoMarket\Items\ArrayInfoMarketItem;
+use Sunhill\ORM\InfoMarket\OnDemandMarketeer;
+use Sunhill\ORM\InfoMarket\Items\DynamicItem;
 use Sunhill\ORM\Facades\Collections;
-use Sunhill\ORM\Objects\ORMObject;
 use Sunhill\ORM\Facades\Tags;
 
-class TagsItem extends ArrayInfoMarketItem
+class TagsItem extends OnDemandMarketeer
 {
 
-    /**
-     * Setup this item with the name 'classes'
-     */
-    public function __construct()
+    protected function initializeMarketeer()
     {
-        parent::__construct();
-        $this->setName('tags');
+        $tags = Tags::query()->get();
+        $this->addEntry('count',(new DynamicItem())->defineValue(count($tags))->type('int')->semantic('Count'));
+        foreach ($tags as $tag) {
+            $this->addEntry($tag->name,new TagEntryItem($tag));
+        }
+        
     }
-    
-    /**
-     * Return the current number of installed classes
-     * @return int
-     */
-    protected function getCountValue(): int
-    {
-        return Tags::query()->count();
-    }
-
-    protected function getIndexedElement(int $index)
-    {
-        return new DatabaseClassesEntryItem($index);
-    }
-       
+            
 }
 

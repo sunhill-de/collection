@@ -5,28 +5,24 @@ namespace Sunhill\Collection\Marketeers\Database;
 use Sunhill\ORM\InfoMarket\Items\PreloadedObjectItem;
 use Sunhill\ORM\InfoMarket\Items\DynamicItem;
 
-class ClassEntryItem extends PreloadedObjectItem
+class TagEntryItem extends PreloadedObjectItem
 {
 
-    protected $class_info;
+    protected $tag_info;
     
-    public function __construct($classinfo)
+    public function __construct($taginfo)
     {
         parent::__construct();
-        $this->class_info = $classinfo;
+        $this->tag_info = $taginfo;
     }
     
     protected function loadItems(): array
     {
         $result = [];
         
-        $result['name'] = (new DynamicItem())->defineValue($this->class_info->name)->type('string'); 
-        $result['description'] = (new DynamicItem())->defineValue($this->class_info->description)->type('string');
-        $result['class'] = (new DynamicItem())->defineValue($this->class_info->class)->type('string');
-        if (property_exists($this->class_info,'parent')) {
-            $result['parent'] = (new DynamicItem())->defineValue($this->class_info->parent)->type('string');
-        }
-        $result['table'] = (new DynamicItem())->defineValue($this->class_info->table)->type('string');
+        $result['name'] = (new DynamicItem())->defineValue($this->tag_info->name)->type('string'); 
+        $result['fullpath'] = (new DynamicItem())->defineValue($this->tag_info->fullpath)->type('string');
+        $result['id'] = (new DynamicItem())->defineValue($this->tag_info->id)->type('int');
         
 /*        $this->createResponseFromValue()->OK()->type('string')->unit('None')->semantic('Name')->readable()->writeable(false)->update('asap');
         $result[] = $this->createResponseFromValue($this->class_info->class)->OK()->type('string')->unit('None')->semantic('Name')->readable()->writeable(false)->update('asap');

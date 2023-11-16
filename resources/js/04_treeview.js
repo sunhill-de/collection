@@ -25,10 +25,10 @@ $(".treeview").jstree({
     },
     "types": {
         "default": {
-            "icon": "fa fa-folder text-primary"
+            "icon": "fa-regular fa-folder text-primary"
         },
         "file": {
-            "icon": "fa fa-file  text-primary"
+            "icon": "fa-regular fa-file  text-primary"
         }
     },
     "state": {

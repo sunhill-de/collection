@@ -3,64 +3,22 @@
 namespace Sunhill\Collection\Marketeers\Database;
 
 use Sunhill\ORM\Facades\Classes;
-use Sunhill\ORM\InfoMarket\Items\ArrayInfoMarketItem;
+use Sunhill\ORM\InfoMarket\OnDemandMarketeer;
+use Sunhill\ORM\InfoMarket\Items\DynamicItem;
 
-class ClassesItem extends ArrayInfoMarketItem
+class ClassesItem extends OnDemandMarketeer
 {
 
-    static protected $named_array = true;
-    
-    protected $classes = [];
-    
-    /**
-     * Setup this item with the name 'classes'
-     */
-    public function __construct()
+    protected function initializeMarketeer()
     {
-        parent::__construct();
-        $this->setName('classes');
-    }
-    
-    /**
-     * Return the current number of installed classes
-     * @return int
-     */
-    protected function getCountValue(): int
-    {
-        return Classes::getClassCount();
-    }
-
-    protected function getNamedEntries()
-    {
+     
         $classes = Classes::getAllClasses();
-        
-        foreach ($classes as $classname => $classinfo) {
-            $this->classes[$classname] = new ClassEntryItem($classinfo);
-        }
-        
-        return $this->classes;
-    }
-    
-    protected function getIndexedElement(int $index)
-    {
-        $classes = Classes::getAllClasses();
+        $this->addEntry('count',(new DynamicItem())->defineValue(count($classes))->type('int')->semantic('Count'));
         foreach ($classes as $class) {
-            if (!$index--) {
-                return $class;
-            }
+            $this->addEntry($class->name,new ClassEntryItem($class));
         }
+        
     }
-    
-    protected function getNamedElement(string $name)
-    {
-        $classes = Classes::getAllClasses();
-        return $this->getClassEntry($classes[$name]);
-    }
-    
-    protected function getClassEntry($class)
-    {
-        $entry = new ClassEntryItem($class);
-        return $entry;
-    }
+            
 }
 
