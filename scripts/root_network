@@ -1,0 +1,38 @@
+#!/bin/bash
+
+datadir=/home/lokal/network
+iprange="192.168.3.0/24"
+lockfile="$datadir/lock"
+current_online="$datadir/current"
+temp_online="$datadir/current.temp"
+if ! test -f "$lockfile"
+then
+ touch $lockfile
+ nmap -sP $iprange | awk '/Nmap scan report for/{printf $5;}/MAC Address:/{print " "$3;}' | cat | while read line; do
+
+ ip=`echo $line | cut -d ' ' -f1`
+ mac=`echo $line | cut -d ' ' -f2`
+ if ! test -f "$temp_online"
+ then
+  echo "{\"timestamp\":\""$( date +%s )"\",\"clients\":[" > $temp_online
+ else
+  echo "," >> $temp_online
+ fi
+ echo "{\"MAC\":\"$mac\",\"IP\":\"$ip\"}" >> $temp_online
+ target_scan="$datadir/$mac"
+ if ! test -f "$target_scan"
+  then
+   nmap -v -v -A -oX $target_scan $ip > /dev/null 2>&1
+  fi
+ done
+ echo "]}" >> $temp_online
+ mv $temp_online $current_online
+ rm $lockfile
+else
+ file_time=$(stat --format='%Y' "$lockfile")
+ current_time=$( date +%s )
+ if (( file_time < ( current_time - ( 60 * 60 ) ) )); then
+  # lockfile is older than one hour, probally hung 
+  rm $lockfile
+ fi
+fi
