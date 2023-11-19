@@ -46,4 +46,5 @@ class FeatureAjaxTest extends DatabaseTestCase
             ['Network','Ho',[['label'=>'Home','id'=>1]]],
         ];
     }
+    
 }

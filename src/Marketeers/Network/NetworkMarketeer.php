@@ -2,17 +2,16 @@
 
 namespace Sunhill\Collection\Marketeers\Network;
 
-
 use Sunhill\ORM\InfoMarket\Marketeer;
 
 class NetworkMarketeer extends Marketeer
 {
    
-    protected function getOffering(): array
+    public function __construct()
     {
-        return [
-          'network.current'=>MacPingItem::class
-        ];
+        parent::__construct();
+        $this->setName('network');
+        $this->addEntry('current_clients', CurrentClientsItem::class);
+        $this->addEntry('known_clients', KnownClientsItem::class);
     }
-
 }  
