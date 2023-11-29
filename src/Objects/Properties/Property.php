@@ -110,5 +110,8 @@ class Property extends ORMObject
        	static::addInfo('options',0);
 		static::addInfo('editable',true);
 		static::addInfo('instantiable',true);
-	}
+
+		static::addInfo('table_columns',['name','location->name','type']);
+		static::addInfo('keyfield',':name');
+    }
 }
