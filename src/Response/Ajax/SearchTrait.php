@@ -36,7 +36,7 @@ trait SearchTrait
     {
         $return = [];
         foreach ($query as $result) {
-            $object = Collections::loadCollection($collection, $result->id);
+            $object = Collections::loadCollection($collection->class, $result->id);
             $return[] = $this->makeStdclass(['label'=>SunhillManager::getKeyfield($object),'id'=>$result->id]);
         }
         return $return;        
@@ -45,7 +45,7 @@ trait SearchTrait
     protected function searchCollection(string $collection, Property $field, string $search)
     {
         $collection_name = Collections::searchCollection($field->getAllowedCollection());
-        return $this->convertCollectionResult($this->searchInPropertyCollection($collection_name, $field, $search), $collection_name);
+        return $this->convertCollectionResult($this->searchInPropertyCollection($collection_name->class, $field, $search), $collection_name);
     }
     
     protected function searchObject(string $object, Property $field, string $search)
