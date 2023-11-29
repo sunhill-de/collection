@@ -10,6 +10,20 @@ use Sunhill\Visual\Response\Crud\DialogDescriptor;
 use Sunhill\ORM\Facades\Collections;
 use Sunhill\ORM\Facades\Objects;
 use Sunhill\Collection\Facades\SunhillManager;
+use Sunhill\ORM\Properties\PropertyVarchar;
+use Sunhill\ORM\Properties\PropertyBoolean;
+use Sunhill\ORM\Properties\PropertyCalculated;
+use Sunhill\ORM\Properties\PropertyEnum;
+use Sunhill\ORM\Properties\PropertyInteger;
+use Sunhill\ORM\Properties\PropertyDate;
+use Sunhill\ORM\Properties\PropertyTime;
+use Sunhill\ORM\Properties\PropertyDatetime;
+use Sunhill\ORM\Properties\PropertyFloat;
+use Sunhill\ORM\Properties\PropertyText;
+use Sunhill\ORM\Properties\PropertyArray;
+use Sunhill\ORM\Properties\PropertyMap;
+use Sunhill\ORM\Properties\PropertyObject;
+use Sunhill\ORM\Properties\PropertyCollection;
 
 abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
 {
@@ -90,7 +104,13 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
                 if (is_null($data_set->$field)) {
                     return '';
                 }
-                $object = Objects::load($data_set->$field);
+                $property = $this->getNamespace()::getPropertyObject($field);
+                if (is_a($property,PropertyCollection::class)) {
+                    $collection = $property->getAllowedCollection();
+                    $object = Collections::loadCollection($collection, $data_set->$field);
+                } else if (is_a($property, PropertyObject::class)) {
+                    $object = Objects::load($data_set->$field);                    
+                }
                 if ($subfield == 'keyfield') {
                     return SunhillManager::getKeyfield($object);
                 } else {
@@ -138,12 +158,95 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
         ];
     }
     
+    protected function getArray(DialogDescriptor $descriptor, $property)
+    {
+        $field = $descriptor->list();
+        
+        return $field;        
+    }
+    
+    protected function getMap(DialogDescriptor $descriptor, $property)
+    {
+        $field = $descriptor->list();
+        
+        return $field;
+    }
+    
+    protected function getObject(DialogDescriptor $descriptor, $property)
+    {
+        $field = $descriptor->inputLookup();
+        $field->lookup('objects')->lookup_additional($this->collection);
+        
+        return $field;
+    }
+    
+    protected function getCollection(DialogDescriptor $descriptor, $property)
+    {
+        $field = $descriptor->inputLookup();
+        $field->lookup('collectionfield')->lookup_additional($this->collection,$property->getName());
+
+        return $field;        
+    }
+    
     protected function defineDialog(DialogDescriptor $descriptor)
     {
+        $properties = $this->getNamespace()::getAllPropertyDefinitions();
+        foreach ($properties as $name => $property) {
+            switch ($property::class) {
+                case PropertyVarchar::class:
+                    $field = $descriptor->string();
+                    break;
+                case PropertyInteger::class:
+                case PropertyFloat::class:
+                    $field = $descriptor->number();
+                    break;
+                case PropertyText::class:
+                    $field = $descriptor->text();
+                    break;
+                case PropertyDate::class:
+                    $field = $descriptor->date();
+                    break;
+                case PropertyTime::class:
+                    $field = $descriptor->time();
+                    break;
+                case PropertyDatetime::class:
+                    $field = $descriptor->datetime();
+                    break;
+                case PropertyBoolean::class:
+                    $field = $descriptor->checkbox();
+                    break;
+                case PropertyEnum::class:
+                    $field = $descriptor->select();                    
+                    $field->entries($property->getEnumValues());
+                    break;
+                case PropertyArray::class:
+                    $field = $this->getArray($descriptor,$property);
+                    break;
+                case PropertyMap::class:
+                    $field = $this->getMap($descriptor,$property);
+                    break;
+                case PropertyObject::class:
+                    $field = $this->getObject($descriptor,$property);
+                    break;
+                case PropertyCollection::class:
+                    $field = $this->getCollection($descriptor,$property);
+                    break;
+                default:
+                    continue 2;
+            }
+            $field->label($name)->name($name);
+        }
     }
     
     protected function doExecAdd($parameters)
     {
+        $namespace = $this->getNamespace();
+        $object = new $namespace();
+        foreach ($namespace::getAllPropertyDefinitions() as $name => $property) {
+            $object->$name = $parameters[$name];
+        }
+        $object->commit();
+        return redirect(route(static::$route_base.'.list', $this->getRoutingParameters(['class'=>$this->collection,'order'=>'id','page'=>-1])));
     }
     
     protected function getEditValues($id)
