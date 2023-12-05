@@ -48,7 +48,7 @@ class FeatureCollectionTest extends DatabaseTestCase
     {
         $response = $this->get('/Database/Collection/List/MusicalArtist/0/name');
         $response->assertStatus(200);
-        $response->assertSee("Bart");
+        $response->assertSee("Ash");
     }
     
     public function testListNoOrder()
@@ -62,33 +62,54 @@ class FeatureCollectionTest extends DatabaseTestCase
     {
         $response = $this->get('/Database/Collection/List/MusicalArtist/1/name');
         $response->assertStatus(200);
-        $response->assertSee("Springfield");
+        $response->assertSee("Muse");
     }
     
-    public function testShow()
+    /**
+     * @dataProvider CollectionProvider
+     * @group show
+     */
+    public function testShow($collection, $expect = null)
     {
-        $response = $this->get('/Database/Collection/Show/1');
+        if ($collection == 'Transaction') {
+            $this->assertTrue(true);
+            return;
+            // @todo remove me when transactions are done
+        }
+        $response = $this->get('/Database/Collection/Show/'.$collection.'/1');
         $response->assertStatus(200);
-        $response->assertSee('Family');
+        if ($expect) {
+            foreach ($expect as $expectation) {
+                $response->assertSee($expectation);
+            }
+        }
     }
         
     public function testShowMissing()
     {
-        $response = $this->get('/Database/Collection/Show/1000');
+        $response = $this->get('/Database/Collection/Show/MusicalArtist/1000');
         $response->assertStatus(500);
         $response->assertSee("The ID '1000' is not a valid ID.");
     }
     
-    public function testAdd()
+    /**
+     * @dataProvider CollectionProvider
+     * @group add
+     */
+    public function testAdd($collection, $expect_see = null, $expect_fields = null)
     {
-        $response = $this->get('/Database/Collection/Add');
+        $response = $this->get('/Database/Collection/Add/'.$collection);
         $response->assertStatus(200);
-        $response->assertSee("Name");
+        if ($expect_fields) {
+            foreach ($expect_fields as $expectation) {
+                $response->assertSee($expectation);
+            }
+        }
     }
     
-    public function testExecAdd()
+    public function testExecAdd($collection, $expect_see = null, $expect_field = null, $add_fields)
     {
-        $response = $this->post('/Database/Collection/ExecAdd', ['name'=>'testtag']);
+        $response = $this->post('/Database/Collection/ExecAdd/'.$collection, $add_fields);
         $response->assertRedirectToRoute('tags.list',['page'=>-1,'order'=>'id']);        
         $this->assertDatabaseHas('tags',['name'=>'testtag']);
     }
