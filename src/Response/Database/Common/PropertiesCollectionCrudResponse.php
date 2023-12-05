@@ -24,6 +24,7 @@ use Sunhill\ORM\Properties\PropertyArray;
 use Sunhill\ORM\Properties\PropertyMap;
 use Sunhill\ORM\Properties\PropertyObject;
 use Sunhill\ORM\Properties\PropertyCollection;
+use Sunhill\ORM\Objects\PropertiesCollection;
 
 abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
 {
@@ -152,16 +153,81 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
         return (!empty($entry));
     }
     
+    abstract protected function getPropertiesHavingObject(int $id);
+    
+    protected function getTitle(string $prefix, $additional = null): string
+    {
+        if ($additional) {
+            return __(':prefix :entity ":additional" of type ":type"',['prefix'=>$prefix,'entity'=>static::$entity,'additional'=>$additional,'type'=>$this->collection]);
+        } else {
+            return __(':prefix :entity of type ":type"',['prefix'=>$prefix,'entity'=>static::$entity,'type'=>$this->collection]);
+        }
+    }
+        
+    protected function getObjectData(int $id): array
+    {
+        $object = $this->getPropertiesHavingObject($id);
+        $properties = $object->getProperties();
+        $result = [];
+        
+        foreach ($properties as $property) {
+           $name = $property->name;
+           switch ($property::class) {
+               case PropertyArray::class:
+                   $subresult = [];
+                   foreach ($object->$name as $value) {
+                       if (is_scalar($value)) {
+                            $subresult[] = $value;
+                       } else if (is_a($value, PropertiesCollection::class)) {
+                           $subresult[] = SunhillManager::getKeyfield($value);
+                       }
+                   }
+                   $result[] = [__($name), $subresult];
+                   break;
+               case PropertyObject::class:
+               case PropertyCollection::class:
+                   $value = $object->$name;
+                   if ($value) {
+                        $result[] = [__($name), SunhillManager::getKeyfield($object->$name)];
+                   }
+                   break;
+               default:
+                   $result[] = [__($name), $object->$name];                   
+           }
+        }
+        return [
+            'caption'=>__($this->getTitle('Show',$id)),
+            'header'=>[
+                __('Key'),
+                __('Value')
+            ],
+            'data'=>$result,
+            'links'=>[],
+        ];
+        
+    }
+    
     protected function getDataSet($id)
     {
         return [
+            'object'=>$this->getObjectData($id)            
         ];
     }
     
     protected function getArray(DialogDescriptor $descriptor, $property)
     {
         $field = $descriptor->list();
-        
+        switch ($property->getElementType()) {
+            case PropertyObject::class:
+                $field->element('string')->lookup(static::$entity.'field')->lookup_additional($this->collection,$property->name);
+                break;
+            case PropertyCollection::class:
+                $field->element('string')->lookup(static::$entity.'field')->lookup_additional($this->collection,$property->name);
+                break;
+            default:    
+                $field->element('string');
+                break;
+        }
         return $field;        
     }
     
@@ -216,8 +282,13 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
                     $field = $descriptor->checkbox();
                     break;
                 case PropertyEnum::class:
-                    $field = $descriptor->select();                    
-                    $field->entries($property->getEnumValues());
+                    $field = $descriptor->select();  
+                    $entries = $property->getEnumValues();
+                    $result = [];
+                    foreach ($entries as $entry) {
+                        $result[$entry] = $entry;
+                    }
+                    $field->entries($result);
                     break;
                 case PropertyArray::class:
                     $field = $this->getArray($descriptor,$property);

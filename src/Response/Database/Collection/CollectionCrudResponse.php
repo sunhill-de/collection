@@ -17,4 +17,17 @@ class CollectionCrudResponse extends PropertiesCollectionCrudResponse
         return Collections::searchCollection($this->collection)->class;
     }
     
+    protected function getPropertiesHavingObject(int $id)
+    {
+        return Collections::loadCollection($this->collection ,$id);
+    }
+    
+    protected function getTitle(string $prefix, $additional = null): string
+    {
+        if ($additional) {
+            return __(':prefix collection ":additional" of type ":type"',['prefix'=>$prefix,'additional'=>$additional,'type'=>$this->collection]);
+        } else {
+            return __(':prefix collection of type ":type"',['prefix'=>$prefix,'type'=>$this->collection]);            
+        }
+    }
 }
