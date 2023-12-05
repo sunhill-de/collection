@@ -14,34 +14,15 @@ use Sunhill\ORM\Properties\PropertyCollection;
 use Sunhill\ORM\Properties\PropertyObject;
 use Sunhill\ORM\Properties\PropertyArray;
 
-class AjaxCollectionField extends AjaxSearchResponse
+class AjaxCollectionField extends AjaxPropertiesCollectionField
 {
     
-    use SearchTrait;
-    
-    protected function assembleSearchResult(string $search)
+    protected function searchNamespace(string $name): string
     {
-        if (empty($namespace = Collections::searchCollection($this->parameter1))) {
-            throw new UnknownCollectionException("The collection '".$this->parameter1."' does not exist.");
+        if (empty($collection = Collections::searchCollection($name))) {
+            throw new UnknownCollectionException("The collection '$name' does not exist.");
         }
-        if (empty($field = ($namespace->class)::getPropertyObject($this->parameter2))) {
-            throw new UnknownFieldException("The collection '".$this->parameter1."' does not have a field '".$this->parameter2."'.");
-        }
-        switch ($field::class) {
-            case PropertyCollection::class:
-                return $this->searchCollection($namespace->class, $field, $search);
-            case PropertyObject::class:
-                return $this->searchObject($namespace->class, $field, $search);
-                break;
-            case PropertyArray::class:
-                if ($field->getElementType() == PropertyCollection::class) {
-                    return $this->searchCollection($namespace->class, $field, $search);
-                } else if ($field->getElementType() == PropertyObject::class) {
-                    return $this->searchObject($namespace->class, $field, $search);
-                }
-            default:
-                throw new UnsearchableFieldException("The field '".$this->parameter2."' of collection '".$this->parameter1."' is not searchable.");
-        }
-    }
+        return $collection->class;
+    }    
     
 }

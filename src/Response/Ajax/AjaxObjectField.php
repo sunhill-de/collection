@@ -6,15 +6,18 @@ use Sunhill\Visual\Response\Ajax\AjaxSearchResponse;
 use Illuminate\Support\Facades\DB;
 use Sunhill\ORM\Facades\Tags;
 use Sunhill\ORM\Facades\InfoMarket;
+use Sunhill\ORM\Facades\Classes;
+use Sunhill\Collection\Exceptions\UnknownCollectionException;
 
-class AjaxObjectField extends AjaxSearchResponse
+class AjaxObjectField extends AjaxPropertiesCollectionField
 {
     
-    protected function assembleSearchResult(string $search)
+    protected function searchNamespace(string $name): string
     {
-        if ($search == 'fuck') {
-            
+        if (empty($namespace = Classes::getNamespaceOfClass($name))) {
+            throw new UnknownCollectionException("The collection '$name' does not exist.");
         }
+        return $namespace;
     }
     
 }
