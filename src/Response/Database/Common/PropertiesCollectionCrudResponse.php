@@ -241,7 +241,7 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
     protected function getObject(DialogDescriptor $descriptor, $property)
     {
         $field = $descriptor->inputLookup();
-        $field->lookup('objects')->lookup_additional($this->collection);
+        $field->lookup(static::$entity.'field')->lookup_additional($this->collection, $property->getName());
         
         return $field;
     }
@@ -249,7 +249,7 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
     protected function getCollection(DialogDescriptor $descriptor, $property)
     {
         $field = $descriptor->inputLookup();
-        $field->lookup('collectionfield')->lookup_additional($this->collection,$property->getName());
+        $field->lookup(static::$entity.'field')->lookup_additional($this->collection,$property->getName());
 
         return $field;        
     }
@@ -258,6 +258,9 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
     {
         $properties = $this->getNamespace()::getAllPropertyDefinitions();
         foreach ($properties as $name => $property) {
+            if ($property->name[0] == '_') {
+                continue;
+            }
             switch ($property::class) {
                 case PropertyVarchar::class:
                     $field = $descriptor->string();
