@@ -255,11 +255,12 @@ class BasicSeeder
     protected function seedCountries()
     {
         Country::seed([
-            'germany'=>['name'=>'germany','iso_code'=>'D'],
-            'france'=>['name'=>'france','iso_code'=>'F'],
-            'spain'=>['name'=>'spain','iso_code'=>'E'],
-            'usa'=>['name'=>'U.S.A.','iso_code'=>'USA'],
-            'gb'=>['name'=>'Great Britain','iso_code'=>'GB'],
+            'germany'=>['name'=>'germany','iso_code'=>'DE'],
+            'france'=>['name'=>'france','iso_code'=>'FR'],
+            'spain'=>['name'=>'spain','iso_code'=>'ES'],
+            'usa'=>['name'=>'U.S.A.','iso_code'=>'US'],
+            'gb'=>['name'=>'Great Britain','iso_code'=>'UK'],
+            'poland'=>['name'=>'poland','iso_code'=>'PL'],
         ]);
     }
     
@@ -297,6 +298,13 @@ class BasicSeeder
     protected function seedAddresses()
     {
         Address::seed(['simpsons'=>['name'=>'742 Evergreen Terrace','house_number'=>'742','part_of'=>Street::getSeedID('evergreen')]]);
+        FamilyMember::postSeed([
+            FamilyMember::getSeedID('homer')=>['address'=>Address::getSeedID('simpsons')],
+            FamilyMember::getSeedID('marge')=>['address'=>Address::getSeedID('simpsons')],
+            FamilyMember::getSeedID('bart')=>['address'=>Address::getSeedID('simpsons')],
+            FamilyMember::getSeedID('lisa')=>['address'=>Address::getSeedID('simpsons')],
+            FamilyMember::getSeedID('maggie')=>['address'=>Address::getSeedID('simpsons')],
+        ]);
     }
     
     protected function seedFloors()
@@ -321,6 +329,10 @@ class BasicSeeder
             'maggies'=>['name'=>"Maggie's room",'inside'=>1,'type'=>'sleep','part_of'=>Room::getSeedID('upstairs')],
             'bedroom'=>['name'=>"Bedroom",'inside'=>1,'type'=>'sleep','part_of'=>Room::getSeedID('upstairs')],
         ]);
+    }
+
+    protected function seedPseudoLocations()
+    {
     }
     
     protected function seedLanguages()
@@ -558,15 +570,13 @@ class BasicSeeder
                 'middlename'=>'Jay',
                 'lastname'=>'Simpson',
                 'sex'=>'male',
-                'date_of_birth'=>"1956-05-12",
-                'address'=>FamilyMember::getSeedID('simpsons')
+                'date_of_birth'=>"1956-05-12"
             ],
             'marge'=>[
                 'firstname'=>'Marge',
                 'lastname'=>'Simpson',
                 'sex'=>'female',
-                "birth_name"=>"Bouvier",
-                'address'=>FamilyMember::getSeedID('simpsons')
+                "birth_name"=>"Bouvier"
             ]
         ]);
         FamilyMember::seed([
@@ -576,8 +586,7 @@ class BasicSeeder
                 "sex"=>"male",
                 "date_of_birth"=>"1980-02-23",
                 'father'=>FamilyMember::getSeedID('homer'),
-                'mother'=>FamilyMember::getSeedID('marge'),
-                'address'=>FamilyMember::getSeedID('simpsons')
+                'mother'=>FamilyMember::getSeedID('marge')
             ],
             'lisa'=>[
                 'firstname'=>"Lisa",
@@ -585,16 +594,14 @@ class BasicSeeder
                 "sex"=>"female",
                 "date_of_birth"=>"1981-05-09",
                 'father'=>FamilyMember::getSeedID('homer'),
-                'mother'=>FamilyMember::getSeedID('marge'),
-                'address'=>FamilyMember::getSeedID('simpsons')
+                'mother'=>FamilyMember::getSeedID('marge')
             ],
             'maggie'=>[
                 'firstname'=>"Maggie",
                 "lastname"=>"Simpson",
                 "sex"=>"female",
                 'father'=>FamilyMember::getSeedID('homer'),
-                'mother'=>FamilyMember::getSeedID('marge'),
-                'address'=>FamilyMember::getSeedID('simpsons')
+                'mother'=>FamilyMember::getSeedID('marge')
             ]
         ]);
         
@@ -705,6 +712,11 @@ class BasicSeeder
         $this->seedStaffJobs();
         $this->seedMusicalArtists();
         
+        $this->seedFamilyMembers();
+        $this->seedPersons();
+        $this->seedFriends();
+        $this->seedStaff();
+        
         // Seed locations
         $this->seedCountries();
         $this->seedCities();
@@ -713,11 +725,7 @@ class BasicSeeder
         $this->seedAddresses();
         $this->seedFloors();
         $this->seedRooms();
-        
-        $this->seedPersons();
-        $this->seedFriends();
-        $this->seedFamilyMembers();
-        $this->seedStaff();
+        $this->seedPseudoLocations();
         
         $this->seedTVSeries();
         $this->seedMovies();
