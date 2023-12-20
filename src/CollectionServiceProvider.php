@@ -83,6 +83,7 @@ use Sunhill\Collection\Response\Ajax\AjaxInfomarket;
 use Sunhill\Collection\Response\Ajax\AjaxInfomarketNodes;
 use Sunhill\Collection\Response\Ajax\AjaxCollectionField;
 use Sunhill\Collection\Response\Ajax\AjaxObjectField;
+use Sunhill\Collection\Objects\Locations\PseudoLocation;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -141,6 +142,7 @@ class CollectionServiceProvider extends ServiceProvider
         Classes::registerClass(Location::class);
         Classes::registerClass(Room::class);
         Classes::registerClass(Street::class);
+        Classes::registerClass(PseudoLocation::class);
         
 // Persons
         Classes::registerClass(FamilyMember::class);
