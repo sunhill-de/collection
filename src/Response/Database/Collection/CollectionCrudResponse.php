@@ -30,4 +30,5 @@ class CollectionCrudResponse extends PropertiesCollectionCrudResponse
             return __(':prefix collection of type ":type"',['prefix'=>$prefix,'type'=>$this->collection]);            
         }
     }
+    
 }

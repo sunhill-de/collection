@@ -163,45 +163,51 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
             return __(':prefix :entity of type ":type"',['prefix'=>$prefix,'entity'=>static::$entity,'type'=>$this->collection]);
         }
     }
-        
-    protected function getObjectData(int $id): array
+      
+    protected function getPropertiesCollectionProperties(int $id): array
     {
         $object = $this->getPropertiesHavingObject($id);
         $properties = $object->getProperties();
         $result = [];
         
         foreach ($properties as $property) {
-           $name = $property->name;
-           switch ($property::class) {
-               case PropertyArray::class:
-                   $subresult = [];
-                   foreach ($object->$name as $value) {
-                       if (is_scalar($value)) {
+            $name = $property->name;
+            switch ($property::class) {
+                case PropertyArray::class:
+                    $subresult = [];
+                    foreach ($object->$name as $value) {
+                        if (is_scalar($value)) {
                             $subresult[] = $value;
-                       } else if (is_a($value, PropertiesCollection::class)) {
-                           $subresult[] = SunhillManager::getKeyfield($value);
-                       }
-                   }
-                   $result[] = [__($name), $subresult];
-                   break;
-               case PropertyObject::class:
-               case PropertyCollection::class:
-                   $value = $object->$name;
-                   if ($value) {
+                        } else if (is_a($value, PropertiesCollection::class)) {
+                            $subresult[] = SunhillManager::getKeyfield($value);
+                        }
+                    }
+                    $result[] = [__($name), $subresult];
+                    break;
+                case PropertyObject::class:
+                case PropertyCollection::class:
+                    $value = $object->$name;
+                    if ($value) {
                         $result[] = [__($name), SunhillManager::getKeyfield($object->$name)];
-                   }
-                   break;
-               default:
-                   $result[] = [__($name), $object->$name];                   
-           }
+                    }
+                    break;
+                default:
+                    $result[] = [__($name), $object->$name];
+            }
         }
+        
+        return $result;
+    }
+    
+    protected function getObjectData(int $id): array
+    {
         return [
             'caption'=>__($this->getTitle('Show',$id)),
             'header'=>[
                 __('Key'),
                 __('Value')
             ],
-            'data'=>$result,
+            'data'=>$this->getPropertiesCollectionProperties($id),
             'links'=>[],
         ];
         
@@ -317,6 +323,12 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
         $namespace = $this->getNamespace();
         $object = new $namespace();
         foreach ($namespace::getAllPropertyDefinitions() as $name => $property) {
+            if ($name[0] == '_') {
+                continue; // Skip hidden fields
+            }
+            if ($name == 'tags') {
+                continue;
+            }
             $object->$name = $parameters[$name];
         }
         $object->commit();
@@ -325,6 +337,8 @@ abstract class PropertiesCollectionCrudResponse extends SunhillCrudResponse
     
     protected function getEditValues($id)
     {
+        $object = $this->getPropertiesHavingObject($id);
+        
     }
     
     protected function doExecEdit($id, $parameters)

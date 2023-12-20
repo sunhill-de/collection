@@ -26,5 +26,5 @@ class ObjectsCrudResponse extends PropertiesCollectionCrudResponse
     {
         return Objects::load($id);
     }
-    
+ 
 }
