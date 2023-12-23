@@ -84,6 +84,7 @@ use Sunhill\Collection\Response\Ajax\AjaxInfomarketNodes;
 use Sunhill\Collection\Response\Ajax\AjaxCollectionField;
 use Sunhill\Collection\Response\Ajax\AjaxObjectField;
 use Sunhill\Collection\Objects\Locations\PseudoLocation;
+use Sunhill\Collection\Managers\CacheManager;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -92,6 +93,8 @@ class CollectionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ImportManager::class, function () { return new ImportManager(); } );
         $this->app->alias(ImportManager::class,'importmanager');
+        $this->app->singleton(CacheManager::class, function () { return new CacheManager(); } );
+        $this->app->alias(CacheManager::class,'cachemanager');
         $this->app->singleton(TMDBManager::class, function () { return new TMDBManager(); } );
         $this->app->alias(TMDBManager::class,'tmdbmanager');
         $this->app->singleton(SunhillManager::class, function () { return new \Sunhill\Collection\Managers\SunhillManager(); } );
