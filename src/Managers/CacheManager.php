@@ -2,36 +2,15 @@
 
 namespace Sunhill\Collection\Managers;
 
+use Sunhill\Collection\Collections\Cache_Entry;
+use Sunhill\ORM\Facades\Collections;
+
 class CacheManager
 {
-    public function getCacheGroupsCount(): int
+
+    public function getCurrentResult($item)
     {
-        
-    }
-    
-    public function getCacheGroup(int $index): array
-    {
-        
-    }
-    
-    public function getAllCacheGroups(): array
-    {
-        
-    }
-    
-    public function addCacheGroup(array $data): int
-    {
-        
-    }
-    
-    public function editCacheGroup(int $index, array $data)
-    {
-        
-    }
-    
-    public function deleteCacheGroup(int $index)
-    {
-        
+        return Cache_Entry::query()->where('item',$item)->first();
     }
     
 }
