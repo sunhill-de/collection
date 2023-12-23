@@ -7,207 +7,40 @@
 <debugging level="0"/>
 <host><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.3.1" addrtype="ipv4"/>
-<address addr="D0:50:99:58:F9:9D" addrtype="mac" vendor="ASRock Incorporation"/>
+<address addr="A9:E3:7E:D8:68:35" addrtype="mac" vendor="Vendor 1"/>
 <hostnames>
 </hostnames>
 <times srtt="397" rttvar="5000" to="100000"/>
 </host>
 <host><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.3.2" addrtype="ipv4"/>
-<address addr="DC:A6:32:64:5D:FC" addrtype="mac" vendor="Raspberry Pi Trading"/>
+<address addr="B8:58:D5:6C:29:A7" addrtype="mac" vendor="Vendor 2"/>
 <hostnames>
-<hostname name="jack.sonnenhuegel.local" type="PTR"/>
+<hostname name="host2.example.net" type="PTR"/>
 </hostnames>
 <times srtt="105" rttvar="5000" to="100000"/>
 </host>
 <host><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.3.3" addrtype="ipv4"/>
-<address addr="52:54:00:52:B7:03" addrtype="mac" vendor="QEMU virtual NIC"/>
+<address addr="38:7D:F6:A2:D4:08" addrtype="mac" vendor="Vendor 2"/>
 <hostnames>
 </hostnames>
 <times srtt="887" rttvar="5000" to="100000"/>
 </host>
 <host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.11" addrtype="ipv4"/>
-<address addr="52:54:00:C4:33:EA" addrtype="mac" vendor="QEMU virtual NIC"/>
+<address addr="192.168.3.4" addrtype="ipv4"/>
+<address addr="4F:1F:1F:D3:AD:D5" addrtype="mac" vendor="Vendor 3"/>
 <hostnames>
 </hostnames>
 <times srtt="460" rttvar="5000" to="100000"/>
 </host>
 <host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.12" addrtype="ipv4"/>
-<address addr="10:DA:43:D7:24:75" addrtype="mac" vendor="Netgear"/>
+<address addr="192.168.3.5" addrtype="ipv4"/>
+<address addr="C1:F8:0E:40:78:45" addrtype="mac" vendor="Vendor 4"/>
 <hostnames>
-<hostname name="sawyer.sonnenhuegel.local" type="PTR"/>
+<hostname name="host4.example.net" type="PTR"/>
 </hostnames>
 <times srtt="1616" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.13" addrtype="ipv4"/>
-<address addr="52:54:00:05:B8:72" addrtype="mac" vendor="QEMU virtual NIC"/>
-<hostnames>
-</hostnames>
-<times srtt="382" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.15" addrtype="ipv4"/>
-<address addr="52:54:00:35:8C:3F" addrtype="mac" vendor="QEMU virtual NIC"/>
-<hostnames>
-</hostnames>
-<times srtt="678" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.31" addrtype="ipv4"/>
-<address addr="80:2A:A8:8F:92:7A" addrtype="mac" vendor="Ubiquiti Networks"/>
-<hostnames>
-<hostname name="jin.sonnenhuegel.local" type="PTR"/>
-</hostnames>
-<times srtt="82" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.51" addrtype="ipv4"/>
-<address addr="00:17:C8:5C:EA:FC" addrtype="mac" vendor="Kyocera Display"/>
-<hostnames>
-</hostnames>
-<times srtt="4884" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.55" addrtype="ipv4"/>
-<address addr="40:8D:5C:EA:3F:94" addrtype="mac" vendor="Giga-byte Technology"/>
-<hostnames>
-</hostnames>
-<times srtt="92" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.64" addrtype="ipv4"/>
-<address addr="3C:8C:F8:A0:7D:72" addrtype="mac" vendor="Trendnet"/>
-<hostnames>
-</hostnames>
-<times srtt="716" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.65" addrtype="ipv4"/>
-<address addr="00:0C:43:F0:96:0E" addrtype="mac" vendor="Ralink Technology"/>
-<hostnames>
-</hostnames>
-<times srtt="819495" rttvar="819495" to="4097475"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.68" addrtype="ipv4"/>
-<address addr="2C:6F:51:0A:65:A4" addrtype="mac" vendor="Herospeed Digital Technology Limited"/>
-<hostnames>
-</hostnames>
-<times srtt="7713" rttvar="7713" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.69" addrtype="ipv4"/>
-<address addr="00:0C:43:E0:86:A8" addrtype="mac" vendor="Ralink Technology"/>
-<hostnames>
-</hostnames>
-<times srtt="32758" rttvar="32758" to="163790"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.71" addrtype="ipv4"/>
-<address addr="E8:68:E7:C1:6A:18" addrtype="mac"/>
-<hostnames>
-</hostnames>
-<times srtt="102737" rttvar="102737" to="513685"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.150" addrtype="ipv4"/>
-<address addr="44:D9:E7:D4:65:92" addrtype="mac" vendor="Ubiquiti Networks"/>
-<hostnames>
-</hostnames>
-<times srtt="518" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.153" addrtype="ipv4"/>
-<address addr="6C:56:97:09:0C:AC" addrtype="mac" vendor="Amazon Technologies"/>
-<hostnames>
-</hostnames>
-<times srtt="337299" rttvar="337299" to="1686495"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.155" addrtype="ipv4"/>
-<address addr="18:E8:29:E0:DF:BC" addrtype="mac" vendor="Ubiquiti Networks"/>
-<hostnames>
-</hostnames>
-<times srtt="396" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.168" addrtype="ipv4"/>
-<address addr="78:BD:BC:F0:71:52" addrtype="mac" vendor="Samsung Electronics"/>
-<hostnames>
-</hostnames>
-<times srtt="115" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.169" addrtype="ipv4"/>
-<address addr="74:A7:EA:40:85:46" addrtype="mac" vendor="Amazon Technologies"/>
-<hostnames>
-</hostnames>
-<times srtt="104411" rttvar="104411" to="522055"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.170" addrtype="ipv4"/>
-<address addr="B4:B7:42:A0:07:53" addrtype="mac"/>
-<hostnames>
-</hostnames>
-<times srtt="493844" rttvar="493844" to="2469220"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.194" addrtype="ipv4"/>
-<address addr="78:45:58:26:6D:EA" addrtype="mac" vendor="Ubiquiti Networks"/>
-<hostnames>
-</hostnames>
-<times srtt="2508" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.209" addrtype="ipv4"/>
-<address addr="5A:25:74:5E:C9:99" addrtype="mac"/>
-<hostnames>
-</hostnames>
-<times srtt="271599" rttvar="271599" to="1357995"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.227" addrtype="ipv4"/>
-<address addr="C0:8D:51:BC:86:E2" addrtype="mac"/>
-<hostnames>
-</hostnames>
-<times srtt="313939" rttvar="313939" to="1569695"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.237" addrtype="ipv4"/>
-<address addr="74:58:F3:F0:79:C8" addrtype="mac" vendor="Amazon Technologies"/>
-<hostnames>
-</hostnames>
-<times srtt="12165" rttvar="12165" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.239" addrtype="ipv4"/>
-<address addr="78:45:58:26:85:EA" addrtype="mac" vendor="Ubiquiti Networks"/>
-<hostnames>
-</hostnames>
-<times srtt="654" rttvar="5000" to="100000"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.248" addrtype="ipv4"/>
-<address addr="E2:BA:6F:46:3F:4A" addrtype="mac"/>
-<hostnames>
-</hostnames>
-<times srtt="29925" rttvar="25909" to="133561"/>
-</host>
-<host><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.3.249" addrtype="ipv4"/>
-<address addr="62:8B:D5:B0:AB:BD" addrtype="mac"/>
-<hostnames>
-</hostnames>
-<times srtt="13308" rttvar="13308" to="100000"/>
-</host>
-<host><status state="up" reason="localhost-response" reason_ttl="0"/>
-<address addr="192.168.3.5" addrtype="ipv4"/>
-<hostnames>
-</hostnames>
 </host>
 <runstats><finished time="1668884335" timestr="Sat Nov 19 18:58:55 2022" elapsed="12.64" summary="Nmap done at Sat Nov 19 18:58:55 2022; 256 IP addresses (29 hosts up) scanned in 12.64 seconds" exit="success"/><hosts up="29" down="227" total="256"/>
 </runstats>
