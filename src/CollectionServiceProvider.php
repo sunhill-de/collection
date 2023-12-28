@@ -88,6 +88,7 @@ use Sunhill\Collection\Collections\Cache_Group;
 use Sunhill\Collection\Collections\Cache_Item;
 use Sunhill\Collection\Collections\Cache_Entry;
 use Sunhill\Collection\Collections\Cache_ItemTemplate;
+use Sunhill\Collection\Managers\SunhillCacheManager;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -96,6 +97,8 @@ class CollectionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ImportManager::class, function () { return new ImportManager(); } );
         $this->app->alias(ImportManager::class,'importmanager');
+        $this->app->singleton(SunhillCacheManager::class, function () { return new SunhillCacheManager(); } );
+        $this->app->alias(SunhillCacheManager::class,'sunhillcachemanager');
         $this->app->singleton(TMDBManager::class, function () { return new TMDBManager(); } );
         $this->app->alias(TMDBManager::class,'tmdbmanager');
         $this->app->singleton(SunhillManager::class, function () { return new \Sunhill\Collection\Managers\SunhillManager(); } );
