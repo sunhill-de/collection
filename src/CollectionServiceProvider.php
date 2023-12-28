@@ -85,6 +85,10 @@ use Sunhill\Collection\Response\Ajax\AjaxCollectionField;
 use Sunhill\Collection\Response\Ajax\AjaxObjectField;
 use Sunhill\Collection\Objects\Locations\PseudoLocation;
 use Sunhill\Collection\Managers\CacheManager;
+use Sunhill\Collection\Collections\Cache_Group;
+use Sunhill\Collection\Collections\Cache_Item;
+use Sunhill\Collection\Collections\Cache_Entry;
+use Sunhill\Collection\Collections\Cache_ItemTemplate;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -118,6 +122,11 @@ class CollectionServiceProvider extends ServiceProvider
         Collections::registerCollection(Transaction::class);        
         Collections::registerCollection(ProductGroup::class);
         Collections::registerCollection(MusicalArtist::class);
+        Collections::registerCollection(Cache_Entry::class);
+        Collections::registerCollection(Cache_Group::class);
+        Collections::registerCollection(Cache_Item::class);
+        Collections::registerCollection(Cache_ItemTemplate::class);
+        
     }
     
     protected function registerClasses()
