@@ -84,7 +84,6 @@ use Sunhill\Collection\Response\Ajax\AjaxInfomarketNodes;
 use Sunhill\Collection\Response\Ajax\AjaxCollectionField;
 use Sunhill\Collection\Response\Ajax\AjaxObjectField;
 use Sunhill\Collection\Objects\Locations\PseudoLocation;
-use Sunhill\Collection\Managers\CacheManager;
 use Sunhill\Collection\Collections\Cache_Group;
 use Sunhill\Collection\Collections\Cache_Item;
 use Sunhill\Collection\Collections\Cache_Entry;
