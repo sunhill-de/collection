@@ -2,7 +2,6 @@
 
 namespace Sunhill\Collection\Marketeers\Basic;
 
-use Sunhill\ORM\InfoMarket\Marketeer;
 use Sunhill\Collection\Facades\SunhillCache;
 use Sunhill\ORM\InfoMarket\OnDemandMarketeer;
 

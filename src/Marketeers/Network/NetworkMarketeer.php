@@ -13,5 +13,6 @@ class NetworkMarketeer extends Marketeer
         $this->setName('network');
         $this->addEntry('current_clients', CurrentClientsItem::class);
         $this->addEntry('known_clients', KnownClientsItem::class);
+        $this->addEntry('test', TestStatus::class);
     }
 }  
