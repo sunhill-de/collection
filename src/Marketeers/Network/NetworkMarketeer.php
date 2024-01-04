@@ -13,6 +13,7 @@ class NetworkMarketeer extends Marketeer
         parent::__construct();
         $this->setName('network');
         $this->addEntry('ping', PingMarketeer::class);
+        $this->addEntry('mac_scan', MacScanMarketeer::class);
 /*        $this->addEntry('current_clients', CurrentClientsItem::class);
         $this->addEntry('known_clients', KnownClientsItem::class);
         $this->addEntry('test', TestStatus::class); */
