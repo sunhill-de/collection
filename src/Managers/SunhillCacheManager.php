@@ -9,7 +9,7 @@ class SunhillCacheManager
     
     public function getEntry(string $id)
     {
-        $entry = Cache_Item::query()::where('item',$id)->first();
+        $entry = Cache_Item::query()->where('item',$id)->first();
         return $entry;
     }
     
