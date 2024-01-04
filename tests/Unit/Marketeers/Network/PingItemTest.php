@@ -32,6 +32,17 @@ class PingItemTest extends CollectionTestCase
         $this->assertEquals('192.168.1.2', $data->ip);
     }
     
+    public function testPingItemHostUnreachable2()
+    {
+        $item = new PingItem('test');
+        
+        $data = $item->getPingData(file_get_contents(dirname(__FILE__).'/../../../files/ping_hostfail2'));
+        
+        $this->assertEquals(0, $data->status);
+        $this->assertEquals("unreachable", $data->message);
+        $this->assertEquals('192.168.1.2', $data->ip);
+    }
+    
     public function testPingItemNetUnreachable()
     {
         $item = new PingItem('test');

@@ -36,22 +36,22 @@ class PingItem extends PreloadedObjectItem
     {
         $result = new \StdClass();
         
-        $entry = explode("\n",$raw_data);
-        $result->status = explode(' ',trim(explode(",",$entry[4])[1]))[0];
-        if (preg_match('/\((.*)\)/U', $entry[0], $match)) {
+        if (preg_match('/\((.*)\)/U', $raw_data, $match)) {
             $result->ip = $match[1];
         }
-        
-        $answer = explode('icmp_seq=1 ',$entry[1]);
-        if ($result->status == 1) {
-            list($ttl_part, $time_part) = explode(' ',trim($answer[1]));
-            $result->response = explode('=',$time_part)[1];
-            $result->ttl = explode('=',$ttl_part)[1];
-            
+        if (preg_match('/icmp_seq=1 ttl=([0-9]+) time=([0-9\.]+)/', $raw_data, $match)) {
+            $result->status = 1;
+            $result->ttl = $match[1];
+            $result->response = $match[2];
         } else {
-            $result->message = $answer[1];
+            $result->status = 0;
+            if (preg_match('/icmp_seq=1 (.*)/', $raw_data, $match)) {
+                $result->message = $match[1];
+            } else {
+                $result->message = 'unreachable';
+            }
         }
-        
+                    
         return $result;
     }
     
