@@ -18,33 +18,6 @@ class MacScanClientEntryItem extends OnDemandMarketeer
         $this->client_info = $client_info;
     }
     
-    protected function addAddresses()
-    {
-        if (!isset($this->client_info->host->address)) {
-            return;
-        }
-        $ip4 = [];
-        foreach ($this->client_info->host->address as $address) {
-            switch ($address->attributes()->addrtype) {
-                case 'ipv4':
-                    $ip4[] = $address->attributes()->addr;
-                    break;
-                case 'mac':
-                    $this->addEntry('MAC address',(new DynamicItem())->defineValue($address->attributes()->addr)->type('string')->semantic('Name'));
-                    $this->addEntry('Device manufacturet',(new DynamicItem())->defineValue($address->attributes()->vendor)->type('string')->semantic('Name'));
-                    break;
-            }
-        }
-        if (count($ip4) == 1) {
-            $this->addEntry('IP Address',(new DynamicItem())->defineValue($ip4[0])->type('string')->semantic('Name'));
-        } else if (count($ip4) > 1) {
-            $item = new SimpleArrayItem();
-            foreach ($ip4 as $index => $ip4_entry) {
-                $item->addEntry($index, (new DynamicItem())->defineValue($ip4_entry)->type('string')->semantic('Name'));                
-            }
-        }
-    }
-
     protected function sortByAddressType()
     {
         $addr_types = [];
@@ -86,8 +59,8 @@ class MacScanClientEntryItem extends OnDemandMarketeer
     {
         $result = [];
         foreach ($this->client_info->address as $address) {
-            if (isset($address->attributes()->manufacturer)) {
-                $result[] = $address->attributes()->manufacturer;
+            if (isset($address->attributes()->vendor)) {
+                $result[] = $address->attributes()->vendor;
             }
         }
         return $result;
@@ -107,6 +80,9 @@ class MacScanClientEntryItem extends OnDemandMarketeer
                 }
                 $this->addEntry($type, $item);
             }
+        }
+        foreach ($this->sortByManufacturer() as $manufacturer) {
+            $this->addEntry('manufacturer', (new DynamicItem())->defineValue($manufacturer)->type('string')->semantic('Name'));
         }
     }
     

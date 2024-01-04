@@ -89,6 +89,7 @@ use Sunhill\Collection\Collections\Cache_Item;
 use Sunhill\Collection\Collections\Cache_Entry;
 use Sunhill\Collection\Collections\Cache_ItemTemplate;
 use Sunhill\Collection\Managers\SunhillCacheManager;
+use Sunhill\Collection\Collections\KnownNetworkDevice;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -126,6 +127,7 @@ class CollectionServiceProvider extends ServiceProvider
         Collections::registerCollection(Cache_Group::class);
         Collections::registerCollection(Cache_Item::class);
         Collections::registerCollection(Cache_ItemTemplate::class);
+        Collections::registerCollection(KnownNetworkDevice::class);
         
     }
     
