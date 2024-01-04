@@ -50,6 +50,8 @@ class PingItem extends PreloadedObjectItem
             } else {
                 $result->message = 'unreachable';
             }
+            $result->ttl = 0;
+            $result->response = 0;
         }
                     
         return $result;
