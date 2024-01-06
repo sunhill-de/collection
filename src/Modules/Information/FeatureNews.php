@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Modules\News;
+namespace Sunhill\Collection\Modules\Information;
 
 use Sunhill\Visual\Modules\SunhillModuleBase;
 
@@ -12,7 +12,7 @@ class FeatureNews extends SunhillModuleBase
         $this->setName('News');        
         $this->setDisplayName('News');
         $this->setDescription('Show news'); 
-        $this->addIndex(\Sunhill\Collection\Controllers\News\NewsController::class);
+        $this->addIndex(\Sunhill\Collection\Controllers\Information\NewsController::class);
     }
         
 }

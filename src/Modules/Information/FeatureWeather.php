@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Modules\Weather;
+namespace Sunhill\Collection\Modules\Information;
 
 use Sunhill\Visual\Modules\SunhillModuleBase;
 
@@ -12,7 +12,7 @@ class FeatureWeather extends SunhillModuleBase
         $this->setName('Weather');        
         $this->setDisplayName('Weather');
         $this->setDescription('Show weather informations'); 
-        $this->addIndex(\Sunhill\Collection\Controllers\Weather\WeatherController::class);
+        $this->addIndex(\Sunhill\Collection\Controllers\Information\WeatherController::class);
     }
         
 }

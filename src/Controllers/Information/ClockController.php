@@ -1,11 +1,11 @@
 <?php
 
-namespace Sunhill\Collection\Controllers\Dates;
+namespace Sunhill\Collection\Controllers\Information;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Collection\Response\Dates\IndexResponse;
+use Sunhill\Collection\Response\Information\Clock\IndexResponse;
 
-class DatesController extends Controller
+class ClockController extends Controller
 {
     
     public function index()

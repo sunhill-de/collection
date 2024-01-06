@@ -1,11 +1,11 @@
 <?php
 
-namespace Sunhill\Collection\Controllers\News;
+namespace Sunhill\Collection\Controllers\Information;
 
 use Illuminate\Routing\Controller;
-use Sunhill\Collection\Response\News\IndexResponse;
+use Sunhill\Collection\Response\Information\Weather\IndexResponse;
 
-class NewsController extends Controller
+class WeatherController extends Controller
 {
     
     public function index()

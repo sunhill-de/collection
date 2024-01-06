@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Modules\Dates;
+namespace Sunhill\Collection\Modules\Information;
 
 use Sunhill\Visual\Modules\SunhillModuleBase;
 
@@ -12,7 +12,7 @@ class FeatureDates extends SunhillModuleBase
         $this->setName('Dates');        
         $this->setDisplayName('Dates');
         $this->setDescription('Show dates'); 
-        $this->addIndex(\Sunhill\Collection\Controllers\Dates\DatesController::class);
+        $this->addIndex(\Sunhill\Collection\Controllers\Information\DatesController::class);
     }
         
 }

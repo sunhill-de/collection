@@ -1,6 +1,6 @@
 <?php
 
-namespace Sunhill\Collection\Response\News;
+namespace Sunhill\Collection\Response\Information\Weather;
 
 use Sunhill\Visual\Response\SunhillBladeResponse;
 use Sunhill\ORM\Facades\InfoMarket;
@@ -8,7 +8,7 @@ use Sunhill\ORM\Facades\InfoMarket;
 class IndexResponse extends SunhillBladeResponse
 {
     
-    protected $template = 'collection::news.index';
+    protected $template = 'collection::weather.index';
  
     protected function prepareResponse()
     {
