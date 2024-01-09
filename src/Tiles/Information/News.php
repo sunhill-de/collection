@@ -25,7 +25,7 @@ class News extends SunhillBladeResponse
     {
         $result = [];
         
-        $news_count = InfoMarket::getItem('news.headlines.count','anybody','stdclass');
+/*        $news_count = InfoMarket::getItem('news.headlines.count','anybody','stdclass');
         if (empty($news_count) || ($news_count->result !== 'OK')) {
             return [];
         }
@@ -37,7 +37,7 @@ class News extends SunhillBladeResponse
             $news_headline = InfoMarket::getItem('news.headlines.'.$i.'.title','anybody','stdclass');
             $news_symbol = InfoMarket::getItem('news.headlines.'.$i.'.icon','anybody','stdclass');
             $result[] = $this->newNewsEntry($news_id->value,$news_headline->value, $this->icon = $news_symbol->value);
-        }
+        }*/
         
         return $result;
     }

@@ -90,6 +90,7 @@ use Sunhill\Collection\Collections\Cache_Entry;
 use Sunhill\Collection\Collections\Cache_ItemTemplate;
 use Sunhill\Collection\Managers\SunhillCacheManager;
 use Sunhill\Collection\Collections\KnownNetworkDevice;
+use Sunhill\Collection\Response\Ajax\AjaxNews;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -204,6 +205,7 @@ class CollectionServiceProvider extends ServiceProvider
     
     protected function registerAjax()
     {
+        SunhillSiteManager::addAjaxModule('news', AjaxNews::class);
         SunhillSiteManager::addAjaxModule('tags', AjaxTags::class);
         SunhillSiteManager::addAjaxModule('classes', AjaxClasses::class);
         SunhillSiteManager::addAjaxModule('attributes', AjaxAttributes::class);
