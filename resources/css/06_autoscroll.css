@@ -1,0 +1,24 @@
+.scroll-frame {
+	box-sizing: border-box;
+    overflow: hidden;	
+    height: 340px;
+}
+
+.scroll-frame-large {
+	box-sizing: border-box;
+    overflow: hidden;	
+    height: 840px;
+}
+
+.scroll-content {
+    position: relative;
+    box-sizing: border-box;
+}
+
+.scroll-item {
+    list-style-type: none;
+    box-sizing: border-box;
+    font-size: large;
+    padding: 5px;
+    margin-bottom: 8px; 	
+}
