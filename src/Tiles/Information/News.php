@@ -10,12 +10,13 @@ class News extends SunhillBladeResponse
     
     protected $template = 'collection::information.news';
     
-    protected function newNewsEntry($id, $headline) 
+    protected function newNewsEntry($id, $headline, $symbol) 
     {
         $result = new \StdClass();
         
         $result->id = $id;
         $result->headline = $headline;
+        $result->symbol = $symbol;
         
         return $result;
     }
@@ -24,11 +25,18 @@ class News extends SunhillBladeResponse
     {
         $result = [];
         
-        $news_count = InfoMarket::getItem('news.headlines.count','anybody','stdclass')->value;
-        for ($i=1;$i<=10;$i++) {
+        $news_count = InfoMarket::getItem('news.headlines.count','anybody','stdclass');
+        if (empty($news_count) || ($news_count->result !== 'OK')) {
+            return [];
+        }
+        $max_entries = env('MAX_NEWS_ENTRIES', 50);
+        $count = ($news_count->value > $max_entries)?$max_entries:$news_count->value;
+        
+        for ($i=1;$i<=$count;$i++) {
             $news_id = InfoMarket::getItem('news.headlines.'.$i.'.id','anybody','stdclass');
             $news_headline = InfoMarket::getItem('news.headlines.'.$i.'.title','anybody','stdclass');
-            $result[] = $this->newNewsEntry($news_id->value,$news_headline->value);
+            $news_symbol = InfoMarket::getItem('news.headlines.'.$i.'.icon','anybody','stdclass');
+            $result[] = $this->newNewsEntry($news_id->value,$news_headline->value, $this->icon = $news_symbol->value);
         }
         
         return $result;

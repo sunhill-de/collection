@@ -27,6 +27,7 @@ class NewsItem extends PreloadedObjectItem
         $result['unread']   = (new DynamicItem())->defineValue($this->data->unread)->type('boolean')->semantic('Name');
         $result['link']     = (new DynamicItem())->defineValue($this->data->link)->type('string')->semantic('Name');
         $result['author']   = (new DynamicItem())->defineValue($this->data->author)->type('string')->semantic('Name');
+        $result['icon']     = (new DynamicItem())->defineValue($this->data->icon)->type('string')->semantic('Name');
         
         return $result;
     }

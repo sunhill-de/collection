@@ -18,11 +18,14 @@ class NewsArticlesMarketeer extends OnDemandMarketeer
         $source->setUrl('192.168.3.3:8888/items?items=20');
         $data = json_decode($source->getData());
 
-        $this->addEntry('count', (new DynamicItem())->defineValue(count($data))->type('int')->semantic('Count'));
+        if (!empty($data)) {
+            $this->addEntry('count', (new DynamicItem())->defineValue(count($data))->type('int')->semantic('Count'));
 
-        foreach ($data as $news_entry) {
-            $this->addEntry($news_entry->id, new NewsHeadline($news_entry));
+            foreach ($data as $news_entry) {
+                $this->addEntry($news_entry->id, new NewsHeadline($news_entry));
+            }
         }
+        
     }
     
     

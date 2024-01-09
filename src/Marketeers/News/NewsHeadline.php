@@ -23,6 +23,7 @@ class NewsHeadline extends PreloadedObjectItem
         $result['id']       = (new DynamicItem())->defineValue($this->data->id)->type('int')->semantic('Name');
         $result['stamp']    = (new DynamicItem())->defineValue($this->data->datetime)->type('datetime')->semantic('Name');
         $result['title']    = (new DynamicItem())->defineValue($this->data->title)->type('string')->semantic('Name');
+        $result['icon']     = (new DynamicItem())->defineValue($this->data->icon)->type('string')->semantic('Name');
         
         return $result;
     }
