@@ -22,3 +22,15 @@
     padding: 5px;
     margin-bottom: 8px; 	
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+	  display: none;
+}
+
+	 
+
+.data-list {
+	  height: 400px;
+	  width: 470px;
+	  overflow-y: hidden;
+}

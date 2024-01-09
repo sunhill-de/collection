@@ -7,7 +7,7 @@
 @section('tilebody')
 @parent
     <div class="scroll-frame" id="scroll-frame">
-     <ul class="scroll-content" data-autoscroll>  
+     <ul class="data-list scroll-content" data-autoscroll>  
 @foreach ($newsentries as $entry)
   <li class="scroll-item"><a href="{{ $entry->id }}">{{ $entry->headline }}</a></li>  
 @endforeach
