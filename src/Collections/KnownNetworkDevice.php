@@ -47,7 +47,7 @@ class KnownNetworkDevice extends Collection
             ->set_displayable(true)
             ->set_sortable(true);
         $list->varchar('manufacturer')
-            ->setMaxLen(20)
+            ->setMaxLen(200)
             ->set_description('The manufacturer of the network device')
             ->searchable()
             ->set_editable(false)
