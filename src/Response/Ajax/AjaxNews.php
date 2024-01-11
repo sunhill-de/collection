@@ -14,8 +14,8 @@ class AjaxNews extends AjaxSearchResponse
         $source = new WebDataSource();
         
         $date = new \DateTime();
-        //        $source->setUrl('192.168.3.3:8888/items?updatedsince='.$date->sub(\DateInterval::createFromDateString('12 hours'))->format('Y-m-d H:i:s'));
-        $source->setUrl('192.168.3.3:8888/items');
+
+        $source->setUrl(env('RSS_AGGREGATOR_SERVER'));
         
         return $source->getData();
     }
