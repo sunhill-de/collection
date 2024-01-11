@@ -91,6 +91,7 @@ use Sunhill\Collection\Collections\Cache_ItemTemplate;
 use Sunhill\Collection\Managers\SunhillCacheManager;
 use Sunhill\Collection\Collections\KnownNetworkDevice;
 use Sunhill\Collection\Response\Ajax\AjaxNews;
+use Sunhill\Collection\Components\SmallCalendar;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -227,7 +228,8 @@ class CollectionServiceProvider extends ServiceProvider
         
         Blade::component('collection-input', Input::class);
         Blade::component('collection-lookup', Lookup::class);
-
+        Blade::component('collection-smallcalendar', SmallCalendar::class);
+        
         $this->registerClasses();
         $this->registerCollections();
         $this->registerAjax();

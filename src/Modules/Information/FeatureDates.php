@@ -9,9 +9,9 @@ class FeatureDates extends SunhillModuleBase
     
     protected function setupModule()
     {
-        $this->setName('Dates');        
-        $this->setDisplayName('Dates');
-        $this->setDescription('Show dates'); 
+        $this->setName('Calendar');        
+        $this->setDisplayName('Calendar');
+        $this->setDescription('Show calendar'); 
         $this->addIndex(\Sunhill\Collection\Controllers\Information\DatesController::class);
     }
         

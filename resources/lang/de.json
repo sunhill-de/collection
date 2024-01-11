@@ -622,6 +622,10 @@
   "Season":"Staffel",
   "Episode":"Episode",
   
+  "Calendar":"Kalender",
+  "News":"Nachrichten",
+  "Clock":"Uhr",
+  
   "************ User errors":"User errors ********************************",
   "The class ':classname' does not exist.":"Die Klasse ':classname' existiert nicht.",
   "The object with the id ':id' does not exist.":"Das Objekt mit der ID ':id' existiert nicht.",
