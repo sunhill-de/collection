@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Schema;
 use Sunhill\ORM\Objects\ORMObject;
 use Illuminate\Support\Facades\Artisan;
 
-class BasicSeeder
+class BasicSeeder implements SeederBase
 {
     
     protected function seedTags()
