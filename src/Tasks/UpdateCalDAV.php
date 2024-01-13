@@ -62,7 +62,7 @@ class UpdateCalDAV
     {
         $event = $this->parseEvent($event);
         
-        if (Date::query()->where('_uuid',$event['VEVENT'][0]['uid'])->first()) {
+        if (Date::query()->where('_uuid',$this->formatUUID($event['VEVENT'][0]['uid']))->first()) {
             return; // Date already imported
         }
         
