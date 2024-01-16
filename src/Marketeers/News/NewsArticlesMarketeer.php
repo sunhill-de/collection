@@ -22,7 +22,7 @@ class NewsArticlesMarketeer extends OnDemandMarketeer
             $this->addEntry('count', (new DynamicItem())->defineValue(count($data))->type('int')->semantic('Count'));
 
             foreach ($data as $news_entry) {
-                $this->addEntry($news_entry->id, new NewsHeadline($news_entry));
+                $this->addEntry($news_entry->id, new NewsItem($news_entry));
             }
         }
         
