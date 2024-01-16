@@ -24,7 +24,6 @@ class ShowNewsResponse extends SunhillBladeResponse
        if ($article->result !== 'OK') {
            return;
        }
-       $this->params['id'] = 
        $this->params['id']       = $this->id;
        $this->params['stamp']    = $article = InfoMarket::getItem('news.articles.'.$this->id.'.stamp','anybody','stdclass')->value;
        $this->params['title']    = $article = InfoMarket::getItem('news.articles.'.$this->id.'.title','anybody','stdclass')->value;
