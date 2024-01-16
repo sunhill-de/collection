@@ -40,7 +40,8 @@
 		"sunhill/basic":"*", 
 		"sunhill/orm":"*",
 		"sunhill/visual":"*",
-		"breuls/tmdb-library":"*"
+		"breuls/tmdb-library":"*",
+		"johngrogg/isc-parser":"^3"
 	},
         "require-dev" : {
                 "phpunit/phpunit" : "^10.0",

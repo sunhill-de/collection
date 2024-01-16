@@ -48,7 +48,16 @@ class VCalendar {
                     $isFinished = true;
                     break;
                 default:
-                    $vdata[strtolower($name)] = $value;
+                    $name = strtolower($name);
+                    if (isset($vdata[$name])) {
+                        if (is_array($vdata[$name])) {
+                            $vdata[$name][] = $value;
+                        } else {
+                            $vdata[$name] = [$vdata[$name], $value];
+                        }
+                    } else {
+                        $vdata[strtolower($name)] = $value;
+                    }
             }
         }
         

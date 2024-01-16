@@ -5,6 +5,7 @@ namespace Sunhill\Collection\Tasks;
 use Sunhill\Collection\SimpleCalDAV\SimpleCalDAVClient;
 use Sunhill\Collection\SimpleCalDAV\VCalendar;
 use Sunhill\Collection\Objects\Dates\Date;
+use ICal\ICal;
 
 class UpdateCalDAV
 {
@@ -58,52 +59,46 @@ class UpdateCalDAV
         return $input;
     }
     
+    protected function isValidUUID(string $input): bool
+    {
+        return preg_match("/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i", $input);    
+    }
+    
     protected function importEvent($event)
     {
-        $event = $this->parseEvent($event);
+        $ical = new ICal(null, array(
+            'defaultSpan'                 => 2,     // Default value
+            'defaultTimeZone'             => 'Europe/Berlin',
+            'defaultWeekStart'            => 'MO',  // Default value
+            'disableCharacterReplacement' => false, // Default value
+            'filterDaysAfter'             => null,  // Default value
+            'filterDaysBefore'            => null,  // Default value
+            'httpUserAgent'               => null,  // Default value
+            'skipRecurrence'              => false, // Default value
+        ));
+        $ical->initString($event->getData());
+        $events = $ical->eventsFromInterval('1 year');
         
-        if (Date::query()->where('_uuid',$this->formatUUID($event['VEVENT'][0]['uid']))->first()) {
-            return; // Date already imported
-        }
-        
-        $values = ['created'=>'','uid'=>'','start_date'=>'',
-                   'startn_time'=>'','end_date'=>'','end_time'=>'','summary'=>''];  
-        foreach ($event['VEVENT'][0] as $key => $value) {
-            switch ($key) {
-              case 'summary':
-                  $values['summary'] = $value;
-                  break;
-              case 'uid':
-                  $values['uid'] = $this->formatUUID($value);
-                  break;
-              case 'dstamp':
-                  $values['created'] = $value;
-                  break;
-              default:
-                  if (substr($key,0,7) == 'dtstart') {
-                     $this->handleDate('start',substr($key,7), $value, $values);
-                  } else if (substr($key,0,5) == 'dtend') {
-                      $this->handleDate('end',substr($key,7), $value, $values);                      
-                  }
-            }
+        $uid = $this->formatUUID($events[0]->uid);
+        if (Date::query()->where('unique_id', $uid)->first()) {
+            return; // Date(sequence) already imported
         }
         
-        $date = new Date();
-        $date->name = $values['summary'];
-        $date->begin_date = $values['start_date'];
-        if (!empty($values['end_date'])) {
-            $date->end_date = $values['end_date'];
-        }
-        if (!empty($values['begin_time'])) {
-            $date->begin_time = $values['start_time'];
-        }
-        if (!empty($values['end_time'])) {
-            $date->end_time = $values['end_time'];
-        }
-        $date->commit();
-        if (!empty($values['uid'])) {
-            $date->_uuid = $values['uid'];
+        foreach ($events as $event) {
+            $date = new Date();
+            $date->name = $event->summary;
+            $begin_stamp = new \DateTime($event->dtstart);
+            $end_stamp = new \DateTime($event->dtend);
+            $date->begin_date = $begin_stamp->format('Y-m-d');
+            $date->begin_time = $begin_stamp->format('H:i:s');
+            $date->end_date = $end_stamp->format('Y-m-d');
+            $date->end_time = $end_stamp->format('H:i:s');
+            $date->unique_id = $uid;
             $date->commit();
+            if ($this->isValidUUID($uid)) {
+                $date->_uuid = $uid;
+                $date->commit();
+            }
         }
     }
     

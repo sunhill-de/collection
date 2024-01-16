@@ -14,7 +14,8 @@
 		"sunhill/orm":"*",
 		"sunhill/visual":"*",
 		"breuls/tmdb-library":"*",
-		"orchestra/testbench" : "^8.5"
+		"orchestra/testbench" : "^8.5",
+                "johngrogg/ics-parser":"^3"
 		},
 	"autoload" : {
 		"psr-4" : {

@@ -69,6 +69,13 @@ class Date extends ORMObject
             ->set_displayable(true)
             ->setDefault(null)
             ->searchable();
+        $list->string('unique_id')
+             ->setMaxLen(30)
+             ->set_description('A unique id of this date (maybe identical to _uuid)')
+             ->set_displayable(true)
+             ->set_editable(true)
+             ->set_groupeditable(false)
+             ->searchable();
     }
     
     protected static function setupInfos()
