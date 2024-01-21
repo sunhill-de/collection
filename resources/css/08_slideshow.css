@@ -1,0 +1,13 @@
+.slideshow { 
+    height:  350px; 
+    width:   296px; 
+    padding: 0; 
+    margin:  0; 
+}
+
+.slideshow img { 
+    width:  350px;
+    height: 296px;
+    top:  0;
+    left: 0
+}
