@@ -70,7 +70,7 @@ class Date extends ORMObject
             ->setDefault(null)
             ->searchable();
         $list->string('unique_id')
-             ->setMaxLen(30)
+             ->setMaxLen(50)
              ->set_description('A unique id of this date (maybe identical to _uuid)')
              ->set_displayable(true)
              ->set_editable(true)
