@@ -17,6 +17,7 @@ class News extends SunhillBladeResponse
         $result->id = $id;
         $result->headline = $headline;
         $result->symbol = $symbol;
+        $result->symbol_url = ENV('RSS_AGGREGATOR_ICON_BASE','http://localhost').$symbol;
         
         return $result;
     }
