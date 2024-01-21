@@ -15,6 +15,8 @@ use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
 class OpenWeatherMapMarketeer extends OnDemandMarketeer
 {
     
+//    protected $cache_philosophy = 'group';
+    
     protected function getCurrentWeather($owm)
     {
         $weather = $owm->getWeather('Bünde', 'metric', 'de');        
