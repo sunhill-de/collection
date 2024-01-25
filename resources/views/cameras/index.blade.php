@@ -8,7 +8,7 @@ Kameras Hauptseite
 @parent
 <div class="columns is-multiline">
   @foreach ($cameras as $camera)
-  <article class="column is-one-third">
+  <article class="column is-one-third" onclick="window.location = '{{ route('cameras.show', ['id'=>$camera->id]) }}'">
    <p class="title">{{ $camera->title }}</p>
    <div class="content">
 	<x-collection-cameras width="350" height="296"  monitor="{{ $camera->id}}" quality="high" />
