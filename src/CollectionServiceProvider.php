@@ -92,6 +92,8 @@ use Sunhill\Collection\Managers\SunhillCacheManager;
 use Sunhill\Collection\Collections\KnownNetworkDevice;
 use Sunhill\Collection\Response\Ajax\AjaxNews;
 use Sunhill\Collection\Components\SmallCalendar;
+use Sunhill\Collection\Components\Cameras;
+use Sunhill\Collection\Managers\CamerasManager;
 
 
 class CollectionServiceProvider extends ServiceProvider
@@ -100,12 +102,19 @@ class CollectionServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ImportManager::class, function () { return new ImportManager(); } );
         $this->app->alias(ImportManager::class,'importmanager');
+        
         $this->app->singleton(SunhillCacheManager::class, function () { return new SunhillCacheManager(); } );
         $this->app->alias(SunhillCacheManager::class,'sunhillcachemanager');
+        
         $this->app->singleton(TMDBManager::class, function () { return new TMDBManager(); } );
         $this->app->alias(TMDBManager::class,'tmdbmanager');
+        
         $this->app->singleton(SunhillManager::class, function () { return new \Sunhill\Collection\Managers\SunhillManager(); } );
         $this->app->alias(SunhillManager::class,'sunhillmanager');
+
+        $this->app->singleton(CamerasManager::class, function () { return new \Sunhill\Collection\Managers\CamerasManager(); } );
+        $this->app->alias(CamerasManager::class,'camerasmanager');
+        
         $this->mergeConfigFrom(__DIR__.'/../config/collection.php', 'collection');
         $this->mergeConfigFrom(__DIR__.'/../config/infomarket.php', 'infomarket');
         require_once __DIR__.'/Helpers/display_variable.php';
@@ -229,6 +238,7 @@ class CollectionServiceProvider extends ServiceProvider
         Blade::component('collection-input', Input::class);
         Blade::component('collection-lookup', Lookup::class);
         Blade::component('collection-smallcalendar', SmallCalendar::class);
+        Blade::component('collection-cameras', Cameras::class);
         
         $this->registerClasses();
         $this->registerCollections();

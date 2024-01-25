@@ -29,7 +29,7 @@ class ElectronicDevice extends Property
     {
         $list->enum('power_supply')
             ->set_description('How this device is powered')
-            ->setEnumValues(['plug','AA','AAA','Baby','Mono','Akku','9V','other','none'])
+            ->setEnumValues(['plug','AA','AAA','Baby','Mono','Akku','9V','other','PoE','none'])
             ->set_displayable(true)
             ->set_editable(true)
             ->set_groupeditable(true)

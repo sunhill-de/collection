@@ -11,9 +11,18 @@ class Calendar extends SunhillBladeResponse
     
     protected $template = 'collection::information.calendar';
     
+    protected function getStartDate()
+    {
+        $start_date = new \DateTime();
+        $start_date->setTime(0,0);
+        
+        return $start_date->getTimestamp();    
+    }
+    
     protected function getCalendarEntries()
     {
-        $date_entries = Date::query()->where('begin_date','>=',now())->orderBy('begin_date')->limit(12)->get();
+        die();
+        $date_entries = Date::query()->where('begin_date','>=',$this->getStartDate())->orderBy('begin_date')->limit(12)->get();
         
         $result = [];
 

@@ -10,14 +10,14 @@
 @section('body')
 @parent
  <div class="image container is-widescreen">
-   <a href="{{ route('cameras.rotate'); }}">
-    <div class="cycle-slideshow">
-     <img class="diashow_image_small" src="http://192.168.3.1:8081/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=1" width="1024" height="800">
-     <img class="diashow_image_small" src="http://192.168.3.1:8081/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=2" width="1024" height="800">
-     <img class="diashow_image_small" src="http://192.168.3.1:8081/cgi-bin/nph-zms?scale=0&mode=jpeg&maxfps=30&monitor=3" width="1024" height="800">
-    </div>
-   </a>    
-  
+ <a href="{{ route('cameras.rotate'); }}">
+  <article class="tile is-child box" onclick="window.location = '/Cameras';" >
+   <p class="title">{{ __('Rotate all cameras') }}</p>
+   <div class="content">
+	<x-collection-cameras width="800" height="600"  monitor="0" quality="high" />
+   </div>
+  </article>
+ </a>  
 </div>
 
  <script>

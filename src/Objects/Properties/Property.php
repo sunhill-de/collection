@@ -78,7 +78,7 @@ class Property extends ORMObject
             ->set_editable(true)
             ->set_groupeditable(true)
             ->set_displayable(true)
-            ->setEnumValues(['trash','sold','lost','present','swap']);
+            ->setEnumValues(['no egress','trash','sold','lost','present','swap']);
         $list->date('egress_date')
             ->searchable()
             ->setDefault(null)
