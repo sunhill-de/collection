@@ -19,9 +19,9 @@ class CamerasManager
     {
         return [
             $this->getCamera(1, 'Haustür'),
-            $this->getCamera(3, 'Kämmerchen'),
-            $this->getCamera(2, 'Carport'),
-            $this->getCamera(4, 'Hasenstall')
+            $this->getCamera(2, 'Kämmerchen'),
+            $this->getCamera(4, 'Carport'),
+            $this->getCamera(3, 'Hasenstall')
         ];
     }
     

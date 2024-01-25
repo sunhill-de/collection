@@ -1,14 +1,17 @@
+@foreach ($dates as $date)
+<h3>{{ $date->date }}</h3>
 <ul>
-@foreach ($entries as $entry)
+@foreach ($date->entries as $entry)
 <li>
  <div class="level-left">
   <div class="level-item">
-   <div class="date_date">{{ $entry->begin_date }}@isset($entry->begin_time) ({{ $entry->begin_time }})@endisset: </div>
-  </div>  
-  <div class="level-item">
    <div class="date_title">{{ $entry->name }}</div>
+  </div>
+  <div class="level-item">
+   <div class="date_title">@isset($entry->time){{ $entry->time }}@else &nbsp;@endisset</div>
   </div>
  </div>  
 </li> 
 @endforeach
 </ul>
+@endforeach

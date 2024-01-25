@@ -623,6 +623,10 @@
   "Episode":"Episode",
   
   "Calendar":"Kalender",
+  "Tomorrow":"Morgen",
+  "Today":"Heute",
+  "Day after tomorrow":"Übermorgen",	
+
   "News":"Nachrichten",
   "Clock":"Uhr",
 
